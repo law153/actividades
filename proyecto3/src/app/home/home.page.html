@@ -1,0 +1,33 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Inicio de sesión
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <ion-grid>
+
+    <ion-row>
+      <ion-col><ion-input label="Nombre de usuario:"></ion-input></ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col><ion-input label="Contraseña:" type="password"></ion-input></ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col></ion-col>
+      <ion-col><ion-button [routerLink]="['/pagina1']">Iniciar sesión</ion-button></ion-col>
+      <ion-col></ion-col>
+    </ion-row>
+    
+  </ion-grid>
+
+  
+  
+  
+
+</ion-content>

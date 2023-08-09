@@ -1,0 +1,31 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Perfil</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <ion-grid>
+
+    <ion-row>
+      <ion-col><ion-input value="Pedro" readonly>Nombre:</ion-input></ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col><ion-input value="Contreras" readonly>Apellido:</ion-input></ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col><ion-input value="13.030.853-8" readonly>Rut:</ion-input></ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col><ion-button [routerLink]="['/home']" color="danger">Cerrar sesión</ion-button></ion-col>
+      <ion-col></ion-col>
+      <ion-col><ion-button [routerLink]="['/pagina2']">Siguiente pagina</ion-button></ion-col>
+    </ion-row>
+
+  </ion-grid>
+
+</ion-content>
