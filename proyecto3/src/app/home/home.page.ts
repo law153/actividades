@@ -33,16 +33,17 @@ export class HomePage {
   irPagina1(){
 
     this.router.navigate(['/pagina1'])
-    this.presentToast('bottom');
+    this.presentAlert(this.nombreUsuario);
+
     
   }
 
   //Alerta --- Investigar como usar este mismo codigo para mostrar distintas alertas (no copy paste cambiando cosas)
-  async presentAlert() {
+  async presentAlert(mensaje: string) {
     const alert = await this.alerta.create({
       header: 'Alerta',
       subHeader: 'Mensaje importante',
-      message: 'Usted accedio al sistema',
+      message: mensaje,
       buttons: ['Vale'],
     });
 

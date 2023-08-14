@@ -11,7 +11,7 @@
   <ion-grid>
 
     <ion-row>
-      <ion-col><ion-input label="Nombre de usuario:"></ion-input></ion-col>
+      <ion-col><ion-input label="Nombre de usuario:" [(ngModel)]="user1" ></ion-input></ion-col>
     </ion-row>
 
     <ion-row>
@@ -20,7 +20,7 @@
 
     <ion-row>
       <ion-col></ion-col>
-      <ion-col><ion-button [routerLink]="['/pagina1']">Iniciar sesión</ion-button></ion-col>
+      <ion-col><ion-button (click)="irPagina1()">Iniciar sesión {{user1}}</ion-button></ion-col>
       <ion-col></ion-col>
     </ion-row>
     
