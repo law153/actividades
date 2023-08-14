@@ -9,6 +9,7 @@ import { AlertController, ToastController } from '@ionic/angular';
 })
 export class HomePage {
   //Variables
+  msj: string = 'Si ves esto, la alerta o mensaje no cambiaron correctamente';
   nombreUsuario: string = 'Juan';
   edad: number = 18;
   user1: string = 'hola';
@@ -31,9 +32,17 @@ export class HomePage {
   }
 
   irPagina1(){
-
+    
     this.router.navigate(['/pagina1'])
-    this.presentAlert(this.nombreUsuario);
+    if(this.user1 == 'Juan'){
+      this.msj = 'Bienvenido '+this.user1;
+    } else if(this.user1 == 'Roberto'){
+      this.msj = 'Aqui no nos gusta su nombre '+this.user1;
+    } else{
+      this.msj = 'Vayase de esta aplicación, negro marginal';
+    }
+
+    this.presentAlert(this.msj);
 
     
   }
