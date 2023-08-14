@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { AlertController, ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -6,7 +8,56 @@ import { Component } from '@angular/core';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
+  //Variables
+  nombreUsuario: string = 'Juan';
+  edad: number = 18;
+  user1: string = 'hola';
+  persona: any = [
+    {
+      nombre: "Alexander",
+      edad: 20,
+      fecha: "08/03/2003"
+    }
+  ];
 
-  constructor() {}
+  //Constructor
+
+  constructor(private router: Router, private alerta: AlertController, private tostada: ToastController) {}
+  
+  //Metodos
+  sumar(){
+    console.log("wena");
+    this.nombreUsuario;
+  }
+
+  irPagina1(){
+
+    this.router.navigate(['/pagina1'])
+    this.presentToast('bottom');
+    
+  }
+
+  //Alerta --- Investigar como usar este mismo codigo para mostrar distintas alertas (no copy paste cambiando cosas)
+  async presentAlert() {
+    const alert = await this.alerta.create({
+      header: 'Alerta',
+      subHeader: 'Mensaje importante',
+      message: 'Usted accedio al sistema',
+      buttons: ['Vale'],
+    });
+
+    await alert.present();
+  }
+
+  async presentToast(position: 'top' | 'middle' | 'bottom') {
+    const toast = await this.tostada.create({
+      message: 'Wena',
+      duration: 2000,
+      position: position,
+    });
+
+    await toast.present();
+  }
+
 
 }
