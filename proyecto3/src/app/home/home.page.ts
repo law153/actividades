@@ -23,7 +23,7 @@ export class HomePage {
 
   //Constructor
 
-  constructor(private router: Router, private alerta: AlertController, private tostada: ToastController, private contexto: NavigationExtras ) {}
+  constructor(private router: Router, private alerta: AlertController, private tostada: ToastController ) {}
   
   //Metodos
   sumar(){
@@ -40,11 +40,11 @@ export class HomePage {
     this.router.navigate(['/pagina1'], NavigationsExtra)
 
     if(this.user1 == 'Juan'){
-      this.msj = 'Bienvenido '+this.user1;
+      this.msj = 'Mensaje 1 '+this.user1;
     } else if(this.user1 == 'Roberto'){
-      this.msj = 'Aqui no nos gusta su nombre '+this.user1;
+      this.msj = 'Mensaje 2  '+this.user1;
     } else{
-      this.msj = 'Vayase de esta aplicación, negro marginal';
+      this.msj = 'Mensaje 3';
     }
 
     this.presentAlert(this.msj);
