@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationExtras, Router } from '@angular/router';
 import { AlertController, ToastController } from '@ionic/angular';
 
 @Component({
@@ -23,7 +23,7 @@ export class HomePage {
 
   //Constructor
 
-  constructor(private router: Router, private alerta: AlertController, private tostada: ToastController) {}
+  constructor(private router: Router, private alerta: AlertController, private tostada: ToastController, private contexto: NavigationExtras ) {}
   
   //Metodos
   sumar(){
@@ -32,8 +32,13 @@ export class HomePage {
   }
 
   irPagina1(){
-    
-    this.router.navigate(['/pagina1'])
+    let NavigationsExtra: NavigationExtras = {
+      state: {
+      nombreEnviar: this.user1,
+      edadEnviar: this.edad}
+    }
+    this.router.navigate(['/pagina1'], NavigationsExtra)
+
     if(this.user1 == 'Juan'){
       this.msj = 'Bienvenido '+this.user1;
     } else if(this.user1 == 'Roberto'){
