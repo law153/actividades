@@ -1,10 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-buttons >
-      <ion-menu-button>Pags</ion-menu-button>
-    </ion-buttons>
-    <ion-title>
-      Inicio de sesión
+    <ion-title style="text-align: center; font-size: 50px;">
+      SkeletonApp
     </ion-title>
   </ion-toolbar>
   
@@ -15,15 +12,11 @@
   <ion-grid>
 
     <ion-row>
-      <ion-col><ion-input label="Nombre de usuario:" [(ngModel)]="user1" ></ion-input></ion-col>
+      <ion-col><ion-input label="Usuario:" labelPlacement="stacked" [(ngModel)]="user1" ></ion-input></ion-col>
     </ion-row>
 
     <ion-row>
-      <ion-col><ion-input label="Edad:" [(ngModel)]="edad" ></ion-input></ion-col>
-    </ion-row>
-
-    <ion-row>
-      <ion-col><ion-input label="Contraseña:" type="password"></ion-input></ion-col>
+      <ion-col><ion-input label="Contraseña:" labelPlacement="stacked" type="password" [(ngModel)]="clave"></ion-input></ion-col>
     </ion-row>
 
     <ion-row>

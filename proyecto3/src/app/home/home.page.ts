@@ -12,7 +12,8 @@ export class HomePage {
   msj: string = 'Si ves esto, la alerta o mensaje no cambiaron correctamente';
   nombreUsuario: string = 'Juan';
   edad: number = 18;
-  user1: string = 'hola';
+  user1: string = '';
+  clave: string = '':
   persona: any = [
     {
       nombre: "Alexander",
@@ -32,6 +33,17 @@ export class HomePage {
   }
 
   irPagina1(){
+
+    if(this.user1.length >= 3 && this.user1.length <= 8){
+
+      if(this.clave.length == 4){
+
+      } else{
+        this.msj = 'Contraseña invalida invalido';
+      }
+    } else {
+      this.msj = 'Nombre de usuario invalido';
+    }
     let NavigationsExtra: NavigationExtras = {
       state: {
       nombreEnviar: this.user1,
