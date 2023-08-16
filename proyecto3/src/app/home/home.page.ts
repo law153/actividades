@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
-import { AlertController, ToastController } from '@ionic/angular';
+import { AlertController, IonInput, ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -8,12 +8,13 @@ import { AlertController, ToastController } from '@ionic/angular';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
+
   //Variables
   msj: string = 'Si ves esto, la alerta o mensaje no cambiaron correctamente';
   nombreUsuario: string = 'Juan';
   edad: number = 18;
   user1: string = '';
-  clave: string = '':
+  clave: string = '';
   persona: any = [
     {
       nombre: "Alexander",
@@ -27,39 +28,27 @@ export class HomePage {
   constructor(private router: Router, private alerta: AlertController, private tostada: ToastController ) {}
   
   //Metodos
-  sumar(){
-    console.log("wena");
-    this.nombreUsuario;
+
+  @ViewChild('ionInputEl', { static: true }) ionInputEl!: IonInput;
+
+  onInput(ev: any) {
+    const value = ev.target!.value;
+
+    // Remover los valores no númericos
+    const filteredValue = value.replace(/[^0-9]+/g, '');
+
+    this.ionInputEl.value = this.clave = filteredValue;
   }
 
   irPagina1(){
 
-    if(this.user1.length >= 3 && this.user1.length <= 8){
-
-      if(this.clave.length == 4){
-
-      } else{
-        this.msj = 'Contraseña invalida invalido';
-      }
-    } else {
-      this.msj = 'Nombre de usuario invalido';
-    }
     let NavigationsExtra: NavigationExtras = {
       state: {
       nombreEnviar: this.user1,
       edadEnviar: this.edad}
     }
+
     this.router.navigate(['/pagina1'], NavigationsExtra)
-
-    if(this.user1 == 'Juan'){
-      this.msj = 'Mensaje 1 '+this.user1;
-    } else if(this.user1 == 'Roberto'){
-      this.msj = 'Mensaje 2  '+this.user1;
-    } else{
-      this.msj = 'Mensaje 3';
-    }
-
-    this.presentAlert(this.msj);
 
     
   }
@@ -76,9 +65,9 @@ export class HomePage {
     await alert.present();
   }
 
-  async presentToast(position: 'top' | 'middle' | 'bottom') {
+  async presentToast(position: 'top' | 'middle' | 'bottom', mensaje: string) {
     const toast = await this.tostada.create({
-      message: 'Wena',
+      message: mensaje,
       duration: 2000,
       position: position,
     });

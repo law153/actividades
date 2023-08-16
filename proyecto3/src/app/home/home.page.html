@@ -12,11 +12,11 @@
   <ion-grid>
 
     <ion-row>
-      <ion-col><ion-input label="Usuario:" labelPlacement="stacked" [(ngModel)]="user1" ></ion-input></ion-col>
+      <ion-col><ion-input label="Usuario:" labelPlacement="stacked" [(ngModel)]="user1" [counter]="true" maxlength="8" minlength="3" errorText="Cantidad no valida de caracteres"></ion-input></ion-col>
     </ion-row>
 
     <ion-row>
-      <ion-col><ion-input label="Contraseña:" labelPlacement="stacked" type="password" [(ngModel)]="clave"></ion-input></ion-col>
+      <ion-col><ion-input label="Contraseña:" labelPlacement="stacked" type="password" [(ngModel)]="clave" [counter]="true" minlength="4" maxlength="4" errorText="Cantidad no valida de caracteres" (ionInput)="onInput($event)"  #ionInputEl></ion-input></ion-col>
     </ion-row>
 
     <ion-row>
