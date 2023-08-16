@@ -42,13 +42,23 @@ export class HomePage {
 
   irPagina1(){
 
-    let NavigationsExtra: NavigationExtras = {
-      state: {
-      nombreEnviar: this.user1,
-      edadEnviar: this.edad}
-    }
+    if (this.user1.trim() === '' || this.clave.trim() === '') {
 
-    this.router.navigate(['/pagina1'], NavigationsExtra)
+      this.presentAlert('Por favor, completa todos los campos.');
+
+    } else if (this.user1.trim().length < 3 || this.clave.length < 4 ) {
+
+      this.presentAlert('Usuario o contraseña no validos!');
+
+    } else {
+      // Los campos son válidos, navegar a la siguiente página
+      let NavigationsExtra: NavigationExtras = {
+        state: {
+          nombreEnviar: this.user1
+        }
+      };
+      this.router.navigate(['/pagina1'], NavigationsExtra);
+    }
 
     
   }

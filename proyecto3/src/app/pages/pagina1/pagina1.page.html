@@ -12,25 +12,28 @@
   <ion-grid>
 
     <ion-row>
-      <ion-col><ion-input value="{{nombre}}" readonly>Nombre:</ion-input></ion-col>
+      <ion-col><ion-input label="Nombre:" placeholder="Ingrese nombre" [(ngModel)]="nombreC"></ion-input></ion-col>
     </ion-row>
 
     <ion-row>
-      <ion-col><ion-input value="{{edad}}" readonly>Edad:</ion-input></ion-col>
+      <ion-col><ion-input label="Apellido" placeholder="Ingrese apellido" [(ngModel)]="apellido"></ion-input></ion-col>
     </ion-row>
 
     <ion-row>
-      <ion-col><ion-input value="Contreras" readonly>Apellido:</ion-input></ion-col>
+      <ion-col><ion-select label="Nivel educacional:" placeholder="Seleccione nivel" [(ngModel)]="nivelEdu">
+        <ion-select-option value="basica">Enseñanza basica</ion-select-option>
+        <ion-select-option value="media">Enseñanza media</ion-select-option>
+        <ion-select-option value="superior">Enseñanza superior</ion-select-option>
+      </ion-select></ion-col>
     </ion-row>
 
     <ion-row>
-      <ion-col><ion-input value="13.030.853-8" readonly>Rut:</ion-input></ion-col>
+      <ion-col><ion-input label="Fecha de nacimiento:" type="date" [(ngModel)]="fechaNac"></ion-input></ion-col>
     </ion-row>
 
     <ion-row>
-      <ion-col><ion-button [routerLink]="['/home']" color="danger">Cerrar sesión</ion-button></ion-col>
-      <ion-col></ion-col>
-      <ion-col><ion-button [routerLink]="['/pagina2']">Siguiente pagina</ion-button></ion-col>
+      <ion-col><ion-button color="danger" (click)="Limpiar()">Limpiar</ion-button></ion-col>
+      <ion-col><ion-button (click)="Mostrar()">Mostrar</ion-button></ion-col>
     </ion-row>
 
   </ion-grid>
