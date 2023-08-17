@@ -1,7 +1,7 @@
 <ion-header [translucent]="true" class="cabecera">
   <ion-toolbar>
     <ion-buttons slot="end">
-      <ion-menu-button></ion-menu-button>
+      <ion-menu-button (click)="abrirSuperior()"></ion-menu-button>
     </ion-buttons>
 
     <ion-title class="titulo">
@@ -11,12 +11,16 @@
   
 </ion-header>
 
-<ion-content [fullscreen]="true" class="cuerpo">
+<ion-content [fullscreen]="true" >
 
-  <ion-grid>
+  <ion-grid class="cuerpo">
 
-    <ion-row>
-      <ion-buttons slot="start" class="categorias">Categorias</ion-buttons>
+    <ion-row class="categorias">
+      <ion-col><ion-button (click)="abrirCategorias()" fill="clear">Categorias</ion-button></ion-col>
+    </ion-row>
+
+    <ion-row class="imagen">
+      <ion-img src="Fondo.jpg"></ion-img>
     </ion-row>
 
 

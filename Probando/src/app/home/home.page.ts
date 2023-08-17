@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
-import { AlertController, IonInput, ToastController } from '@ionic/angular';
+import { AlertController, IonInput, MenuController, ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -25,7 +25,7 @@ export class HomePage {
 
   //Constructor
 
-  constructor(private router: Router, private alerta: AlertController, private tostada: ToastController ) {}
+  constructor(private router: Router, private alerta: AlertController, private tostada: ToastController, private menuCtrl: MenuController ) {}
   
   //Metodos
 
@@ -62,6 +62,18 @@ export class HomePage {
 
     
   }
+
+  //Funciones de menu
+  abrirSuperior(){
+    this.menuCtrl.enable(true, 'superior');
+    this.menuCtrl.open('superior');
+  }
+
+  abrirCategorias(){
+    this.menuCtrl.enable(true, 'categorias');
+    this.menuCtrl.open('categorias');
+  }
+
 
   //Alerta --- Investigar como usar este mismo codigo para mostrar distintas alertas (no copy paste cambiando cosas)
   async presentAlert(mensaje: string) {

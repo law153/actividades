@@ -45,3 +45,17 @@
 .cuerpo{
   background: #fff;
 }
+
+.categorias{
+  background: #dd0;
+  color: #000;
+  ion-button{
+    color: #000;
+    
+  }
+  
+  ion-button:hover{
+    background: #aa0;
+    
+  }
+}
