@@ -1,3 +1,8 @@
+*{
+  font-family: 'Bebas Neue';
+  
+}
+
 #container {
   text-align: center;
 
@@ -24,4 +29,19 @@
 
 #container a {
   text-decoration: none;
+}
+
+.titulo{
+  text-align: center;
+  font-size: 30px;
+  
+}
+
+.cabecera{
+  color: #fff;
+  background: #000;
+}
+
+.cuerpo{
+  background: #fff;
 }
