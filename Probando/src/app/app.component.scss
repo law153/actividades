@@ -1,0 +1,30 @@
+*{
+    font-family: 'Bebas Neue';
+    
+}
+
+.toolbar-supe{
+    --background: var(--ion-color-paleta);
+    --color: var(--ion-color-paleta-contrast);
+}
+
+.enlaces-supe{
+    ion-item{
+        --background: var(--ion-color-paleta-shade);
+        --color: #fff;
+    }
+    
+}
+
+.toolbar-cate{
+    --background: var(--ion-color-paleta-contrast);
+    --color: #fff;
+}
+
+.enlaces-cate{
+    ion-item{
+        --background: var(--ion-color-paleta);
+        --color: var(--ion-color-paleta-contrast);
+    }
+    
+}

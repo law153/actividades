@@ -34,20 +34,23 @@
 .titulo{
   text-align: center;
   font-size: 30px;
-  
-}
-
-.cabecera{
   color: #fff;
   background: #000;
 }
 
 .cuerpo{
-  background: url(/assets/Fondo.jpg);
+  height: 100%;
+  width: 100%;
 }
 
+.imagen{
+  object-fit: cover;
+}
+
+
+
 .categorias{
-  background: #dd0;
+  background: var(--ion-color-paleta);
   color: #000;
   ion-button{
     color: #000;
@@ -55,7 +58,7 @@
   }
   
   ion-button:hover{
-    background: #aa0;
+    background: var(--ion-color-paleta-shade);
     
   }
 }
