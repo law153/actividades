@@ -30,17 +30,21 @@
 #container a {
   text-decoration: none;
 }
+.boton-guesa{
+  background: #000;
+  height: 50px;
+}
 
 .titulo{
   text-align: center;
   font-size: 30px;
   color: #fff;
   background: #000;
+  height: 50px;
 }
 
 .cuerpo{
-  height: 100%;
-  width: 100%;
+  --background: url("/assets/Fondo.jpg");
 }
 
 .imagen{
@@ -61,4 +65,13 @@
     background: var(--ion-color-paleta-shade);
     
   }
+}
+
+.texto{
+  top: 200px;
+  position: relative;
+  color: #dd0;
+  border: solid;
+  background: #000;
+  text-align: center;
 }

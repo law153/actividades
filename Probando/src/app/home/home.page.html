@@ -1,6 +1,7 @@
 <ion-header [translucent]="true" class="cabecera">
+  
   <ion-toolbar color="paleta"> 
-    <ion-buttons slot="end">
+    <ion-buttons slot="end" class="boton-guesa">
       <ion-menu-button (click)="abrirSuperior()"></ion-menu-button>
     </ion-buttons>
 
@@ -8,21 +9,19 @@
       Ivan's
     </ion-title>
   </ion-toolbar>
-  
+  <div class="categorias">
+    <ion-button (click)="abrirCategorias()" fill="clear">Categorias</ion-button>
+  </div>
+
 </ion-header>
 
-<ion-content [fullscreen]="true" >
+<ion-content [fullscreen]="true" class="cuerpo">
 
   <ion-grid >
 
-    <ion-row class="categorias" color="dark">
-      <ion-col><ion-button (click)="abrirCategorias()" fill="clear">Categorias</ion-button></ion-col>
+    <ion-row class="texto">
+      <ion-col><h1>Todo lo que necesitas para ese arreglo en el hogar lo encuentras aqui!</h1></ion-col>
     </ion-row>
-
-    <ion-row class="cuerpo">
-      <ion-img class="" src="/assets/Fondo.jpg"></ion-img>
-    </ion-row>
-
 
   </ion-grid>
 
