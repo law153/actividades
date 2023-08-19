@@ -13,9 +13,4 @@ export class AppComponent {
     this.router.navigate([''])
     
   }
-  irPagina1(){
-
-    this.router.navigate(['/pagina1'])
-    
-  }
 }

@@ -12,14 +12,6 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'pagina1',
-    loadChildren: () => import('./pages/pagina1/pagina1.module').then( m => m.Pagina1PageModule)
-  },
-  {
-    path: 'pagina2',
-    loadChildren: () => import('./pages/pagina2/pagina2.module').then( m => m.Pagina2PageModule)
-  },
-  {
     path: '**',
     loadChildren: () => import('./pages/not-found/not-found.module').then( m => m.NotFoundPageModule)
   },
