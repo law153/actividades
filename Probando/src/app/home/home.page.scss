@@ -35,11 +35,11 @@
   height: 50px;
 }
 
-.toolbar-c{
+.toolbar-c{  ///de Header
   background: #000;
 }
 
-.titulo{
+.titulo{ ///de Header
   position: relative;
   left: 45%;
   font-size: 30px;
@@ -81,10 +81,9 @@
   text-align: center;
 }
 
-.logo-contenedor{
+.logo-contenedor{  ///De header
   position: relative;
   left: 45%;
-
   height: 50px;
   width: 50px;
   ion-img{
