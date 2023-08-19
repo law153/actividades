@@ -4,14 +4,15 @@
 }
 
 .toolbar-supe{
-    --background: var(--ion-color-paleta);
-    --color: var(--ion-color-paleta-contrast);
+    --background: var(--ion-color-paleta-contrast);
+    --color: #fff;
 }
 
 .enlaces-supe{
     ion-item{
-        --background: var(--ion-color-paleta-shade);
-        --color: #fff;
+        --background: var(--ion-color-paleta);
+        --color: var(--ion-color-paleta-contrast);
+        font-weight: bold;
     }
     
 }
@@ -25,6 +26,7 @@
     ion-item{
         --background: var(--ion-color-paleta);
         --color: var(--ion-color-paleta-contrast);
+        font-weight: bold;
     }
     
 }
