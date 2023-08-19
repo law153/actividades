@@ -47,6 +47,17 @@
   height: 50px;
 }
 
+.logo-contenedor{  ///De header
+  position: relative;
+  left: 45%;
+  height: 50px;
+  width: 50px;
+  ion-img{
+    width: 100%;
+    height: 100%;
+  }
+}
+
 
 .cuerpo{
   --background: url("/assets/Fondo.jpg");
@@ -81,13 +92,3 @@
   text-align: center;
 }
 
-.logo-contenedor{  ///De header
-  position: relative;
-  left: 45%;
-  height: 50px;
-  width: 50px;
-  ion-img{
-    width: 100%;
-    height: 100%;
-  }
-}
