@@ -1,8 +1,13 @@
-.toolbar-c{  ///de Header
+  *{ //De header
+    font-family: 'Bebas Neue';
+    
+  }
+  
+  .toolbar-c{  ///De Header
     background: #000;
   }
   
-  .titulo{ ///de Header
+  .titulo{ ///De Header
     position: relative;
     left: 45%;
     font-size: 30px;
@@ -20,3 +25,53 @@
       height: 100%;
     }
   }
+
+  .categorias{   //De Header
+    background: var(--ion-color-paleta);
+    color: #000;
+    ion-button{
+      color: #000;
+      
+    }
+    
+    ion-button:hover{
+      background: var(--ion-color-paleta-shade);
+      
+    }
+  }
+
+
+  ///de la pagina 
+  .cuerpo{
+    --background: #fff;
+  }
+
+  .nombre-pag{  //Puede servir en todas las paginas
+    text-align: center;
+    text-decoration: underline;
+    color:#000;
+    font-size: 35px;
+    font-weight: bold;
+  }
+
+  .contenedor-prod{
+    text-align: center;
+    color: #000;
+    border-bottom: 2px solid #999;
+    ion-button{
+      --background: #dd0;
+      --color: #000;
+    }
+  }
+
+  .contenedor-imagen{
+    height: 100px;
+    width: 100px;
+    margin: auto;
+    border: 1px solid #000;
+    ion-img{
+      width: 100%;
+      height: 100%;
+    }
+  }
+

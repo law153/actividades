@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { MenuController } from '@ionic/angular';
 
 @Component({
@@ -8,7 +9,7 @@ import { MenuController } from '@ionic/angular';
 })
 export class HerramientasPage implements OnInit {
 
-  constructor(private menuCtrl: MenuController) { }
+  constructor(private menuCtrl: MenuController, private router: Router) { }
 
     //Funciones de menu
     abrirSuperior(){
@@ -19,6 +20,10 @@ export class HerramientasPage implements OnInit {
     abrirCategorias(){
       this.menuCtrl.enable(true, 'categorias');
       this.menuCtrl.open('categorias');
+    }
+
+    irHome(){
+      this.router.navigate([''])    
     }
 
   ngOnInit() {
