@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MenuController } from '@ionic/angular';
 
 @Component({
   selector: 'app-herramientas',
@@ -7,7 +8,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HerramientasPage implements OnInit {
 
-  constructor() { }
+  constructor(private menuCtrl: MenuController) { }
+
+    //Funciones de menu
+    abrirSuperior(){
+      this.menuCtrl.enable(true, 'superior');
+      this.menuCtrl.open('superior');
+    }
+  
+    abrirCategorias(){
+      this.menuCtrl.enable(true, 'categorias');
+      this.menuCtrl.open('categorias');
+    }
 
   ngOnInit() {
   }

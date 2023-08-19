@@ -40,30 +40,13 @@ export class HomePage {
     this.ionInputEl.value = this.clave = filteredValue;
   }
 
-  irPagina1(){
 
-    if (this.user1.trim() === '' || this.clave.trim() === '') {
-
-      this.presentAlert('Por favor, completa todos los campos.');
-
-    } else if (this.user1.trim().length < 3 || this.clave.length < 4 ) {
-
-      this.presentAlert('Usuario o contraseña no validos!');
-
-    } else {
-      // Los campos son válidos, navegar a la siguiente página
-      let NavigationsExtra: NavigationExtras = {
-        state: {
-          nombreEnviar: this.user1
-        }
-      };
-      this.router.navigate(['/pagina1'], NavigationsExtra);
-    }
-
-    
+  irHome(){
+    this.router.navigate([''])    
   }
-
   //Funciones de menu
+
+  //abrir menus
   abrirSuperior(){
     this.menuCtrl.enable(true, 'superior');
     this.menuCtrl.open('superior');
@@ -73,6 +56,9 @@ export class HomePage {
     this.menuCtrl.enable(true, 'categorias');
     this.menuCtrl.open('categorias');
   }
+
+  //links de superior
+
 
 
   //Alerta --- Investigar como usar este mismo codigo para mostrar distintas alertas (no copy paste cambiando cosas)

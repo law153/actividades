@@ -11,10 +11,7 @@ const routes: Routes = [
     redirectTo: 'home',
     pathMatch: 'full'
   },
-  {
-    path: '**',
-    loadChildren: () => import('./pages/not-found/not-found.module').then( m => m.NotFoundPageModule)
-  },
+
   {
     path: 'ini-sesion',
     loadChildren: () => import('./pages/base/ini-sesion/ini-sesion.module').then( m => m.IniSesionPageModule)
@@ -78,9 +75,14 @@ const routes: Routes = [
   {
     path: 'kits-p',
     loadChildren: () => import('./pages/base/kits-p/kits-p.module').then( m => m.KitsPPageModule)
-  },  {
+  },
+  {
     path: 'herramientas-p',
     loadChildren: () => import('./pages/base/herramientas-p/herramientas-p.module').then( m => m.HerramientasPPageModule)
+  },  
+  {
+    path: '**',
+    loadChildren: () => import('./pages/not-found/not-found.module').then( m => m.NotFoundPageModule)
   },
 
 
