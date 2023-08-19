@@ -1,11 +1,15 @@
 <ion-header [translucent]="true" class="cabecera">
   
-  <ion-toolbar color="paleta"> 
+  <div class="logo-contenedor">
+    <ion-img src="/assets/logo.png" alt="No hay logo"></ion-img>
+  </div>
+  <ion-toolbar color="paleta" class="toolbar-c"> 
+    
     <ion-buttons slot="end" class="boton-guesa">
       <ion-menu-button (click)="abrirSuperior()"></ion-menu-button>
     </ion-buttons>
-
     <ion-title class="titulo">
+     
       Ivan's
     </ion-title>
   </ion-toolbar>
