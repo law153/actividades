@@ -26,6 +26,11 @@ export class HerramientasPage implements OnInit {
       this.router.navigate([''])    
     }
 
+    //De categoria
+    irProducto(){
+      this.router.navigate(['/herramientas-p'])   
+    }
+
   ngOnInit() {
   }
 
