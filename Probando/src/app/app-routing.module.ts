@@ -53,28 +53,12 @@ const routes: Routes = [
     loadChildren: () => import('./pages/base/kits/kits.module').then( m => m.KitsPageModule)
   },
   {
-    path: 'gasfiteria-p',
-    loadChildren: () => import('./pages/base/gasfiteria-p/gasfiteria-p.module').then( m => m.GasfiteriaPPageModule)
-  },
-  {
     path: 'electricidad-p',
     loadChildren: () => import('./pages/base/electricidad-p/electricidad-p.module').then( m => m.ElectricidadPPageModule)
   },
   {
     path: 'seguridad-p',
     loadChildren: () => import('./pages/base/seguridad-p/seguridad-p.module').then( m => m.SeguridadPPageModule)
-  },
-  {
-    path: 'ropa-p',
-    loadChildren: () => import('./pages/base/ropa-p/ropa-p.module').then( m => m.RopaPPageModule)
-  },
-  {
-    path: 'fijaciones-p',
-    loadChildren: () => import('./pages/base/fijaciones-p/fijaciones-p.module').then( m => m.FijacionesPPageModule)
-  },
-  {
-    path: 'kits-p',
-    loadChildren: () => import('./pages/base/kits-p/kits-p.module').then( m => m.KitsPPageModule)
   },
   {
     path: 'herramientas-p',
