@@ -1,6 +1,17 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>Registrarse</ion-title>
+<ion-header [translucent]="true" class="cabecera">
+  <div class="logo-contenedor">
+    <ion-img src="/assets/logo.png" alt="No hay logo"></ion-img>
+  </div>
+
+  <ion-toolbar color="paleta" class="toolbar-c">
+    <ion-buttons slot="end" class="">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+
+    <ion-title class="titulo" (click)="irHome()">
+      Ivan's
+    </ion-title>
+
   </ion-toolbar>
 </ion-header>
 
@@ -12,76 +23,88 @@
   </ion-header>
 
   <ion-grid>
-    <ion-row>
-      <ion-col>
-        <ion-input labelPlacement="stacked" label="Rut" placeholder="Rut"></ion-input>
-      </ion-col>
+    <div class="contenedor-form">
+      <ion-row>
+        <ion-col>
+          <ion-input labelPlacement="stacked" label="Rut" placeholder="Rut"></ion-input>
+        </ion-col>
+          
+  
+        <ion-col>
+          <ion-input labelPlacement="stacked" label="Dvrut" placeholder="Dvrut"></ion-input>
+        </ion-col>
+      </ion-row>
+  
+      <ion-row>
+        <ion-col>
+          <ion-input labelPlacement="stacked" label="Nombre" placeholder="Nombre"></ion-input>
+        </ion-col>
         
+      </ion-row>
+      
+      <ion-row>
+        <ion-col>
+          <ion-input labelPlacement="stacked" label="Apellido" placeholder="Apellido"></ion-input>
+        </ion-col>
+      </ion-row>
+        
+      <ion-row>
+        <ion-col>
+          <ion-input labelPlacement="stacked" label="Teléfono" type="tel" placeholder="Teléfono"></ion-input>
+        </ion-col>
+      </ion-row>
+  
+      <ion-row>
+        <ion-col>
+          <ion-input labelPlacement="stacked" label="Dirección" placeholder="Dirección"></ion-input>
+        </ion-col>
+      </ion-row>
+        
+      <ion-row>
+        <ion-col>
+          <ion-input labelPlacement="stacked" label="Correo" type="email" placeholder="Correo"></ion-input>
+        </ion-col>
+      </ion-row>
+        
+      <ion-row>
+        <ion-col>
+          <ion-input labelPlacement="stacked" label="Clave" type="password" placeholder="Clave"></ion-input>
+        </ion-col>
+      </ion-row>
+        
+      <ion-row>
+        <ion-col>
+          <ion-input labelPlacement="stacked" label="Clave" type="password" placeholder="Repita su clave"></ion-input>
+        </ion-col>
+      </ion-row>
+        
+      <ion-row>
+        <ion-col>
+          <ion-select labelPlacement="stacked" label="Pregunta de Seguridad">
+            <ion-select-option value="pregunta1">Nombre de tu mascota</ion-select-option>
+            <ion-select-option value="pregunta2">Color favorito</ion-select-option>
+            <ion-select-option value="pregunta3">Lugar de nacimiento</ion-select-option>
+          </ion-select>
+        </ion-col>
+      </ion-row>
+  
+      <ion-row>
+        <ion-col>
+          <ion-input labelPlacement="stacked" label="Respuesta" placeholder="Respuesta"></ion-input>
+        </ion-col>
+      </ion-row>  
 
-      <ion-col>
-        <ion-input labelPlacement="stacked" label="Dvrut" placeholder="Dvrut"></ion-input>
-      </ion-col>
-    </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-button shape="round"> Confirmar </ion-button>
+        </ion-col>
 
-    <ion-row>
-      <ion-col>
-        <ion-input labelPlacement="stacked" label="Nombre" placeholder="Nombre"></ion-input>
-      </ion-col>
-      
-    </ion-row>
-    
-    <ion-row>
-      <ion-col>
-        <ion-input labelPlacement="stacked" label="Apellido" placeholder="Apellido"></ion-input>
-      </ion-col>
-    </ion-row>
-      
-    <ion-row>
-      <ion-col>
-        <ion-input labelPlacement="stacked" label="Teléfono" placeholder="Teléfono"></ion-input>
-      </ion-col>
-    </ion-row>
-
-    <ion-row>
-      <ion-col>
-        <ion-input labelPlacement="stacked" label="Dirección" placeholder="Dirección"></ion-input>
-      </ion-col>
-    </ion-row>
-      
-    <ion-row>
-      <ion-col>
-        <ion-input labelPlacement="stacked" label="Correo" placeholder="Correo"></ion-input>
-      </ion-col>
-    </ion-row>
-      
-    <ion-row>
-      <ion-col>
-        <ion-input labelPlacement="stacked" label="Clave" placeholder="Clave"></ion-input>
-      </ion-col>
-    </ion-row>
-      
-    <ion-row>
-      <ion-col>
-        <ion-input labelPlacement="stacked" label="Clave" placeholder="Repita su clave"></ion-input>
-      </ion-col>
-    </ion-row>
-      
-    <ion-row>
-      <ion-col>
-        <ion-select labelPlacement="stacked" label="Pregunta de Seguridad">
-          <ion-select-option value="pregunta1">Nombre de tu mascota</ion-select-option>
-          <ion-select-option value="pregunta2">Color favorito</ion-select-option>
-          <ion-select-option value="pregunta3">Lugar de nacimiento</ion-select-option>
-        </ion-select>
-      </ion-col>
-    </ion-row>
-
-    <ion-row>
-      <ion-col>
-        <ion-input labelPlacement="stacked" label="Respuesta" placeholder="Respuesta"></ion-input>
-      </ion-col>
-    </ion-row>  
-    
+        <ion-col>
+          <ion-button shape="round"> Limpiar </ion-button>
+        </ion-col>
+      </ion-row>
+    </div>
+        
   </ion-grid>
 
 
