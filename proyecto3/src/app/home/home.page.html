@@ -19,7 +19,7 @@
       <ion-col><ion-input label="Contraseña:" labelPlacement="stacked" type="password" [(ngModel)]="clave" [counter]="true" minlength="4" maxlength="4" errorText="Cantidad no valida de caracteres" (ionInput)="onInput($event)"  #ionInputEl></ion-input></ion-col>
     </ion-row>
 
-    <ion-row>
+    <ion-row *ngIf="user1 === 'lolardo'">
       <ion-col></ion-col>
       <ion-col><ion-button (click)="irPagina1()">Iniciar sesión</ion-button></ion-col>
       <ion-col></ion-col>
@@ -27,5 +27,6 @@
     
   </ion-grid>
 
+    <app-componente1 nombre="lolardo" contra="no"></app-componente1>
 
 </ion-content>
