@@ -25,8 +25,17 @@
       <ion-col></ion-col>
     </ion-row>
     
+    
   </ion-grid>
 
-    <app-componente1 nombre="lolardo" contra="no"></app-componente1>
+  <app-componente1 nombre="lolardo" contra="no"></app-componente1>
+
+    <ion-item *ngFor="let datos of persona">
+      <ion-label>Nombre: {{datos.nombre}} <br>
+        Su edad es: {{datos.edad}} años <br>
+        Nacio el {{datos.fecha | date:"dd MMMM yyyy"}}
+      </ion-label>
+    </ion-item>
+    
 
 </ion-content>
