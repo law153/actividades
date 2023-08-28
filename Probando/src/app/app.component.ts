@@ -27,6 +27,29 @@ export class AppComponent {
     this.router.navigate(['/contactanos']);
   }
 
+  irPerfil(){
+    this.router.navigate(['/perfil']);
+  }
+  irCarrito(){
+    this.router.navigate(['/carrito']);
+  }
+  irContactanosCli(){
+    this.router.navigate(['/contactanos-cli']);
+  }
+  cerrarSesion(){
+    this.router.navigate(['']);
+  }
+
+  irRoles(){
+    this.router.navigate(['/editar-rol']);
+  }
+  irConsultas(){
+    this.router.navigate(['/consultas']);
+  }
+  irPedidos(){
+    this.router.navigate(['/listado-pedido']);
+  }
+
   //categorias
   irHerramientas(){
     this.router.navigate(['/herramientas']);
@@ -54,6 +77,18 @@ export class AppComponent {
 
   irKits(){
     this.router.navigate(['/kits']);
+  }
+
+  irProdCli(){
+    this.router.navigate(['/herramientas-p-cli']);
+  }
+
+  irProdAdm(){
+    this.router.navigate(['/herramientas-p-adm']);
+  }
+
+  irAgregar(){
+    this.router.navigate(['/agregar-prod']);
   }
 
 }
