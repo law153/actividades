@@ -1,12 +1,12 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ElectricidadPAdmPage } from './electricidad-p-adm.page';
+import { ElectricidadAdmPPage } from './electricidad-p-adm.page';
 
 describe('ElectricidadPAdmPage', () => {
-  let component: ElectricidadPAdmPage;
-  let fixture: ComponentFixture<ElectricidadPAdmPage>;
+  let component: ElectricidadAdmPPage;
+  let fixture: ComponentFixture<ElectricidadAdmPPage>;
 
   beforeEach(async(() => {
-    fixture = TestBed.createComponent(ElectricidadPAdmPage);
+    fixture = TestBed.createComponent(ElectricidadAdmPPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

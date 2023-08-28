@@ -6,7 +6,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { ElectricidadPAdmPageRoutingModule } from './electricidad-p-adm-routing.module';
 
-import { ElectricidadPAdmPage } from './electricidad-p-adm.page';
+import { ElectricidadAdmPPage } from './electricidad-p-adm.page';
 
 @NgModule({
   imports: [
@@ -15,6 +15,6 @@ import { ElectricidadPAdmPage } from './electricidad-p-adm.page';
     IonicModule,
     ElectricidadPAdmPageRoutingModule
   ],
-  declarations: [ElectricidadPAdmPage]
+  declarations: [ElectricidadAdmPPage]
 })
 export class ElectricidadPAdmPageModule {}

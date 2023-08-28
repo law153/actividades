@@ -213,11 +213,16 @@ const routes: Routes = [
     loadChildren: () => import('./pages/admin/fijaciones-adm-p/fijaciones-adm-p.module').then( m => m.FijacionesAdmPPageModule)
   },
   {
-    path: '**',
-    loadChildren: () => import('./pages/not-found/not-found.module').then( m => m.NotFoundPageModule)
-  },  {
     path: 'ver-compra',
     loadChildren: () => import('./pages/cliente/ver-compra/ver-compra.module').then( m => m.VerCompraPageModule)
+  },
+  {
+    path: 'agregar-prod',
+    loadChildren: () => import('./pages/admin/agregar-prod/agregar-prod.module').then( m => m.AgregarProdPageModule)
+  },
+  {
+    path: '**',
+    loadChildren: () => import('./pages/not-found/not-found.module').then( m => m.NotFoundPageModule)
   },
 
 
