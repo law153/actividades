@@ -3,20 +3,14 @@ import { Router } from '@angular/router';
 import { MenuController } from '@ionic/angular';
 
 @Component({
-  selector: 'app-home-cli',
-  templateUrl: './home-cli.page.html',
-  styleUrls: ['./home-cli.page.scss'],
+  selector: 'app-ver-compra',
+  templateUrl: './ver-compra.page.html',
+  styleUrls: ['./ver-compra.page.scss'],
 })
-export class HomeCliPage implements OnInit {
+export class VerCompraPage implements OnInit {
 
-  constructor(private router: Router,private menuCtrl: MenuController) { }
-
-  irHomeCli(){
-    this.router.navigate(['home-cli'])    
-  }
-  //Funciones de menu
-
-  //abrir menus
+  constructor(private menuCtrl: MenuController, private router: Router) { }
+  
   abrirSuperior(){
     this.menuCtrl.enable(true, 'superiorCli');
     this.menuCtrl.open('superiorCli');
@@ -26,7 +20,11 @@ export class HomeCliPage implements OnInit {
     this.menuCtrl.enable(true, 'categoriasCli');
     this.menuCtrl.open('categoriasCli');
   }
-  
+
+  irHomeCli(){
+    this
+  }
+
   ngOnInit() {
   }
 

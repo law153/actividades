@@ -6,7 +6,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { HerramientasPCliPageRoutingModule } from './herramientas-p-cli-routing.module';
 
-import { HerramientasPCliPage } from './herramientas-p-cli.page';
+import { HerramientasCliPPage } from './herramientas-p-cli.page';
 
 @NgModule({
   imports: [
@@ -15,6 +15,6 @@ import { HerramientasPCliPage } from './herramientas-p-cli.page';
     IonicModule,
     HerramientasPCliPageRoutingModule
   ],
-  declarations: [HerramientasPCliPage]
+  declarations: [HerramientasCliPPage]
 })
 export class HerramientasPCliPageModule {}

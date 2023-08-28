@@ -1,0 +1,59 @@
+
+.contenedor-labels{
+    color: #000;
+    background: #ff0;
+    border: 2px solid #000;
+    border-radius: 7px;
+    align-items: center;
+    text-align: left;
+    
+
+
+    ion-label{
+        font-size: 18px;
+        font-weight: bold;
+    }
+}
+
+.contenedor-form{
+    background: #ff0;
+    color: #000;
+    border: 2px solid #000;
+    border-radius: 7px;
+    align-items: center;
+    text-align: left;
+    margin-top: 25%;
+    
+
+    ion-input{
+        font-size: 21px;
+        font-weight: bold;
+        height: 85%;
+        width: 100%;
+        background: #fff;
+        border: 2px solid #000;
+        border-radius: 7px;
+        text-align: left;  
+    }
+
+    ion-textarea{
+        font-size: 21px;
+        font-weight: bold;
+        height: 85%;
+        width: 100%;
+        background: #fff;
+        border: 2px solid #000;
+        border-radius: 7px;
+        text-align: left;
+    }
+
+    ion-button{
+        padding-left: 10%;
+        padding-right: 10%;
+        font-size: 17px;
+        font-weight: bold;
+        --background: #000;
+        color: #fff;
+        text-align: center;
+    }
+}

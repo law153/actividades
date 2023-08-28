@@ -1,0 +1,23 @@
+<ion-row class="producto">
+  
+  <ion-col>
+    <div class="contenedor-imagen">
+      <ion-img [src]="imagenProd" alt="No hay imagen :c"></ion-img>
+    </div>
+  </ion-col>
+
+  <ion-col class="detalles">
+    <h3 class="nom-prod">{{nombreProd}}</h3>
+    <h3 class="precio-prod">$ {{precioProd}} </h3>
+  </ion-col>
+
+  <ion-col class="cantidad">
+    <ion-input type="number" value="{{cantidadProd}}"></ion-input>
+  </ion-col>
+
+  <ion-col class="iconos">
+    <ion-icon name="checkmark-outline" aria-label="Favorite" ></ion-icon>
+    <ion-icon name="trash-outline" aria-label="Favorite"></ion-icon>
+  </ion-col>
+
+</ion-row>

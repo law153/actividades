@@ -1,13 +1,91 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>perfil</ion-title>
+<ion-header [translucent]="true" class="cabecera">
+  
+  <div class="logo-contenedor">
+    <ion-img src="/assets/logo.png" alt="No hay logo"></ion-img>
+  </div>
+  <ion-toolbar color="paleta" class="toolbar-c"> 
+    
+    <ion-buttons slot="end" class="boton-guesa">
+      <ion-menu-button (click)="abrirSuperior()"></ion-menu-button>
+    </ion-buttons>
+    <ion-title class="titulo" (click)="irHomeCli()">
+     
+      Ivan's
+    </ion-title>
   </ion-toolbar>
+  
+  <div class="categorias">
+    <ion-button (click)="abrirCategorias()" fill="clear">Categorias</ion-button>
+  </div>
+
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">perfil</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content [fullscreen]="true" class="content-fondo">
+  <ion-grid>
+    <div>
+      <ion-row>
+        <ion-col>
+          <h1 class="nombre-pag">Perfil</h1>
+        </ion-col>
+      </ion-row>
+    </div>
+
+    <div>
+
+      <ion-row>
+
+        <ion-col >
+          <div class="contenedor-imagen"> 
+            <ion-img alt="No hay imagen" src="/assets/imagen.jpg"></ion-img>
+          </div>
+        </ion-col>
+      </ion-row>
+      
+    </div>
+
+    <div class="contenedor-form">
+      <ion-row>
+        <ion-col>
+          <ion-label>Nombre:</ion-label>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-label>Apellido:</ion-label>  
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-label>Rut:</ion-label>  
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-label>Telefono:</ion-label>  
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-label>Dirección:</ion-label>  
+        </ion-col>
+      </ion-row>
+
+    </div>
+
+    <div class="contenedor-botones">
+      <ion-row>
+        <ion-col>
+          <ion-button shape="round" (click)="irEditar()"> Editar </ion-button>
+        </ion-col>
+
+        <ion-col>
+          <ion-button shape="round" (click)="irCambiarClave()"> Cambiar Clave </ion-button>
+        </ion-col>
+      </ion-row>
+    </div>
+  </ion-grid>
 </ion-content>

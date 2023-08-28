@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { SeguridadPAdmPage } from './seguridad-p-adm.page';
+import { FijacionesCliPPage } from './fijaciones-cli-p.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: SeguridadPAdmPage
+    component: FijacionesCliPPage
   }
 ];
 
@@ -14,4 +14,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class SeguridadPAdmPageRoutingModule {}
+export class FijacionesCliPPageRoutingModule {}

@@ -4,17 +4,17 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { SeguridadPCliPageRoutingModule } from './seguridad-p-cli-routing.module';
+import { FijacionesCliPPageRoutingModule } from './fijaciones-cli-p-routing.module';
 
-import { SeguridadPCliPage } from './seguridad-p-cli.page';
+import { FijacionesCliPPage } from './fijaciones-cli-p.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    SeguridadPCliPageRoutingModule
+    FijacionesCliPPageRoutingModule
   ],
-  declarations: [SeguridadPCliPage]
+  declarations: [FijacionesCliPPage]
 })
-export class SeguridadPCliPageModule {}
+export class FijacionesCliPPageModule {}

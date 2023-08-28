@@ -1,12 +1,12 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { SeguridadPCliPage } from './seguridad-p-cli.page';
+import { VerCompraPage } from './ver-compra.page';
 
-describe('SeguridadPCliPage', () => {
-  let component: SeguridadPCliPage;
-  let fixture: ComponentFixture<SeguridadPCliPage>;
+describe('VerCompraPage', () => {
+  let component: VerCompraPage;
+  let fixture: ComponentFixture<VerCompraPage>;
 
   beforeEach(async(() => {
-    fixture = TestBed.createComponent(SeguridadPCliPage);
+    fixture = TestBed.createComponent(VerCompraPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

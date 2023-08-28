@@ -1,5 +1,4 @@
 <ion-header [translucent]="true" class="cabecera">
-  
   <div class="logo-contenedor">
     <ion-img src="/assets/logo.png" alt="No hay logo"></ion-img>
   </div>
@@ -17,48 +16,44 @@
   <div class="categorias">
     <ion-button (click)="abrirCategorias()" fill="clear">Categorias</ion-button>
   </div>
-
 </ion-header>
 
 <ion-content [fullscreen]="true" class="cuerpo">
 
-  
-  <ion-grid class="contenido">
-    
+  <ion-grid>
     <ion-row>
       <ion-col>
-        <h1 class="nombre-pag">Baterias Alcalinas</h1>
+        <h1 class="nombre-pag" >Pedido 1</h1>
       </ion-col>
     </ion-row>
 
     <ion-row>
-      <ion-col>
+      <ion-col class="fecha">
+        <h2>Pedido el: 12/06/2023</h2>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col class="fecha">
+        <h2>Llega el: 15/06/2023</h2>
+      </ion-col>
+    </ion-row>
+
+    <ion-row class="contenedor-prod">
+      <ion-col >
         <div class="contenedor-imagen">
-          <ion-img src="/assets/imagen.jpg" alt="No hay imagen :c"></ion-img>
+          <ion-img src="/assets/imagen.jpg" alt="No hay imagen, perdonar"></ion-img>
         </div>
       </ion-col>
-    </ion-row>
 
-    <ion-row>
-      <ion-col class="contenedor-desc">
-        <p class="desc">Baterias alcalinas de tipo AA no recargables de la marcA Duracell</p>
+      <ion-col class="texto">
+        <h2>Producto papu</h2>
+      </ion-col>
+
+      <ion-col class="texto">
+        <h2>1</h2>
       </ion-col>
     </ion-row>
-
-    <ion-row>
-      <ion-col>
-        <h2 class="precio">$15.000</h2>
-      </ion-col>
-    </ion-row>
-
-    <ion-row>
-      <ion-col class="contenedor-boton">
-        <ion-button>Comprar</ion-button>
-      </ion-col>
-    </ion-row>
-
 
   </ion-grid>
-
-
 </ion-content>

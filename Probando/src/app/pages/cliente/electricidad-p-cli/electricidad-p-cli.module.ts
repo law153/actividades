@@ -6,7 +6,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { ElectricidadPCliPageRoutingModule } from './electricidad-p-cli-routing.module';
 
-import { ElectricidadPCliPage } from './electricidad-p-cli.page';
+import { ElectricidadCliPPage } from './electricidad-p-cli.page';
 
 @NgModule({
   imports: [
@@ -15,6 +15,6 @@ import { ElectricidadPCliPage } from './electricidad-p-cli.page';
     IonicModule,
     ElectricidadPCliPageRoutingModule
   ],
-  declarations: [ElectricidadPCliPage]
+  declarations: [ElectricidadCliPPage]
 })
 export class ElectricidadPCliPageModule {}

@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { HerramientasPCliPage } from './herramientas-p-cli.page';
+import { HerramientasCliPPage } from './herramientas-p-cli.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: HerramientasPCliPage
+    component: HerramientasCliPPage
   }
 ];
 

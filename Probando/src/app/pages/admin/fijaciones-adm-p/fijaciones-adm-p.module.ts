@@ -4,17 +4,17 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { SeguridadPAdmPageRoutingModule } from './seguridad-p-adm-routing.module';
+import { FijacionesAdmPPageRoutingModule } from './fijaciones-adm-p-routing.module';
 
-import { SeguridadPAdmPage } from './seguridad-p-adm.page';
+import { FijacionesAdmPPage } from './fijaciones-adm-p.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    SeguridadPAdmPageRoutingModule
+    FijacionesAdmPPageRoutingModule
   ],
-  declarations: [SeguridadPAdmPage]
+  declarations: [FijacionesAdmPPage]
 })
-export class SeguridadPAdmPageModule {}
+export class FijacionesAdmPPageModule {}

@@ -3,27 +3,26 @@ import { Router } from '@angular/router';
 import { MenuController } from '@ionic/angular';
 
 @Component({
-  selector: 'app-herramientas-p-cli',
+  selector: 'app-herramientas-cli-p',
   templateUrl: './herramientas-p-cli.page.html',
-  styleUrls: ['./herramientas-p-cli.page.scss'],
+  styleUrls: ['./herramientas-cli-p.page.scss'],
 })
-export class HerramientasPCliPage implements OnInit {
+export class HerramientasCliPPage implements OnInit {
 
   constructor(private menuCtrl: MenuController, private router: Router) { }
 
-
   abrirSuperior(){
-    this.menuCtrl.enable(true, 'superior');
-    this.menuCtrl.open('superior');
+    this.menuCtrl.enable(true, 'superiorCli');
+    this.menuCtrl.open('superiorCli');
   }
 
   abrirCategorias(){
-    this.menuCtrl.enable(true,'categorias');
-    this.menuCtrl.open('categorias');
+    this.menuCtrl.enable(true, 'categoriasCli');
+    this.menuCtrl.open('categoriasCli');
   }
 
-  irHome(){
-    this.router.navigate([''])
+  irHomeCli(){
+    this.router.navigate(['home-cli'])  
   }
 
   ngOnInit() {

@@ -129,10 +129,6 @@ const routes: Routes = [
     loadChildren: () => import('./pages/cliente/electricidad-p-cli/electricidad-p-cli.module').then( m => m.ElectricidadPCliPageModule)
   },
   {
-    path: 'seguridad-p-cli',
-    loadChildren: () => import('./pages/cliente/seguridad-p-cli/seguridad-p-cli.module').then( m => m.SeguridadPCliPageModule)
-  },
-  {
     path: 'home-cli',
     loadChildren: () => import('./pages/cliente/home-cli/home-cli.module').then( m => m.HomeCliPageModule)
   },
@@ -201,10 +197,6 @@ const routes: Routes = [
     loadChildren: () => import('./pages/admin/herramientas-p-adm/herramientas-p-adm.module').then( m => m.HerramientasPAdmPageModule)
   },
   {
-    path: 'seguridad-p-adm',
-    loadChildren: () => import('./pages/admin/seguridad-p-adm/seguridad-p-adm.module').then( m => m.SeguridadPAdmPageModule)
-  },
-  {
     path: 'electricidad-p-adm',
     loadChildren: () => import('./pages/admin/electricidad-p-adm/electricidad-p-adm.module').then( m => m.ElectricidadPAdmPageModule)
   },
@@ -213,9 +205,22 @@ const routes: Routes = [
     loadChildren: () => import('./pages/base/fijaciones-p/fijaciones-p.module').then( m => m.FijacionesPPageModule)
   },
   {
+    path: 'fijaciones-cli-p',
+    loadChildren: () => import('./pages/cliente/fijaciones-cli-p/fijaciones-cli-p.module').then( m => m.FijacionesCliPPageModule)
+  },
+  {
+    path: 'fijaciones-adm-p',
+    loadChildren: () => import('./pages/admin/fijaciones-adm-p/fijaciones-adm-p.module').then( m => m.FijacionesAdmPPageModule)
+  },
+  {
     path: '**',
     loadChildren: () => import('./pages/not-found/not-found.module').then( m => m.NotFoundPageModule)
+  },  {
+    path: 'ver-compra',
+    loadChildren: () => import('./pages/cliente/ver-compra/ver-compra.module').then( m => m.VerCompraPageModule)
   },
+
+
 
 
 

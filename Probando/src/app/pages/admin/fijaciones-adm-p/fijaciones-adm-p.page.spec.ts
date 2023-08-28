@@ -1,12 +1,12 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { SeguridadPAdmPage } from './seguridad-p-adm.page';
+import { FijacionesAdmPPage } from './fijaciones-adm-p.page';
 
-describe('SeguridadPAdmPage', () => {
-  let component: SeguridadPAdmPage;
-  let fixture: ComponentFixture<SeguridadPAdmPage>;
+describe('FijacionesAdmPPage', () => {
+  let component: FijacionesAdmPPage;
+  let fixture: ComponentFixture<FijacionesAdmPPage>;
 
   beforeEach(async(() => {
-    fixture = TestBed.createComponent(SeguridadPAdmPage);
+    fixture = TestBed.createComponent(FijacionesAdmPPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));
