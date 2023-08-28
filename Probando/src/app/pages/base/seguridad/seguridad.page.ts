@@ -26,10 +26,6 @@ export class SeguridadPage implements OnInit {
       this.router.navigate([''])    
     }
 
-    irProducto(){
-      this.router.navigate(['/seguridad-p'])   
-    }
-
     ngOnInit() {
     }
 
