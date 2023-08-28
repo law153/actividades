@@ -1,6 +1,10 @@
 <ion-app>
+  <ion-router-outlet></ion-router-outlet>
+</ion-app>
+<ion-app>
+  <!---------------------------Superiores------------------------->
   <ion-menu-toggle menu="superior">
-  <ion-menu contentId="main-content" menuId="superior" side="end" class="superior">
+  <ion-menu contentId="main-content" menuId="superior" side="end" class="superior" type="reveal">
 
     <ion-header class="superior-cabe" >
       <ion-toolbar class="toolbar-supe">
@@ -18,7 +22,7 @@
         <ion-item>
           <ion-label (click)="irRegistro()">Registrarse</ion-label>
         </ion-item>
-        <ion-item>
+        <ion-item >
           <ion-label (click)="irIni()">Iniciar sesión</ion-label>
         </ion-item>
       </ion-list>
@@ -27,8 +31,75 @@
   </ion-menu>
   </ion-menu-toggle>
 
+  <ion-menu-toggle menu="superiorCli">
+    <ion-menu contentId="main-content" menuId="superiorCli" side="end" class="superior" type="reveal">
+  
+      <ion-header class="superior-cabe" >
+        <ion-toolbar class="toolbar-supe">
+          <ion-title>
+            Ferretería Ivan's
+          </ion-title>
+        </ion-toolbar>
+      </ion-header>
+  
+      <ion-content class="superior-cuerpo">
+        <ion-list class="enlaces-supe">
+          <ion-item>
+            <ion-label (click)="irPerfil()">Perfil</ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-label (click)="irContactanosCli()">Contactanos</ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-label (click)="irCarrito()">Carrito</ion-label>
+          </ion-item>
+          <ion-item >
+            <ion-label (click)="cerrarSesion()">Cerrar Sesión</ion-label>
+          </ion-item>
+        </ion-list>
+      </ion-content>
+  
+    </ion-menu>
+    </ion-menu-toggle>
+
+    <ion-menu-toggle menu="superiorAdm">
+      <ion-menu contentId="main-content" menuId="superiorAdm" side="end" class="superior" type="reveal">
+    
+        <ion-header class="superior-cabe" >
+          <ion-toolbar class="toolbar-supe">
+            <ion-title>
+              Ferretería Ivan's
+            </ion-title>
+          </ion-toolbar>
+        </ion-header>
+    
+        <ion-content class="superior-cuerpo">
+          <ion-list class="enlaces-supe">
+            <ion-item>
+              <ion-label (click)="irPerfilAdm()">Perfil</ion-label>
+            </ion-item>
+            <ion-item>
+              <ion-label (click)="irRoles()">Editar Roles</ion-label>
+            </ion-item>
+            <ion-item>
+              <ion-label (click)="irConsultas()">Consultas</ion-label>
+            </ion-item>
+            <ion-item>
+              <ion-label (click)="irPedidos()">Pedidos</ion-label>
+            </ion-item>
+            <ion-item>
+              <ion-label (click)="cerrarSesion()">Cerrar Sesión</ion-label>
+            </ion-item> 
+          </ion-list>
+        </ion-content>
+    
+      </ion-menu>
+      </ion-menu-toggle>
+
+
+  <!------------------------Categorias------------------------>
   <ion-menu-toggle menu="categorias">
-    <ion-menu contentId="main-content" menuId="categorias" class="categorias">
+    <ion-menu contentId="main-content" menuId="categorias" class="categorias" type="reveal">
   
       <ion-header class="cate-cabe">
         <ion-toolbar class="toolbar-cate">
@@ -39,7 +110,7 @@
       </ion-header>
   
       <ion-content class="cate-cuerpo">
-        <ion-list class="enlaces-cate cate-cuerpo">
+        <ion-list class="enlaces-cate cate-cuerpo" *ngIf=" usuario === 0">
           <ion-item>
             <ion-label (click)="irHerramientas()">Herramientas</ion-label>
           </ion-item>
@@ -65,6 +136,88 @@
       </ion-content>
   
     </ion-menu>
+  </ion-menu-toggle>
+
+
+    <ion-menu-toggle menu="categoriasCli">
+      <ion-menu contentId="main-content" menuId="categoriasCli" class="superior">
+    
+        <ion-header class="superior-cabe">
+          <ion-toolbar class="toolbar-supe">
+            <ion-title>
+              Categorias
+            </ion-title>
+          </ion-toolbar>
+        </ion-header>
+    
+      <ion-content class="superior-cuerpo">
+          <ion-list class="enlaces-supe">
+            <ion-item>
+              <ion-label (click)="irHerramientasCli()">Herramientas</ion-label>
+            </ion-item>
+            <ion-item>
+              <ion-label (click)="irGasfiteriaCli()">Gasfiteria</ion-label>
+            </ion-item>
+            <ion-item>
+              <ion-label (click)="irElectricidadCli()">Electricidad</ion-label>
+            </ion-item>
+            <ion-item>
+              <ion-label (click)="irSeguridadCli()">Seguridad</ion-label>
+            </ion-item>
+            <ion-item>
+              <ion-label (click)="irRopaCli()">Ropa</ion-label>
+            </ion-item>
+            <ion-item>
+              <ion-label (click)="irFijacionesCli()">Fijaciones</ion-label>
+            </ion-item>
+            <ion-item>
+              <ion-label (click)="irKitsCli()">Kits</ion-label>
+            </ion-item>
+          </ion-list>
+        </ion-content>
+    
+      </ion-menu>
+    </ion-menu-toggle>
+
+
+    <ion-menu-toggle menu="categoriasAdm">
+      <ion-menu contentId="main-content" menuId="categoriasAdm" class="categorias">
+    
+        <ion-header class="cate-cabe">
+          <ion-toolbar class="toolbar-supe">
+            <ion-title>
+              Categorias
+            </ion-title>
+          </ion-toolbar>
+        </ion-header>
+    
+      <ion-content class="cate-cuerpo">
+          <ion-list class="enlaces-supe">
+            <ion-item>
+              <ion-label (click)="irHerramientasAdm()">Herramientas</ion-label>
+            </ion-item>
+            <ion-item>
+              <ion-label (click)="irGasfiteriaAdm()">Gasfiteria</ion-label>
+            </ion-item>
+            <ion-item>
+              <ion-label (click)="irElectricidadAdm()">Electricidad</ion-label>
+            </ion-item>
+            <ion-item>
+              <ion-label (click)="irSeguridadAdm()">Seguridad</ion-label>
+            </ion-item>
+            <ion-item>
+              <ion-label (click)="irRopaAdm()">Ropa</ion-label>
+            </ion-item>
+            <ion-item>
+              <ion-label (click)="irFijacionesAdm()">Fijaciones</ion-label>
+            </ion-item>
+            <ion-item>
+              <ion-label (click)="irKitsAdm()">Kits</ion-label>
+            </ion-item>
+          </ion-list>
+        </ion-content>
+    
+      </ion-menu>
     </ion-menu-toggle>
 
   <ion-router-outlet id="main-content"></ion-router-outlet>
