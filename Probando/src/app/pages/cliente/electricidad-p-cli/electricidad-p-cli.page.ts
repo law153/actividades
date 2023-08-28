@@ -12,13 +12,13 @@ export class ElectricidadCliPPage implements OnInit {
   constructor(private menuCtrl: MenuController, private router: Router) { }
 
   abrirSuperior(){
-    this.menuCtrl.enable(true, 'superiorCli');
-    this.menuCtrl.open('superiorCli');
+    this.menuCtrl.enable(true, 'superior');
+    this.menuCtrl.open('superior');
   }
 
   abrirCategorias(){
-    this.menuCtrl.enable(true, 'categoriasCli');
-    this.menuCtrl.open('categoriasCli');
+    this.menuCtrl.enable(true, 'categorias');
+    this.menuCtrl.open('categorias');
   }
 
   irHomeCli(){

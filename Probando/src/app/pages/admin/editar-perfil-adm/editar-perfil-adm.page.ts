@@ -26,13 +26,13 @@ export class EditarPerfilAdmPage implements OnInit {
   constructor(private router: Router,private menuCtrl: MenuController, private alerta: AlertController) { }
 
   abrirSuperior(){
-    this.menuCtrl.enable(true, 'superiorAdm');
-    this.menuCtrl.open('superiorCli');
+    this.menuCtrl.enable(true, 'superior');
+    this.menuCtrl.open('superior');
   }
 
   abrirCategorias(){
-    this.menuCtrl.enable(true, 'categoriasAdm');
-    this.menuCtrl.open('categoriasCli');
+    this.menuCtrl.enable(true, 'categorias');
+    this.menuCtrl.open('categorias');
   }
 
   irHomeAdm(){

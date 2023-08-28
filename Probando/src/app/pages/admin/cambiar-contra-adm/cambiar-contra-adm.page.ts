@@ -28,13 +28,13 @@ export class CambiarContraAdmPage implements OnInit {
 
   //abrir menus
   abrirSuperior(){
-    this.menuCtrl.enable(true, 'superiorAdm');
-    this.menuCtrl.open('superiorAdm');
+    this.menuCtrl.enable(true, 'superior');
+    this.menuCtrl.open('superior');
   }
 
   abrirCategorias(){
-    this.menuCtrl.enable(true, 'categoriasAdm');
-    this.menuCtrl.open('categoriasAdm');
+    this.menuCtrl.enable(true, 'categorias');
+    this.menuCtrl.open('categorias');
   }
 
 

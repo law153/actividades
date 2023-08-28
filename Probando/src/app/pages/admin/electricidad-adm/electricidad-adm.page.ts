@@ -12,13 +12,13 @@ export class ElectricidadAdmPage implements OnInit {
   constructor(private menuCtrl: MenuController, private router: Router) { }
 
   abrirSuperior(){
-    this.menuCtrl.enable(true, 'superiorAdm');
-    this.menuCtrl.open('superiorCli');
+    this.menuCtrl.enable(true, 'superior');
+    this.menuCtrl.open('superior');
   }
 
   abrirCategorias(){
-    this.menuCtrl.enable(true, 'categoriasAdm');
-    this.menuCtrl.open('categoriasCli');
+    this.menuCtrl.enable(true, 'categorias');
+    this.menuCtrl.open('categorias');
   }
 
   irHomeAdm(){

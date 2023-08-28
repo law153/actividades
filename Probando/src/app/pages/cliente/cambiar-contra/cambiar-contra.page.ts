@@ -27,13 +27,13 @@ export class CambiarContraPage implements OnInit {
 
   //abrir menus
   abrirSuperior(){
-    this.menuCtrl.enable(true, 'superiorCli');
-    this.menuCtrl.open('superiorCli');
+    this.menuCtrl.enable(true, 'superior');
+    this.menuCtrl.open('superior');
   }
 
   abrirCategorias(){
-    this.menuCtrl.enable(true, 'categoriasCli');
-    this.menuCtrl.open('categoriasCli');
+    this.menuCtrl.enable(true, 'categorias');
+    this.menuCtrl.open('categorias');
   }
 
 
