@@ -153,45 +153,28 @@ export class RegistrarsePage implements OnInit {
   }
 
   //Contraseña
-  claveValida(){
-    if(this.contieneMayuscula(this.clave) === true){
-      
-      if(this.contieneMinuscula(this.clave) === true){
-
-        if(this.contieneNumero(this.clave) === true){
-
-          if(this.contieneCaracterEspecial(this.clave) === true){
-
-            if(this.clave.length <= 8){
-              this.flag = false;
-              this.msj="La contraseña debe tener al menos 8 carácteres de longitud";
-              this.presentAlert(this.msj);
-            }
-
-          } else{
-            this.flag = false;
-            this.msj="La contraseña debe poseer un carácter especial";
-            this.presentAlert(this.msj);
-          }
-
-        } else{
-          this.flag = false;
-          this.msj="La contraseña debe poseer un número";
-          this.presentAlert(this.msj);
-        }
-
-      } else{
-        this.flag = false;
-        this.msj="La contraseña debe poseer una minúscula";
-        this.presentAlert(this.msj);
-      }
-
-    } else{
+  claveValida() {
+    if (!this.contieneMayuscula(this.clave)) {
       this.flag = false;
-      this.msj="La contraseña debe poseer una mayúscula";
+      this.msj = "La contraseña debe poseer una mayúscula";
+      this.presentAlert(this.msj);
+    } else if (!this.contieneMinuscula(this.clave)) {
+      this.flag = false;
+      this.msj = "La contraseña debe poseer una minúscula";
+      this.presentAlert(this.msj);
+    } else if (!this.contieneNumero(this.clave)) {
+      this.flag = false;
+      this.msj = "La contraseña debe poseer un número";
+      this.presentAlert(this.msj);
+    } else if (!this.contieneCaracterEspecial(this.clave)) {
+      this.flag = false;
+      this.msj = "La contraseña debe poseer un carácter especial";
+      this.presentAlert(this.msj);
+    } else if (this.clave.length <= 8) {
+      this.flag = false;
+      this.msj = "La contraseña debe tener al menos 8 caracteres de longitud";
       this.presentAlert(this.msj);
     }
-
   }
 
   claveRepValid(){

@@ -48,90 +48,52 @@ export class CambiarContraPage implements OnInit {
     }
   }
 
-  claveOldValida(){
-    if(this.contieneMayuscula(this.claveOld) === true){
-      
-      if(this.contieneMinuscula(this.claveOld) === true){
-
-        if(this.contieneNumero(this.claveOld) === true){
-
-          if(this.contieneCaracterEspecial(this.claveOld) === true){
-
-            if(this.claveOld.length <= 8){
-              this.flag = false;
-              this.msj="La contraseña debe tener al menos 8 carácteres de longitud";
-              this.presentAlert(this.msj);
-            }
-
-          } else{
-            this.flag = false;
-            this.msj="La contraseña debe poseer un carácter especial";
-            this.presentAlert(this.msj);
-          }
-
-        } else{
-          this.flag = false;
-          this.msj="La contraseña debe poseer un número";
-          this.presentAlert(this.msj);
-        }
-
-      } else{
-        this.flag = false;
-        this.msj="La contraseña debe poseer una minúscula";
-        this.presentAlert(this.msj);
-      }
-
-    } else{
+  claveOldValida() {
+    if (!this.contieneMayuscula(this.claveOld)) {
       this.flag = false;
-      this.msj="La contraseña debe poseer una mayúscula";
+      this.msj = "La contraseña debe poseer una mayúscula";
+      this.presentAlert(this.msj);
+    } else if (!this.contieneMinuscula(this.claveOld)) {
+      this.flag = false;
+      this.msj = "La contraseña debe poseer una minúscula";
+      this.presentAlert(this.msj);
+    } else if (!this.contieneNumero(this.claveOld)) {
+      this.flag = false;
+      this.msj = "La contraseña debe poseer un número";
+      this.presentAlert(this.msj);
+    } else if (!this.contieneCaracterEspecial(this.claveOld)) {
+      this.flag = false;
+      this.msj = "La contraseña debe poseer un carácter especial";
+      this.presentAlert(this.msj);
+    } else if (this.claveOld.length <= 8) {
+      this.flag = false;
+      this.msj = "La contraseña debe tener al menos 8 caracteres de longitud";
       this.presentAlert(this.msj);
     }
-
   }
 
-  claveNuevaValida(){
-    if(this.contieneMayuscula(this.claveNueva) === true){
-      
-      if(this.contieneMinuscula(this.claveNueva) === true){
-
-        if(this.contieneNumero(this.claveNueva) === true){
-
-          if(this.contieneCaracterEspecial(this.claveNueva) === true){
-
-            if(this.claveNueva.length <= 8){
-              this.flag = false;
-              this.msj="La contraseña debe tener al menos 8 carácteres de longitud";
-              this.presentAlert(this.msj);
-            } else if(this.claveOld === this.claveNueva){
-              this.flag = false;
-              this.msj="La contraseña nueva no puede ser igual a la antigua";
-              this.presentAlert(this.msj);
-            }
-
-          } else{
-            this.flag = false;
-            this.msj="La contraseña debe poseer un carácter especial";
-            this.presentAlert(this.msj);
-          }
-
-        } else{
-          this.flag = false;
-          this.msj="La contraseña debe poseer un número";
-          this.presentAlert(this.msj);
-        }
-
-      } else{
-        this.flag = false;
-        this.msj="La contraseña debe poseer una minúscula";
-        this.presentAlert(this.msj);
-      }
-
-    } else{
+  claveNuevaValida() {
+    if (!this.contieneMayuscula(this.claveNueva)) {
       this.flag = false;
-      this.msj="La contraseña debe poseer una mayúscula";
+      this.msj = "La contraseña debe poseer una mayúscula";
+      this.presentAlert(this.msj);
+    } else if (!this.contieneMinuscula(this.claveNueva)) {
+      this.flag = false;
+      this.msj = "La contraseña debe poseer una minúscula";
+      this.presentAlert(this.msj);
+    } else if (!this.contieneNumero(this.claveNueva)) {
+      this.flag = false;
+      this.msj = "La contraseña debe poseer un número";
+      this.presentAlert(this.msj);
+    } else if (!this.contieneCaracterEspecial(this.claveNueva)) {
+      this.flag = false;
+      this.msj = "La contraseña debe poseer un carácter especial";
+      this.presentAlert(this.msj);
+    } else if (this.claveNueva.length <= 8) {
+      this.flag = false;
+      this.msj = "La contraseña debe tener al menos 8 caracteres de longitud";
       this.presentAlert(this.msj);
     }
-
   }
 
   claveRepValid(){
