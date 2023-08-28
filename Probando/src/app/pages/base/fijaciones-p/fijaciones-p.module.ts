@@ -4,17 +4,17 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { SeguridadPPageRoutingModule } from './seguridad-p-routing.module';
+import { FijacionesPPageRoutingModule } from './fijaciones-p-routing.module';
 
-import { SeguridadPPage } from './seguridad-p.page';
+import { FijacionesPPage } from './fijaciones-p.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    SeguridadPPageRoutingModule
+    FijacionesPPageRoutingModule
   ],
-  declarations: [SeguridadPPage]
+  declarations: [FijacionesPPage]
 })
-export class SeguridadPPageModule {}
+export class FijacionesPPageModule {}

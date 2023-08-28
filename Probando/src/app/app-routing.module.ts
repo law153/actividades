@@ -57,17 +57,9 @@ const routes: Routes = [
     loadChildren: () => import('./pages/base/electricidad-p/electricidad-p.module').then( m => m.ElectricidadPPageModule)
   },
   {
-    path: 'seguridad-p',
-    loadChildren: () => import('./pages/base/seguridad-p/seguridad-p.module').then( m => m.SeguridadPPageModule)
-  },
-  {
     path: 'herramientas-p',
     loadChildren: () => import('./pages/base/herramientas-p/herramientas-p.module').then( m => m.HerramientasPPageModule)
   },  
-  {
-    path: '**',
-    loadChildren: () => import('./pages/not-found/not-found.module').then( m => m.NotFoundPageModule)
-  },
   {
     path: 'olv-contra',
     loadChildren: () => import('./pages/base/olv-contra/olv-contra.module').then( m => m.OlvContraPageModule)
@@ -167,7 +159,8 @@ const routes: Routes = [
   {
     path: 'listado-pedido',
     loadChildren: () => import('./pages/admin/listado-pedido/listado-pedido.module').then( m => m.ListadoPedidoPageModule)
-  },  {
+  },
+  {
     path: 'pedido',
     loadChildren: () => import('./pages/admin/pedido/pedido.module').then( m => m.PedidoPageModule)
   },
@@ -214,6 +207,14 @@ const routes: Routes = [
   {
     path: 'electricidad-p-adm',
     loadChildren: () => import('./pages/admin/electricidad-p-adm/electricidad-p-adm.module').then( m => m.ElectricidadPAdmPageModule)
+  },
+  {
+    path: 'fijaciones-p',
+    loadChildren: () => import('./pages/base/fijaciones-p/fijaciones-p.module').then( m => m.FijacionesPPageModule)
+  },
+  {
+    path: '**',
+    loadChildren: () => import('./pages/not-found/not-found.module').then( m => m.NotFoundPageModule)
   },
 
 

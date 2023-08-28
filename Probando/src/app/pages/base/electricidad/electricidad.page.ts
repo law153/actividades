@@ -10,20 +10,26 @@ import { MenuController } from '@ionic/angular';
 export class ElectricidadPage implements OnInit {
 
   constructor(private menuCtrl: MenuController, private router: Router) { }
-  //Funciones de menu
-  abrirSuperior(){
-    this.menuCtrl.enable(true, 'superior');
-    this.menuCtrl.open('superior');
-  }
+    
+    //Funciones de menu
+    abrirSuperior(){
+      this.menuCtrl.enable(true, 'superior');
+      this.menuCtrl.open('superior');
+    }
 
-  abrirCategorias(){
-    this.menuCtrl.enable(true, 'categorias');
-    this.menuCtrl.open('categorias');
-  }
+    abrirCategorias(){
+      this.menuCtrl.enable(true, 'categorias');
+      this.menuCtrl.open('categorias');
+    }
 
-  irHome(){
-    this.router.navigate([''])    
-  }
+    irHome(){
+      this.router.navigate([''])    
+    }
+
+    //De categoria
+    irProducto(){
+      this.router.navigate(['/electricidad-p'])   
+    }
 
   ngOnInit() {
   }

@@ -16,72 +16,75 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">registrarse</ion-title>
-    </ion-toolbar>
-  </ion-header>
 
   <ion-grid>
+    <div>
+      <ion-row>
+        <ion-col>
+          <h1 class="nombre-pag">Registro</h1>
+        </ion-col>
+      </ion-row>
+    </div>
+
     <div class="contenedor-form">
       <ion-row>
         <ion-col>
-          <ion-input labelPlacement="stacked" label="Rut" placeholder="Rut"></ion-input>
+          <ion-input labelPlacement="stacked" label="Rut" type="text" placeholder="Rut" [(ngModel)]="rut"  maxlength="8" ></ion-input>
         </ion-col>
           
   
         <ion-col>
-          <ion-input labelPlacement="stacked" label="Dvrut" placeholder="Dvrut"></ion-input>
+          <ion-input labelPlacement="stacked" label="Dvrut" type="text" placeholder="Dvrut" [(ngModel)]="dvrut"  maxlength="1"></ion-input>
         </ion-col>
       </ion-row>
   
       <ion-row>
         <ion-col>
-          <ion-input labelPlacement="stacked" label="Nombre" placeholder="Nombre"></ion-input>
+          <ion-input labelPlacement="stacked" label="Nombre" placeholder="Nombre" [(ngModel)]="nombre" maxlength="15"></ion-input>
         </ion-col>
         
       </ion-row>
       
       <ion-row>
         <ion-col>
-          <ion-input labelPlacement="stacked" label="Apellido" placeholder="Apellido"></ion-input>
+          <ion-input labelPlacement="stacked" label="Apellido" placeholder="Apellido" [(ngModel)]="apellido" maxlength="15"></ion-input>
         </ion-col>
       </ion-row>
         
       <ion-row>
         <ion-col>
-          <ion-input labelPlacement="stacked" label="Teléfono" type="tel" placeholder="Teléfono"></ion-input>
+          <ion-input labelPlacement="stacked" label="Teléfono" type="tel" placeholder="Teléfono" [(ngModel)]="fono" (ionInput)="onInput($event)"  #ionInputEl maxlength="8"></ion-input>
         </ion-col>
       </ion-row>
   
       <ion-row>
         <ion-col>
-          <ion-input labelPlacement="stacked" label="Dirección" placeholder="Dirección"></ion-input>
+          <ion-input labelPlacement="stacked" label="Dirección" placeholder="Dirección" [(ngModel)]="direc" maxlength="20"></ion-input>
         </ion-col>
       </ion-row>
         
       <ion-row>
         <ion-col>
-          <ion-input labelPlacement="stacked" label="Correo" type="email" placeholder="Correo"></ion-input>
+          <ion-input labelPlacement="stacked" label="Correo1" type="email" placeholder="Correo" [(ngModel)]="correo" maxlength="30"></ion-input>
         </ion-col>
       </ion-row>
         
       <ion-row>
         <ion-col>
-          <ion-input labelPlacement="stacked" label="Clave" type="password" placeholder="Clave"></ion-input>
+          <ion-input labelPlacement="stacked" label="Clave1" type="password" placeholder="Clave" [(ngModel)]="clave" maxlength="10"></ion-input>
         </ion-col>
       </ion-row>
         
       <ion-row>
         <ion-col>
-          <ion-input labelPlacement="stacked" label="Clave" type="password" placeholder="Repita su clave"></ion-input>
+          <ion-input labelPlacement="stacked" label="Clave2" type="password" placeholder="Repita su clave" [(ngModel)]="claveRep" maxlength="10"></ion-input>
         </ion-col>
       </ion-row>
         
       <ion-row>
         <ion-col>
-          <ion-select labelPlacement="stacked" label="Pregunta de Seguridad">
-            <ion-select-option value="pregunta1">Nombre de tu mascota</ion-select-option>
+          <ion-select labelPlacement="stacked" label="Pregunta de Seguridad" [(ngModel)]="pregunta">
+            <ion-select-option value="pregunta1" selected>Nombre de tu mascota</ion-select-option>
             <ion-select-option value="pregunta2">Color favorito</ion-select-option>
             <ion-select-option value="pregunta3">Lugar de nacimiento</ion-select-option>
           </ion-select>
@@ -90,13 +93,13 @@
   
       <ion-row>
         <ion-col>
-          <ion-input labelPlacement="stacked" label="Respuesta" placeholder="Respuesta"></ion-input>
+          <ion-input labelPlacement="stacked" label="Respuesta" placeholder="Respuesta" [(ngModel)]="respuesta" maxlength="30"></ion-input>
         </ion-col>
       </ion-row>  
 
       <ion-row>
         <ion-col>
-          <ion-button shape="round"> Confirmar </ion-button>
+          <ion-button shape="round" (click)="envioValido()"> Confirmar </ion-button>
         </ion-col>
 
         <ion-col>
@@ -104,6 +107,8 @@
         </ion-col>
       </ion-row>
     </div>
+
+    
         
   </ion-grid>
 

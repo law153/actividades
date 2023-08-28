@@ -1,13 +1,60 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>ini-sesion</ion-title>
+<ion-header [translucent]="true" class="cabecera">
+  <div class="logo-contenedor">
+    <ion-img src="/assets/logo.png" alt="No hay logo"></ion-img>
+  </div>
+
+  <ion-toolbar color="paleta" class="toolbar-c">
+    <ion-buttons slot="end" class="boton-guesa">
+      <ion-menu-button (click)="abrirSuperior()"></ion-menu-button>
+    </ion-buttons>
+
+    <ion-title class="titulo" (click)="irHome()">
+      Ivan's
+    </ion-title>
+
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">ini-sesion</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content [fullscreen]="true" class="content-fondo">
+  <ion-grid>
+    <div>
+      <ion-row>
+        <ion-col>
+          <h1 class="nombre-pag">Inicio de Sesión</h1>
+        </ion-col>
+      </ion-row>
+    </div>
+
+    <div class="contenedor-form">
+      <ion-row>
+        <ion-col>
+          <ion-input labelPlacement="stacked" label="Correo" type="email" placeholder="Correo" [(ngModel)]="correo"></ion-input>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-input labelPlacement="stacked" label="Clave" type="password" placeholder="Clave" [(ngModel)]="clave"></ion-input>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <p style="text-align: center; text-decoration: underline; font-weight: bold;" (click)="irOlvContra()"> Olvide mi contraseña</p>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-button shape="round" (click)="iniciarSesion()"> Confirmar </ion-button>
+        </ion-col>
+
+        <ion-col>
+          <ion-button shape="round"> Limpiar </ion-button>
+        </ion-col>
+      </ion-row>
+
+    </div>
+
+  </ion-grid>
 </ion-content>
