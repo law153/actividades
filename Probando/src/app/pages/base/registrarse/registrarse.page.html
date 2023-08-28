@@ -29,7 +29,7 @@
     <div class="contenedor-form">
       <ion-row>
         <ion-col>
-          <ion-input labelPlacement="stacked" label="Rut" type="text" placeholder="Rut" [(ngModel)]="rut"  maxlength="8" ></ion-input>
+          <ion-input labelPlacement="stacked" label="Rut" type="text" placeholder="sin puntos" [(ngModel)]="rut"  maxlength="8" ></ion-input>
         </ion-col>
           
   
@@ -53,31 +53,31 @@
         
       <ion-row>
         <ion-col>
-          <ion-input labelPlacement="stacked" label="Teléfono" type="tel" placeholder="Teléfono" [(ngModel)]="fono" (ionInput)="onInput($event)"  #ionInputEl maxlength="8"></ion-input>
+          <ion-input labelPlacement="stacked" label="Teléfono" type="tel" placeholder="Sin +56 9" [(ngModel)]="fono" (ionInput)="onInput($event)"  #ionInputEl maxlength="8"></ion-input>
         </ion-col>
       </ion-row>
   
       <ion-row>
         <ion-col>
-          <ion-input labelPlacement="stacked" label="Dirección" placeholder="Dirección" [(ngModel)]="direc" maxlength="20"></ion-input>
+          <ion-input labelPlacement="stacked" label="Dirección" placeholder="Necesita mayuscula y números" [(ngModel)]="direc" maxlength="20"></ion-input>
         </ion-col>
       </ion-row>
         
       <ion-row>
         <ion-col>
-          <ion-input labelPlacement="stacked" label="Correo1" type="email" placeholder="Correo" [(ngModel)]="correo" maxlength="30"></ion-input>
+          <ion-input labelPlacement="stacked" label="Correo" type="email" placeholder="Correo" [(ngModel)]="correo" maxlength="30"></ion-input>
         </ion-col>
       </ion-row>
         
       <ion-row>
         <ion-col>
-          <ion-input labelPlacement="stacked" label="Clave1" type="password" placeholder="Clave" [(ngModel)]="clave" maxlength="10"></ion-input>
+          <ion-input labelPlacement="stacked" label="Clave" type="password" placeholder="Clave" [(ngModel)]="clave" maxlength="10"></ion-input>
         </ion-col>
       </ion-row>
         
       <ion-row>
         <ion-col>
-          <ion-input labelPlacement="stacked" label="Clave2" type="password" placeholder="Repita su clave" [(ngModel)]="claveRep" maxlength="10"></ion-input>
+          <ion-input labelPlacement="stacked" label="Repita su clave" type="password" placeholder="Repita su clave" [(ngModel)]="claveRep" maxlength="10"></ion-input>
         </ion-col>
       </ion-row>
         
