@@ -48,11 +48,19 @@ export class ContactanosCliPage implements OnInit {
   }
 
   nombreValido(){
+    if(this.nombre.length <= 1){
+      this.flag = false;
+      this.msj="El nombre debe tener al menos dos carácteres";
+      this.presentAlert(this.msj);
+    }
+
     if(this.contieneCaracterEspecial(this.nombre) === true){
       this.flag = false;
       this.msj="Un nombre no contiene carácteres especiales";
       this.presentAlert(this.msj);
-    } else if(this.contieneNumero(this.nombre) === true){
+    }
+
+    if(this.contieneNumero(this.nombre) === true){
       this.flag = false;
       this.msj="Un nombre no contiene números";
       this.presentAlert(this.msj);
