@@ -54,15 +54,11 @@ export class ContactanosPage implements OnInit {
       this.flag = false;
       this.msj="El nombre debe tener al menos dos carácteres";
       this.presentAlert(this.msj);
-    }
-
-    if(this.contieneCaracterEspecial(this.nombre) === true){
+    } else if(this.contieneCaracterEspecial(this.nombre) === true){
       this.flag = false;
       this.msj="Un nombre no contiene carácteres especiales";
       this.presentAlert(this.msj);
-    }
-
-    if(this.contieneNumero(this.nombre) === true){
+    } else if(this.contieneNumero(this.nombre) === true){
       this.flag = false;
       this.msj="Un nombre no contiene números";
       this.presentAlert(this.msj);

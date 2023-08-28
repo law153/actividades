@@ -50,7 +50,7 @@ export class OlvContraPage implements OnInit {
     this.preguntaValida();
     this.respuestaValida();
     if(this.flag === true){
-      this.irRestablecerContra();
+      this.router.navigate(['/restablecer-contra']);
     }
   }
 
