@@ -1,13 +1,64 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>fijaciones_p</ion-title>
+<ion-header [translucent]="true" class="cabecera">
+  
+  <div class="logo-contenedor">
+    <ion-img src="/assets/logo.png" alt="No hay logo"></ion-img>
+  </div>
+  <ion-toolbar color="paleta" class="toolbar-c"> 
+    
+    <ion-buttons slot="end" class="boton-guesa">
+      <ion-menu-button (click)="abrirSuperior()"></ion-menu-button>
+    </ion-buttons>
+    <ion-title class="titulo" (click)="irHome()">
+     
+      Ivan's
+    </ion-title>
   </ion-toolbar>
+  
+  <div class="categorias">
+    <ion-button (click)="abrirCategorias()" fill="clear">Categorias</ion-button>
+  </div>
+
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">fijaciones_p</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content [fullscreen]="true" class="cuerpo">
+
+  
+  <ion-grid class="contenido">
+    
+    <ion-row>
+      <ion-col>
+        <h1 class="nombre-pag">Pestillo para puerta generico</h1>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <div class="contenedor-imagen">
+          <ion-img src="/assets/imagen.jpg" alt="No hay imagen :c"></ion-img>
+        </div>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col class="contenedor-desc">
+        <p class="desc">Pestillo de metal negro generico para puertas, 4 tornillos</p>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <h2 class="precio">$5.000</h2>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col class="contenedor-boton">
+        <ion-button>Comprar</ion-button>
+      </ion-col>
+    </ion-row>
+
+
+  </ion-grid>
+
+
 </ion-content>
