@@ -8,12 +8,15 @@ import { EditarRolPageRoutingModule } from './editar-rol-routing.module';
 
 import { EditarRolPage } from './editar-rol.page';
 
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    EditarRolPageRoutingModule
+    EditarRolPageRoutingModule,
+    MatSlideToggleModule
   ],
   declarations: [EditarRolPage]
 })
