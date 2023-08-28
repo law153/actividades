@@ -5,7 +5,7 @@ import { MenuController } from '@ionic/angular';
 @Component({
   selector: 'app-herramientas-cli-p',
   templateUrl: './herramientas-p-cli.page.html',
-  styleUrls: ['./herramientas-cli-p.page.scss'],
+  styleUrls: ['./herramientas-p-cli.page.scss'],
 })
 export class HerramientasCliPPage implements OnInit {
 
