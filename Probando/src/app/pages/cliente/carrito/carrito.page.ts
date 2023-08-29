@@ -11,6 +11,7 @@ export class CarritoPage implements OnInit {
   cantidad: string = "5";
   flag: boolean = true;
   msj: string = "";
+  total: string= "5000";
 
   constructor(private router: Router,private menuCtrl: MenuController, private alerta: AlertController) { }
 

@@ -9,6 +9,8 @@ import { MenuController } from '@ionic/angular';
 })
 export class ElectricidadCliPage implements OnInit {
 
+  nombreProd: string = "Baterias Alcalinas";
+  precio: string = "1000";
   constructor(private menuCtrl: MenuController, private router: Router) { }
     
     //Funciones de menu

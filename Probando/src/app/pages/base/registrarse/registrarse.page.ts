@@ -39,6 +39,21 @@ export class RegistrarsePage implements OnInit {
     this.menuCtrl.open('categorias');
   }
 
+  limpiar(){
+    this.rut= "";
+    this.dvrut = "";
+    this.nombre = "";
+    this.apellido ="";
+    this.fono = "";
+    this.direc ="";
+    this.correo ="";
+    this.clave ="";
+    this.claveRep ="";
+    this.pregunta ="";
+    this.respuesta ="";
+
+  }
+
   //Validaciones
 
 
