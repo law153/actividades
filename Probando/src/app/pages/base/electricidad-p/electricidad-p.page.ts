@@ -25,6 +25,10 @@ export class ElectricidadPPage implements OnInit {
     this.router.navigate([''])    
   }
 
+  comprar(){
+    this.router.navigate(['ini-sesion']);
+  }
+
   ngOnInit() {
   }
 

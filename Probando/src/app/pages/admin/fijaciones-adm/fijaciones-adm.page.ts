@@ -25,6 +25,10 @@ export class FijacionesAdmPage implements OnInit {
     this.router.navigate(['home-adm'])    
   }
 
+  irProducto(){
+    this.router.navigate(['fijaciones-adm-p']);
+  }
+
   ngOnInit() {
   }
 

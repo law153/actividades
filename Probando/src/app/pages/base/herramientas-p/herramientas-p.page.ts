@@ -29,6 +29,10 @@ export class HerramientasPPage implements OnInit {
   irHome(){
     this.router.navigate([''])    
   }
+
+  comprar(){
+    this.router.navigate(['ini-sesion']);
+  }
   
   ngOnInit() {
   }

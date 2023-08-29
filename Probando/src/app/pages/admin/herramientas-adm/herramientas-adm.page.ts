@@ -25,6 +25,10 @@ export class HerramientasAdmPage implements OnInit {
     this.router.navigate(['home-adm'])    
   }
 
+  irProducto(){
+    this.router.navigate(['herramientas-p-adm']);
+  }
+
   ngOnInit() {
   }
 

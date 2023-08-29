@@ -24,6 +24,10 @@ export class FijacionesPPage implements OnInit {
   irHome(){
     this.router.navigate([''])  
   }
+  
+  comprar(){
+    this.router.navigate(['ini-sesion']);
+  }
 
   ngOnInit() {
   }

@@ -25,6 +25,10 @@ export class ElectricidadAdmPage implements OnInit {
     this.router.navigate(['home-adm'])    
   }
 
+  irProducto(){
+    this.router.navigate(['electricidad-p-adm']);
+  }
+
   ngOnInit() {
   }
 

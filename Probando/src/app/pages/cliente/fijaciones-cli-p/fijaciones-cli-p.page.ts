@@ -22,7 +22,10 @@ export class FijacionesCliPPage implements OnInit {
   }
 
   irHomeCli(){
-    this.router.navigate(['home-cli'])  
+    this.router.navigate(['home-cli']);
+  }
+  comprar(){
+    this.router.navigate(['carrito']);
   }
 
   ngOnInit() {

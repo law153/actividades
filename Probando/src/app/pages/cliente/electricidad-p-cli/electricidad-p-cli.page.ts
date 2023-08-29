@@ -24,6 +24,9 @@ export class ElectricidadCliPPage implements OnInit {
   irHomeCli(){
     this.router.navigate(['home-cli'])  
   }
+  comprar(){
+    this.router.navigate(['carrito']);
+  }
 
   ngOnInit() {
   }

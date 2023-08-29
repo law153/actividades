@@ -43,7 +43,7 @@ export class ElectricidadAdmPPage implements OnInit {
     this.medidaValido;
     this.categoriaValido();
     if(this.flag === true){
-      this.msj="Producto agregado correctamente";
+      this.msj="Producto editado correctamente";
       this.presentAlert(this.msj);
       this.irHomeAdm();
     } 
