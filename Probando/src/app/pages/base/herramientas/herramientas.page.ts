@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, NavigationExtras } from '@angular/router';
 import { MenuController } from '@ionic/angular';
 
 @Component({
@@ -11,6 +11,7 @@ export class HerramientasPage implements OnInit {
 
   constructor(private menuCtrl: MenuController, private router: Router) { }
 
+    nombreProd: string = "Desatornillador cruz decker";
     //Funciones de menu
     abrirSuperior(){
       this.menuCtrl.enable(true, 'superior');
@@ -28,7 +29,12 @@ export class HerramientasPage implements OnInit {
 
     //De categoria
     irProducto(){
-      this.router.navigate(['/herramientas-p'])   
+      let NavigationsExtra: NavigationExtras = {
+        state: {
+          nombreEnviar: this.nombreProd
+        }
+      };
+      this.router.navigate(['/herramientas-p'], NavigationsExtra)   
     }
 
   ngOnInit() {

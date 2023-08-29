@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MenuController } from '@ionic/angular';
 
 @Component({
@@ -8,8 +8,12 @@ import { MenuController } from '@ionic/angular';
   styleUrls: ['./herramientas-p.page.scss'],
 })
 export class HerramientasPPage implements OnInit {
-
-  constructor(private menuCtrl: MenuController, private router: Router) { }
+  nombreProd: string="";
+  constructor(private menuCtrl: MenuController, private router: Router, private activeRouter: ActivatedRoute) { this.activeRouter.queryParams.subscribe(param => {
+    if(this.router.getCurrentNavigation()?.extras.state){
+      this.nombreProd = this.router.getCurrentNavigation()?.extras?.state?.["nombreEnviar"];
+    }
+  })}
 
   //Funciones de menu
   abrirSuperior(){
