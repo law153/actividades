@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { AlertController, MenuController } from '@ionic/angular';
 
 @Component({
@@ -8,12 +8,20 @@ import { AlertController, MenuController } from '@ionic/angular';
   styleUrls: ['./carrito.page.scss'],
 })
 export class CarritoPage implements OnInit {
-  cantidad: string = "5";
+  cantidad: string = "1";
   flag: boolean = true;
   msj: string = "";
   total: string= "5000";
-
-  constructor(private router: Router,private menuCtrl: MenuController, private alerta: AlertController) { }
+  nombreProd: string="Producto ejemplo";
+  precioProd: string="1000";
+  imgProd: string="/assets/imagen.jpg";
+  constructor(private router: Router,private menuCtrl: MenuController, private alerta: AlertController, private activeRouter: ActivatedRoute) { this.activeRouter.queryParams.subscribe(param => {
+    if(this.router.getCurrentNavigation()?.extras.state){
+      this.nombreProd = this.router.getCurrentNavigation()?.extras?.state?.["nombreEnviar"];
+      this.precioProd = this.router.getCurrentNavigation()?.extras?.state?.["precioEnviar"];
+      this.imgProd = this.router.getCurrentNavigation()?.extras?.state?.["imgEnviar"];
+    }
+  }) }
 
   irHomeCli(){
     this.router.navigate(['home-cli'])    

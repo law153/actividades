@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, NavigationExtras } from '@angular/router';
 import { MenuController } from '@ionic/angular';
 
 @Component({
@@ -8,7 +8,9 @@ import { MenuController } from '@ionic/angular';
   styleUrls: ['./herramientas-p-cli.page.scss'],
 })
 export class HerramientasCliPPage implements OnInit {
-
+  nombreProd: string = "Desatornillador de cruz Decker";
+  precioProd: string = "13000";
+  imgProd: string= "/assets/destornillador.jpg";
   constructor(private menuCtrl: MenuController, private router: Router) { }
 
   abrirSuperior(){
@@ -25,7 +27,14 @@ export class HerramientasCliPPage implements OnInit {
     this.router.navigate(['home-cli'])  
   }
   comprar(){
-    this.router.navigate(['carrito']);
+    let NavigationsExtra: NavigationExtras = {
+      state: {
+        nombreEnviar: this.nombreProd,
+        precioEnviar: this.precioProd,
+        imgEnviar: this.imgProd
+      }
+    };
+    this.router.navigate(['carrito'], NavigationsExtra);
   }
 
   ngOnInit() {

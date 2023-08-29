@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, NavigationExtras } from '@angular/router';
 import { MenuController } from '@ionic/angular';
 
 @Component({
@@ -8,6 +8,9 @@ import { MenuController } from '@ionic/angular';
   styleUrls: ['./fijaciones-cli-p.page.scss'],
 })
 export class FijacionesCliPPage implements OnInit {
+  nombreProd: string = "Pestillo para puerta generico";
+  precioProd: string = "5000";
+  imgProd: string= "/assets/pestillo.jpg";
 
   constructor(private menuCtrl: MenuController, private router: Router) { }
 
@@ -25,7 +28,14 @@ export class FijacionesCliPPage implements OnInit {
     this.router.navigate(['home-cli']);
   }
   comprar(){
-    this.router.navigate(['carrito']);
+    let NavigationsExtra: NavigationExtras = {
+      state: {
+        nombreEnviar: this.nombreProd,
+        precioEnviar: this.precioProd,
+        imgEnviar: this.imgProd
+      }
+    };
+    this.router.navigate(['carrito'], NavigationsExtra);
   }
 
   ngOnInit() {

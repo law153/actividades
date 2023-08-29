@@ -38,7 +38,7 @@
     </ion-row>
     <br>
     
-    <app-prod-carrito nombreProd="Gato" precioProd="1000" imagenProd="/assets/imagen.jpg" cantidadProd="{{cantidad}}"></app-prod-carrito>
+    <app-prod-carrito nombreProd="{{nombreProd}}" precioProd="{{precioProd}}" imagenProd="{{imgProd}}" cantidadProd="{{cantidad}}"></app-prod-carrito>
     
 
     <ion-row>
@@ -46,7 +46,7 @@
         <h2>Monto total: </h2>
       </ion-col>
       <ion-col class="monto">
-        <h2>{{total | currency:'$':true:'4.0-0'}}</h2>
+        <h2>{{precioProd | currency:'$':true:'4.0-0'}}</h2>
       </ion-col>
     </ion-row>
 

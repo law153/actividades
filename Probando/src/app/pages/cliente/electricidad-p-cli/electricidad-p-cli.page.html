@@ -27,14 +27,14 @@
     
     <ion-row>
       <ion-col>
-        <h1 class="nombre-pag">Baterias Alcalinas</h1>
+        <h1 class="nombre-pag">{{nombreProd}}</h1>
       </ion-col>
     </ion-row>
 
     <ion-row>
       <ion-col>
         <div class="contenedor-imagen">
-          <ion-img src="/assets/Bateria.jpg" alt="No hay imagen :c"></ion-img>
+          <ion-img [src]="imgProd" alt="No hay imagen :c"></ion-img>
         </div>
       </ion-col>
     </ion-row>
@@ -47,7 +47,7 @@
 
     <ion-row>
       <ion-col>
-        <h2 class="precio">$15.000</h2>
+        <h2 class="precio">{{precioProd | currency:'$':true:'4.0-0'}}</h2>
       </ion-col>
     </ion-row>
 
