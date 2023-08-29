@@ -95,3 +95,22 @@
     --background: #fff;
   
 }
+
+.subir-imagen{
+  margin-block-end: 1.5vh;
+  --background: #ff0;
+  --border-color: #000;
+  border-style: solid;
+  border-width: 2px;
+  --color: #000;
+  margin-left: 105px;
+
+  label{
+      margin-inline-end: 1vh;
+  }
+}
+
+#inputInvis{
+  position: absolute;
+  opacity: 0;
+}
