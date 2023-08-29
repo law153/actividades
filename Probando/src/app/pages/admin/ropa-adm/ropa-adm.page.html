@@ -1,13 +1,54 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>ropa_adm</ion-title>
+<ion-header [translucent]="true" class="cabecera">
+  
+  <div class="logo-contenedor">
+    <ion-img src="/assets/logo.png" alt="No hay logo"></ion-img>
+  </div>
+  <ion-toolbar color="paleta" class="toolbar-c"> 
+    
+    <ion-buttons slot="end" class="boton-guesa">
+      <ion-menu-button (click)="abrirSuperior()"></ion-menu-button>
+    </ion-buttons>
+    <ion-title class="titulo" (click)="irHomeAdm()">
+     
+      Ivan's
+    </ion-title>
   </ion-toolbar>
+  
+  <div class="categorias">
+    <ion-button (click)="abrirCategorias()" fill="clear">Categorias</ion-button>
+  </div>
+
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">ropa_adm</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content [fullscreen]="true" class="cuerpo">
+
+  
+  <ion-grid class="contenido">
+    
+    <ion-row>
+      <ion-col>
+        <h1 class="nombre-pag">Ropa</h1>
+      </ion-col>
+    </ion-row>
+
+    
+    <ion-row>
+      <ion-col>
+        <div class="contenedor-prod">
+          <h2>Guantes de malla Bauker</h2>
+
+          <div class="contenedor-imagen">
+            <ion-img src="/assets/guante.jpg" alt="No hay imagen :c"></ion-img>
+          </div>
+
+          <h3>$9.990</h3>
+          
+          <ion-button>Ir</ion-button>
+        </div>
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
+
+
 </ion-content>
