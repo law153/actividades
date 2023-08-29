@@ -37,15 +37,11 @@
         <th>Editar</th>
       </tr>
 
-      <tr>
-        <td>1</td>
-        <td>Abel</td>
-        <td><mat-slide-toggle></mat-slide-toggle></td>
-      </tr>
-      <tr>
-        <td>2</td>
-        <td>Sus</td>
-        <td><mat-slide-toggle></mat-slide-toggle></td>
+      <tr *ngFor="let user of usuarios">
+        <td>{{user.id}}</td>
+        <td>{{user.nombre}}</td>
+        <td *ngIf="(user.nombre === 'Pedro')"><mat-slide-toggle checked></mat-slide-toggle></td>
+        <td *ngIf="(user.nombre != 'Pedro')"><mat-slide-toggle></mat-slide-toggle></td>
       </tr>
 
     </table>

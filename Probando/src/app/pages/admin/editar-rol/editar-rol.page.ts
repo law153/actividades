@@ -9,6 +9,8 @@ import { MenuController } from '@ionic/angular';
 })
 export class EditarRolPage implements OnInit {
 
+  usuarios =[{id: '1', nombre: 'Javier'},{id:'2', nombre: 'Pedro'}];
+
   constructor(private menuCtrl: MenuController, private router: Router) { }
 
   abrirSuperior(){
