@@ -16,6 +16,7 @@ export class Pagina1Page implements OnInit {
   apellido: string = "";
   nivelEdu: string = "";
   fechaNac: string = "";
+  variableStorage: any = "";
 
   //Variables de alerta
   cabezera: string ="Tus datos";
@@ -55,6 +56,7 @@ export class Pagina1Page implements OnInit {
   }
 
   ngOnInit() {
+    this.variableStorage = localStorage.getItem('token');
   }
 
 }
