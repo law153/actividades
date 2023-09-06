@@ -32,17 +32,25 @@
           <ion-input labelPlacement="stacked" label="Rut" type="text" placeholder="sin puntos" [(ngModel)]="rut"  maxlength="8" ></ion-input>
         </ion-col>
           
-  
+
         <ion-col>
           <ion-input labelPlacement="stacked" label="Dvrut" type="text" placeholder="Dvrut" [(ngModel)]="dvrut"  maxlength="1"></ion-input>
         </ion-col>
+
+      </ion-row>
+
+      <ion-row>
+        <ion-col><pre class="validacion">{{msjRut}}</pre></ion-col>
       </ion-row>
   
       <ion-row>
         <ion-col>
           <ion-input labelPlacement="stacked" label="Nombre" placeholder="Nombre" [(ngModel)]="nombre" maxlength="15"></ion-input>
         </ion-col>
-        
+      </ion-row>
+
+      <ion-row>
+        <ion-col><p class="validacion">{{msjNombre}}</p></ion-col>
       </ion-row>
       
       <ion-row>
@@ -50,11 +58,19 @@
           <ion-input labelPlacement="stacked" label="Apellido" placeholder="Apellido" [(ngModel)]="apellido" maxlength="15"></ion-input>
         </ion-col>
       </ion-row>
+
+      <ion-row>
+        <ion-col><p class="validacion">{{msjApellido}}</p></ion-col>
+      </ion-row>
         
       <ion-row>
         <ion-col>
           <ion-input labelPlacement="stacked" label="Teléfono" type="tel" placeholder="Sin +56 9" [(ngModel)]="fono" (ionInput)="onInput($event)"  #ionInputEl maxlength="8"></ion-input>
         </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col><p class="validacion">{{msjFono}}</p></ion-col>
       </ion-row>
   
       <ion-row>
@@ -62,11 +78,19 @@
           <ion-input labelPlacement="stacked" label="Dirección" placeholder="Necesita mayuscula y números" [(ngModel)]="direc" maxlength="20"></ion-input>
         </ion-col>
       </ion-row>
+
+      <ion-row>
+        <ion-col><p class="validacion">{{msjDirec}}</p></ion-col>
+      </ion-row>
         
       <ion-row>
         <ion-col>
           <ion-input labelPlacement="stacked" label="Correo" type="email" placeholder="Correo" [(ngModel)]="correo" maxlength="30"></ion-input>
         </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col><p class="validacion">{{msjCorreo}}</p></ion-col>
       </ion-row>
         
       <ion-row>
@@ -74,11 +98,19 @@
           <ion-input labelPlacement="stacked" label="Clave" type="password" placeholder="Clave" [(ngModel)]="clave" maxlength="10"></ion-input>
         </ion-col>
       </ion-row>
+
+      <ion-row>
+        <ion-col><p class="validacion">{{msjClave}}</p></ion-col>
+      </ion-row>
         
       <ion-row>
         <ion-col>
           <ion-input labelPlacement="stacked" label="Repita su clave" type="password" placeholder="Repita su clave" [(ngModel)]="claveRep" maxlength="10"></ion-input>
         </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col><p class="validacion">{{msjRepClave}}</p></ion-col>
       </ion-row>
         
       <ion-row>
@@ -90,20 +122,28 @@
           </ion-select>
         </ion-col>
       </ion-row>
+
+      <ion-row>
+        <ion-col><p class="validacion">{{msjPreg}}</p></ion-col>
+      </ion-row>
   
       <ion-row>
         <ion-col>
           <ion-input labelPlacement="stacked" label="Respuesta" placeholder="Respuesta" [(ngModel)]="respuesta" maxlength="30"></ion-input>
         </ion-col>
-      </ion-row>  
+      </ion-row>
+      
+      <ion-row>
+        <ion-col><p class="validacion">{{msjResp}}</p></ion-col>
+      </ion-row>
 
       <ion-row>
         <ion-col>
-          <ion-button shape="round" (click)="envioValido()"> Confirmar </ion-button>
+          <ion-button shape="round" (click)="limpiar()"> Limpiar </ion-button>
         </ion-col>
 
         <ion-col>
-          <ion-button shape="round" (click)="limpiar()"> Limpiar </ion-button>
+          <ion-button shape="round" (click)="envioValido()"> Confirmar </ion-button>
         </ion-col>
       </ion-row>
     </div>
