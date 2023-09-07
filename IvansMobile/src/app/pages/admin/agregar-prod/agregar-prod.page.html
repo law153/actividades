@@ -45,7 +45,9 @@
         <ion-col>
           <ion-input labelPlacement="stacked" label="Nombre" type="text" placeholder="Nombre" minheight="10" maxheigth="30" [(ngModel)]="nombre"></ion-input>
         </ion-col>
-        
+      </ion-row>
+      <ion-row>
+        <ion-col><pre class="validacion">{{msjNombre}}</pre></ion-col>
       </ion-row>
 
       <ion-row>
@@ -61,17 +63,27 @@
           </ion-select>
         </ion-col>
       </ion-row>
+
+      <ion-row>
+        <ion-col><pre class="validacion">{{msjCate}}</pre></ion-col>
+      </ion-row>
       
       <ion-row>
         <ion-col>
           <ion-textarea labelPlacement="stacked" label="Descripcion" type="text" placeholder="Descripcion" minlength="30" maxlength="200" [(ngModel)]="desc"></ion-textarea>
         </ion-col>
       </ion-row>
+      <ion-row>
+        <ion-col><pre class="validacion">{{msjDesc}}</pre></ion-col>
+      </ion-row>
         
       <ion-row>
         <ion-col>
           <ion-input labelPlacement="stacked" label="Precio" type="text" placeholder="Precio" minlength="4" [(ngModel)]="precio"></ion-input>
         </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col><pre class="validacion">{{msjPrecio}}</pre></ion-col>
       </ion-row>
         
       <ion-row>
@@ -88,14 +100,21 @@
           </ion-select>
         </ion-col>
       </ion-row>
+
+      <ion-row>
+        <ion-col><pre class="validacion">{{msjMedida}}</pre></ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col><pre class="validacion">{{msjStock}}</pre></ion-col>
+      </ion-row>
   
       <ion-row>
         <ion-col>
-          <ion-button shape="round" (click)="envioValido()"> Agregar </ion-button>
-        </ion-col>
-  
-        <ion-col>
           <ion-button shape="round"> Limpiar </ion-button>
+        </ion-col>
+        <ion-col>
+          <ion-button shape="round" (click)="envioValido()"> Agregar </ion-button>
         </ion-col>
       </ion-row>
     </div>

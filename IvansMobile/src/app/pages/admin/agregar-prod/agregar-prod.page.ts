@@ -8,6 +8,13 @@ import { AlertController, MenuController, ToastController } from '@ionic/angular
   styleUrls: ['./agregar-prod.page.scss'],
 })
 export class AgregarProdPage implements OnInit {
+  msjNombre: string = "";
+  msjDesc: string = "";
+  msjPrecio: string = "";
+  msjStock: string = "";
+  msjMedida: string = "";
+  msjCate: string = "";
+
   nombre: string = "";
   desc: string = "";
   precio: string="";
@@ -40,7 +47,7 @@ export class AgregarProdPage implements OnInit {
     this.descValida();
     this.precioValido();
     this.stockValido();
-    this.medidaValido;
+    this.medidaValido();
     this.categoriaValido();
     if(this.flag === true){
       this.msj="Producto agregado correctamente";
@@ -51,62 +58,89 @@ export class AgregarProdPage implements OnInit {
 
 
   nombreValido(){
-    if(this.primerCaracterEsMayus(this.nombre) ){
-      this.flag = false;
-      this.msj="La primera letra del nombre debe ser mayuscula";
-      this.presentAlert(this.msj);
-    } else if(this.nombre.length <= 9){
-      this.flag = false;
-      this.msj="La longitud del nombre debe ser mayor a 10 caracteres";
-      this.presentAlert(this.msj);
-    }
+    this.msjNombre = "";
+
+      if(this.nombre.length === 0){
+        this.flag = false;
+        this.msjNombre="Debe llenar este campo";
+      } else{
+
+        if(this.primerCaracterEsMayus(this.nombre) ){
+          this.flag = false;
+          this.msjNombre+="La primera letra del nombre debe ser\n mayuscula"+"\n";
+
+        }
+        if(this.nombre.length <= 9){
+          this.flag = false;
+          this.msjNombre+="La longitud del nombre debe ser \nmayor a 10 caracteres"+"\n";
+        }
+      }
   }
 
   descValida(){
-    if(this.primerCaracterEsMayus(this.desc) ){
-      this.flag = false;
-      this.msj="La primera letra de la descripción debe ser mayuscula";
-      this.presentAlert(this.msj);
-    } else if(this.desc.length <= 9){
-      this.flag = false;
-      this.msj="La longitud de la descripción debe ser mayor a 10 caracteres";
-      this.presentAlert(this.msj);
-    }
+    this.msjDesc = "";
+
+      if(this.desc.length === 0){
+        this.flag = false;
+        this.msjDesc="Debe llenar este campo";
+      } else{
+        if(this.primerCaracterEsMayus(this.desc) ){
+          this.flag = false;
+          this.msjDesc+="La primera letra de la descripción debe ser\n mayuscula"+"\n";
+        } else if(this.desc.length <= 9){
+          this.flag = false;
+          this.msjDesc+="La longitud de la descripción debe ser \nmayor a 10 caracteres"+"\n";
+        }
+      }
   }
 
   precioValido(){
-    if(this.SoloNumeros(this.precio)){
-      this.flag = false;
-      this.msj="El precio debe estar compuesto solo de números";
-      this.presentAlert(this.msj);
-    } else if(parseInt(this.precio) <= 0){
-      this.flag = false;
-      this.msj="El precio no puede ser igual o menor a 0";
-      this.presentAlert(this.msj);
-    }
+    this.msjPrecio = "";
+
+      if(this.precio.length === 0){
+        this.flag = false;
+        this.msjPrecio="Debe llenar este campo";
+      }else{
+        if(this.SoloNumeros(this.precio)){
+          this.flag = false;
+          this.msjPrecio+="El precio debe estar compuesto solo de números"+"\n";
+        } else if(parseInt(this.precio) <= 0){
+          this.flag = false;
+          this.msjPrecio+="El precio no puede ser igual o menor a 0"+"\n";
+        }
+      }
   }
 
   stockValido(){
-    if(this.stock <= 0){
-      this.flag = false;
-      this.msj="El stock no puede ser igual o menor a 0";
-      this.presentAlert(this.msj);
-    }
+    this.msjStock = "";
+
+      if(String(this.stock).length === 0){
+        this.flag = false;
+        this.msjStock="Debe llenar este campo";
+      } else{
+        if(this.stock <= 0){
+          this.flag = false;
+          this.msjStock+="El stock no puede ser igual o menor a 0"+"\n";
+        }
+      }
   }
 
   medidaValido(){
+    this.msjMedida = "";
+
     if(this.medida.length === 0){
       this.flag = false;
-      this.msj="Debe seleccionar una unidad de medida";
-      this.presentAlert(this.msj);
+      this.msjMedida+="Debe seleccionar una unidad de medida"+"\n";
     }
+      
   }
 
   categoriaValido(){
+    this.msjCate = "";
+
     if(this.medida.length === 0){
       this.flag = false;
-      this.msj="Debe seleccionar una categoría";
-      this.presentAlert(this.msj);
+      this.msjCate+="Debe seleccionar una categoría"+"\n";
     }
   }
 
