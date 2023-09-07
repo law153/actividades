@@ -8,6 +8,11 @@ import { AlertController, MenuController } from '@ionic/angular';
   styleUrls: ['./olv-contra.page.scss'],
 })
 export class OlvContraPage implements OnInit {
+  msjRut: string = "";
+  msjPreg: string = "";
+  msjResp: string = "";
+
+
   rut: string = "";
   dvrut: string = "";
   pregunta: string = "";
@@ -55,40 +60,46 @@ export class OlvContraPage implements OnInit {
   }
 
   rutValido(){
-    if(this.SoloNumeros(this.rut) === false ){
-      this.flag = false;
-      this.msj="El rut se compone solo de números";
-      this.presentAlert(this.msj);
+    this.msjRut = "";
 
-    }else if(this.SoloNumerosOk(this.dvrut) === false){
-
+    if(this.rut.length === 0 || this.dvrut.length === 0){
       this.flag = false;
-      this.msj="El digito verificador solo se compone de números o k";
-      this.presentAlert(this.msj);
+      this.msjRut+="Debe llenar estos campos";
+    } else{
 
-    } else if(this.validarRut(this.rut, this.dvrut) === false){
-      this.flag = false;
-      this.msj="Rut invalido";
-      this.presentAlert(this.msj);
+    
+      if(this.SoloNumeros(this.rut) === false ){
+        this.flag = false;
+        this.msjRut+="El rut se compone solo de números "+"\n";
+      }
+      if(this.SoloNumerosOk(this.dvrut) === false){
+        this.flag = false;
+        this.msjRut+="El digito verificador solo se compone de números o k"+"\n";
+      }
+      if(this.validarRut(this.rut, this.dvrut) === false){
+        this.flag = false;
+        this.msjRut+="Rut invalido"+"\n";
+      }
 
     }
-
   
   }
 
   preguntaValida(){
+    this.msjPreg = "";
     if(this.pregunta.length === 0){
       this.flag = false;
-      this.msj="No ha seleccionado ninguna pregunta";
-      this.presentAlert(this.msj);
+      this.msjPreg="No ha seleccionado ninguna pregunta";
+      ;
     }
   }
 
   respuestaValida(){
+    this.msjResp = "";
     if(this.respuesta.length === 0){
       this.flag = false;
-      this.msj="No puede dejar la respuesta vacía";
-      this.presentAlert(this.msj);
+      this.msjResp="No puede dejar la respuesta vacía";
+      ;
     }
   }
 

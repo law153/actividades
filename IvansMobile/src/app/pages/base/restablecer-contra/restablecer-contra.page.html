@@ -31,11 +31,19 @@
           <ion-input labelPlacement="stacked" label="Clave Nueva" type="password" placeholder="Clave" [(ngModel)]="clave" maxlength="10"></ion-input>
         </ion-col>
       </ion-row>
+
+      <ion-row>
+        <ion-col><pre class="validacion">{{msjClave}}</pre></ion-col>
+      </ion-row>
     
       <ion-row>
         <ion-col>
           <ion-input labelPlacement="stacked" label="Repetir Clave Nueva" type="password" placeholder="Clave" [(ngModel)]="claveRep" maxlength="10"></ion-input>
         </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col><pre class="validacion">{{msjRepClave}}</pre></ion-col>
       </ion-row>
 
       <ion-row>

@@ -38,6 +38,10 @@
       </ion-row>
 
       <ion-row>
+        <ion-col><pre class="validacion">{{msjRut}}</pre></ion-col>
+      </ion-row>
+
+      <ion-row>
         <ion-col>
           <ion-select labelPlacement="stacked" label="Pregunta de Seguridad" [(ngModel)]="pregunta">
             <ion-select-option value="pregunta1">Nombre de tu mascota</ion-select-option>
@@ -46,12 +50,20 @@
           </ion-select>
         </ion-col>
       </ion-row>
+
+      <ion-row>
+        <ion-col><pre class="validacion">{{msjPreg}}</pre></ion-col>
+      </ion-row>
   
       <ion-row>
         <ion-col>
           <ion-input labelPlacement="stacked" label="Respuesta" placeholder="Respuesta" [(ngModel)]="respuesta"></ion-input>
         </ion-col>
       </ion-row>  
+
+      <ion-row>
+        <ion-col><pre class="validacion">{{msjResp}}</pre></ion-col>
+      </ion-row>
 
       <ion-row>
         <ion-col style="text-align: center;">

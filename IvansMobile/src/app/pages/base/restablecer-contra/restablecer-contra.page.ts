@@ -13,6 +13,9 @@ export class RestablecerContraPage implements OnInit {
   flag: boolean=true;
   msj: string = "";
 
+  msjClave: string = "";
+  msjRepClave: string = "";
+
   constructor(private menuCtrl: MenuController, private router: Router, private alerta: AlertController) { }
 
   irHome(){
@@ -52,34 +55,51 @@ export class RestablecerContraPage implements OnInit {
   }
 
   claveValida() {
-    if (!this.contieneMayuscula(this.clave)) {
+    this.msjClave="";
+    if(this.clave.length === 0){
       this.flag = false;
-      this.msj = "La contraseña debe poseer una mayúscula";
-      this.presentAlert(this.msj);
-    } else if (!this.contieneMinuscula(this.clave)) {
-      this.flag = false;
-      this.msj = "La contraseña debe poseer una minúscula";
-      this.presentAlert(this.msj);
-    } else if (!this.contieneNumero(this.clave)) {
-      this.flag = false;
-      this.msj = "La contraseña debe poseer un número";
-      this.presentAlert(this.msj);
-    } else if (!this.contieneCaracterEspecial(this.clave)) {
-      this.flag = false;
-      this.msj = "La contraseña debe poseer un carácter especial";
-      this.presentAlert(this.msj);
-    } else if (this.clave.length <= 8) {
-      this.flag = false;
-      this.msj = "La contraseña debe tener al menos 8 caracteres de longitud";
-      this.presentAlert(this.msj);
+      this.msjClave="Debe llenar este campo";
+    } else{
+
+      if (!this.contieneMayuscula(this.clave)) {
+        this.flag = false;
+        this.msjClave += "La contraseña debe poseer una mayúscula"+"\n";
+      }
+      if (!this.contieneMinuscula(this.clave)) {
+        this.flag = false;
+        this.msjClave += "La contraseña debe poseer una minúscula"+"\n";
+        
+      }
+      if (!this.contieneNumero(this.clave)) {
+        this.flag = false;
+        this.msjClave += "La contraseña debe poseer un número"+"\n";
+        
+      }
+      if (!this.contieneCaracterEspecial(this.clave)) {
+        this.flag = false;
+        this.msjClave += "La contraseña debe poseer un carácter especial"+"\n";
+        
+      }
+      if (this.clave.length <= 8) {
+        this.flag = false;
+        this.msjClave += "La contraseña debe tener al menos 8 caracteres de \nlongitud"+"\n";
+      
+      }
+
     }
   }
 
   claveRepValid(){
-    if(this.claveRep != this.clave){
+    this.msjRepClave = "";
+    if(this.claveRep.length === 0){
       this.flag = false;
-      this.msj="La contraseña no se ha repetido correctamente";
-      this.presentAlert(this.msj);
+      this.msjRepClave="Debe llenar este campo";
+    } else{
+      if(this.claveRep != this.clave){
+        this.flag = false;
+        this.msjRepClave+="La contraseña no se ha repetido correctamente"+"\n";
+        
+      }
     }
   }
 

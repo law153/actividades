@@ -114,9 +114,6 @@ export class RegistrarsePage implements OnInit {
       }
 
     }
-
-
-
   
   }
 
@@ -126,22 +123,22 @@ export class RegistrarsePage implements OnInit {
 
     if(this.nombre.length === 0){
       this.flag = false;
-      this.msjNombre+="Debe llenar este campo";
+      this.msjNombre="Debe llenar este campo";
     } else{
 
       if(this.primerCaracterEsMayus(this.nombre) === false){
         this.flag = false;
-        this.msjNombre="La primera letra de su nombre debe ser mayúscula";
+        this.msjNombre+="La primera letra de su nombre debe ser mayúscula"+"\n";
 
       }
       if(this.contieneNumero(this.nombre) === true){ 
         this.flag = false;
-        this.msjNombre="Un nombre no debe contener números";
+        this.msjNombre+="Un nombre no debe contener números"+"\n";
         
       }
       if(this.contieneCaracterEspecial(this.nombre)){
         this.flag = false;
-        this.msjNombre="Un nombre no debe contener carácteres especiales";
+        this.msjNombre+="Un nombre no debe contener carácteres especiales"+"\n";
         
       }
     }
@@ -154,20 +151,20 @@ export class RegistrarsePage implements OnInit {
 
     if(this.apellido.length === 0){
       this.flag = false;
-      this.msjApellido+="Debe llenar este campo";
+      this.msjApellido="Debe llenar este campo";
     } else{
 
       if(this.primerCaracterEsMayus(this.apellido) === false){
         this.flag = false;
-        this.msjApellido="La primera letra de su apellido debe ser mayúscula";
+        this.msjApellido+="La primera letra de su apellido debe ser mayúscula"+"\n";
         
       } else if(this.contieneNumero(this.apellido) === true){ 
         this.flag = false;
-        this.msjApellido="Un apellido no debe contener números";
+        this.msjApellido+="Un apellido no debe contener números"+"\n";
         
       } else if(this.tieneCaracteresApellido(this.apellido) == true){
         this.flag = false;
-        this.msjApellido="Un apellido no debe contener carácteres especiales";
+        this.msjApellido+="Un apellido no debe contener carácteres especiales"+"\n";
         
       }
     }
@@ -189,12 +186,12 @@ export class RegistrarsePage implements OnInit {
 
     if(this.fono.length === 0){
       this.flag = false;
-      this.msjFono+="Debe llenar este campo";
+      this.msjFono="Debe llenar este campo";
     } else{
 
       if(this.fono.length < 8){
         this.flag = false;
-        this.msjFono="El teléfono debe ser de 8 números";
+        this.msjFono+="El teléfono debe ser de 8 números"+"\n";
       }
 
     }
@@ -207,11 +204,11 @@ export class RegistrarsePage implements OnInit {
 
     if(this.correo.length === 0){
       this.flag = false;
-      this.msjCorreo+="Debe llenar este campo";
+      this.msjCorreo="Debe llenar este campo";
     } else{
       if(this.esCorreoValido(this.correo) === false){
         this.flag = false;
-        this.msjCorreo="Su correo no es valido";
+        this.msjCorreo+="Su correo no es valido"+"\n";
         ;
       }
     }
@@ -224,16 +221,16 @@ export class RegistrarsePage implements OnInit {
 
     if(this.direc.length === 0){
       this.flag = false;
-      this.msjDirec+="Debe llenar este campo";
+      this.msjDirec="Debe llenar este campo";
     } else{
       if(this.primerCaracterEsMayus(this.direc) === false){
         this.flag = false;
-        this.msjDirec="Su dirección debe comenzar con una mayúscula";
+        this.msjDirec+="Su dirección debe comenzar con una mayúscula"+"\n";
         
       }
       if(this.contieneNumero(this.direc) === false){
         this.flag = false;
-        this.msjDirec="Su dirección debe contener un número";
+        this.msjDirec+="Su dirección debe contener un número"+"\n";
         
       }
     }
@@ -244,31 +241,31 @@ export class RegistrarsePage implements OnInit {
     this.msjClave="";
     if(this.clave.length === 0){
       this.flag = false;
-      this.msjClave+="Debe llenar este campo";
+      this.msjClave="Debe llenar este campo";
     } else{
 
       if (!this.contieneMayuscula(this.clave)) {
         this.flag = false;
-        this.msjClave = "La contraseña debe poseer una mayúscula";
+        this.msjClave += "La contraseña debe poseer una mayúscula"+"\n";
       }
       if (!this.contieneMinuscula(this.clave)) {
         this.flag = false;
-        this.msjClave = "La contraseña debe poseer una minúscula";
+        this.msjClave += "La contraseña debe poseer una minúscula"+"\n";
         
       }
       if (!this.contieneNumero(this.clave)) {
         this.flag = false;
-        this.msjClave = "La contraseña debe poseer un número";
+        this.msjClave += "La contraseña debe poseer un número"+"\n";
         
       }
       if (!this.contieneCaracterEspecial(this.clave)) {
         this.flag = false;
-        this.msjClave = "La contraseña debe poseer un carácter especial";
+        this.msjClave += "La contraseña debe poseer un carácter especial"+"\n";
         
       }
       if (this.clave.length <= 8) {
         this.flag = false;
-        this.msjClave = "La contraseña debe tener al menos 8 caracteres de longitud";
+        this.msjClave += "La contraseña debe tener al menos 8 caracteres de  longitud"+"\n";
       
       }
 
@@ -276,14 +273,14 @@ export class RegistrarsePage implements OnInit {
   }
 
   claveRepValid(){
-    this.msjRepClave;
+    this.msjRepClave = "";
     if(this.claveRep.length === 0){
       this.flag = false;
-      this.msjRepClave+="Debe llenar este campo";
+      this.msjRepClave="Debe llenar este campo";
     } else{
       if(this.claveRep != this.clave){
         this.flag = false;
-        this.msjRepClave="La contraseña no se ha repetido correctamente";
+        this.msjRepClave+="La contraseña no se ha repetido correctamente"+"\n";
         
       }
     }
