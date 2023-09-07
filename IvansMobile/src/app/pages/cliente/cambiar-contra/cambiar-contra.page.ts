@@ -14,6 +14,10 @@ export class CambiarContraPage implements OnInit {
   flag: boolean=true;
   msj: string = "";
 
+  msjClave: string = "";
+  msjRepClave: string = "";
+  msjClaveOld: string = "";
+
   constructor(private router: Router,private menuCtrl: MenuController, private alerta: AlertController) { }
 
   irHomeCli(){
@@ -39,7 +43,6 @@ export class CambiarContraPage implements OnInit {
 
   //Validaciones
   envioValido(){
-    this.claveOldValida();
     this.claveNuevaValida();
     this.claveRepValid();
     if(this.flag === true){
@@ -48,59 +51,52 @@ export class CambiarContraPage implements OnInit {
     }
   }
 
-  claveOldValida() {
-    if (!this.contieneMayuscula(this.claveOld)) {
-      this.flag = false;
-      this.msj = "La contraseña debe poseer una mayúscula";
-      this.presentAlert(this.msj);
-    } else if (!this.contieneMinuscula(this.claveOld)) {
-      this.flag = false;
-      this.msj = "La contraseña debe poseer una minúscula";
-      this.presentAlert(this.msj);
-    } else if (!this.contieneNumero(this.claveOld)) {
-      this.flag = false;
-      this.msj = "La contraseña debe poseer un número";
-      this.presentAlert(this.msj);
-    } else if (!this.contieneCaracterEspecial(this.claveOld)) {
-      this.flag = false;
-      this.msj = "La contraseña debe poseer un carácter especial";
-      this.presentAlert(this.msj);
-    } else if (this.claveOld.length <= 8) {
-      this.flag = false;
-      this.msj = "La contraseña debe tener al menos 8 caracteres de longitud";
-      this.presentAlert(this.msj);
-    }
-  }
-
   claveNuevaValida() {
-    if (!this.contieneMayuscula(this.claveNueva)) {
+    this.msjClave="";
+    if(this.claveNueva.length === 0){
       this.flag = false;
-      this.msj = "La contraseña debe poseer una mayúscula";
-      this.presentAlert(this.msj);
-    } else if (!this.contieneMinuscula(this.claveNueva)) {
-      this.flag = false;
-      this.msj = "La contraseña debe poseer una minúscula";
-      this.presentAlert(this.msj);
-    } else if (!this.contieneNumero(this.claveNueva)) {
-      this.flag = false;
-      this.msj = "La contraseña debe poseer un número";
-      this.presentAlert(this.msj);
-    } else if (!this.contieneCaracterEspecial(this.claveNueva)) {
-      this.flag = false;
-      this.msj = "La contraseña debe poseer un carácter especial";
-      this.presentAlert(this.msj);
-    } else if (this.claveNueva.length <= 8) {
-      this.flag = false;
-      this.msj = "La contraseña debe tener al menos 8 caracteres de longitud";
-      this.presentAlert(this.msj);
+      this.msjClave="Debe llenar este campo";
+    } else{
+
+      if (!this.contieneMayuscula(this.claveNueva)) {
+        this.flag = false;
+        this.msjClave += "La contraseña debe poseer una mayúscula"+"\n";
+      }
+      if (!this.contieneMinuscula(this.claveNueva)) {
+        this.flag = false;
+        this.msjClave += "La contraseña debe poseer una minúscula"+"\n";
+        
+      }
+      if (!this.contieneNumero(this.claveNueva)) {
+        this.flag = false;
+        this.msjClave += "La contraseña debe poseer un número"+"\n";
+        
+      }
+      if (!this.contieneCaracterEspecial(this.claveNueva)) {
+        this.flag = false;
+        this.msjClave += "La contraseña debe poseer un carácter especial"+"\n";
+        
+      }
+      if (this.claveNueva.length <= 8) {
+        this.flag = false;
+        this.msjClave += "La contraseña debe tener al menos 8 caracteres de \nlongitud"+"\n";
+      
+      }
+
     }
   }
 
   claveRepValid(){
-    if(this.claveRep != this.claveNueva){
+    this.msjRepClave = "";
+    if(this.claveRep.length === 0){
       this.flag = false;
-      this.msj="La contraseña no se ha repetido correctamente";
-      this.presentAlert(this.msj);
+      this.msjRepClave="Debe llenar este campo";
+    } else{
+      if(this.claveRep != this.claveNueva){
+        this.flag = false;
+        this.msjRepClave+="La contraseña no se ha repetido correctamente"+"\n";
+        
+      }
     }
   }
 

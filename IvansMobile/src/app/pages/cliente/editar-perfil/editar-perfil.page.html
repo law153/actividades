@@ -57,9 +57,17 @@
       </ion-row>
 
       <ion-row>
+        <ion-col><pre class="validacion">{{msjNombre}}</pre></ion-col>
+      </ion-row>
+
+      <ion-row>
         <ion-col>
           <ion-input labelPlacement="stacked" label="Apellido" type="text" placeholder="Apellido" [(ngModel)]="apellido" maxlength="15"></ion-input> 
         </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col><pre class="validacion">{{msjApellido}}</pre></ion-col>
       </ion-row>
 
       <ion-row>
@@ -73,9 +81,17 @@
       </ion-row>
 
       <ion-row>
+        <ion-col><pre class="validacion">{{msjRut}}</pre></ion-col>
+      </ion-row>
+
+      <ion-row>
         <ion-col>
           <ion-input labelPlacement="stacked" label="Teléfono" type="text" placeholder="Teléfono" [(ngModel)]="fono" (ionInput)="onInput($event)"  #ionInputEl maxlength="8"></ion-input>
         </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col><pre class="validacion">{{msjFono}}</pre></ion-col>
       </ion-row>
 
       <ion-row>
@@ -85,9 +101,17 @@
       </ion-row>
 
       <ion-row>
+        <ion-col><pre class="validacion">{{msjDirec}}</pre></ion-col>
+      </ion-row>
+
+      <ion-row>
         <ion-col>
           <ion-input labelPlacement="stacked" label="Correo" type="email" placeholder="Correo" placeholder="Correo" [(ngModel)]="correo" maxlength="30"></ion-input>
         </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col><pre class="validacion">{{msjCorreo}}</pre></ion-col>
       </ion-row>
 
       <ion-row>
@@ -101,22 +125,32 @@
       </ion-row>
 
       <ion-row>
+        <ion-col><pre class="validacion">{{msjPreg}}</pre></ion-col>
+      </ion-row>
+
+      <ion-row>
         <ion-col>
           <ion-input labelPlacement="stacked" label="Respuesta" type="text" placeholder="Respuesta" [(ngModel)]="respuesta" maxlength="30"></ion-input>
         </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col><pre class="validacion">{{msjResp}}</pre></ion-col>
       </ion-row>
 
     </div>
 
     <div class="contenedor-botones">
       <ion-row>
-        <ion-col>
-          <ion-button shape="round" (click)="envioValido()"> Guardar </ion-button>
-        </ion-col>
 
         <ion-col>
           <ion-button shape="round" > Eliminar Cuenta </ion-button>
         </ion-col>
+
+        <ion-col>
+          <ion-button shape="round" (click)="envioValido()"> Guardar </ion-button>
+        </ion-col>
+        
       </ion-row>
     </div>
   </ion-grid>

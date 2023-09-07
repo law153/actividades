@@ -265,7 +265,7 @@ export class RegistrarsePage implements OnInit {
       }
       if (this.clave.length <= 8) {
         this.flag = false;
-        this.msjClave += "La contraseña debe tener al menos 8 caracteres de  longitud"+"\n";
+        this.msjClave += "La contraseña debe tener al menos 8 caracteres de \nlongitud"+"\n";
       
       }
 

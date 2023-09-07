@@ -8,6 +8,12 @@ import { AlertController, MenuController } from '@ionic/angular';
   styleUrls: ['./contactanos-cli.page.scss'],
 })
 export class ContactanosCliPage implements OnInit {
+
+  msjNombre: string = "";
+  msjAsunto: string = "";
+  msjCuerpo: string = "";
+
+
   nombre: string ="";
   asunto: string= "";
   cuerpo: string="";
@@ -48,38 +54,39 @@ export class ContactanosCliPage implements OnInit {
   }
 
   nombreValido(){
+    this.msjNombre = "";
     if(this.nombre.length <= 1){
       this.flag = false;
-      this.msj="El nombre debe tener al menos dos carácteres";
-      this.presentAlert(this.msj);
-    }
+      this.msjNombre+="El nombre debe tener al menos dos carácteres"+"\n";
 
+    }
     if(this.contieneCaracterEspecial(this.nombre) === true){
       this.flag = false;
-      this.msj="Un nombre no contiene carácteres especiales";
-      this.presentAlert(this.msj);
-    }
+      this.msjNombre+="Un nombre no contiene carácteres especiales"+"\n";
 
+    }
     if(this.contieneNumero(this.nombre) === true){
       this.flag = false;
-      this.msj="Un nombre no contiene números";
-      this.presentAlert(this.msj);
+      this.msjNombre+="Un nombre no contiene números"+"\n";
+
     }
   }
 
   asuntoValido(){
+    this.msjAsunto = "";
     if(this.asunto.length <= 9){
       this.flag = false;
-      this.msj="El asunto debe tener al menos 10 caracteres";
-      this.presentAlert(this.msj);
+      this.msjAsunto="El asunto debe tener al menos 10 caracteres";
+
     }
   }
 
   cuerpoValido(){
+    this.msjCuerpo = "";
     if(this.cuerpo.length <= 49){
       this.flag = false;
-      this.msj="El asunto debe tener al menos 50 caracteres";
-      this.presentAlert(this.msj);
+      this.msjCuerpo="El cuerpo debe tener al menos 50 caracteres";
+
     }
   }
 

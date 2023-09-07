@@ -49,9 +49,17 @@
       </ion-row>
 
       <ion-row>
+        <ion-col><pre class="validacion">{{msjNombre}}</pre></ion-col>
+      </ion-row>
+
+      <ion-row>
         <ion-col>
           <ion-input labelPlacement="stacked" label="Asunto" placeholder="Asunto" minlength="10" maxlength="50" [(ngModel)]="asunto"></ion-input>
         </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col><pre class="validacion">{{msjAsunto}}</pre></ion-col>
       </ion-row>
 
       <ion-row>
@@ -61,13 +69,19 @@
       </ion-row>
 
       <ion-row>
-        <ion-col>
-          <ion-button shape="round" (click)="envioValido()"> Enviar </ion-button>
-        </ion-col>
+        <ion-col><pre class="validacion">{{msjCuerpo}}</pre></ion-col>
+      </ion-row>
+
+      <ion-row>
 
         <ion-col>
           <ion-button shape="round" (click)="limpiar()"> Limpiar </ion-button>
         </ion-col>
+
+        <ion-col>
+          <ion-button shape="round" (click)="envioValido()"> Enviar </ion-button>
+        </ion-col>
+        
       </ion-row>
 
     </div>
