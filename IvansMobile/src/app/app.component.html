@@ -12,34 +12,34 @@
 
     <ion-content class="superior-cuerpo">
       <ion-list class="enlaces-supe">
-        <ion-item>
-          <ion-label (click)="irContactanos()">Contactanos</ion-label>
+        <ion-item *ngIf="(variableStorage === null || variableStorage === '' )">
+          <ion-label (click)="irContactanos()">Contactanos  {{variableStorage}}</ion-label>
         </ion-item>
-        <ion-item>
+        <ion-item *ngIf="(variableStorage === null || variableStorage === '')">
           <ion-label (click)="irRegistro()">Registrarse</ion-label>
         </ion-item>
-        <ion-item>
+        <ion-item *ngIf="(variableStorage === null || variableStorage === '')">
           <ion-label (click)="irIni()">Iniciar sesión</ion-label>
         </ion-item>
-        <ion-item>
+        <ion-item *ngIf="(variableStorage === '1' || variableStorage === '2')">
           <ion-label (click)="irPerfil()">Perfil</ion-label>
         </ion-item>
-        <ion-item>
-          <ion-label (click)="irContactanosCli()">Contactanos</ion-label>
+        <ion-item *ngIf="(variableStorage === '1')">
+          <ion-label  (click)="irContactanosCli()">Contactanos</ion-label>
         </ion-item>
-        <ion-item>
+        <ion-item *ngIf="(variableStorage === '1')">
           <ion-label (click)="irCarrito()">Carrito</ion-label>
         </ion-item>
-        <ion-item>
+        <ion-item *ngIf="(variableStorage === '2')">
           <ion-label (click)="irRoles()">Editar rol</ion-label>
         </ion-item>
-        <ion-item>
+        <ion-item *ngIf="(variableStorage === '2')">
           <ion-label (click)="irPedidos()">Listado pedido</ion-label>
         </ion-item>
-        <ion-item>
+        <ion-item *ngIf="(variableStorage === '2')">
           <ion-label (click)="irConsultas()">Consultas</ion-label>
         </ion-item>
-        <ion-item >
+        <ion-item *ngIf="(variableStorage === '1' || variableStorage === '2')">
           <ion-label (click)="cerrarSesion()">Cerrar Sesión</ion-label>
         </ion-item>
       </ion-list>
@@ -82,13 +82,13 @@
           <ion-item>
             <ion-label (click)="irKits()">Kits</ion-label>
           </ion-item>
-          <ion-item>
+          <ion-item *ngIf="(variableStorage === '1')">
             <ion-label (click)="irProdCli()">Producto cliente</ion-label>
           </ion-item>
-          <ion-item>
+          <ion-item *ngIf="(variableStorage === '2')">
             <ion-label (click)="irProdAdm()">Producto admin</ion-label>
           </ion-item>
-          <ion-item>
+          <ion-item *ngIf="(variableStorage === '2')">
             <ion-label (click)="irAgregar()">Agregar</ion-label>
           </ion-item>
         </ion-list>

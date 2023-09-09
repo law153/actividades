@@ -11,7 +11,6 @@ export class IniSesionPage implements OnInit {
 
   correo: string = "";
   clave: string = "";
-
   constructor(private menuCtrl: MenuController, private router: Router, private alerta: AlertController) { }
 
   irHome(){
@@ -21,8 +20,10 @@ export class IniSesionPage implements OnInit {
   iniciarSesion(){
     if(this.correo === "javicci@gmail.com" && this.clave === "umigod"){
       this.irCli();
+      localStorage.setItem('token', "1");
     } else if(this.correo === "ivan.fuentes@gmail.com" && this.clave === "ivans"){
       this.irAdm();
+      localStorage.setItem('token', "2");
     } else{
       this.presentAlert();
     }

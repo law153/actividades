@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
 
 @Component({
@@ -6,8 +6,11 @@ import { NavigationExtras, Router } from '@angular/router';
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss'],
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
+  variableStorage: any = "";
+
   constructor(private router: Router) {}
+  
 
   //funciones de redirección
 
@@ -37,6 +40,7 @@ export class AppComponent {
     this.router.navigate(['/contactanos-cli']);
   }
   cerrarSesion(){
+    localStorage.setItem('token', "");
     this.router.navigate(['']);
   }
 
@@ -89,6 +93,10 @@ export class AppComponent {
 
   irAgregar(){
     this.router.navigate(['/agregar-prod']);
+  }
+
+  ngOnInit() {
+    this.variableStorage = localStorage.getItem('token');
   }
 
 }
