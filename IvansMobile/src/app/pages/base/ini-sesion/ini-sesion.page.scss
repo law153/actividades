@@ -1,35 +1,6 @@
 
-.contenedor-form{
-    background: #ff0;
-    color: #000;
-    border: 2px solid #000;
-    border-radius: 7px;
-    align-items: center;
-    text-align: left;
-    margin-top: 25%;
-
-    ion-input{
-        font-size: 21px;
-        font-weight: bold;
-        height: 85%;
-        width: 100%;
-        background: #fff;
-        border: 2px solid #000;
-        border-radius: 7px;
-        text-align: left;  
-    }
-
-    ion-button{
-        padding-left: 10%;
-        padding-right: 10%;
-        font-size: 16px;
-        --background: #000;
-        color: #fff;
-        text-align: center;
-    }
 
     p:hover{
         color: #009;
     }
-}
 

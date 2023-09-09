@@ -119,3 +119,39 @@
   color: #a00;
   font-size: 18px;
 }
+
+.contenedor-form{
+  background: #ff0;
+  color: #000;
+  border-radius: 7px;
+  border: 2px solid #000;
+  align-items: center;
+  text-align: left;
+
+  ion-input{
+      font-size: 21px;
+      font-weight: bold;
+      height: 85%;
+      width: 100%;
+      background: #fff;
+      border: 2px solid #000;
+      border-radius: 7px;
+      text-align: left;  
+  }
+
+  ion-select{
+      font-size: 21px;
+      font-weight: bold;
+      height: 85%;
+      width: 100%;
+      text-align: left;
+  }
+
+  ion-button{
+      padding-left: 10%;
+      padding-right: 10%;
+      font-size: 15px;
+      --background: #000;
+      text-align: center;
+  }
+}
