@@ -1,6 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
-import { NavigationExtras, Router } from '@angular/router';
+import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { AlertController, IonInput, MenuController, ToastController } from '@ionic/angular';
+import { DbserviceService } from 'src/app/services/dbservice.service';
 
 @Component({
   selector: 'app-home',
@@ -23,9 +24,19 @@ export class HomePage {
     }
   ];
 
+  nombreRol: string = "";
+  idRol: string = "";
+
   //Constructor
 
-  constructor(private router: Router, private alerta: AlertController, private tostada: ToastController, private menuCtrl: MenuController ) {}
+  constructor(private router: Router, private alerta: AlertController, private menuCtrl: MenuController, private activatedRouter: ActivatedRoute, private bd: DbserviceService ) {
+    this.activatedRouter.queryParams.subscribe(param => {
+      if(this.router.getCurrentNavigation()?.extras.state){
+        this.idRol = this.router.getCurrentNavigation()?.extras?.state?.["idEnviado"];
+        this.nombreRol = this.router.getCurrentNavigation()?.extras?.state?.["nombreEnviado"];
+
+    }})
+  }
   
   //Metodos
 
@@ -73,15 +84,6 @@ export class HomePage {
     await alert.present();
   }
 
-  async presentToast(position: 'top' | 'middle' | 'bottom', mensaje: string) {
-    const toast = await this.tostada.create({
-      message: mensaje,
-      duration: 2000,
-      position: position,
-    });
-
-    await toast.present();
-  }
 
 
 }

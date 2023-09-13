@@ -37,11 +37,11 @@
         <th>Admin</th>
       </tr>
 
-      <tr *ngFor="let user of usuarios">
-        <td>{{user.id}}</td>
-        <td>{{user.nombre}}</td>
-        <td *ngIf="(user.nombre === 'Pedro')"><mat-slide-toggle checked></mat-slide-toggle></td>
-        <td *ngIf="(user.nombre != 'Pedro')"><mat-slide-toggle></mat-slide-toggle></td>
+      <tr *ngFor="let user of roles">
+        <td>{{user.id_rol}}</td>
+        <td>{{user.nombre_rol}}</td>
+        <td *ngIf="(user.nombre_rol === 'cliente')"><mat-slide-toggle (click)="modificar(user)" checked></mat-slide-toggle></td>
+        <td *ngIf="(user.nombre_rol === 'admin')"><mat-slide-toggle (click)="modificar(user)"></mat-slide-toggle></td>
       </tr>
 
     </table>

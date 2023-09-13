@@ -2,8 +2,9 @@
 import { Injectable } from '@angular/core';
 import { SQLiteObject, SQLite } from '@awesome-cordova-plugins/sqlite/ngx';
 import { Platform } from '@ionic/angular';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { AlertController } from '@ionic/angular';
+import { Rol } from './rol';
 @Injectable({
   providedIn: 'root'
 })
@@ -25,21 +26,51 @@ export class DbserviceService {
   //Variables para insert iniciales
   rolCliente: string = "INSERT OR IGNORE INTO rol(id_rol, nombre_rol) VALUES (1, 'Cliente');";
 
-  //Observables 
+  //Observables de tablas 
   listaRol = new BehaviorSubject([]);
 
 
-  //Observable estatus
+  //Observable estatus o de bandera
   private flag: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
   constructor(public base: SQLite, private plataforma: Platform, private alertController: AlertController) {
     this.crearDB();
-   }
+  }
+
+  //Ver el estado de la DB
+  dbState(){
+    return this.flag.asObservable();
+  }
+
+  //Funciones para Selects
+  fetchRol(): Observable<Rol[]>{
+    return this.listaRol.asObservable();
+  }
+
+  buscarRoles(){
+    return this.database.executeSql("SELECT * FROM rol;",[]).then(res =>{
+      //todo bien
+      let items: Rol[] = [];
+      //Validar cantidad registros
+      if(res.rows.length > 0){
+        //Recorrer los datos
+        for(var i = 0; i < res.rows.length; i++ ){
+          //Guardando los datos
+          items.push({ 
+            id_rol_ionic: res.rows.item(i).id_rol,
+            nombre_rol_ionic: res.rows.item(i).nombre_rol });
+        }
+      }
+      this.listaRol.next(items as any);
+
+    })
+  }
+  
 
   crearDB(){
     //Plataforma lista
     this.plataforma.ready().then(()=>{
-
+      //Crear DB
       this.base.create({name: 'ivans.db', location: 'default'
     }).then((db: SQLiteObject)=>{
       this.database = db;
@@ -58,13 +89,17 @@ export class DbserviceService {
 
       //Registros iniciales
       await this.database.executeSql(this.rolCliente,[]);
-
+      //Actualizar el observable bandera
       this.flag.next(true);
+      //Llamar los select
+      this.buscarRoles();
 
     }catch{
       this.presentAlert("Error al crear la base de datos");
     }
   }
+
+
 
 
   async presentAlert(mensaje: string) {
