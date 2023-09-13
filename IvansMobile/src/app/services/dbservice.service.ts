@@ -25,7 +25,7 @@ export class DbserviceService {
   detalleComprado: string ="CREATE TABLE IF NOT EXISTS detalleComprado(idDetalleC INTEGER PRIMARY KEY AUTOINCREMENT, nombreProdC TEXT NOT NULL, fotoProdC BLOB NOT NULL, cantidadC INTEGER NOT NULL, subtotalC INTEGER NOT NULL, ventaC INTEGER NOT NULL, FOREIGN KEY (ventaC) REFERENCES venta(idVenta) );";
 
   //Variables para insert iniciales
-  
+
   //Categorias
   categoriaHerramientas: string = "INSERT OR IGNORE INTO categoria(idCategoria, nombreCategoria) VALUES (1, 'herramientas');";
   categoriaElectricidad: string = "INSERT OR IGNORE INTO categoria(idCategoria, nombreCategoria) VALUES (2, 'electricidad');";
@@ -38,10 +38,15 @@ export class DbserviceService {
   rolCliente: string = "INSERT OR IGNORE INTO rol(id_rol, nombre_rol) VALUES (1, 'cliente');";
   rolAdmin: string = "INSERT OR IGNORE INTO rol(id_rol, nombre_rol) VALUES (2, 'admin');";
   //preguntas
-  preguntaMascota: string = "INSERT OR IGNORE INTO pregunta(idPregunta, nombrePregunta) VALUES (1, '¿Cual es el nombre de tu primera mascota?') ";
-  preguntaCiudad: string = "INSERT OR IGNORE INTO pregunta(idPregunta, nombrePregunta) VALUES (2, '¿Cual es tu ciudad natal?') ";
-  preguntaColor: string = "INSERT OR IGNORE INTO pregunta(idPregunta, nombrePregunta) VALUES (3, '¿Cual es tu color favorito?') ";
-
+  preguntaMascota: string = "INSERT OR IGNORE INTO pregunta(idPregunta, nombrePregunta) VALUES (1, '¿Cual es el nombre de tu primera mascota?'); ";
+  preguntaCiudad: string = "INSERT OR IGNORE INTO pregunta(idPregunta, nombrePregunta) VALUES (2, '¿Cual es tu ciudad natal?'); ";
+  preguntaColor: string = "INSERT OR IGNORE INTO pregunta(idPregunta, nombrePregunta) VALUES (3, '¿Cual es tu color favorito?'); ";
+  //Consultas
+  consultaDefault: string = "INSERT OR IGNORE INTO consulta(idConsulta, nombreConsultante, mensajeConsulta) VALUES (200, 'Alvaro', 'Faltan guitarras');";
+  //Usuarios
+  usuarioClienteDefault: string = "INSERT OR IGNORE INTO usuario(idUsuario, rut, dvrut, nombre, apellido, telefono, correo, clave, direccion, fotoUsuario, respuesta, rolU, preguntaU) VALUES ('200', 11111111, '1', 'Javier', 'Maldonado', '12345678', 'javicci@gmail.com', 'umigod', 'Camarones 1313', '/assets/imagen.jpg', 'Umi', 1, 1);";
+  usuarioAdminDefault: string = "INSERT OR IGNORE INTO usuario(idUsuario, rut, dvrut, nombre, apellido, telefono, correo, clave, direccion, fotoUsuario, respuesta, rolU, preguntaU) VALUES ('201', 22222222, '2', 'Ivan', 'Fuentes', '87654321', 'ivanfuentes@gmail.com', 'ivans', 'Piedra Roja 11', '/assets/imagen.jpg', 'Negro', 2, 3);";
+  
 
 
   //Observables de tablas 
