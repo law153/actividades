@@ -29,7 +29,8 @@ export class HomePage {
 
   //Constructor
 
-  constructor(private router: Router, private alerta: AlertController, private menuCtrl: MenuController, private activatedRouter: ActivatedRoute, private bd: DbserviceService ) {
+  constructor(private router: Router, private alerta: AlertController, private menuCtrl: MenuController, private activatedRouter: ActivatedRoute, private db: DbserviceService ) {
+    //Borrar luego
     this.activatedRouter.queryParams.subscribe(param => {
       if(this.router.getCurrentNavigation()?.extras.state){
         this.idRol = this.router.getCurrentNavigation()?.extras?.state?.["idEnviado"];
@@ -68,21 +69,26 @@ export class HomePage {
     this.menuCtrl.open('categorias');
   }
 
-  //links de superior
-
-
-
-  //Alerta --- Investigar como usar este mismo codigo para mostrar distintas alertas (no copy paste cambiando cosas)
-  async presentAlert(mensaje: string) {
-    const alert = await this.alerta.create({
-      header: 'Alerta',
-      subHeader: 'Mensaje importante',
-      message: mensaje,
-      buttons: ['Vale'],
-    });
-
-    await alert.present();
+  //Borrar luego
+  insertar(){
+    this.db.agregar(this.nombreRol)
+    this.db.presentAlert("Registro Realizado");
+    this.router.navigate(['']);
   }
+
+  editar(){
+    this.db.modificar(this.idRol, this.nombreRol);
+    this.db.presentAlert("Cambio Realizado");
+    this.router.navigate(['']);
+  }
+
+
+  ///En caso de que se generen botones de eliminar con un for
+  borrar(x: any){
+    this.db.eliminar(x.id);
+    this.db.presentAlert("Cambio Realizado");
+  }
+
 
 
 

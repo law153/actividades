@@ -57,12 +57,31 @@ export class DbserviceService {
         for(var i = 0; i < res.rows.length; i++ ){
           //Guardando los datos
           items.push({ 
-            id_rol_ionic: res.rows.item(i).id_rol,
+            idRol: res.rows.item(i).id_rol,
             nombre_rol_ionic: res.rows.item(i).nombre_rol });
         }
       }
       this.listaRol.next(items as any);
 
+    })
+  }
+
+  eliminar(id:any){
+    return this.database.executeSql("DELETE FROM rol WHERE id_rol= ?",[id]).then(res=>{
+      this.buscarRoles();
+
+    })
+  }
+
+  agregar(nombre: any){
+    return this.database.executeSql("INSERT INTO rol(nombre_rol) VALUES(?)",[nombre]).then(res=> {
+      this.buscarRoles(); 
+    })
+  }
+
+  modificar(id: any, nombre: any){
+    return this.database.executeSql("UPDATE rol SET nombre_rol = ? WHERE id_rol = ?",[nombre, id]).then(res =>{
+      this.buscarRoles();
     })
   }
   

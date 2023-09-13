@@ -1,6 +1,6 @@
 export class Rol {
 
-    id_rol_ionic = "";
+    idRol = "";
     nombre_rol_ionic = "";
 
 }
