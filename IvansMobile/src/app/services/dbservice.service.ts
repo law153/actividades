@@ -14,14 +14,15 @@ export class DbserviceService {
   public database!: SQLiteObject;
 
   //Variables de creación de tablas
-  categoria: string = "CREATE TABLE IF NOT EXISTS categoria(id_categoria INTEGER PRIMARY KEY, nombre_categoria TEXT NOT NULL);";
-  rol: string = "CREATE TABLE IF NOT EXISTS rol(id_rol INTEGER PRIMARY KEY, nombre_rol TEXT NOT NULL);";
-  pregunta: string = "CREATE TABLE IF NOT EXISTS pregunta(id_pregunta INTEGER PRIMARY KEY, nombre_pregunta TEXT NOT NULL);";
-  consulta: string = "CREATE TABLE IF NOT EXISTS consulta(id_consulta INTEGER PRIMARY KEY, nombre_consultante TEXT NOT NULL, asunto_consulta TEXT NOT NULL, mensaje_consulta TEXT NOT NULL);";
-  usuario: string = "CREATE TABLE IF NOT EXISTS usuario(id_usuario INTEGER PRIMARY KEY AUTOINCREMENT, rut INTEGER NOT NULL, dvrut CHAR(1) NOT NULL, nombre TEXT NOT NULL, apellido TEXT NOT NULL, telefono INTEGER NOT NULL, correo TEXT NOT NULL, clave TEXT NOT NULL, direccion TEXT NOT NULL, respuesta TEXT NOT NULL, rolU INTEGER NOT NULL, preguntaU INTEGER NOT NULL, FOREIGN KEY (rolU) REFERENCES rol(id_rol), FOREIGN KEY (preguntaU) REFERENCES pregunta(id_pregunta));";
-  producto: string = "CREATE TABLE IF NOT EXISTS producto(cod_prod INTEGER PRIMARY KEY AUTOINCREMENT, nombre_prod TEXT NOT NULL, descripcion TEXT NOT NULL, precio INTEGER NOT NULL, stock INTEGER NOT NULL, foto BLOB NOT NULL, unidad_medida TEXT NOT NULL, categoriaP INTEGER NOT NULL, FOREIGN KEY (categoriaP) REFERENCES categoria(id_categoria));";
-  venta: string = "CREATE TABLE IF NOT EXISTS venta(id_venta INTEGER PRIMARY KEY AUTOINCREMENT, fecha_venta DATE NOT NULL, estado TEXT NOT NULL, fecha_entrega DATE NOT NULL, total INTEGER NOT NULL, carrito CHAR(1), usuarioV INTEGER NOT NULL, FOREIGN KEY (usuarioV) REFERENCES usuario(id_usuario) );";
-  detalle: string= "CREATE TABLE IF NOT EXISTS detalle(id_detalle INTEGER PRIMARY KEY AUTOINCREMENT, cantidad INTEGER NOT NULL, subtotal INTEGER NOT NULL, ventaD INTEGER NOT NULL, productoD INTEGER NOT NULL, FOREIGN KEY (ventaD) REFERENCES venta(id_venta), FOREIGN KEY (productoD) REFERENCES producto(cod_prod) );";
+  categoria: string = "CREATE TABLE IF NOT EXISTS categoria(idCategoria INTEGER PRIMARY KEY, nombreCategoria TEXT NOT NULL);";
+  rol: string = "CREATE TABLE IF NOT EXISTS rol(idRol INTEGER PRIMARY KEY, nombreRol TEXT NOT NULL);";
+  pregunta: string = "CREATE TABLE IF NOT EXISTS pregunta(idPregunta INTEGER PRIMARY KEY, nombrePregunta TEXT NOT NULL);";
+  consulta: string = "CREATE TABLE IF NOT EXISTS consulta(idConsulta INTEGER PRIMARY KEY AUTOINCREMENT, nombreConsultante TEXT NOT NULL, asuntoConsulta TEXT NOT NULL, mensajeConsulta TEXT NOT NULL);";
+  usuario: string = "CREATE TABLE IF NOT EXISTS usuario(idUsuario INTEGER PRIMARY KEY AUTOINCREMENT, rut INTEGER NOT NULL, dvrut CHAR(1) NOT NULL, nombre TEXT NOT NULL, apellido TEXT NOT NULL, telefono INTEGER NOT NULL, correo TEXT NOT NULL, clave TEXT NOT NULL, direccion TEXT NOT NULL, fotoUsuario BLOB NOT NULL ,respuesta TEXT NOT NULL, rolU INTEGER NOT NULL, preguntaU INTEGER NOT NULL, FOREIGN KEY (rolU) REFERENCES rol(idRol), FOREIGN KEY (preguntaU) REFERENCES pregunta(idPregunta));";
+  producto: string = "CREATE TABLE IF NOT EXISTS producto(codProd INTEGER PRIMARY KEY AUTOINCREMENT, nombreProd TEXT NOT NULL, descripcion TEXT NOT NULL, precio INTEGER NOT NULL, stock INTEGER NOT NULL, foto BLOB NOT NULL, unidadMedida TEXT NOT NULL, categoriaP INTEGER NOT NULL, FOREIGN KEY (categoriaP) REFERENCES categoria(idCategoria));";
+  venta: string = "CREATE TABLE IF NOT EXISTS venta(idVenta INTEGER PRIMARY KEY AUTOINCREMENT, fechaVenta DATE NOT NULL, estado TEXT NOT NULL, fechaEntrega DATE NOT NULL, total INTEGER NOT NULL, carrito CHAR(1), usuarioV INTEGER NOT NULL, FOREIGN KEY (usuarioV) REFERENCES usuario(idUsuario) );";
+  detalle: string= "CREATE TABLE IF NOT EXISTS detalle(idDetalle INTEGER PRIMARY KEY AUTOINCREMENT, cantidad INTEGER NOT NULL, subtotal INTEGER NOT NULL, ventaD INTEGER NOT NULL, productoD INTEGER NOT NULL, FOREIGN KEY (ventaD) REFERENCES venta(idVenta), FOREIGN KEY (productoD) REFERENCES producto(codProd) );";
+  detalleComprado: string ="CREATE TABLE IF NOT EXISTS detalleComprado(idDetalleC INTEGER PRIMARY KEY AUTOINCREMENT, nombreProdC TEXT NOT NULL, fotoProdC BLOB NOT NULL, cantidadC INTEGER NOT NULL, subtotalC INTEGER NOT NULL, ventaC INTEGER NOT NULL, FOREIGN KEY (ventaC) REFERENCES venta(idVenta) );";
 
   //Variables para insert iniciales
   rolCliente: string = "INSERT OR IGNORE INTO rol(id_rol, nombre_rol) VALUES (1, 'Cliente');";
