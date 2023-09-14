@@ -12,6 +12,7 @@ import { Detalle } from './detalle';
 import { Venta } from './venta';
 import { Consulta } from './consulta';
 import { Detallecomprado } from './detallecomprado';
+import { Pregunta } from './pregunta';
 @Injectable({
   providedIn: 'root'
 })
@@ -73,6 +74,7 @@ export class DbserviceService {
   listaConsulta = new BehaviorSubject([]);
   listaDetalleComprado = new BehaviorSubject([]);
   listaCategoria = new BehaviorSubject([]);
+  listaPregunta = new BehaviorSubject([]);
   
   //Observable estatus o de bandera
   private flag: BehaviorSubject<boolean> = new BehaviorSubject(false);
@@ -94,6 +96,10 @@ export class DbserviceService {
   fetchCategoria(): Observable<Categoria[]>{
       return this.listaCategoria.asObservable();
   }
+
+  fetchPregunta(): Observable<Pregunta[]>{
+    return this.listaPregunta.asObservable();
+  } 
 
   fetchUsuario(): Observable<Usuario[]>{
     return this.listaUsuario.asObservable();
@@ -156,6 +162,26 @@ export class DbserviceService {
 
     })
   }
+
+  buscarPregunta(){ //Borrar luego
+    return this.database.executeSql("SELECT * FROM pregunta;",[]).then(res =>{
+      //todo bien
+      let items: Pregunta[] = [];
+      //Validar cantidad registros
+      if(res.rows.length > 0){
+        //Recorrer los datos
+        for(var i = 0; i < res.rows.length; i++ ){
+          //Guardando los datos
+          items.push({ 
+            idPregunta: res.rows.item(i).id_pregunta,
+            nombrePregunta: res.rows.item(i).nombre_pregunta });
+        }
+      }
+      this.listaPregunta.next(items as any);
+
+    })
+  }
+  
 
   buscarConsultas(){ //Borrar luego
     return this.database.executeSql("SELECT * FROM consulta;",[]).then(res =>{
