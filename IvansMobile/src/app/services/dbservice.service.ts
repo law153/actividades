@@ -336,20 +336,33 @@ export class DbserviceService {
 
 
   //Funciones para eliminar
-  eliminar(id:any){ //Borrar luego
-    return this.database.executeSql("DELETE FROM rol WHERE id_rol= ?",[id]).then(res=>{
-      this.buscarRoles();
+
+  eliminarUsuario(id:any){ 
+    return this.database.executeSql("DELETE FROM usuario WHERE idUsuario= ?",[id]).then(res=>{
+      this.buscarUsuarios();
+
+    })
+  }
+  eliminarProducto(id:any){ 
+    return this.database.executeSql("DELETE FROM producto WHERE codProd= ?",[id]).then(res=>{
+      this.buscarProductos();
+
+    })
+  }
+  eliminarConsulta(id:any){ 
+    return this.database.executeSql("DELETE FROM consulta WHERE idConsulta= ?",[id]).then(res=>{
+      this.buscarConsultas();
 
     })
   }
   //Funciones para agregar
-  agregar(nombre: any){  //Borrar luego
+  agregar(nombre: any){  
     return this.database.executeSql("INSERT INTO rol(nombre_rol) VALUES(?)",[nombre]).then(res=> {
       this.buscarRoles(); 
     })
   }
   //Funciones para modificar
-  modificar(id: any, nombre: any){  //Borrar luego
+  modificar(id: any, nombre: any){  
     return this.database.executeSql("UPDATE rol SET nombre_rol = ? WHERE id_rol = ?",[nombre, id]).then(res =>{
       this.buscarRoles();
     })
