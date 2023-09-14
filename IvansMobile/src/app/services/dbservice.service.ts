@@ -46,9 +46,14 @@ export class DbserviceService {
   //Usuarios
   usuarioClienteDefault: string = "INSERT OR IGNORE INTO usuario(idUsuario, rut, dvrut, nombre, apellido, telefono, correo, clave, direccion, fotoUsuario, respuesta, rolU, preguntaU) VALUES ('200', 11111111, '1', 'Javier', 'Maldonado', '12345678', 'javicci@gmail.com', 'umigod', 'Camarones 1313', '/assets/imagen.jpg', 'Umi', 1, 1);";
   usuarioAdminDefault: string = "INSERT OR IGNORE INTO usuario(idUsuario, rut, dvrut, nombre, apellido, telefono, correo, clave, direccion, fotoUsuario, respuesta, rolU, preguntaU) VALUES ('201', 22222222, '2', 'Ivan', 'Fuentes', '87654321', 'ivanfuentes@gmail.com', 'ivans', 'Piedra Roja 11', '/assets/imagen.jpg', 'Negro', 2, 3);";
-  
-
-
+  //Productos
+  productoDefault: string = "INSERT OR IGNORE INTO producto(codProd, nombreProd, descripcion, precio, stock, foto, unidadMedida, categoriaP) VALUES(200, 'Producto','Hola buenas tardes soy un producto', 2000, 50, '/assets/imagen.jpg', 'Por unidad', 1);";
+  //Ventas
+  ventaDefult: string ="INSERT OR IGNORE INTO venta(idVenta, fechaVenta, estado, fechaEntrega, total, carrito, usuarioV) VALUES (200, '04/04/2023', 'Activo', '05/05/2023', 6000, 'C', 200);";
+  //Detalles
+  detalleDefault: string = "INSERT OR IGNORE INTO detalle(idDetalle, cantidad, subtotal, ventaD, productoD) VALUES (200, 3, 6000, 200, 200);";
+  //Historial de compras
+  detalleCompradoDefault: string  ="INSERT OR IGNORE INTO detalleComprado(idDetalleC, nombreProdC, fotoProdC, cantidadC, subtotalC, ventaC) VALUES (200, 'Producto', '/assets/imagen.jpg', 3, 6000, 200);";
   //Observables de tablas 
   listaRol = new BehaviorSubject([]);
 
