@@ -137,6 +137,58 @@ export class DbserviceService {
 
     })
   }
+
+  buscarCategorias(){ //Borrar luego
+    return this.database.executeSql("SELECT * FROM categoria;",[]).then(res =>{
+      //todo bien
+      let items: Categoria[] = [];
+      //Validar cantidad registros
+      if(res.rows.length > 0){
+        //Recorrer los datos
+        for(var i = 0; i < res.rows.length; i++ ){
+          //Guardando los datos
+          items.push({ 
+            idCategoria: res.rows.item(i).id_categoria,
+            nombreCategoria: res.rows.item(i).nombre_categoria });
+        }
+      }
+      this.listaRol.next(items as any);
+
+    })
+  }
+
+  buscarUsuarios(){ 
+    return this.database.executeSql("SELECT * FROM usuario;",[]).then(res =>{
+      //todo bien
+      let items: Usuario[] = [];
+      //Validar cantidad registros
+      if(res.rows.length > 0){
+        //Recorrer los datos
+        for(var i = 0; i < res.rows.length; i++ ){
+          //Guardando los datos
+          items.push({ 
+            idUsuario: res.rows.item(i).id_usuario,
+            rut: res.rows.item(i).rut_user,
+            dvrut: res.rows.item(i).dvrut_user,
+            nombre: res.rows.item(i).nombre_user,
+            apellido: res.rows.item(i).apellido_user,
+            telefono: res.rows.item(i).telefono_user,
+            correo: res.rows.item(i).correo_user,
+            clave: res.rows.item(i).clave_user,
+            direccion: res.rows.item(i).direccion_user,
+            fotoUsuario: res.rows.item(i).foto_user,
+            respuesta: res.rows.item(i).respuesta_user,
+            rolU: res.rows.item(i).rol_user,
+            preguntaU: res.rows.item(i).pregunta_user,
+           });
+        }
+      }
+      this.listaRol.next(items as any);
+
+    })
+  }
+
+
   //Funciones para eliminar
   eliminar(id:any){ //Borrar luego
     return this.database.executeSql("DELETE FROM rol WHERE id_rol= ?",[id]).then(res=>{
