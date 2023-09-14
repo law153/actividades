@@ -101,20 +101,20 @@ export class DbserviceService {
 
     })
   }
-
+  //Funciones para eliminar
   eliminar(id:any){ //Borrar luego
     return this.database.executeSql("DELETE FROM rol WHERE id_rol= ?",[id]).then(res=>{
       this.buscarRoles();
 
     })
   }
-
+  //Funciones para agregar
   agregar(nombre: any){  //Borrar luego
     return this.database.executeSql("INSERT INTO rol(nombre_rol) VALUES(?)",[nombre]).then(res=> {
       this.buscarRoles(); 
     })
   }
-
+  //Funciones para modificar
   modificar(id: any, nombre: any){  //Borrar luego
     return this.database.executeSql("UPDATE rol SET nombre_rol = ? WHERE id_rol = ?",[nombre, id]).then(res =>{
       this.buscarRoles();
