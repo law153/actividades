@@ -5,6 +5,13 @@ import { Platform } from '@ionic/angular';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { AlertController } from '@ionic/angular';
 import { Rol } from './rol';
+import { Categoria } from './categoria';
+import { Usuario } from './usuario';
+import { Producto } from './producto';
+import { Detalle } from './detalle';
+import { Venta } from './venta';
+import { Consulta } from './consulta';
+import { Detallecomprado } from './detallecomprado';
 @Injectable({
   providedIn: 'root'
 })
@@ -65,6 +72,7 @@ export class DbserviceService {
   listaDetalle = new BehaviorSubject([]);
   listaConsulta = new BehaviorSubject([]);
   listaDetalleComprado = new BehaviorSubject([]);
+  listaCategoria = new BehaviorSubject([]);
   
   //Observable estatus o de bandera
   private flag: BehaviorSubject<boolean> = new BehaviorSubject(false);
@@ -81,6 +89,34 @@ export class DbserviceService {
   //Funciones para Selects
   fetchRol(): Observable<Rol[]>{  //Borrar luego
     return this.listaRol.asObservable();
+  }
+
+  fetchCategoria(): Observable<Categoria[]>{
+      return this.listaCategoria.asObservable();
+  }
+
+  fetchUsuario(): Observable<Usuario[]>{
+    return this.listaUsuario.asObservable();
+  }
+
+  fetchProducto(): Observable<Producto[]>{
+    return this.listaProducto.asObservable();
+  }
+
+  fetchDetalle(): Observable<Detalle[]>{
+    return this.listaDetalle.asObservable();
+  }
+
+  fetchVenta(): Observable<Venta[]>{
+    return this.listaVenta.asObservable();
+  }
+
+  fetchConsulta(): Observable<Consulta[]>{
+    return this.listaConsulta.asObservable();
+  }
+
+  fetchDetalleComprado(): Observable<Detallecomprado[]>{
+    return this.listaDetalleComprado.asObservable();
   }
 
   buscarRoles(){ //Borrar luego
@@ -181,6 +217,7 @@ export class DbserviceService {
       //Actualizar el observable bandera
       this.flag.next(true);
       //Llamar los select
+
       this.buscarRoles();
 
     }catch{
