@@ -144,7 +144,7 @@ export class DbserviceService {
     })
   }
 
-  buscarCategorias(){ //Borrar luego
+  buscarCategorias(){ 
     return this.database.executeSql("SELECT * FROM categoria;",[]).then(res =>{
       //todo bien
       let items: Categoria[] = [];
@@ -163,7 +163,7 @@ export class DbserviceService {
     })
   }
 
-  buscarPregunta(){ //Borrar luego
+  buscarPregunta(){ 
     return this.database.executeSql("SELECT * FROM pregunta;",[]).then(res =>{
       //todo bien
       let items: Pregunta[] = [];
@@ -183,7 +183,7 @@ export class DbserviceService {
   }
   
 
-  buscarConsultas(){ //Borrar luego
+  buscarConsultas(){ 
     return this.database.executeSql("SELECT * FROM consulta;",[]).then(res =>{
       //todo bien
       let items: Consulta[] = [];
@@ -193,10 +193,10 @@ export class DbserviceService {
         for(var i = 0; i < res.rows.length; i++ ){
           //Guardando los datos
           items.push({ 
-            idConsulta: res.rows.item(i).id_consulta,
-            nombreConsultante: res.rows.item(i).nombre_consultante,
-            asuntoConsulta: res.rows.item(i).asunto_consulta,
-            mensajeConsulta: res.rows.item(i).mensaje_consulta
+            idConsulta: res.rows.item(i).idConsulta,
+            nombreConsultante: res.rows.item(i).nombreConsultante,
+            asuntoConsulta: res.rows.item(i).asuntoConsulta,
+            mensajeConsulta: res.rows.item(i).mensajeConsulta
            });
         }
       }
@@ -215,19 +215,19 @@ export class DbserviceService {
         for(var i = 0; i < res.rows.length; i++ ){
           //Guardando los datos
           items.push({ 
-            idUsuario: res.rows.item(i).id_usuario,
-            rut: res.rows.item(i).rut_user,
-            dvrut: res.rows.item(i).dvrut_user,
-            nombre: res.rows.item(i).nombre_user,
-            apellido: res.rows.item(i).apellido_user,
-            telefono: res.rows.item(i).telefono_user,
-            correo: res.rows.item(i).correo_user,
-            clave: res.rows.item(i).clave_user,
-            direccion: res.rows.item(i).direccion_user,
-            fotoUsuario: res.rows.item(i).foto_user,
-            respuesta: res.rows.item(i).respuesta_user,
-            rolU: res.rows.item(i).rol_user,
-            preguntaU: res.rows.item(i).pregunta_user,
+            idUsuario: res.rows.item(i).idUsuario,
+            rut: res.rows.item(i).rut,
+            dvrut: res.rows.item(i).dvrut,
+            nombre: res.rows.item(i).nombre,
+            apellido: res.rows.item(i).apellido,
+            telefono: res.rows.item(i).telefono_,
+            correo: res.rows.item(i).correo,
+            clave: res.rows.item(i).clave,
+            direccion: res.rows.item(i).direccion,
+            fotoUsuario: res.rows.item(i).fotoUsuario,
+            respuesta: res.rows.item(i).respuesta,
+            rolU: res.rows.item(i).rolU,
+            preguntaU: res.rows.item(i).preguntaU
            });
         }
       }
@@ -236,7 +236,7 @@ export class DbserviceService {
     })
   }
 
-  buscarProductos(){ //Borrar luego
+  buscarProductos(){ 
     return this.database.executeSql("SELECT * FROM producto;",[]).then(res =>{
       //todo bien
       let items: Producto[] = [];
@@ -246,18 +246,90 @@ export class DbserviceService {
         for(var i = 0; i < res.rows.length; i++ ){
           //Guardando los datos
           items.push({ 
-            codProd: res.rows.item(i).id_consulta,
-            nombreProd: res.rows.item(i).nombre_producto,
-            descripcion: res.rows.item(i).descripcion_producto,
-            precio: res.rows.item(i).precio_producto,
-            stock: res.rows.item(i).stock_producto,
-            foto: res.rows.item(i).foto_producto,
-            unidadMedida: res.rows.item(i).medida_producto,
-            categoriaP: res.rows.item(i).categoria_producto
+            codProd: res.rows.item(i).codProd,
+            nombreProd: res.rows.item(i).nombreProd,
+            descripcion: res.rows.item(i).descripcion,
+            precio: res.rows.item(i).precio,
+            stock: res.rows.item(i).stock,
+            foto: res.rows.item(i).foto,
+            unidadMedida: res.rows.item(i).unidadMedida,
+            categoriaP: res.rows.item(i).categoriaP
            });
         }
       }
       this.listaProducto.next(items as any);
+
+    })
+  }
+
+  buscarVentas(){
+    return this.database.executeSql("SELECT * FROM venta;",[]).then(res =>{
+      //todo bien
+      let items: Venta[] = [];
+      //Validar cantidad registros
+      if(res.rows.length > 0){
+        //Recorrer los datos
+        for(var i = 0; i < res.rows.length; i++ ){
+          //Guardando los datos
+          items.push({ 
+            idVenta: res.rows.item(i).idVenta,
+            fechaVenta: res.rows.item(i).fechaVenta,
+            estado: res.rows.item(i).estado,
+            fechaEntrega: res.rows.item(i).fechaEntrega,
+            total: res.rows.item(i).total,
+            carrito: res.rows.item(i).carrito,
+            usuarioV: res.rows.item(i).usuarioV
+           });
+        }
+      }
+      this.listaVenta.next(items as any);
+
+    })
+  }
+
+  buscarDetalles(){
+    return this.database.executeSql("SELECT * FROM detalle;",[]).then(res =>{
+      //todo bien
+      let items: Detalle[] = [];
+      //Validar cantidad registros
+      if(res.rows.length > 0){
+        //Recorrer los datos
+        for(var i = 0; i < res.rows.length; i++ ){
+          //Guardando los datos
+          items.push({ 
+            idDetalle: res.rows.item(i).idDetalle,
+            cantidad: res.rows.item(i).cantidad,
+            subtotal: res.rows.item(i).subtotal,
+            ventaD: res.rows.item(i).ventaD,
+            productoD: res.rows.item(i).productoD
+           });
+        }
+      }
+      this.listaDetalle.next(items as any);
+
+    })
+  }
+
+  buscarDetallesCompra(){
+    return this.database.executeSql("SELECT * FROM detalleComprado;",[]).then(res =>{
+      //todo bien
+      let items: Detallecomprado[] = [];
+      //Validar cantidad registros
+      if(res.rows.length > 0){
+        //Recorrer los datos
+        for(var i = 0; i < res.rows.length; i++ ){
+          //Guardando los datos
+          items.push({ 
+            idDetalleC: res.rows.item(i).idDetalleC,
+            nombreProdC: res.rows.item(i).nombreProdC,
+            fotoProdC: res.rows.item(i).fotoProdC,
+            cantidadC: res.rows.item(i).cantidadC,
+            subtotalC: res.rows.item(i).subtotalC,
+            ventaC: res.rows.item(i).ventaC
+           });
+        }
+      }
+      this.listaDetalle.next(items as any);
 
     })
   }
