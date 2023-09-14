@@ -54,10 +54,18 @@ export class DbserviceService {
   detalleDefault: string = "INSERT OR IGNORE INTO detalle(idDetalle, cantidad, subtotal, ventaD, productoD) VALUES (200, 3, 6000, 200, 200);";
   //Historial de compras
   detalleCompradoDefault: string  ="INSERT OR IGNORE INTO detalleComprado(idDetalleC, nombreProdC, fotoProdC, cantidadC, subtotalC, ventaC) VALUES (200, 'Producto', '/assets/imagen.jpg', 3, 6000, 200);";
+
+
   //Observables de tablas 
-  listaRol = new BehaviorSubject([]);
+  listaRol = new BehaviorSubject([]); //Borrar este luego
 
-
+  listaUsuario = new BehaviorSubject([]);
+  listaProducto = new BehaviorSubject([]);
+  listaVenta = new BehaviorSubject([]);
+  listaDetalle = new BehaviorSubject([]);
+  listaConsulta = new BehaviorSubject([]);
+  listaDetalleComprado = new BehaviorSubject([]);
+  
   //Observable estatus o de bandera
   private flag: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
@@ -71,11 +79,11 @@ export class DbserviceService {
   }
 
   //Funciones para Selects
-  fetchRol(): Observable<Rol[]>{
+  fetchRol(): Observable<Rol[]>{  //Borrar luego
     return this.listaRol.asObservable();
   }
 
-  buscarRoles(){
+  buscarRoles(){ //Borrar luego
     return this.database.executeSql("SELECT * FROM rol;",[]).then(res =>{
       //todo bien
       let items: Rol[] = [];
@@ -94,20 +102,20 @@ export class DbserviceService {
     })
   }
 
-  eliminar(id:any){
+  eliminar(id:any){ //Borrar luego
     return this.database.executeSql("DELETE FROM rol WHERE id_rol= ?",[id]).then(res=>{
       this.buscarRoles();
 
     })
   }
 
-  agregar(nombre: any){
+  agregar(nombre: any){  //Borrar luego
     return this.database.executeSql("INSERT INTO rol(nombre_rol) VALUES(?)",[nombre]).then(res=> {
       this.buscarRoles(); 
     })
   }
 
-  modificar(id: any, nombre: any){
+  modificar(id: any, nombre: any){  //Borrar luego
     return this.database.executeSql("UPDATE rol SET nombre_rol = ? WHERE id_rol = ?",[nombre, id]).then(res =>{
       this.buscarRoles();
     })
