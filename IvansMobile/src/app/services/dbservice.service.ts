@@ -141,9 +141,43 @@ export class DbserviceService {
     try{
       //Crear las tablas
       await this.database.executeSql(this.rol,[]);
+      await this.database.executeSql(this.categoria,[]);
+      await this.database.executeSql(this.consulta,[]);
+      await this.database.executeSql(this.pregunta,[]);
+      await this.database.executeSql(this.usuario,[]);
+      await this.database.executeSql(this.producto,[]);
+      await this.database.executeSql(this.venta,[]);
+      await this.database.executeSql(this.detalle,[]);
+      await this.database.executeSql(this.detalleComprado,[]);
 
       //Registros iniciales
       await this.database.executeSql(this.rolCliente,[]);
+      await this.database.executeSql(this.rolAdmin,[]);
+
+      await this.database.executeSql(this.categoriaHerramientas,[]);
+      await this.database.executeSql(this.categoriaElectricidad,[]);
+      await this.database.executeSql(this.categoriaFijaciones,[]);
+      await this.database.executeSql(this.categoriaGasfiteria,[]);
+      await this.database.executeSql(this.categoriaKits,[]);
+      await this.database.executeSql(this.categoriaSeguridad,[]);
+      await this.database.executeSql(this.categoriaRopa,[]);
+
+      await this.database.executeSql(this.preguntaCiudad,[]);
+      await this.database.executeSql(this.preguntaColor,[]);
+      await this.database.executeSql(this.preguntaMascota,[]);
+
+      await this.database.executeSql(this.consultaDefault,[]);
+
+      await this.database.executeSql(this.usuarioClienteDefault,[]);
+      await this.database.executeSql(this.usuarioAdminDefault,[]);
+
+      await this.database.executeSql(this.productoDefault,[]);
+
+      await this.database.executeSql(this.ventaDefult,[]);
+
+      await this.database.executeSql(this.detalleDefault,[]);
+
+      await this.database.executeSql(this.detalleCompradoDefault,[]);
       //Actualizar el observable bandera
       this.flag.next(true);
       //Llamar los select
