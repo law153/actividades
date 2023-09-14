@@ -236,6 +236,32 @@ export class DbserviceService {
     })
   }
 
+  buscarProductos(){ //Borrar luego
+    return this.database.executeSql("SELECT * FROM producto;",[]).then(res =>{
+      //todo bien
+      let items: Producto[] = [];
+      //Validar cantidad registros
+      if(res.rows.length > 0){
+        //Recorrer los datos
+        for(var i = 0; i < res.rows.length; i++ ){
+          //Guardando los datos
+          items.push({ 
+            codProd: res.rows.item(i).id_consulta,
+            nombreProd: res.rows.item(i).nombre_producto,
+            descripcion: res.rows.item(i).descripcion_producto,
+            precio: res.rows.item(i).precio_producto,
+            stock: res.rows.item(i).stock_producto,
+            foto: res.rows.item(i).foto_producto,
+            unidadMedida: res.rows.item(i).medida_producto,
+            categoriaP: res.rows.item(i).categoria_producto
+           });
+        }
+      }
+      this.listaProducto.next(items as any);
+
+    })
+  }
+
 
   //Funciones para eliminar
   eliminar(id:any){ //Borrar luego
