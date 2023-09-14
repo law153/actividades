@@ -94,7 +94,7 @@ export class DbserviceService {
           //Guardando los datos
           items.push({ 
             idRol: res.rows.item(i).id_rol,
-            nombre_rol_ionic: res.rows.item(i).nombre_rol });
+            nombreRol: res.rows.item(i).nombre_rol });
         }
       }
       this.listaRol.next(items as any);
