@@ -337,6 +337,10 @@ export class DbserviceService {
 
   //Funciones para eliminar
 
+  eliminar(id:any){ //Borrar luego
+    return this.database.executeSql("DELETE FROM rol WHERE id_rol= ?",[id]).then(res=>{
+      this.buscarRoles(); })}
+
   eliminarUsuario(id:any){ 
     return this.database.executeSql("DELETE FROM usuario WHERE idUsuario= ?",[id]).then(res=>{
       this.buscarUsuarios();
@@ -361,6 +365,19 @@ export class DbserviceService {
       this.buscarRoles(); 
     })
   }
+
+  agregarUsuario(nombre: any, apellido: any, rut: any, dvrut: any, telefono: any, correo: any, direccion: any, clave: any, foto: any, respuesta: any, rol: any, pregunta: any){  
+    return this.database.executeSql("INSERT INTO usuario(rut, dvrut, nombre, apellido, telefono, correo, clave, direccion, fotoUsuario, respuesta, RolU, preguntaU) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",[rut, dvrut, nombre, apellido, telefono, correo, clave, direccion, foto, respuesta, rol, pregunta]).then(res=> {
+      this.buscarUsuarios(); 
+    })
+  }
+
+  agregarProducto( nombre: any, descripcion: any, precio: any, stock: any, foto: any, medida: any, categoria: any){  
+    return this.database.executeSql("INSERT INTO producto(nombreProd, descripcion, precio, stock, foto, unidadMedida, categoriaP) VALUES(?, ?, ?, ?, ?, ?, ?, ?)",[nombre, descripcion, precio, stock, foto, medida, categoria]).then(res=> {
+      this.buscarProductos(); 
+    })
+  }
+
   //Funciones para modificar
   modificar(id: any, nombre: any){  
     return this.database.executeSql("UPDATE rol SET nombre_rol = ? WHERE id_rol = ?",[nombre, id]).then(res =>{
