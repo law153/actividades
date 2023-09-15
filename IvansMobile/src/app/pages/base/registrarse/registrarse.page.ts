@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { AlertController, MenuController, IonInput} from '@ionic/angular';
+import { MenuController, IonInput} from '@ionic/angular';
+import { DbserviceService } from 'src/app/services/dbservice.service';
 
 @Component({
   selector: 'app-registrarse',
@@ -37,7 +38,10 @@ export class RegistrarsePage implements OnInit {
   respuesta: string="";
   flag: boolean = true;
 
-  constructor(private menuCtrl: MenuController, private router: Router, private alerta: AlertController) { }
+  //Variable para db
+  usuarios: any = [{rut: '', dvrut: '', nombre: '', apellido: '', telefono: '', correo: '', clave: '', direccion: '', fotoUsuario: '', respuesta: '', rolU: '', preguntaU: ''}];
+
+  constructor(private menuCtrl: MenuController, private router: Router, private bd: DbserviceService) { }
 
   irHome(){
     this.router.navigate([''])
@@ -83,6 +87,7 @@ export class RegistrarsePage implements OnInit {
     this.preguntaValida();
     this.fonoValido();
     if(this.flag === true){
+      this.agregar();
       this.msj="Usuario creado correctamente";
       this.router.navigate(['ini-sesion'])    
     }
@@ -394,6 +399,18 @@ export class RegistrarsePage implements OnInit {
 
 
   ngOnInit() {
+    this.bd.dbState().subscribe(res => {
+      if(res){
+        this.bd.fetchUsuario().subscribe(item => {
+          this.usuarios = item;
+        })
+      }
+    })
+  }
+
+  agregar(){
+    this.bd.agregarUsuario(this.nombre, this.apellido, this.rut, this.dvrut, this.fono, this.correo, this.direc, this.clave, '/assets/imagen.jpg', this.respuesta, 1, this.pregunta);
+    this.router.navigate(['/ini-sesion'])
   }
 
 }
