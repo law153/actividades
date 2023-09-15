@@ -458,6 +458,11 @@ export class DbserviceService {
     })
   }
   
+  modificarDetalle(id: any, subtotal: any, cantidad: any){  
+    return this.database.executeSql("UPDATE detalle SET subtotal = ?, cantidad = ? WHERE idVenta = ?",[subtotal, cantidad, id]).then(res =>{
+      this.buscarDetalles();
+    })
+  }
 
   crearDB(){
     //Plataforma lista
