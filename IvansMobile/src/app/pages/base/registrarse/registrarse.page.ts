@@ -409,7 +409,15 @@ export class RegistrarsePage implements OnInit {
   }
 
   agregar(){
-    this.bd.agregarUsuario(this.nombre, this.apellido, this.rut, this.dvrut, this.fono, this.correo, this.direc, this.clave, '/assets/imagen.jpg', this.respuesta, 1, this.pregunta);
+    let preguntaid: number = 0;
+    if(this.pregunta === 'pregunta1'){
+      preguntaid = 1;
+    } else if(this.pregunta === 'pregunta2'){
+      preguntaid= 2;
+    } else if(this.pregunta === 'pregunta3'){
+      preguntaid= 3;
+    }
+    this.bd.agregarUsuario(this.nombre, this.apellido, this.rut, this.dvrut, this.fono, this.correo, this.direc, this.clave, '/assets/imagen.jpg', this.respuesta, 1, preguntaid);
     this.router.navigate(['/ini-sesion'])
   }
 
