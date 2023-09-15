@@ -391,13 +391,13 @@ export class DbserviceService {
   }
 
   agregarDetalle(cantidad: any, subtotal: any, ventad: any, productod: any){  
-    return this.database.executeSql("INSERT INTO rol(cantidad, subtotal, ventaD, productoD) VALUES(?, ?, ?, ?)",[cantidad, subtotal, ventad, productod]).then(res=> {
+    return this.database.executeSql("INSERT INTO detalle(cantidad, subtotal, ventaD, productoD) VALUES(?, ?, ?, ?)",[cantidad, subtotal, ventad, productod]).then(res=> {
       this.buscarDetalles(); 
     })
   }
 
   agregarDetalleCompra(nombre: any, foto: any, cantidad: any, subtotal: any, venta: any){  
-    return this.database.executeSql("INSERT INTO rol(nombreProdC, fotoProdC, cantidadC, subtotalC, ventaC) VALUES(?, ?, ?, ?, ?)",[nombre, foto, cantidad, subtotal, venta]).then(res=> {
+    return this.database.executeSql("INSERT INTO detalleComprado(nombreProdC, fotoProdC, cantidadC, subtotalC, ventaC) VALUES(?, ?, ?, ?, ?)",[nombre, foto, cantidad, subtotal, venta]).then(res=> {
       this.buscarRoles(); 
     })
   }
@@ -408,6 +408,25 @@ export class DbserviceService {
       this.buscarRoles();
     })
   }
+
+  modificarUsuario(id: any, nombre: any,  apellido: any, rut: any, dvrut: any, telefono: any, correo: any, direccion: any, foto: any, respuesta: any, pregunta: any ){  
+    return this.database.executeSql("UPDATE usuario SET nombre = ?, apellido = ?, rut = ?, dvrut = ?, telefono = ?, correo = ?, direccion = ?, fotoUsuario = ?, respuesta = ?, pregunta = ? WHERE id_rol = ?",[nombre, apellido, rut, dvrut, telefono, correo, direccion, foto, respuesta, pregunta, id]).then(res =>{
+      this.buscarUsuarios();
+    })
+  }
+
+  modificarClave(id: any, clave: any ){  
+    return this.database.executeSql("UPDATE usuario SET clave = ? WHERE idUsuario = ?",[clave, id]).then(res =>{
+      this.buscarUsuarios();
+    })
+  }
+
+  modificarRol(id: any, rol: any ){  
+    return this.database.executeSql("UPDATE usuario SET rolU = ? WHERE idUsuario = ?",[rol, id]).then(res =>{
+      this.buscarUsuarios();
+    })
+  }
+
   
 
   crearDB(){
