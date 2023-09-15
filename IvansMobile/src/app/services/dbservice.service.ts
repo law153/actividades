@@ -408,7 +408,7 @@ export class DbserviceService {
       this.buscarRoles();
     })
   }
-
+  //Usuario
   modificarUsuario(id: any, nombre: any,  apellido: any, rut: any, dvrut: any, telefono: any, correo: any, direccion: any, foto: any, respuesta: any, pregunta: any ){  
     return this.database.executeSql("UPDATE usuario SET nombre = ?, apellido = ?, rut = ?, dvrut = ?, telefono = ?, correo = ?, direccion = ?, fotoUsuario = ?, respuesta = ?, pregunta = ? WHERE id_rol = ?",[nombre, apellido, rut, dvrut, telefono, correo, direccion, foto, respuesta, pregunta, id]).then(res =>{
       this.buscarUsuarios();
@@ -426,7 +426,37 @@ export class DbserviceService {
       this.buscarUsuarios();
     })
   }
+  //Producto
+  modificarProducto(id: any, nombre: any, descripcion: any, precio: any, stock: any, foto: any, medida: any, categoria: any){  
+    return this.database.executeSql("UPDATE producto SET nombreProd = ?, descripcion = ?, precio = ?, stock = ?, foto = ?, unidadMedida = ?, categoriaP = ?  WHERE codProd = ?",[nombre, descripcion, precio, stock, foto, medida, categoria, id]).then(res =>{
+      this.buscarProductos();
+    })
+  }
 
+  //Venta/carrito
+  modificarEstadoVenta(id: any, estado: any){  
+    return this.database.executeSql("UPDATE venta SET estado = ? WHERE idVenta = ?",[estado, id]).then(res =>{
+      this.buscarVentas();
+    })
+  }
+
+  modificarEntrega(id: any, entrega: any){  
+    return this.database.executeSql("UPDATE venta SET fechaEntrega = ? WHERE idVenta = ?",[entrega, id]).then(res =>{
+      this.buscarVentas();
+    })
+  }
+
+  modificarCarrito(id: any, carrito: any){  
+    return this.database.executeSql("UPDATE venta SET carrito = ? WHERE idVenta = ?",[carrito, id]).then(res =>{
+      this.buscarVentas();
+    })
+  }
+
+  modificarTotal(id: any, total: any){  
+    return this.database.executeSql("UPDATE venta SET total = ? WHERE idVenta = ?",[total, id]).then(res =>{
+      this.buscarVentas();
+    })
+  }
   
 
   crearDB(){
