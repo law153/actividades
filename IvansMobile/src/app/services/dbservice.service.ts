@@ -366,6 +366,12 @@ export class DbserviceService {
     })
   }
 
+  agregarConsulta(nombre: any, asunto: any, mensaje: any){  
+    return this.database.executeSql("INSERT INTO detalle(nombreConsultante, asuntoConsulta, mensajeConsulta) VALUES(?, ?, ?)",[nombre, asunto, mensaje]).then(res=> {
+      this.buscarConsultas(); 
+    })
+  }
+
   agregarUsuario(nombre: any, apellido: any, rut: any, dvrut: any, telefono: any, correo: any, direccion: any, clave: any, foto: any, respuesta: any, rol: any, pregunta: any){  
     return this.database.executeSql("INSERT INTO usuario(rut, dvrut, nombre, apellido, telefono, correo, clave, direccion, fotoUsuario, respuesta, RolU, preguntaU) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",[rut, dvrut, nombre, apellido, telefono, correo, clave, direccion, foto, respuesta, rol, pregunta]).then(res=> {
       this.buscarUsuarios(); 
@@ -375,6 +381,24 @@ export class DbserviceService {
   agregarProducto( nombre: any, descripcion: any, precio: any, stock: any, foto: any, medida: any, categoria: any){  
     return this.database.executeSql("INSERT INTO producto(nombreProd, descripcion, precio, stock, foto, unidadMedida, categoriaP) VALUES(?, ?, ?, ?, ?, ?, ?, ?)",[nombre, descripcion, precio, stock, foto, medida, categoria]).then(res=> {
       this.buscarProductos(); 
+    })
+  }
+
+  agregarVenta(fechav: any, estado: any, fechae: any, total: any, carrito: any, usuariov: any){  
+    return this.database.executeSql("INSERT INTO venta(fechaVenta, estado, fechaEntrega, total, carrito, usuarioV) VALUES(?, ?, ?, ?, ?, ?)",[fechav, estado, fechae, total, carrito, usuariov]).then(res=> {
+      this.buscarVentas(); 
+    })
+  }
+
+  agregarDetalle(cantidad: any, subtotal: any, ventad: any, productod: any){  
+    return this.database.executeSql("INSERT INTO rol(cantidad, subtotal, ventaD, productoD) VALUES(?, ?, ?, ?)",[cantidad, subtotal, ventad, productod]).then(res=> {
+      this.buscarDetalles(); 
+    })
+  }
+
+  agregarDetalleCompra(nombre: any, foto: any, cantidad: any, subtotal: any, venta: any){  
+    return this.database.executeSql("INSERT INTO rol(nombreProdC, fotoProdC, cantidadC, subtotalC, ventaC) VALUES(?, ?, ?, ?, ?)",[nombre, foto, cantidad, subtotal, venta]).then(res=> {
+      this.buscarRoles(); 
     })
   }
 
