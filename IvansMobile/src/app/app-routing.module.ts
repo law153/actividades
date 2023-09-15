@@ -223,7 +223,15 @@ const routes: Routes = [
   {
     path: '**',
     loadChildren: () => import('./pages/not-found/not-found.module').then( m => m.NotFoundPageModule)
+  },  {
+    path: 'categorias',
+    loadChildren: () => import('./pages/base/categorias/categorias.module').then( m => m.CategoriasPageModule)
   },
+  {
+    path: 'productos',
+    loadChildren: () => import('./pages/base/productos/productos.module').then( m => m.ProductosPageModule)
+  },
+
 
 
 
