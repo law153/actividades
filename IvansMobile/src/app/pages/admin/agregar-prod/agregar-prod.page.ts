@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController, MenuController, ToastController } from '@ionic/angular';
+import { DbserviceService } from 'src/app/services/dbservice.service';
 
 @Component({
   selector: 'app-agregar-prod',
@@ -24,7 +25,10 @@ export class AgregarProdPage implements OnInit {
   flag: boolean= true;
   msj: string="";
 
-  constructor(private router: Router, private alerta: AlertController, private tostada: ToastController, private menuCtrl: MenuController) { }
+  //Variable para bd
+  productos: any = [{nombreProd: '', descripcion: '', precio: '', stock: '', foto: '', unidadMedida: '', categoriaP: ''}];
+
+  constructor(private router: Router, private alerta: AlertController, private tostada: ToastController, private menuCtrl: MenuController, private bd: DbserviceService) { }
 
   abrirSuperior(){
     this.menuCtrl.enable(true, 'superior');
@@ -50,6 +54,7 @@ export class AgregarProdPage implements OnInit {
     this.medidaValido();
     this.categoriaValido();
     if(this.flag === true){
+      this.agregar();
       this.msj="Producto agregado correctamente";
       this.presentAlert(this.msj);
       this.irHomeAdm();
@@ -168,6 +173,12 @@ export class AgregarProdPage implements OnInit {
   }
 
   ngOnInit() {
+
+  }
+
+  agregar() {
+    this.bd.agregarProducto(this.nombre, this.desc, this.precio, this.stock, '/assets/imagen.jpg', this.medida, this.categoria);
+    this.router.navigate(['home-adm']);
   }
 
 }
