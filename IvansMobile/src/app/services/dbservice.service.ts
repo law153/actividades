@@ -293,9 +293,59 @@ export class DbserviceService {
 
     })
   }
+  buscarProducto(id: any){ 
+    return this.database.executeSql("SELECT * FROM producto WHERE codProd = ?;",[id]).then(res =>{
+      //todo bien
+      let items: Producto[] = [];
+      //Validar cantidad registros
+      if(res.rows.length > 0){
+        //Recorrer los datos
+        for(var i = 0; i < res.rows.length; i++ ){
+          //Guardando los datos
+          items.push({ 
+            codProd: res.rows.item(i).codProd,
+            nombreProd: res.rows.item(i).nombreProd,
+            descripcion: res.rows.item(i).descripcion,
+            precio: res.rows.item(i).precio,
+            stock: res.rows.item(i).stock,
+            foto: res.rows.item(i).foto,
+            unidadMedida: res.rows.item(i).unidadMedida,
+            categoriaP: res.rows.item(i).categoriaP
+           });
+        }
+      }
+      this.listaProducto.next(items as any);
+
+    })
+  }
 
   buscarVentas(){
     return this.database.executeSql("SELECT * FROM venta;",[]).then(res =>{
+      //todo bien
+      let items: Venta[] = [];
+      //Validar cantidad registros
+      if(res.rows.length > 0){
+        //Recorrer los datos
+        for(var i = 0; i < res.rows.length; i++ ){
+          //Guardando los datos
+          items.push({ 
+            idVenta: res.rows.item(i).idVenta,
+            fechaVenta: res.rows.item(i).fechaVenta,
+            estado: res.rows.item(i).estado,
+            fechaEntrega: res.rows.item(i).fechaEntrega,
+            total: res.rows.item(i).total,
+            carrito: res.rows.item(i).carrito,
+            usuarioV: res.rows.item(i).usuarioV
+           });
+        }
+      }
+      this.listaVenta.next(items as any);
+
+    })
+  }
+
+  buscarVenta(id: any){
+    return this.database.executeSql("SELECT * FROM venta WHERE idVenta = ?;",[id]).then(res =>{
       //todo bien
       let items: Venta[] = [];
       //Validar cantidad registros
@@ -342,8 +392,55 @@ export class DbserviceService {
     })
   }
 
+  buscarDetalle(id: any){
+    return this.database.executeSql("SELECT * FROM detalle WHERE idDetalle = ?;",[id]).then(res =>{
+      //todo bien
+      let items: Detalle[] = [];
+      //Validar cantidad registros
+      if(res.rows.length > 0){
+        //Recorrer los datos
+        for(var i = 0; i < res.rows.length; i++ ){
+          //Guardando los datos
+          items.push({ 
+            idDetalle: res.rows.item(i).idDetalle,
+            cantidad: res.rows.item(i).cantidad,
+            subtotal: res.rows.item(i).subtotal,
+            ventaD: res.rows.item(i).ventaD,
+            productoD: res.rows.item(i).productoD
+           });
+        }
+      }
+      this.listaDetalle.next(items as any);
+
+    })
+  }
+
   buscarDetallesCompra(){
     return this.database.executeSql("SELECT * FROM detalleComprado;",[]).then(res =>{
+      //todo bien
+      let items: Detallecomprado[] = [];
+      //Validar cantidad registros
+      if(res.rows.length > 0){
+        //Recorrer los datos
+        for(var i = 0; i < res.rows.length; i++ ){
+          //Guardando los datos
+          items.push({ 
+            idDetalleC: res.rows.item(i).idDetalleC,
+            nombreProdC: res.rows.item(i).nombreProdC,
+            fotoProdC: res.rows.item(i).fotoProdC,
+            cantidadC: res.rows.item(i).cantidadC,
+            subtotalC: res.rows.item(i).subtotalC,
+            ventaC: res.rows.item(i).ventaC
+           });
+        }
+      }
+      this.listaDetalle.next(items as any);
+
+    })
+  }
+
+  buscarDetalleCompra(id: any){
+    return this.database.executeSql("SELECT * FROM detalleComprado WHERE idDetalleC = ?;",[id]).then(res =>{
       //todo bien
       let items: Detallecomprado[] = [];
       //Validar cantidad registros
