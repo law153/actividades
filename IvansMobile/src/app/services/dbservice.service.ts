@@ -144,6 +144,25 @@ export class DbserviceService {
     })
   }
 
+  buscarUsuario(idUsuario: any){ 
+    return this.database.executeSql("SELECT * FROM usuario WHERE idUsuario = ?;",[idUsuario]).then(res =>{
+      //todo bien
+      let items: Rol[] = [];
+      //Validar cantidad registros
+      if(res.rows.length > 0){
+        //Recorrer los datos
+        for(var i = 0; i < res.rows.length; i++ ){
+          //Guardando los datos
+          items.push({ 
+            idRol: res.rows.item(i).id_rol,
+            nombreRol: res.rows.item(i).nombre_rol });
+        }
+      }
+      this.listaRol.next(items as any);
+
+    })
+  }
+
   buscarCategorias(){ 
     return this.database.executeSql("SELECT * FROM categoria;",[]).then(res =>{
       //todo bien
