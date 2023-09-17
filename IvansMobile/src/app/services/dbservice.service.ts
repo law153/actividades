@@ -144,24 +144,6 @@ export class DbserviceService {
     })
   }
 
-  buscarUsuario(idUsuario: any){ 
-    return this.database.executeSql("SELECT * FROM usuario WHERE idUsuario = ?;",[idUsuario]).then(res =>{
-      //todo bien
-      let items: Rol[] = [];
-      //Validar cantidad registros
-      if(res.rows.length > 0){
-        //Recorrer los datos
-        for(var i = 0; i < res.rows.length; i++ ){
-          //Guardando los datos
-          items.push({ 
-            idRol: res.rows.item(i).id_rol,
-            nombreRol: res.rows.item(i).nombre_rol });
-        }
-      }
-      this.listaRol.next(items as any);
-
-    })
-  }
 
   buscarCategorias(){ 
     return this.database.executeSql("SELECT * FROM categoria;",[]).then(res =>{
@@ -226,6 +208,37 @@ export class DbserviceService {
 
   buscarUsuarios(){ 
     return this.database.executeSql("SELECT * FROM usuario;",[]).then(res =>{
+      //todo bien
+      let items: Usuario[] = [];
+      //Validar cantidad registros
+      if(res.rows.length > 0){
+        //Recorrer los datos
+        for(var i = 0; i < res.rows.length; i++ ){
+          //Guardando los datos
+          items.push({ 
+            idUsuario: res.rows.item(i).idUsuario,
+            rut: res.rows.item(i).rut,
+            dvrut: res.rows.item(i).dvrut,
+            nombre: res.rows.item(i).nombre,
+            apellido: res.rows.item(i).apellido,
+            telefono: res.rows.item(i).telefono_,
+            correo: res.rows.item(i).correo,
+            clave: res.rows.item(i).clave,
+            direccion: res.rows.item(i).direccion,
+            fotoUsuario: res.rows.item(i).fotoUsuario,
+            respuesta: res.rows.item(i).respuesta,
+            rolU: res.rows.item(i).rolU,
+            preguntaU: res.rows.item(i).preguntaU
+           });
+        }
+      }
+      this.listaUsuario.next(items as any);
+
+    })
+  }
+
+  buscarUsuario(idUsuario:any){ 
+    return this.database.executeSql("SELECT * FROM usuario WHERE idUsuario = ?;",[idUsuario]).then(res =>{
       //todo bien
       let items: Usuario[] = [];
       //Validar cantidad registros
