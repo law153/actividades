@@ -24,10 +24,42 @@
 
   
   <ion-grid class="contenido">
+
     
-    <ion-row>
+    
+    <ion-row *ngIf="(cateid === 1)">
+      <ion-col>
+        <h1 class="nombre-pag">Herramientas</h1>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="(cateid === 2)">
       <ion-col>
         <h1 class="nombre-pag">Electricidad</h1>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="(cateid === 3)">
+      <ion-col>
+        <h1 class="nombre-pag">Fijaciones</h1>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="(cateid === 4)">
+      <ion-col>
+        <h1 class="nombre-pag">Seguridad</h1>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="(cateid === 5)">
+      <ion-col>
+        <h1 class="nombre-pag">Ropa</h1>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="(cateid === 6)">
+      <ion-col>
+        <h1 class="nombre-pag">Gasfiteria</h1>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="(cateid === 7)">
+      <ion-col>
+        <h1 class="nombre-pag">Kits</h1>
       </ion-col>
     </ion-row>
 

@@ -12,6 +12,8 @@ export class AppComponent implements OnInit{
 
   categorias: any = [{idCategoria: '', nombreCategoria: ''}];
 
+  cateid: number = 0;
+
 
   constructor(private router: Router, private bd: DbserviceService) {}
   
@@ -60,31 +62,74 @@ export class AppComponent implements OnInit{
 
   //categorias
   irHerramientas(){
-    this.router.navigate(['/herramientas']);
-  }
-
-  irFijaciones(){
-    this.router.navigate(['/fijaciones']);
+    this.cateid = 1;
+    let categoria: NavigationExtras = {
+      state: {
+        categoriaEnviar: this.cateid
+      }
+    };
+    this.router.navigate(['/categorias'], categoria);
   }
 
   irElectricidad(){
-    this.router.navigate(['/electricidad']);
+    this.cateid = 2;
+    let categoria: NavigationExtras = {
+      state: {
+        categoriaEnviar: this.cateid
+      }
+    };
+    this.router.navigate(['/categorias'], categoria);
   }
 
+  irFijaciones(){
+    this.cateid = 3;
+    let categoria: NavigationExtras = {
+      state: {
+        categoriaEnviar: this.cateid
+      }
+    };
+    this.router.navigate(['/categorias'], categoria);
+  }
+
+
   irSeguridad(){
-    this.router.navigate(['/seguridad']);
+    this.cateid = 4;
+    let categoria: NavigationExtras = {
+      state: {
+        categoriaEnviar: this.cateid
+      }
+    };
+    this.router.navigate(['/categorias'], categoria);;
   }
 
   irRopa(){
-    this.router.navigate(['/ropa']);
+    this.cateid = 5;
+    let categoria: NavigationExtras = {
+      state: {
+        categoriaEnviar: this.cateid
+      }
+    };
+    this.router.navigate(['/categorias'], categoria);
   }
 
   irGasfiteria(){
-    this.router.navigate(['/gasfiteria']);
+    this.cateid = 6;
+    let categoria: NavigationExtras = {
+      state: {
+        categoriaEnviar: this.cateid
+      }
+    };
+    this.router.navigate(['/categorias'], categoria);
   }
 
   irKits(){
-    this.router.navigate(['/kits']);
+    this.cateid = 7;
+    let categoria: NavigationExtras = {
+      state: {
+        categoriaEnviar: this.cateid
+      }
+    };
+    this.router.navigate(['/categorias'], categoria);
   }
 
   irProdCli(){

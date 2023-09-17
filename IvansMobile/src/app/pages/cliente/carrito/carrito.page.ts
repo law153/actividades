@@ -15,13 +15,15 @@ export class CarritoPage implements OnInit {
   nombreProd: string="Producto ejemplo";
   precioProd: string="1000";
   imgProd: string="/assets/imagen.jpg";
-  constructor(private router: Router,private menuCtrl: MenuController, private alerta: AlertController, private activeRouter: ActivatedRoute) { this.activeRouter.queryParams.subscribe(param => {
+  constructor(private router: Router,private menuCtrl: MenuController, private alerta: AlertController, private activeRouter: ActivatedRoute) { 
+    this.activeRouter.queryParams.subscribe(param => {
     if(this.router.getCurrentNavigation()?.extras.state){
       this.nombreProd = this.router.getCurrentNavigation()?.extras?.state?.["nombreEnviar"];
       this.precioProd = this.router.getCurrentNavigation()?.extras?.state?.["precioEnviar"];
       this.imgProd = this.router.getCurrentNavigation()?.extras?.state?.["imgEnviar"];
     }
-  }) }
+    }) 
+  }
 
   irHomeCli(){
     this.router.navigate(['home-cli'])    

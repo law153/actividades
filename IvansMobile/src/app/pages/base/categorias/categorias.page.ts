@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MenuController } from '@ionic/angular';
 
 @Component({
@@ -8,8 +8,15 @@ import { MenuController } from '@ionic/angular';
   styleUrls: ['./categorias.page.scss'],
 })
 export class CategoriasPage implements OnInit {
-
-  constructor(private menuCtrl: MenuController, private router: Router) { }
+  idcate: number = 0;
+  constructor(private menuCtrl: MenuController, private router: Router, private activeRouter: ActivatedRoute) {
+    this.activeRouter.queryParams.subscribe(param => {
+      if(this.router.getCurrentNavigation()?.extras.state){
+        this.idcate = this.router.getCurrentNavigation()?.extras?.state?.["categoriaEnviar"];
+      }
+      }) 
+   }
+   
 
   abrirSuperior(){
     this.menuCtrl.enable(true, 'superior');
