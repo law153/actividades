@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController, MenuController, IonInput } from '@ionic/angular';
+import { DbserviceService } from 'src/app/services/dbservice.service';
 
 @Component({
   selector: 'app-editar-perfil',
@@ -32,7 +33,7 @@ export class EditarPerfilPage implements OnInit {
   respuesta: string="";
   flag: boolean = true;
 
-  constructor(private router: Router,private menuCtrl: MenuController, private alerta: AlertController) { }
+  constructor(private router: Router,private menuCtrl: MenuController, private alerta: AlertController, private bd: DbserviceService) { }
 
   irHomeCli(){
     this.router.navigate(['home-cli'])    

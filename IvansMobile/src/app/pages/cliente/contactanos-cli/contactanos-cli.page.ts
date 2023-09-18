@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController, MenuController } from '@ionic/angular';
+import { DbserviceService } from 'src/app/services/dbservice.service';
 
 @Component({
   selector: 'app-contactanos-cli',
@@ -19,7 +20,7 @@ export class ContactanosCliPage implements OnInit {
   cuerpo: string="";
   msj: string="";
   flag: boolean = true;
-  constructor(private menuCtrl: MenuController, private router: Router, private alerta: AlertController) { }
+  constructor(private menuCtrl: MenuController, private router: Router, private alerta: AlertController, private bd: DbserviceService) { }
 
   abrirSuperior(){
     this.menuCtrl.enable(true, 'superior');
@@ -48,8 +49,7 @@ export class ContactanosCliPage implements OnInit {
     this.asuntoValido();
     this.cuerpoValido();
     if(this.flag === true){
-      this.msj="Mensaje enviado con exito!";
-      this.presentAlert(this.msj);
+      this.agregar();
     }
   }
 
@@ -88,6 +88,12 @@ export class ContactanosCliPage implements OnInit {
       this.msjCuerpo="El cuerpo debe tener al menos 50 caracteres";
 
     }
+  }
+
+  agregar(){
+    this.bd.agregarConsulta(this.msjNombre,this.msjAsunto, this.msjCuerpo);
+    this.bd.presentAlert("Consulta enviada con exito");
+    this.router.navigate(['/contactanos']);
   }
 
    //Funciones de validación
