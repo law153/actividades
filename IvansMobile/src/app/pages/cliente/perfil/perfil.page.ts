@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuController } from '@ionic/angular';
+import { DbserviceService } from 'src/app/services/dbservice.service';
+import { Usuario } from 'src/app/services/usuario';
 
 @Component({
   selector: 'app-perfil',
@@ -8,8 +10,9 @@ import { MenuController } from '@ionic/angular';
   styleUrls: ['./perfil.page.scss'],
 })
 export class PerfilPage implements OnInit {
-
-  constructor(private router: Router,private menuCtrl: MenuController) { }
+  usuarioActual!: Usuario;
+  idUsuario: number = 200;
+  constructor(private router: Router,private menuCtrl: MenuController, private bd: DbserviceService) { }
 
   irHomeCli(){
     this.router.navigate(['home-cli'])    
@@ -35,7 +38,20 @@ export class PerfilPage implements OnInit {
     this.menuCtrl.open('categorias');
   }
 
+  mostrarDatosUsuario() {
+    this.bd.listaUsuario.subscribe((usuarios: Usuario[]) => {
+      if (usuarios.length > 0) {
+        const usuario = usuarios[0]; // El primer usuario encontrado
+        // Asigna el usuario a una propiedad local.
+        this.usuarioActual = usuario;
+      }
+    });
+  }
+
   ngOnInit() {
+    this.bd.buscarUsuario(this.idUsuario).then(() => {
+      this.mostrarDatosUsuario();
+    });
   }
 
 }

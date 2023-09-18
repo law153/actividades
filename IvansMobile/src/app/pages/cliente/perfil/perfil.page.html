@@ -43,34 +43,34 @@
       
     </div>
 
-    <div class="contenedor-form">
+    <div class="contenedor-form" *ngIf="usuarioActual">
       <ion-row>
         <ion-col>
-          <ion-label>Nombre:</ion-label>
+          <ion-label>Nombre: {{usuarioActual.nombre}}</ion-label>
         </ion-col>
       </ion-row>
 
       <ion-row>
         <ion-col>
-          <ion-label>Apellido:</ion-label>  
+          <ion-label>Apellido: {{usuarioActual.apellido}}</ion-label>  
         </ion-col>
       </ion-row>
 
       <ion-row>
         <ion-col>
-          <ion-label>Rut:</ion-label>  
+          <ion-label>Rut: {{usuarioActual.rut}} - {{usuarioActual.dvrut}}</ion-label>  
         </ion-col>
       </ion-row>
 
       <ion-row>
         <ion-col>
-          <ion-label>Telefono:</ion-label>  
+          <ion-label>Telefono: {{usuarioActual.telefono}}</ion-label>  
         </ion-col>
       </ion-row>
 
       <ion-row>
         <ion-col>
-          <ion-label>Dirección:</ion-label>  
+          <ion-label>Dirección: {{usuarioActual.direccion}}</ion-label>  
         </ion-col>
       </ion-row>
 
