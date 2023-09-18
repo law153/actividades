@@ -30,7 +30,27 @@ export class ProductosPage implements OnInit {
   comprar(){
     this.router.navigate(['ini-sesion']);
   }
+  /*
+  insertar(){
+    this.db.agregar(this.nombreRol)
+    this.db.presentAlert("Registro Realizado");
+    this.router.navigate(['']);
+  }
+
+  editar(){
+    this.db.modificar(this.idRol, this.nombreRol);
+    this.db.presentAlert("Cambio Realizado");
+    this.router.navigate(['']);
+  }
   
+
+
+  ///En caso de que se generen botones de eliminar con un for
+  borrar(x: any){
+    this.db.eliminar(x.id);
+    this.db.presentAlert("Cambio Realizado");
+  }
+  */
   ngOnInit() {
   }
 
