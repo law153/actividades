@@ -1,7 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController, MenuController, IonInput } from '@ionic/angular';
 import { DbserviceService } from 'src/app/services/dbservice.service';
+import { Usuario } from 'src/app/services/usuario';
 
 @Component({
   selector: 'app-editar-perfil',
@@ -33,7 +34,19 @@ export class EditarPerfilPage implements OnInit {
   respuesta: string="";
   flag: boolean = true;
 
-  constructor(private router: Router,private menuCtrl: MenuController, private alerta: AlertController, private bd: DbserviceService) { }
+  usuario!: Usuario;
+
+  constructor(private router: Router,private menuCtrl: MenuController, private alerta: AlertController, private bd: DbserviceService, private activedRouter: ActivatedRoute) {
+
+    this.activedRouter.queryParams.subscribe(param=>{
+      if(this.router.getCurrentNavigation()?.extras.state){
+        this.usuario = this.router.getCurrentNavigation()?.extras?.state?.['datosUsuario'];
+
+
+      }
+    })
+
+   }
 
   irHomeCli(){
     this.router.navigate(['home-cli'])    
@@ -320,6 +333,11 @@ export class EditarPerfilPage implements OnInit {
 
 
   ngOnInit() {
+    if (this.usuario) {
+      
+    } else {
+      console.log("Datos del usuario no disponibles");
+    }
   }
 
 }

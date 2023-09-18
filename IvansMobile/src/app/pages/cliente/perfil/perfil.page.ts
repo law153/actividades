@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationExtras, Router } from '@angular/router';
 import { MenuController } from '@ionic/angular';
 import { DbserviceService } from 'src/app/services/dbservice.service';
 import { Usuario } from 'src/app/services/usuario';
@@ -46,6 +46,15 @@ export class PerfilPage implements OnInit {
         this.usuarioActual = usuario;
       }
     });
+  }
+
+  enviarEditar(datos: any){
+    let navigationExtras: NavigationExtras ={
+      state: {
+        datosUsuario: datos
+      }
+    }
+    this.router.navigate(['/modificar'],navigationExtras);
   }
 
   ngOnInit() {
