@@ -43,8 +43,8 @@ export class DbserviceService {
   categoriaGasfiteria: string = "INSERT OR IGNORE INTO categoria(idCategoria, nombreCategoria) VALUES (6, 'gasfiteria');";
   categoriaKits: string = "INSERT OR IGNORE INTO categoria(idCategoria, nombreCategoria) VALUES (7, 'kits');";
   //Roles
-  rolCliente: string = "INSERT OR IGNORE INTO rol(id_rol, nombre_rol) VALUES (1, 'cliente');";
-  rolAdmin: string = "INSERT OR IGNORE INTO rol(id_rol, nombre_rol) VALUES (2, 'admin');";
+  rolCliente: string = "INSERT OR IGNORE INTO rol(idRol, nombreRol) VALUES (1, 'cliente');";
+  rolAdmin: string = "INSERT OR IGNORE INTO rol(idRol, nombreRol) VALUES (2, 'admin');";
   //preguntas
   preguntaMascota: string = "INSERT OR IGNORE INTO pregunta(idPregunta, nombrePregunta) VALUES (1, '¿Cual es el nombre de tu primera mascota?'); ";
   preguntaCiudad: string = "INSERT OR IGNORE INTO pregunta(idPregunta, nombrePregunta) VALUES (2, '¿Cual es tu ciudad natal?'); ";
@@ -135,8 +135,8 @@ export class DbserviceService {
         for(var i = 0; i < res.rows.length; i++ ){
           //Guardando los datos
           items.push({ 
-            idRol: res.rows.item(i).id_rol,
-            nombreRol: res.rows.item(i).nombre_rol });
+            idRol: res.rows.item(i).idRol,
+            nombreRol: res.rows.item(i).nombreRol });
         }
       }
       this.listaRol.next(items as any);
@@ -155,8 +155,8 @@ export class DbserviceService {
         for(var i = 0; i < res.rows.length; i++ ){
           //Guardando los datos
           items.push({ 
-            idCategoria: res.rows.item(i).id_categoria,
-            nombreCategoria: res.rows.item(i).nombre_categoria });
+            idCategoria: res.rows.item(i).idCategoria,
+            nombreCategoria: res.rows.item(i).nombreCategoria });
         }
       }
       this.listaCategoria.next(items as any);
@@ -174,8 +174,8 @@ export class DbserviceService {
         for(var i = 0; i < res.rows.length; i++ ){
           //Guardando los datos
           items.push({ 
-            idPregunta: res.rows.item(i).id_pregunta,
-            nombrePregunta: res.rows.item(i).nombre_pregunta });
+            idPregunta: res.rows.item(i).idPregunta,
+            nombrePregunta: res.rows.item(i).nombrePregunta });
         }
       }
       this.listaPregunta.next(items as any);
@@ -221,7 +221,7 @@ export class DbserviceService {
             dvrut: res.rows.item(i).dvrut,
             nombre: res.rows.item(i).nombre,
             apellido: res.rows.item(i).apellido,
-            telefono: res.rows.item(i).telefono_,
+            telefono: res.rows.item(i).telefono,
             correo: res.rows.item(i).correo,
             clave: res.rows.item(i).clave,
             direccion: res.rows.item(i).direccion,
@@ -252,7 +252,7 @@ export class DbserviceService {
             dvrut: res.rows.item(i).dvrut,
             nombre: res.rows.item(i).nombre,
             apellido: res.rows.item(i).apellido,
-            telefono: res.rows.item(i).telefono_,
+            telefono: res.rows.item(i).telefono,
             correo: res.rows.item(i).correo,
             clave: res.rows.item(i).clave,
             direccion: res.rows.item(i).direccion,
@@ -265,6 +265,36 @@ export class DbserviceService {
       }
       this.listaUsuario.next(items as any);
 
+    })
+  }
+
+  buscarIdUsuario(correo:any){ 
+    return this.database.executeSql("SELECT idUsuario FROM usuario WHERE correo = ?;",[correo]).then(res =>{
+      //todo bien
+      let items: Usuario[] = [];
+      //Validar cantidad registros
+      if(res.rows.length > 0){
+        //Recorrer los datos
+        for(var i = 0; i < res.rows.length; i++ ){
+          //Guardando los datos
+          items.push({ 
+            idUsuario: res.rows.item(i).idUsuario,
+            rut: res.rows.item(i).rut,
+            dvrut: res.rows.item(i).dvrut,
+            nombre: res.rows.item(i).nombre,
+            apellido: res.rows.item(i).apellido,
+            telefono: res.rows.item(i).telefono,
+            correo: res.rows.item(i).correo,
+            clave: res.rows.item(i).clave,
+            direccion: res.rows.item(i).direccion,
+            fotoUsuario: res.rows.item(i).fotoUsuario,
+            respuesta: res.rows.item(i).respuesta,
+            rolU: res.rows.item(i).rolU,
+            preguntaU: res.rows.item(i).preguntaU
+           });
+        }
+      }
+      this.listaUsuario.next(items as any);
     })
   }
 
@@ -467,7 +497,7 @@ export class DbserviceService {
   //Funciones para eliminar
 
   eliminar(id:any){ //Borrar luego
-    return this.database.executeSql("DELETE FROM rol WHERE id_rol= ?",[id]).then(res=>{
+    return this.database.executeSql("DELETE FROM rol WHERE idRol= ?",[id]).then(res=>{
       this.buscarRoles(); })}
 
   eliminarUsuario(id:any){ 
@@ -490,7 +520,7 @@ export class DbserviceService {
   }
   //Funciones para agregar
   agregar(nombre: any){  
-    return this.database.executeSql("INSERT INTO rol(nombre_rol) VALUES(?)",[nombre]).then(res=> {
+    return this.database.executeSql("INSERT INTO rol(nombreRol) VALUES(?)",[nombre]).then(res=> {
       this.buscarRoles(); 
     })
   }
@@ -533,13 +563,13 @@ export class DbserviceService {
 
   //Funciones para modificar
   modificar(id: any, nombre: any){  
-    return this.database.executeSql("UPDATE rol SET nombre_rol = ? WHERE id_rol = ?",[nombre, id]).then(res =>{
+    return this.database.executeSql("UPDATE rol SET nombreRol = ? WHERE idRol = ?",[nombre, id]).then(res =>{
       this.buscarRoles();
     })
   }
   //Usuario
   modificarUsuario(id: any, nombre: any,  apellido: any, rut: any, dvrut: any, telefono: any, correo: any, direccion: any, foto: any, respuesta: any, pregunta: any ){  
-    return this.database.executeSql("UPDATE usuario SET nombre = ?, apellido = ?, rut = ?, dvrut = ?, telefono = ?, correo = ?, direccion = ?, fotoUsuario = ?, respuesta = ?, pregunta = ? WHERE id_rol = ?",[nombre, apellido, rut, dvrut, telefono, correo, direccion, foto, respuesta, pregunta, id]).then(res =>{
+    return this.database.executeSql("UPDATE usuario SET nombre = ?, apellido = ?, rut = ?, dvrut = ?, telefono = ?, correo = ?, direccion = ?, fotoUsuario = ?, respuesta = ?, pregunta = ? WHERE idUsuario = ?",[nombre, apellido, rut, dvrut, telefono, correo, direccion, foto, respuesta, pregunta, id]).then(res =>{
       this.buscarUsuarios();
     })
   }

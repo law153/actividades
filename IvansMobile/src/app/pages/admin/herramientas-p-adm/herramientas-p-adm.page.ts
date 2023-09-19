@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController, MenuController, ToastController } from '@ionic/angular';
+import { DbserviceService } from 'src/app/services/dbservice.service';
 
 @Component({
   selector: 'app-herramientas-p-adm',
@@ -15,16 +16,18 @@ export class HerramientasPAdmPage implements OnInit {
   msjMedida: string = "";
   msjCate: string = "";
 
+  id: number = 0;
   nombre: string = "Desatornillador cruz decker";
   desc: string = "Desatornillador tipo cruz Decker de acero inoxidable, 15x3cm<";
   precio: string="13000";
   stock: number=1;
   medida: string = "Por Unidad";
-  categoria: string= "Herramientas";
+  categoria: number= 1;
   flag: boolean= true;
   msj: string="";
+  foto: string = "/assets/imagen.jpg";
 
-  constructor(private router: Router, private alerta: AlertController, private tostada: ToastController, private menuCtrl: MenuController) { }
+  constructor(private router: Router, private alerta: AlertController, private tostada: ToastController, private menuCtrl: MenuController, private bd: DbserviceService) { }
 
   abrirSuperior(){
     this.menuCtrl.enable(true, 'superior');
@@ -50,6 +53,7 @@ export class HerramientasPAdmPage implements OnInit {
     this.medidaValido();
     this.categoriaValido();
     if(this.flag === true){
+      this.editarProd();
       this.msj="Producto editado correctamente";
       this.presentAlert(this.msj);
       this.irHomeAdm();
@@ -165,6 +169,10 @@ export class HerramientasPAdmPage implements OnInit {
     });
 
     await alert.present();
+  }
+
+  editarProd(){
+    this.bd.modificarProducto(this.id, this.nombre, this.desc, this.precio, this.stock, this.foto, this.medida, this.categoria);
   }
 
   ngOnInit() {

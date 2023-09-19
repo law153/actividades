@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController, MenuController } from '@ionic/angular';
+import { DbserviceService } from 'src/app/services/dbservice.service';
+import { Usuario } from 'src/app/services/usuario';
 
 @Component({
   selector: 'app-ini-sesion',
@@ -12,23 +14,31 @@ export class IniSesionPage implements OnInit {
   correo: string = "";
   clave: string = "";
   idUsuario: number = 200;
-  constructor(private menuCtrl: MenuController, private router: Router, private alerta: AlertController) { }
+  constructor(private menuCtrl: MenuController, private router: Router, private alerta: AlertController, private bd: DbserviceService) { }
 
   irHome(){
     this.router.navigate(['']);
   }
 
+
   iniciarSesion(){
+
+    
+    localStorage.setItem('idUser',this.idUsuario+'');
     if(this.correo === "javicci@gmail.com" && this.clave === "umigod"){
-      this.irCli();
       localStorage.setItem('token', "1");
+      
+      this.irCli();
     } else if(this.correo === "ivan.fuentes@gmail.com" && this.clave === "ivans"){
-      this.irAdm();
       localStorage.setItem('token', "2");
+      this.irAdm();
+      
     } else{
       this.presentAlert();
     }
+    
   }
+
 
   irCli(){
     this.router.navigate(['/home-cli']);
@@ -51,6 +61,7 @@ export class IniSesionPage implements OnInit {
   irOlvContra(){
     this.router.navigate(['/olv-contra']);
   }
+  
 
   async presentAlert() {
     const alert = await this.alerta.create({
@@ -64,7 +75,6 @@ export class IniSesionPage implements OnInit {
   }
 
   ngOnInit() {
-    localStorage.setItem('idUser', "200");
   }
 
 }
