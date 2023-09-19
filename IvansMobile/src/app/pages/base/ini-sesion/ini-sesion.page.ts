@@ -11,6 +11,7 @@ export class IniSesionPage implements OnInit {
 
   correo: string = "";
   clave: string = "";
+  idUsuario: number = 200;
   constructor(private menuCtrl: MenuController, private router: Router, private alerta: AlertController) { }
 
   irHome(){
@@ -63,6 +64,7 @@ export class IniSesionPage implements OnInit {
   }
 
   ngOnInit() {
+    localStorage.setItem('idUser', "200");
   }
 
 }

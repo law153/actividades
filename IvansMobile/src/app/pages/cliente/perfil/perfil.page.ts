@@ -11,7 +11,9 @@ import { Usuario } from 'src/app/services/usuario';
 })
 export class PerfilPage implements OnInit {
   usuarioActual!: Usuario;
-  idUsuario: number = 200;
+  idUsuario: number = 0;
+  idStorage: any = "";
+
   constructor(private router: Router,private menuCtrl: MenuController, private bd: DbserviceService) { }
 
   irHomeCli(){
@@ -58,6 +60,11 @@ export class PerfilPage implements OnInit {
   }
 
   ngOnInit() {
+    this.idStorage = localStorage.getItem('idUser');
+    if(this.idStorage != null){
+      this.idUsuario = parseInt(this.idStorage);
+    }
+
     this.bd.buscarUsuario(this.idUsuario).then(() => {
       this.mostrarDatosUsuario();
     });

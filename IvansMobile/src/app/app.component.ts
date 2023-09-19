@@ -9,6 +9,7 @@ import { DbserviceService } from 'src/app/services/dbservice.service';
 })
 export class AppComponent implements OnInit{
   variableStorage: any = "";
+  
 
   categorias: any = [{idCategoria: '', nombreCategoria: ''}];
 
