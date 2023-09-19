@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController, MenuController } from '@ionic/angular';
+import { DbserviceService } from 'src/app/services/dbservice.service';
+import { Usuario } from 'src/app/services/usuario';
 
 @Component({
   selector: 'app-cambiar-contra',
@@ -18,7 +20,11 @@ export class CambiarContraPage implements OnInit {
   msjRepClave: string = "";
   msjClaveOld: string = "";
 
-  constructor(private router: Router,private menuCtrl: MenuController, private alerta: AlertController) { }
+  idUsuario: number = 0;
+  idStorage: any = "";
+  usuarioActual!: Usuario;
+
+  constructor(private router: Router,private menuCtrl: MenuController, private alerta: AlertController, private bd: DbserviceService) { }
 
   irHomeCli(){
     this.router.navigate(['home-cli']);
@@ -43,11 +49,12 @@ export class CambiarContraPage implements OnInit {
 
   //Validaciones
   envioValido(){
+    this.claveOldValida();
     this.claveNuevaValida();
     this.claveRepValid();
     if(this.flag === true){
-      this.msj="Contraseña cambiada correctamente";
-      this.irHome();
+      this.cambioContra();
+      this.irHomeCli();
     }
   }
 
@@ -100,6 +107,19 @@ export class CambiarContraPage implements OnInit {
     }
   }
 
+  claveOldValida(){
+    this.msjClaveOld = "";
+    if(this.usuarioActual.clave != this.claveOld){
+      this.flag = false;
+      this.msjClaveOld="La contraseña actual ingresada no es correcta";
+    }
+  }
+
+  cambioContra(){
+    this.bd.modificarClave(this.idUsuario,this.claveNueva);
+    this.bd.presentAlert("Contraseña cambiada correctamente");
+  }
+
   //Funciones de validación
   
 
@@ -133,7 +153,26 @@ export class CambiarContraPage implements OnInit {
     await alert.present();
   }
 
+  mostrarDatosUsuario() {
+    this.bd.listaUsuario.subscribe((usuarios: Usuario[]) => {
+      if (usuarios.length > 0) {
+        const usuario = usuarios[0]; // El primer usuario encontrado
+        // Asigna el usuario a una propiedad local.
+        this.usuarioActual = usuario;
+      }
+    });
+  }
+
   ngOnInit() {
+    this.idStorage = localStorage.getItem('idUser');
+    if(this.idStorage != null){
+      this.idUsuario = parseInt(this.idStorage);
+    }
+
+    this.bd.buscarUsuario(this.idUsuario).then(() => {
+      this.mostrarDatosUsuario();
+    });
+
   }
 
 }
