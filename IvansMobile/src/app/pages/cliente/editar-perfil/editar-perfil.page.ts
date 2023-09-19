@@ -254,9 +254,14 @@ export class EditarPerfilPage implements OnInit {
 
   editarPerfil(){
       this.bd.modificarUsuario(this.idUsuario, this.nombre, this.apellido, this.rut, this.dvrut, this.fono, this.correo, this.direc, this.foto, this.respuesta, this.pregId);
-      this.bd.presentAlert("Cambio Realizado");
+      this.bd.presentAlert("Usuario editado con exito");
       this.router.navigate(['']);
     
+  }
+
+  borrarCuenta(){
+    this.bd.eliminarUsuario(this.idUsuario);
+    this.bd.presentAlert("Cuenta borrada");
   }
 
   async presentAlert(mensaje: string) {
