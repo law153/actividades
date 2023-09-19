@@ -32,9 +32,13 @@ export class EditarPerfilPage implements OnInit {
   claveRep: string="";
   pregunta: string="";
   respuesta: string="";
+  foto: string = "/assets/imagen.jpg";
   flag: boolean = true;
 
   usuario!: Usuario;
+  idUsuario: number = 0;
+  idStorage: any = "";
+  pregId: number = 0;
 
   constructor(private router: Router,private menuCtrl: MenuController, private alerta: AlertController, private bd: DbserviceService, private activedRouter: ActivatedRoute) {
 
@@ -74,8 +78,8 @@ export class EditarPerfilPage implements OnInit {
     this.preguntaValida();
     this.fonoValido();
     if(this.flag === true){
-      this.msj="Usuario creado correctamente";
-      this.router.navigate(['ini-sesion'])    
+      this.pregId = parseInt(this.pregunta);
+      this.editarPerfil();   
     }
   }
 
@@ -248,6 +252,13 @@ export class EditarPerfilPage implements OnInit {
     }
   }
 
+  editarPerfil(){
+      this.bd.modificarUsuario(this.idUsuario, this.nombre, this.apellido, this.rut, this.dvrut, this.fono, this.correo, this.direc, this.foto, this.respuesta, this.pregId);
+      this.bd.presentAlert("Cambio Realizado");
+      this.router.navigate(['']);
+    
+  }
+
   async presentAlert(mensaje: string) {
     const alert = await this.alerta.create({
       header: 'Alerta',
@@ -333,6 +344,11 @@ export class EditarPerfilPage implements OnInit {
 
 
   ngOnInit() {
+    this.idStorage = localStorage.getItem('idUser');
+    if(this.idStorage != null){
+      this.idUsuario = parseInt(this.idStorage);
+    }
+
     if (this.usuario) {
       
     } else {
