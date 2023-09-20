@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController, MenuController } from '@ionic/angular';
-import { DbserviceService } from 'src/app/services/dbservice.service';
-import { Usuario } from 'src/app/services/usuario';
+//import { DbserviceService } from 'src/app/services/dbservice.service';
+
 
 @Component({
   selector: 'app-cambiar-contra',
@@ -22,9 +22,9 @@ export class CambiarContraPage implements OnInit {
 
   idUsuario: number = 0;
   idStorage: any = "";
-  usuarioActual!: Usuario;
+  usuarioActual!: any;
 
-  constructor(private router: Router,private menuCtrl: MenuController, private alerta: AlertController, private bd: DbserviceService) { }
+  constructor(private router: Router,private menuCtrl: MenuController, private alerta: AlertController, /*private bd: DbserviceService*/) { }
 
   irHomeCli(){
     this.router.navigate(['home-cli']);
@@ -53,7 +53,7 @@ export class CambiarContraPage implements OnInit {
     this.claveNuevaValida();
     this.claveRepValid();
     if(this.flag === true){
-      this.cambioContra();
+      //this.cambioContra();
       this.irHomeCli();
     }
   }
@@ -115,10 +115,10 @@ export class CambiarContraPage implements OnInit {
     }
   }
 
-  cambioContra(){
+  /*cambioContra(){
     this.bd.modificarClave(this.idUsuario,this.claveNueva);
     this.bd.presentAlert("Contraseña cambiada correctamente");
-  }
+  }*/
 
   //Funciones de validación
   
@@ -153,7 +153,7 @@ export class CambiarContraPage implements OnInit {
     await alert.present();
   }
 
-  mostrarDatosUsuario() {
+  /*mostrarDatosUsuario() {
     this.bd.listaUsuario.subscribe((usuarios: Usuario[]) => {
       if (usuarios.length > 0) {
         const usuario = usuarios[0]; // El primer usuario encontrado
@@ -161,9 +161,10 @@ export class CambiarContraPage implements OnInit {
         this.usuarioActual = usuario;
       }
     });
-  }
+  }*/
 
   ngOnInit() {
+    /*
     this.idStorage = localStorage.getItem('idUser');
     if(this.idStorage != null){
       this.idUsuario = parseInt(this.idStorage);
@@ -172,6 +173,7 @@ export class CambiarContraPage implements OnInit {
     this.bd.buscarUsuario(this.idUsuario).then(() => {
       this.mostrarDatosUsuario();
     });
+    */
 
   }
 

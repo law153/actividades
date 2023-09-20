@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
 import { MenuController } from '@ionic/angular';
-import { DbserviceService } from 'src/app/services/dbservice.service';
+//import { DbserviceService } from 'src/app/services/dbservice.service';
 
 @Component({
   selector: 'app-editar-rol',
@@ -14,7 +14,7 @@ export class EditarRolPage implements OnInit {
   roles: any =[{nombre_rol: 'a', id_rol: '1'}];
 
 
-  constructor(private menuCtrl: MenuController, private router: Router, private bd: DbserviceService) { }
+  constructor(private menuCtrl: MenuController, private router: Router, /*private bd: DbserviceService*/) { }
 
   abrirSuperior(){
     this.menuCtrl.enable(true, 'superior');
@@ -31,13 +31,13 @@ export class EditarRolPage implements OnInit {
   }
 
   ngOnInit() {
-    this.bd.dbState().subscribe(res => {
+     /*this.bd.dbState().subscribe(res => {
       if(res){
         this.bd.fetchRol().subscribe(item =>{
           this.roles = item;
         })
       }
-    })
+    })*/
 
   }
 

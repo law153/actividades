@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController, MenuController } from '@ionic/angular';
-import { DbserviceService } from 'src/app/services/dbservice.service';
-import { Usuario } from 'src/app/services/usuario';
+//import { DbserviceService } from 'src/app/services/dbservice.service';
 
 @Component({
   selector: 'app-ini-sesion',
@@ -14,7 +13,7 @@ export class IniSesionPage implements OnInit {
   correo: string = "";
   clave: string = "";
   idUsuario: number = 200;
-  constructor(private menuCtrl: MenuController, private router: Router, private alerta: AlertController, private bd: DbserviceService) { }
+  constructor(private menuCtrl: MenuController, private router: Router, private alerta: AlertController, /*private bd: DbserviceService*/) { }
 
   irHome(){
     this.router.navigate(['']);

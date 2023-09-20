@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
-import { DbserviceService } from 'src/app/services/dbservice.service';
+ // import { DbserviceService } from 'src/app/services/dbservice.service';
 
 @Component({
   selector: 'app-root',
@@ -16,7 +16,7 @@ export class AppComponent implements OnInit{
   cateid: number = 0;
 
 
-  constructor(private router: Router, private bd: DbserviceService) {}
+  constructor(private router: Router,  /* private bd: DbserviceService*/ ) {}
   
 
   //funciones de redirección
@@ -148,13 +148,13 @@ export class AppComponent implements OnInit{
   ngOnInit() {
     this.variableStorage = localStorage.getItem('token');
     
-    this.bd.dbState().subscribe(res => {
+    /*this.bd.dbState().subscribe(res => {
       if(res){
         this.bd.fetchCategoria().subscribe(item => {
           this.categorias = item;
         })
       }
-    })
+    }) */
   }
 
 }

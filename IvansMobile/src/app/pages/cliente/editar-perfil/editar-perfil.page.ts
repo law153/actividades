@@ -1,8 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController, MenuController, IonInput } from '@ionic/angular';
-import { DbserviceService } from 'src/app/services/dbservice.service';
-import { Usuario } from 'src/app/services/usuario';
+//import { DbserviceService } from 'src/app/services/dbservice.service';
 
 @Component({
   selector: 'app-editar-perfil',
@@ -35,12 +34,12 @@ export class EditarPerfilPage implements OnInit {
   foto: string = "/assets/imagen.jpg";
   flag: boolean = true;
 
-  usuario!: Usuario;
+  usuario!: any[];
   idUsuario: number = 0;
   idStorage: any = "";
   pregId: number = 0;
 
-  constructor(private router: Router,private menuCtrl: MenuController, private alerta: AlertController, private bd: DbserviceService, private activedRouter: ActivatedRoute) {
+  constructor(private router: Router,private menuCtrl: MenuController, private alerta: AlertController, /*private bd: DbserviceService,*/ private activedRouter: ActivatedRoute) {
 
     this.activedRouter.queryParams.subscribe(param=>{
       if(this.router.getCurrentNavigation()?.extras.state){
@@ -79,7 +78,7 @@ export class EditarPerfilPage implements OnInit {
     this.fonoValido();
     if(this.flag === true){
       this.pregId = parseInt(this.pregunta);
-      this.editarPerfil();   
+      //this.editarPerfil();   
     }
   }
 
@@ -252,17 +251,17 @@ export class EditarPerfilPage implements OnInit {
     }
   }
 
-  editarPerfil(){
+  /*editarPerfil(){
       this.bd.modificarUsuario(this.idUsuario, this.nombre, this.apellido, this.rut, this.dvrut, this.fono, this.correo, this.direc, this.foto, this.respuesta, this.pregId);
       this.bd.presentAlert("Usuario editado con exito");
       this.router.navigate(['']);
     
-  }
+  }*/
 
-  borrarCuenta(){
+ /*borrarCuenta(){
     this.bd.eliminarUsuario(this.idUsuario);
     this.bd.presentAlert("Cuenta borrada");
-  }
+  }*/
 
   async presentAlert(mensaje: string) {
     const alert = await this.alerta.create({
