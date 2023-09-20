@@ -13,9 +13,11 @@ import { Venta } from './venta';
 import { Consulta } from './consulta';
 import { Detallecomprado } from './detallecomprado';
 import { Pregunta } from './pregunta';
+
 @Injectable({
   providedIn: 'root'
 })
+
 export class DbserviceService {
 
   //Conexion a base de datos
@@ -659,7 +661,6 @@ export class DbserviceService {
       this.buscarCategorias;
       this.buscarVentas;
       this.buscarDetallesCompra;
-      this.buscarCategorias;
 
     }catch{
       this.presentAlert("Error al crear la base de datos");

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
- // import { DbserviceService } from 'src/app/services/dbservice.service';
+//import { DbserviceService } from 'src/app/services/dbservice.service';
 
 @Component({
   selector: 'app-root',
@@ -11,12 +11,12 @@ export class AppComponent implements OnInit{
   variableStorage: any = "";
   
 
-  categorias: any = [{idCategoria: '', nombreCategoria: ''}];
+  categorias: any = [{idcategoria: '', nombrecategoria: ''}];
 
   cateid: number = 0;
 
 
-  constructor(private router: Router,  /* private bd: DbserviceService*/ ) {}
+  constructor(private router: Router,  /*private bd: DbserviceService*/ ) {}
   
 
   //funciones de redirección
@@ -46,6 +46,7 @@ export class AppComponent implements OnInit{
   irContactanosCli(){
     this.router.navigate(['/contactanos-cli']);
   }
+
   cerrarSesion(){
     localStorage.setItem('token', "");
     this.router.navigate(['']);
@@ -62,8 +63,8 @@ export class AppComponent implements OnInit{
   }
 
   //categorias
-  irHerramientas(){
-    this.cateid = 1;
+  irCategorias(){
+    //this.cateid = this.categorias.idcategoria;
     let categoria: NavigationExtras = {
       state: {
         categoriaEnviar: this.cateid
@@ -72,66 +73,6 @@ export class AppComponent implements OnInit{
     this.router.navigate(['/categorias'], categoria);
   }
 
-  irElectricidad(){
-    this.cateid = 2;
-    let categoria: NavigationExtras = {
-      state: {
-        categoriaEnviar: this.cateid
-      }
-    };
-    this.router.navigate(['/categorias'], categoria);
-  }
-
-  irFijaciones(){
-    this.cateid = 3;
-    let categoria: NavigationExtras = {
-      state: {
-        categoriaEnviar: this.cateid
-      }
-    };
-    this.router.navigate(['/categorias'], categoria);
-  }
-
-
-  irSeguridad(){
-    this.cateid = 4;
-    let categoria: NavigationExtras = {
-      state: {
-        categoriaEnviar: this.cateid
-      }
-    };
-    this.router.navigate(['/categorias'], categoria);;
-  }
-
-  irRopa(){
-    this.cateid = 5;
-    let categoria: NavigationExtras = {
-      state: {
-        categoriaEnviar: this.cateid
-      }
-    };
-    this.router.navigate(['/categorias'], categoria);
-  }
-
-  irGasfiteria(){
-    this.cateid = 6;
-    let categoria: NavigationExtras = {
-      state: {
-        categoriaEnviar: this.cateid
-      }
-    };
-    this.router.navigate(['/categorias'], categoria);
-  }
-
-  irKits(){
-    this.cateid = 7;
-    let categoria: NavigationExtras = {
-      state: {
-        categoriaEnviar: this.cateid
-      }
-    };
-    this.router.navigate(['/categorias'], categoria);
-  }
 
   irProdCli(){
     this.router.navigate(['/herramientas-p-cli']);
@@ -147,14 +88,15 @@ export class AppComponent implements OnInit{
 
   ngOnInit() {
     this.variableStorage = localStorage.getItem('token');
-    
-    /*this.bd.dbState().subscribe(res => {
+    /*
+    this.bd.dbState().subscribe(res => {
       if(res){
         this.bd.fetchCategoria().subscribe(item => {
           this.categorias = item;
         })
       }
-    }) */
+    })
+    */
   }
 
 }
