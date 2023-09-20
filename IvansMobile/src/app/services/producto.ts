@@ -6,5 +6,5 @@ export class Producto {
     stock = "";
     foto = "";
     unidadmedida = "";
-    categoria = "";
+    categoriap = "";
 }

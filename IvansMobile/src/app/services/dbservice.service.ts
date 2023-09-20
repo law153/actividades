@@ -22,46 +22,46 @@ export class DbserviceService {
   public database!: SQLiteObject;
 
   //Variables de creación de tablas
-  categoria: string = "CREATE TABLE IF NOT EXISTS categoria(idCategoria INTEGER PRIMARY KEY, nombreCategoria TEXT NOT NULL);";
-  rol: string = "CREATE TABLE IF NOT EXISTS rol(idRol INTEGER PRIMARY KEY, nombreRol TEXT NOT NULL);";
-  pregunta: string = "CREATE TABLE IF NOT EXISTS pregunta(idPregunta INTEGER PRIMARY KEY, nombrePregunta TEXT NOT NULL);";
-  consulta: string = "CREATE TABLE IF NOT EXISTS consulta(idConsulta INTEGER PRIMARY KEY AUTOINCREMENT, nombreConsultante TEXT NOT NULL, asuntoConsulta TEXT NOT NULL, mensajeConsulta TEXT NOT NULL);";
-  usuario: string = "CREATE TABLE IF NOT EXISTS usuario(idUsuario INTEGER PRIMARY KEY AUTOINCREMENT, rut INTEGER NOT NULL, dvrut CHAR(1) NOT NULL, nombre TEXT NOT NULL, apellido TEXT NOT NULL, telefono INTEGER NOT NULL, correo TEXT NOT NULL, clave TEXT NOT NULL, direccion TEXT NOT NULL, fotoUsuario BLOB NOT NULL ,respuesta TEXT NOT NULL, rolU INTEGER NOT NULL, preguntaU INTEGER NOT NULL, FOREIGN KEY (rolU) REFERENCES rol(idRol), FOREIGN KEY (preguntaU) REFERENCES pregunta(idPregunta));";
-  producto: string = "CREATE TABLE IF NOT EXISTS producto(codProd INTEGER PRIMARY KEY AUTOINCREMENT, nombreProd TEXT NOT NULL, descripcion TEXT NOT NULL, precio INTEGER NOT NULL, stock INTEGER NOT NULL, foto BLOB NOT NULL, unidadMedida TEXT NOT NULL, categoriaP INTEGER NOT NULL, FOREIGN KEY (categoriaP) REFERENCES categoria(idCategoria));";
-  venta: string = "CREATE TABLE IF NOT EXISTS venta(idVenta INTEGER PRIMARY KEY AUTOINCREMENT, fechaVenta DATE NOT NULL, estado TEXT NOT NULL, fechaEntrega DATE NOT NULL, total INTEGER NOT NULL, carrito CHAR(1), usuarioV INTEGER NOT NULL, FOREIGN KEY (usuarioV) REFERENCES usuario(idUsuario) );";
-  detalle: string= "CREATE TABLE IF NOT EXISTS detalle(idDetalle INTEGER PRIMARY KEY AUTOINCREMENT, cantidad INTEGER NOT NULL, subtotal INTEGER NOT NULL, ventaD INTEGER NOT NULL, productoD INTEGER NOT NULL, FOREIGN KEY (ventaD) REFERENCES venta(idVenta), FOREIGN KEY (productoD) REFERENCES producto(codProd) );";
-  detalleComprado: string ="CREATE TABLE IF NOT EXISTS detalleComprado(idDetalleC INTEGER PRIMARY KEY AUTOINCREMENT, nombreProdC TEXT NOT NULL, fotoProdC BLOB NOT NULL, cantidadC INTEGER NOT NULL, subtotalC INTEGER NOT NULL, ventaC INTEGER NOT NULL, FOREIGN KEY (ventaC) REFERENCES venta(idVenta) );";
+  categoria: string = "CREATE TABLE IF NOT EXISTS categoria(idcategoria INTEGER PRIMARY KEY, nombrecategoria TEXT NOT NULL);";
+  rol: string = "CREATE TABLE IF NOT EXISTS rol(idrol INTEGER PRIMARY KEY, nombrerol TEXT NOT NULL);";
+  pregunta: string = "CREATE TABLE IF NOT EXISTS pregunta(idpregunta INTEGER PRIMARY KEY, nombrepregunta TEXT NOT NULL);";
+  consulta: string = "CREATE TABLE IF NOT EXISTS consulta(idconsulta INTEGER PRIMARY KEY AUTOINCREMENT, nombreconsultante TEXT NOT NULL, asuntoconsulta TEXT NOT NULL, mensajeconsulta TEXT NOT NULL);";
+  usuario: string = "CREATE TABLE IF NOT EXISTS usuario(idusuario INTEGER PRIMARY KEY AUTOINCREMENT, rut INTEGER NOT NULL, dvrut CHAR(1) NOT NULL, nombre TEXT NOT NULL, apellido TEXT NOT NULL, telefono INTEGER NOT NULL, correo TEXT NOT NULL, clave TEXT NOT NULL, direccion TEXT NOT NULL, fotousuario BLOB NOT NULL ,respuesta TEXT NOT NULL, rolu INTEGER NOT NULL, preguntau INTEGER NOT NULL, FOREIGN KEY (rolu) REFERENCES rol(idrol), FOREIGN KEY (preguntau) REFERENCES pregunta(idpregunta));";
+  producto: string = "CREATE TABLE IF NOT EXISTS producto(codprod INTEGER PRIMARY KEY AUTOINCREMENT, nombreprod TEXT NOT NULL, descripcion TEXT NOT NULL, precio INTEGER NOT NULL, stock INTEGER NOT NULL, foto BLOB NOT NULL, unidadmedida TEXT NOT NULL, categoriap INTEGER NOT NULL, FOREIGN KEY (categoriap) REFERENCES categoria(idcategoria));";
+  venta: string = "CREATE TABLE IF NOT EXISTS venta(idventa INTEGER PRIMARY KEY AUTOINCREMENT, fechaventa DATE NOT NULL, estado TEXT NOT NULL, fechaentrega DATE NOT NULL, total INTEGER NOT NULL, carrito CHAR(1), usuariov INTEGER NOT NULL, FOREIGN KEY (usuariov) REFERENCES usuario(idusuario) );";
+  detalle: string= "CREATE TABLE IF NOT EXISTS detalle(iddetalle INTEGER PRIMARY KEY AUTOINCREMENT, cantidad INTEGER NOT NULL, subtotal INTEGER NOT NULL, ventad INTEGER NOT NULL, productod INTEGER NOT NULL, FOREIGN KEY (ventad) REFERENCES venta(idventa), FOREIGN KEY (productod) REFERENCES producto(codprod) );";
+  detalleComprado: string ="CREATE TABLE IF NOT EXISTS detallecomprado(iddetallec INTEGER PRIMARY KEY AUTOINCREMENT, nombreprodc TEXT NOT NULL, fotoprodc BLOB NOT NULL, cantidadc INTEGER NOT NULL, subtotalc INTEGER NOT NULL, ventac INTEGER NOT NULL, FOREIGN KEY (ventac) REFERENCES venta(idventa) );";
 
   //Variables para insert iniciales
 
   //Categorias
-  categoriaHerramientas: string = "INSERT OR IGNORE INTO categoria(idCategoria, nombreCategoria) VALUES (1, 'herramientas');";
-  categoriaElectricidad: string = "INSERT OR IGNORE INTO categoria(idCategoria, nombreCategoria) VALUES (2, 'electricidad');";
-  categoriaFijaciones: string = "INSERT OR IGNORE INTO categoria(idCategoria, nombreCategoria) VALUES (3, 'fijaciones');";
-  categoriaSeguridad: string = "INSERT OR IGNORE INTO categoria(idCategoria, nombreCategoria) VALUES (4, 'seguridad');";
-  categoriaRopa: string = "INSERT OR IGNORE INTO categoria(idCategoria, nombreCategoria) VALUES (5, 'ropa');";
-  categoriaGasfiteria: string = "INSERT OR IGNORE INTO categoria(idCategoria, nombreCategoria) VALUES (6, 'gasfiteria');";
-  categoriaKits: string = "INSERT OR IGNORE INTO categoria(idCategoria, nombreCategoria) VALUES (7, 'kits');";
+  categoriaHerramientas: string = "INSERT OR IGNORE INTO categoria(idcategoria, nombrecategoria) VALUES (1, 'herramientas');";
+  categoriaElectricidad: string = "INSERT OR IGNORE INTO categoria(idcategoria, nombrecategoria) VALUES (2, 'electricidad');";
+  categoriaFijaciones: string = "INSERT OR IGNORE INTO categoria(idcategoria, nombrecategoria) VALUES (3, 'fijaciones');";
+  categoriaSeguridad: string = "INSERT OR IGNORE INTO categoria(idcategoria, nombrecategoria) VALUES (4, 'seguridad');";
+  categoriaRopa: string = "INSERT OR IGNORE INTO categoria(idcategoria, nombrecategoria) VALUES (5, 'ropa');";
+  categoriaGasfiteria: string = "INSERT OR IGNORE INTO categoria(idcategoria, nombrecategoria) VALUES (6, 'gasfiteria');";
+  categoriaKits: string = "INSERT OR IGNORE INTO categoria(idcategoria, nombrecategoria) VALUES (7, 'kits');";
   //Roles
-  rolCliente: string = "INSERT OR IGNORE INTO rol(idRol, nombreRol) VALUES (1, 'cliente');";
-  rolAdmin: string = "INSERT OR IGNORE INTO rol(idRol, nombreRol) VALUES (2, 'admin');";
+  rolCliente: string = "INSERT OR IGNORE INTO rol(idrol, nombrerol) VALUES (1, 'cliente');";
+  rolAdmin: string = "INSERT OR IGNORE INTO rol(idrol, nombrerol) VALUES (2, 'admin');";
   //preguntas
-  preguntaMascota: string = "INSERT OR IGNORE INTO pregunta(idPregunta, nombrePregunta) VALUES (1, '¿Cual es el nombre de tu primera mascota?'); ";
-  preguntaCiudad: string = "INSERT OR IGNORE INTO pregunta(idPregunta, nombrePregunta) VALUES (2, '¿Cual es tu ciudad natal?'); ";
-  preguntaColor: string = "INSERT OR IGNORE INTO pregunta(idPregunta, nombrePregunta) VALUES (3, '¿Cual es tu color favorito?'); ";
+  preguntaMascota: string = "INSERT OR IGNORE INTO pregunta(idpregunta, nombrepregunta) VALUES (1, '¿Cual es el nombre de tu primera mascota?'); ";
+  preguntaCiudad: string = "INSERT OR IGNORE INTO pregunta(idpregunta, nombrepregunta) VALUES (2, '¿Cual es tu ciudad natal?'); ";
+  preguntaColor: string = "INSERT OR IGNORE INTO pregunta(idpregunta, nombrepregunta) VALUES (3, '¿Cual es tu color favorito?'); ";
   //Consultas
-  consultaDefault: string = "INSERT OR IGNORE INTO consulta(idConsulta, nombreConsultante, mensajeConsulta) VALUES (200, 'Alvaro', 'Faltan guitarras');";
+  consultaDefault: string = "INSERT OR IGNORE INTO consulta(idconsulta, nombreconsultante, mensajeconsulta) VALUES (200, 'Alvaro', 'Faltan guitarras');";
   //Usuarios
-  usuarioClienteDefault: string = "INSERT OR IGNORE INTO usuario(idUsuario, rut, dvrut, nombre, apellido, telefono, correo, clave, direccion, fotoUsuario, respuesta, rolU, preguntaU) VALUES ('200', 11111111, '1', 'Javier', 'Maldonado', '12345678', 'javicci@gmail.com', 'umigod', 'Camarones 1313', '/assets/imagen.jpg', 'Umi', 1, 1);";
-  usuarioAdminDefault: string = "INSERT OR IGNORE INTO usuario(idUsuario, rut, dvrut, nombre, apellido, telefono, correo, clave, direccion, fotoUsuario, respuesta, rolU, preguntaU) VALUES ('201', 22222222, '2', 'Ivan', 'Fuentes', '87654321', 'ivanfuentes@gmail.com', 'ivans', 'Piedra Roja 11', '/assets/imagen.jpg', 'Negro', 2, 3);";
+  usuarioClienteDefault: string = "INSERT OR IGNORE INTO usuario(idusuario, rut, dvrut, nombre, apellido, telefono, correo, clave, direccion, fotousuario, respuesta, rolu, preguntau) VALUES ('200', 11111111, '1', 'Javier', 'Maldonado', '12345678', 'javicci@gmail.com', 'umigod', 'Camarones 1313', '/assets/imagen.jpg', 'Umi', 1, 1);";
+  usuarioAdminDefault: string = "INSERT OR IGNORE INTO usuario(idusuario, rut, dvrut, nombre, apellido, telefono, correo, clave, direccion, fotousuario, respuesta, rolu, preguntau) VALUES ('201', 22222222, '2', 'Ivan', 'Fuentes', '87654321', 'ivanfuentes@gmail.com', 'ivans', 'Piedra Roja 11', '/assets/imagen.jpg', 'Negro', 2, 3);";
   //Productos
-  productoDefault: string = "INSERT OR IGNORE INTO producto(codProd, nombreProd, descripcion, precio, stock, foto, unidadMedida, categoriaP) VALUES(200, 'Producto','Hola buenas tardes soy un producto', 2000, 50, '/assets/imagen.jpg', 'Por unidad', 1);";
+  productoDefault: string = "INSERT OR IGNORE INTO producto(codprod, nombreprod, descripcion, precio, stock, foto, unidadmedida, categoriap) VALUES(200, 'Producto','Hola buenas tardes soy un producto', 2000, 50, '/assets/imagen.jpg', 'Por unidad', 1);";
   //Ventas
-  ventaDefult: string ="INSERT OR IGNORE INTO venta(idVenta, fechaVenta, estado, fechaEntrega, total, carrito, usuarioV) VALUES (200, '04/04/2023', 'Activo', '05/05/2023', 6000, 'C', 200);";
+  ventaDefult: string ="INSERT OR IGNORE INTO venta(idventa, fechaventa, estado, fechaentrega, total, carrito, usuariov) VALUES (200, '04/04/2023', 'Activo', '05/05/2023', 6000, 'C', 200);";
   //Detalles
-  detalleDefault: string = "INSERT OR IGNORE INTO detalle(idDetalle, cantidad, subtotal, ventaD, productoD) VALUES (200, 3, 6000, 200, 200);";
+  detalleDefault: string = "INSERT OR IGNORE INTO detalle(iddetalle, cantidad, subtotal, ventad, productod) VALUES (200, 3, 6000, 200, 200);";
   //Historial de compras
-  detalleCompradoDefault: string  ="INSERT OR IGNORE INTO detalleComprado(idDetalleC, nombreProdC, fotoProdC, cantidadC, subtotalC, ventaC) VALUES (200, 'Producto', '/assets/imagen.jpg', 3, 6000, 200);";
+  detalleCompradoDefault: string  ="INSERT OR IGNORE INTO detalleComprado(iddetallec, nombreprodc, fotoprodc, cantidadc, subtotalc, ventac) VALUES (200, 'Producto', '/assets/imagen.jpg', 3, 6000, 200);";
 
 
   //Observables de tablas 
@@ -125,24 +125,6 @@ export class DbserviceService {
     return this.listaDetalleComprado.asObservable();
   }
 
-  buscarRoles(){ //Borrar luego
-    return this.database.executeSql("SELECT * FROM rol;",[]).then(res =>{
-      //todo bien
-      let items: Rol[] = [];
-      //Validar cantidad registros
-      if(res.rows.length > 0){
-        //Recorrer los datos
-        for(var i = 0; i < res.rows.length; i++ ){
-          //Guardando los datos
-          items.push({ 
-            idRol: res.rows.item(i).idRol,
-            nombreRol: res.rows.item(i).nombreRol });
-        }
-      }
-      this.listaRol.next(items as any);
-
-    })
-  }
 
 
   buscarCategorias(){ 
@@ -155,8 +137,8 @@ export class DbserviceService {
         for(var i = 0; i < res.rows.length; i++ ){
           //Guardando los datos
           items.push({ 
-            idCategoria: res.rows.item(i).idCategoria,
-            nombreCategoria: res.rows.item(i).nombreCategoria });
+            idcategoria: res.rows.item(i).idcategoria,
+            nombrecategoria: res.rows.item(i).nombrecategoria });
         }
       }
       this.listaCategoria.next(items as any);
@@ -174,8 +156,8 @@ export class DbserviceService {
         for(var i = 0; i < res.rows.length; i++ ){
           //Guardando los datos
           items.push({ 
-            idPregunta: res.rows.item(i).idPregunta,
-            nombrePregunta: res.rows.item(i).nombrePregunta });
+            idpregunta: res.rows.item(i).idpregunta,
+            nombrepregunta: res.rows.item(i).nombrepregunta });
         }
       }
       this.listaPregunta.next(items as any);
@@ -194,10 +176,10 @@ export class DbserviceService {
         for(var i = 0; i < res.rows.length; i++ ){
           //Guardando los datos
           items.push({ 
-            idConsulta: res.rows.item(i).idConsulta,
-            nombreConsultante: res.rows.item(i).nombreConsultante,
-            asuntoConsulta: res.rows.item(i).asuntoConsulta,
-            mensajeConsulta: res.rows.item(i).mensajeConsulta
+            idconsulta: res.rows.item(i).idconsulta,
+            nombreconsultante: res.rows.item(i).nombreconsultante,
+            asuntoconsulta: res.rows.item(i).asuntoconsulta,
+            mensajeconsulta: res.rows.item(i).mensajeconsulta
            });
         }
       }
@@ -216,7 +198,7 @@ export class DbserviceService {
         for(var i = 0; i < res.rows.length; i++ ){
           //Guardando los datos
           items.push({ 
-            idUsuario: res.rows.item(i).idUsuario,
+            idusuario: res.rows.item(i).idusuario,
             rut: res.rows.item(i).rut,
             dvrut: res.rows.item(i).dvrut,
             nombre: res.rows.item(i).nombre,
@@ -225,10 +207,10 @@ export class DbserviceService {
             correo: res.rows.item(i).correo,
             clave: res.rows.item(i).clave,
             direccion: res.rows.item(i).direccion,
-            fotoUsuario: res.rows.item(i).fotoUsuario,
+            fotousuario: res.rows.item(i).fotousuario,
             respuesta: res.rows.item(i).respuesta,
-            rolU: res.rows.item(i).rolU,
-            preguntaU: res.rows.item(i).preguntaU
+            rolu: res.rows.item(i).rolu,
+            preguntau: res.rows.item(i).preguntau
            });
         }
       }
@@ -238,7 +220,7 @@ export class DbserviceService {
   }
 
   buscarUsuario(idUsuario:any){ 
-    return this.database.executeSql("SELECT * FROM usuario WHERE idUsuario = ?;",[idUsuario]).then(res =>{
+    return this.database.executeSql("SELECT * FROM usuario WHERE idusuario = ?;",[idUsuario]).then(res =>{
       //todo bien
       let items: Usuario[] = [];
       //Validar cantidad registros
@@ -247,7 +229,7 @@ export class DbserviceService {
         for(var i = 0; i < res.rows.length; i++ ){
           //Guardando los datos
           items.push({ 
-            idUsuario: res.rows.item(i).idUsuario,
+            idusuario: res.rows.item(i).idusuario,
             rut: res.rows.item(i).rut,
             dvrut: res.rows.item(i).dvrut,
             nombre: res.rows.item(i).nombre,
@@ -256,10 +238,10 @@ export class DbserviceService {
             correo: res.rows.item(i).correo,
             clave: res.rows.item(i).clave,
             direccion: res.rows.item(i).direccion,
-            fotoUsuario: res.rows.item(i).fotoUsuario,
+            fotousuario: res.rows.item(i).fotousuario,
             respuesta: res.rows.item(i).respuesta,
-            rolU: res.rows.item(i).rolU,
-            preguntaU: res.rows.item(i).preguntaU
+            rolu: res.rows.item(i).rolu,
+            preguntau: res.rows.item(i).preguntau
            });
         }
       }
@@ -278,7 +260,7 @@ export class DbserviceService {
         for(var i = 0; i < res.rows.length; i++ ){
           //Guardando los datos
           items.push({ 
-            idUsuario: res.rows.item(i).idUsuario,
+            idusuario: res.rows.item(i).idusuario,
             rut: res.rows.item(i).rut,
             dvrut: res.rows.item(i).dvrut,
             nombre: res.rows.item(i).nombre,
@@ -287,10 +269,10 @@ export class DbserviceService {
             correo: res.rows.item(i).correo,
             clave: res.rows.item(i).clave,
             direccion: res.rows.item(i).direccion,
-            fotoUsuario: res.rows.item(i).fotoUsuario,
+            fotousuario: res.rows.item(i).fotousuario,
             respuesta: res.rows.item(i).respuesta,
-            rolU: res.rows.item(i).rolU,
-            preguntaU: res.rows.item(i).preguntaU
+            rolu: res.rows.item(i).rolu,
+            preguntau: res.rows.item(i).preguntau
            });
         }
       }
@@ -308,14 +290,14 @@ export class DbserviceService {
         for(var i = 0; i < res.rows.length; i++ ){
           //Guardando los datos
           items.push({ 
-            codProd: res.rows.item(i).codProd,
-            nombreProd: res.rows.item(i).nombreProd,
+            codprod: res.rows.item(i).codprod,
+            nombreprod: res.rows.item(i).nombreprod,
             descripcion: res.rows.item(i).descripcion,
             precio: res.rows.item(i).precio,
             stock: res.rows.item(i).stock,
             foto: res.rows.item(i).foto,
-            unidadMedida: res.rows.item(i).unidadMedida,
-            categoriaP: res.rows.item(i).categoriaP
+            unidadmedida: res.rows.item(i).unidadmedida,
+            categoriap: res.rows.item(i).categoriap
            });
         }
       }
@@ -324,7 +306,7 @@ export class DbserviceService {
     })
   }
   buscarProducto(id: any){ 
-    return this.database.executeSql("SELECT * FROM producto WHERE codProd = ?;",[id]).then(res =>{
+    return this.database.executeSql("SELECT * FROM producto WHERE codprod = ?;",[id]).then(res =>{
       //todo bien
       let items: Producto[] = [];
       //Validar cantidad registros
@@ -333,14 +315,14 @@ export class DbserviceService {
         for(var i = 0; i < res.rows.length; i++ ){
           //Guardando los datos
           items.push({ 
-            codProd: res.rows.item(i).codProd,
-            nombreProd: res.rows.item(i).nombreProd,
+            codprod: res.rows.item(i).codprod,
+            nombreprod: res.rows.item(i).nombreprod,
             descripcion: res.rows.item(i).descripcion,
             precio: res.rows.item(i).precio,
             stock: res.rows.item(i).stock,
             foto: res.rows.item(i).foto,
-            unidadMedida: res.rows.item(i).unidadMedida,
-            categoriaP: res.rows.item(i).categoriaP
+            unidadmedida: res.rows.item(i).unidadmedida,
+            categoriap: res.rows.item(i).categoriap
            });
         }
       }
@@ -359,13 +341,13 @@ export class DbserviceService {
         for(var i = 0; i < res.rows.length; i++ ){
           //Guardando los datos
           items.push({ 
-            idVenta: res.rows.item(i).idVenta,
-            fechaVenta: res.rows.item(i).fechaVenta,
+            idventa: res.rows.item(i).idventa,
+            fechaventa: res.rows.item(i).fechaventa,
             estado: res.rows.item(i).estado,
-            fechaEntrega: res.rows.item(i).fechaEntrega,
+            fechaentrega: res.rows.item(i).fechaentrega,
             total: res.rows.item(i).total,
             carrito: res.rows.item(i).carrito,
-            usuarioV: res.rows.item(i).usuarioV
+            usuariov: res.rows.item(i).usuariov
            });
         }
       }
@@ -375,7 +357,7 @@ export class DbserviceService {
   }
 
   buscarVenta(id: any){
-    return this.database.executeSql("SELECT * FROM venta WHERE idVenta = ?;",[id]).then(res =>{
+    return this.database.executeSql("SELECT * FROM venta WHERE idventa = ?;",[id]).then(res =>{
       //todo bien
       let items: Venta[] = [];
       //Validar cantidad registros
@@ -384,13 +366,13 @@ export class DbserviceService {
         for(var i = 0; i < res.rows.length; i++ ){
           //Guardando los datos
           items.push({ 
-            idVenta: res.rows.item(i).idVenta,
-            fechaVenta: res.rows.item(i).fechaVenta,
+            idventa: res.rows.item(i).idventa,
+            fechaventa: res.rows.item(i).fechaventa,
             estado: res.rows.item(i).estado,
-            fechaEntrega: res.rows.item(i).fechaEntrega,
+            fechaentrega: res.rows.item(i).fechaentrega,
             total: res.rows.item(i).total,
             carrito: res.rows.item(i).carrito,
-            usuarioV: res.rows.item(i).usuarioV
+            usuariov: res.rows.item(i).usuariov
            });
         }
       }
@@ -409,11 +391,11 @@ export class DbserviceService {
         for(var i = 0; i < res.rows.length; i++ ){
           //Guardando los datos
           items.push({ 
-            idDetalle: res.rows.item(i).idDetalle,
+            iddetalle: res.rows.item(i).iddetalle,
             cantidad: res.rows.item(i).cantidad,
             subtotal: res.rows.item(i).subtotal,
-            ventaD: res.rows.item(i).ventaD,
-            productoD: res.rows.item(i).productoD
+            ventad: res.rows.item(i).ventad,
+            productod: res.rows.item(i).productod
            });
         }
       }
@@ -423,7 +405,7 @@ export class DbserviceService {
   }
 
   buscarDetalle(id: any){
-    return this.database.executeSql("SELECT * FROM detalle WHERE idDetalle = ?;",[id]).then(res =>{
+    return this.database.executeSql("SELECT * FROM detalle WHERE iddetalle = ?;",[id]).then(res =>{
       //todo bien
       let items: Detalle[] = [];
       //Validar cantidad registros
@@ -432,11 +414,11 @@ export class DbserviceService {
         for(var i = 0; i < res.rows.length; i++ ){
           //Guardando los datos
           items.push({ 
-            idDetalle: res.rows.item(i).idDetalle,
+            iddetalle: res.rows.item(i).iddetalle,
             cantidad: res.rows.item(i).cantidad,
             subtotal: res.rows.item(i).subtotal,
-            ventaD: res.rows.item(i).ventaD,
-            productoD: res.rows.item(i).productoD
+            ventad: res.rows.item(i).ventad,
+            productod: res.rows.item(i).productod
            });
         }
       }
@@ -446,7 +428,7 @@ export class DbserviceService {
   }
 
   buscarDetallesCompra(){
-    return this.database.executeSql("SELECT * FROM detalleComprado;",[]).then(res =>{
+    return this.database.executeSql("SELECT * FROM detallecomprado;",[]).then(res =>{
       //todo bien
       let items: Detallecomprado[] = [];
       //Validar cantidad registros
@@ -455,12 +437,12 @@ export class DbserviceService {
         for(var i = 0; i < res.rows.length; i++ ){
           //Guardando los datos
           items.push({ 
-            idDetalleC: res.rows.item(i).idDetalleC,
-            nombreProdC: res.rows.item(i).nombreProdC,
-            fotoProdC: res.rows.item(i).fotoProdC,
-            cantidadC: res.rows.item(i).cantidadC,
-            subtotalC: res.rows.item(i).subtotalC,
-            ventaC: res.rows.item(i).ventaC
+            iddetallec: res.rows.item(i).iddetallec,
+            nombreprodc: res.rows.item(i).nombreprodc,
+            fotoprodc: res.rows.item(i).fotoProdc,
+            cantidadc: res.rows.item(i).cantidadc,
+            subtotalc: res.rows.item(i).subtotalc,
+            ventac: res.rows.item(i).ventac
            });
         }
       }
@@ -470,7 +452,7 @@ export class DbserviceService {
   }
 
   buscarDetalleCompra(id: any){
-    return this.database.executeSql("SELECT * FROM detalleComprado WHERE idDetalleC = ?;",[id]).then(res =>{
+    return this.database.executeSql("SELECT * FROM detallecomprado WHERE iddetallec = ?;",[id]).then(res =>{
       //todo bien
       let items: Detallecomprado[] = [];
       //Validar cantidad registros
@@ -479,12 +461,12 @@ export class DbserviceService {
         for(var i = 0; i < res.rows.length; i++ ){
           //Guardando los datos
           items.push({ 
-            idDetalleC: res.rows.item(i).idDetalleC,
-            nombreProdC: res.rows.item(i).nombreProdC,
-            fotoProdC: res.rows.item(i).fotoProdC,
-            cantidadC: res.rows.item(i).cantidadC,
-            subtotalC: res.rows.item(i).subtotalC,
-            ventaC: res.rows.item(i).ventaC
+            iddetallec: res.rows.item(i).iddetallec,
+            nombreprodc: res.rows.item(i).nombreprodc,
+            fotoprodc: res.rows.item(i).fotoprodc,
+            cantidadc: res.rows.item(i).cantidadc,
+            subtotalc: res.rows.item(i).subtotalc,
+            ventac: res.rows.item(i).ventac
            });
         }
       }
@@ -496,129 +478,116 @@ export class DbserviceService {
 
   //Funciones para eliminar
 
-  eliminar(id:any){ //Borrar luego
-    return this.database.executeSql("DELETE FROM rol WHERE idRol= ?",[id]).then(res=>{
-      this.buscarRoles(); })}
 
   eliminarUsuario(id:any){ 
-    return this.database.executeSql("DELETE FROM usuario WHERE idUsuario= ?",[id]).then(res=>{
+    return this.database.executeSql("DELETE FROM usuario WHERE idusuario= ?",[id]).then(res=>{
       this.buscarUsuarios();
 
     })
   }
   eliminarProducto(id:any){ 
-    return this.database.executeSql("DELETE FROM producto WHERE codProd= ?",[id]).then(res=>{
+    return this.database.executeSql("DELETE FROM producto WHERE codprod= ?",[id]).then(res=>{
       this.buscarProductos();
 
     })
   }
   eliminarConsulta(id:any){ 
-    return this.database.executeSql("DELETE FROM consulta WHERE idConsulta= ?",[id]).then(res=>{
+    return this.database.executeSql("DELETE FROM consulta WHERE idconsulta= ?",[id]).then(res=>{
       this.buscarConsultas();
 
     })
   }
   //Funciones para agregar
-  agregar(nombre: any){  
-    return this.database.executeSql("INSERT INTO rol(nombreRol) VALUES(?)",[nombre]).then(res=> {
-      this.buscarRoles(); 
-    })
-  }
 
   agregarConsulta(nombre: any, asunto: any, mensaje: any){  
-    return this.database.executeSql("INSERT INTO detalle(nombreConsultante, asuntoConsulta, mensajeConsulta) VALUES(?, ?, ?)",[nombre, asunto, mensaje]).then(res=> {
+    return this.database.executeSql("INSERT INTO detalle(nombreconsultante, asuntoconsulta, mensajeconsulta) VALUES(?, ?, ?)",[nombre, asunto, mensaje]).then(res=> {
       this.buscarConsultas(); 
     })
   }
 
   agregarUsuario(nombre: any, apellido: any, rut: any, dvrut: any, telefono: any, correo: any, direccion: any, clave: any, foto: any, respuesta: any, rol: any, pregunta: any){  
-    return this.database.executeSql("INSERT INTO usuario(rut, dvrut, nombre, apellido, telefono, correo, clave, direccion, fotoUsuario, respuesta, RolU, preguntaU) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",[rut, dvrut, nombre, apellido, telefono, correo, clave, direccion, foto, respuesta, rol, pregunta]).then(res=> {
+    return this.database.executeSql("INSERT INTO usuario(rut, dvrut, nombre, apellido, telefono, correo, clave, direccion, fotousuario, respuesta, rolu, preguntau) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",[rut, dvrut, nombre, apellido, telefono, correo, clave, direccion, foto, respuesta, rol, pregunta]).then(res=> {
       this.buscarUsuarios(); 
     })
   }
 
   agregarProducto( nombre: any, descripcion: any, precio: any, stock: any, foto: any, medida: any, categoria: any){  
-    return this.database.executeSql("INSERT INTO producto(nombreProd, descripcion, precio, stock, foto, unidadMedida, categoriaP) VALUES(?, ?, ?, ?, ?, ?, ?, ?)",[nombre, descripcion, precio, stock, foto, medida, categoria]).then(res=> {
+    return this.database.executeSql("INSERT INTO producto(nombreprod, descripcion, precio, stock, foto, unidadmedida, categoriap) VALUES(?, ?, ?, ?, ?, ?, ?, ?)",[nombre, descripcion, precio, stock, foto, medida, categoria]).then(res=> {
       this.buscarProductos(); 
     })
   }
 
   agregarVenta(fechav: any, estado: any, fechae: any, total: any, carrito: any, usuariov: any){  
-    return this.database.executeSql("INSERT INTO venta(fechaVenta, estado, fechaEntrega, total, carrito, usuarioV) VALUES(?, ?, ?, ?, ?, ?)",[fechav, estado, fechae, total, carrito, usuariov]).then(res=> {
+    return this.database.executeSql("INSERT INTO venta(fechaventa, estado, fechaentrega, total, carrito, usuariov) VALUES(?, ?, ?, ?, ?, ?)",[fechav, estado, fechae, total, carrito, usuariov]).then(res=> {
       this.buscarVentas(); 
     })
   }
 
   agregarDetalle(cantidad: any, subtotal: any, ventad: any, productod: any){  
-    return this.database.executeSql("INSERT INTO detalle(cantidad, subtotal, ventaD, productoD) VALUES(?, ?, ?, ?)",[cantidad, subtotal, ventad, productod]).then(res=> {
+    return this.database.executeSql("INSERT INTO detalle(cantidad, subtotal, ventad, productod) VALUES(?, ?, ?, ?)",[cantidad, subtotal, ventad, productod]).then(res=> {
       this.buscarDetalles(); 
     })
   }
 
   agregarDetalleCompra(nombre: any, foto: any, cantidad: any, subtotal: any, venta: any){  
-    return this.database.executeSql("INSERT INTO detalleComprado(nombreProdC, fotoProdC, cantidadC, subtotalC, ventaC) VALUES(?, ?, ?, ?, ?)",[nombre, foto, cantidad, subtotal, venta]).then(res=> {
-      this.buscarRoles(); 
+    return this.database.executeSql("INSERT INTO detallecomprado(nombreprodc, fotoprodc, cantidadc, subtotalc, ventac) VALUES(?, ?, ?, ?, ?)",[nombre, foto, cantidad, subtotal, venta]).then(res=> {
+      this.buscarDetallesCompra(); 
     })
   }
 
   //Funciones para modificar
-  modificar(id: any, nombre: any){  
-    return this.database.executeSql("UPDATE rol SET nombreRol = ? WHERE idRol = ?",[nombre, id]).then(res =>{
-      this.buscarRoles();
-    })
-  }
   //Usuario
   modificarUsuario(id: any, nombre: any,  apellido: any, rut: any, dvrut: any, telefono: any, correo: any, direccion: any, foto: any, respuesta: any, pregunta: any ){  
-    return this.database.executeSql("UPDATE usuario SET nombre = ?, apellido = ?, rut = ?, dvrut = ?, telefono = ?, correo = ?, direccion = ?, fotoUsuario = ?, respuesta = ?, pregunta = ? WHERE idUsuario = ?",[nombre, apellido, rut, dvrut, telefono, correo, direccion, foto, respuesta, pregunta, id]).then(res =>{
+    return this.database.executeSql("UPDATE usuario SET nombre = ?, apellido = ?, rut = ?, dvrut = ?, telefono = ?, correo = ?, direccion = ?, fotousuario = ?, respuesta = ?, preguntau = ? WHERE idusuario = ?",[nombre, apellido, rut, dvrut, telefono, correo, direccion, foto, respuesta, pregunta, id]).then(res =>{
       this.buscarUsuarios();
     })
   }
 
   modificarClave(id: any, clave: any ){  
-    return this.database.executeSql("UPDATE usuario SET clave = ? WHERE idUsuario = ?",[clave, id]).then(res =>{
+    return this.database.executeSql("UPDATE usuario SET clave = ? WHERE idusuario = ?",[clave, id]).then(res =>{
       this.buscarUsuarios();
     })
   }
 
   modificarRol(id: any, rol: any ){  
-    return this.database.executeSql("UPDATE usuario SET rolU = ? WHERE idUsuario = ?",[rol, id]).then(res =>{
+    return this.database.executeSql("UPDATE usuario SET rolu = ? WHERE idusuario = ?",[rol, id]).then(res =>{
       this.buscarUsuarios();
     })
   }
   //Producto
   modificarProducto(id: any, nombre: any, descripcion: any, precio: any, stock: any, foto: any, medida: any, categoria: any){  
-    return this.database.executeSql("UPDATE producto SET nombreProd = ?, descripcion = ?, precio = ?, stock = ?, foto = ?, unidadMedida = ?, categoriaP = ?  WHERE codProd = ?",[nombre, descripcion, precio, stock, foto, medida, categoria, id]).then(res =>{
+    return this.database.executeSql("UPDATE producto SET nombreprod = ?, descripcion = ?, precio = ?, stock = ?, foto = ?, unidadmedida = ?, categoriap = ?  WHERE codprod = ?",[nombre, descripcion, precio, stock, foto, medida, categoria, id]).then(res =>{
       this.buscarProductos();
     })
   }
 
   //Venta/carrito
   modificarEstadoVenta(id: any, estado: any){  
-    return this.database.executeSql("UPDATE venta SET estado = ? WHERE idVenta = ?",[estado, id]).then(res =>{
+    return this.database.executeSql("UPDATE venta SET estado = ? WHERE idventa = ?",[estado, id]).then(res =>{
       this.buscarVentas();
     })
   }
 
   modificarEntrega(id: any, entrega: any){  
-    return this.database.executeSql("UPDATE venta SET fechaEntrega = ? WHERE idVenta = ?",[entrega, id]).then(res =>{
+    return this.database.executeSql("UPDATE venta SET fechaentrega = ? WHERE idventa = ?",[entrega, id]).then(res =>{
       this.buscarVentas();
     })
   }
 
   modificarCarrito(id: any, carrito: any){  
-    return this.database.executeSql("UPDATE venta SET carrito = ? WHERE idVenta = ?",[carrito, id]).then(res =>{
+    return this.database.executeSql("UPDATE venta SET carrito = ? WHERE idventa = ?",[carrito, id]).then(res =>{
       this.buscarVentas();
     })
   }
 
   modificarTotal(id: any, total: any){  
-    return this.database.executeSql("UPDATE venta SET total = ? WHERE idVenta = ?",[total, id]).then(res =>{
+    return this.database.executeSql("UPDATE venta SET total = ? WHERE idventa = ?",[total, id]).then(res =>{
       this.buscarVentas();
     })
   }
   
   modificarDetalle(id: any, subtotal: any, cantidad: any){  
-    return this.database.executeSql("UPDATE detalle SET subtotal = ?, cantidad = ? WHERE idVenta = ?",[subtotal, cantidad, id]).then(res =>{
+    return this.database.executeSql("UPDATE detalle SET subtotal = ?, cantidad = ? WHERE idventa = ?",[subtotal, cantidad, id]).then(res =>{
       this.buscarDetalles();
     })
   }
@@ -683,7 +652,14 @@ export class DbserviceService {
       this.flag.next(true);
       //Llamar los select
 
-      this.buscarRoles();
+      this.buscarUsuarios;
+      this.buscarConsultas;
+      this.buscarDetalles;
+      this.buscarProductos;
+      this.buscarCategorias;
+      this.buscarVentas;
+      this.buscarDetallesCompra;
+      this.buscarCategorias;
 
     }catch{
       this.presentAlert("Error al crear la base de datos");
