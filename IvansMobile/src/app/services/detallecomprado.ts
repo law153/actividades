@@ -1,8 +1,8 @@
 export class Detallecomprado {
-    idDetalleC = "";
-    nombreProdC = "";
-    fotoProdC = "";
-    cantidadC = "";
-    subtotalC = "";
-    ventaC = "";
+    iddetallec = "";
+    nombreprodc = "";
+    fotoprodc = "";
+    cantidadc = "";
+    subtotalc = "";
+    ventac = "";
 }

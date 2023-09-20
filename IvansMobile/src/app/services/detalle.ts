@@ -1,7 +1,7 @@
 export class Detalle {
-    idDetalle = "";
+    iddetalle = "";
     cantidad = "";
     subtotal= "";
-    ventaD = "";
-    productoD = "";
+    ventad = "";
+    productod = "";
 }

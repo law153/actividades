@@ -1,4 +1,4 @@
 export class Pregunta {
-    idPregunta = "";
-    nombrePregunta = "";
+    idpregunta = "";
+    nombrepregunta = "";
 }

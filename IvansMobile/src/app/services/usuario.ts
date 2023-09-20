@@ -1,5 +1,5 @@
 export class Usuario {
-    idUsuario = "";
+    idusuario = "";
     rut = "";
     dvrut = "";
     nombre = "";
@@ -8,8 +8,8 @@ export class Usuario {
     correo = "";
     clave = "";
     direccion = "";
-    fotoUsuario = "";
+    fotousuario = "";
     respuesta = "";
-    rolU = "";
-    preguntaU = "";
+    rolu = "";
+    preguntau = "";
 }

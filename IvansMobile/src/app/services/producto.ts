@@ -1,10 +1,10 @@
 export class Producto {
-    codProd = "";
-    nombreProd = "";
+    codprod = "";
+    nombreprod = "";
     descripcion = "";
     precio = "";
     stock = "";
     foto = "";
-    unidadMedida = "";
-    categoriaP = "";
+    unidadmedida = "";
+    categoria = "";
 }

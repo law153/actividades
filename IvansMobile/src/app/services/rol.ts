@@ -1,6 +1,6 @@
 export class Rol {
 
-    idRol = "";
-    nombreRol = "";
+    idrol = "";
+    nombrerol = "";
 
 }

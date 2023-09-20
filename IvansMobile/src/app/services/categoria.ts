@@ -1,4 +1,4 @@
 export class Categoria {
-    idCategoria = "";
-    nombreCategoria = "";
+    idcategoria = "";
+    nombrecategoria = "";
 }

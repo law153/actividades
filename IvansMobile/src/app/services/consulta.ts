@@ -1,6 +1,6 @@
 export class Consulta {
-    idConsulta = "";
-    nombreConsultante = "";
-    asuntoConsulta = "";
-    mensajeConsulta = "";
+    idconsulta = "";
+    nombreconsultante = "";
+    asuntoconsulta = "";
+    mensajeconsulta = "";
 }

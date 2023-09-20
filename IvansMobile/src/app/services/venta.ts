@@ -1,9 +1,9 @@
 export class Venta {
-    idVenta = "";
-    fechaVenta = "";
+    idventa = "";
+    fechaventa = "";
     estado = "";
-    fechaEntrega = "";
+    fechaentrega = "";
     total = "";
     carrito = "";
-    usuarioV = "";
+    usuariov = "";
 }
