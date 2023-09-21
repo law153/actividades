@@ -601,6 +601,7 @@ export class DbserviceService {
       this.base.create({name: 'ivans.db', location: 'default'
     }).then((db: SQLiteObject)=>{
       this.database = db;
+      this.crearTablas;
     }).catch(e=>{
       this.presentAlert("Error al crear la base de datos");
     })
