@@ -64,7 +64,7 @@ export class AppComponent implements OnInit{
 
   //categorias
   irCategorias(){
-    //this.cateid = this.categorias.idcategoria;
+    this.cateid = this.categorias.idcategoria;
     let categoria: NavigationExtras = {
       state: {
         categoriaEnviar: this.cateid
@@ -88,15 +88,15 @@ export class AppComponent implements OnInit{
 
   ngOnInit() {
     this.variableStorage = localStorage.getItem('token');
-    /*
+    
     this.bd.dbState().subscribe(res => {
       if(res){
-        this.bd.fetchCategoria().subscribe(item => {
-          this.categorias = item;
+        this.bd.fetchCategoria().subscribe(items => {
+          this.categorias = items;
         })
       }
     })
-    */
+    
   }
 
 }

@@ -67,7 +67,7 @@ export class DbserviceService {
 
 
   //Observables de tablas 
-  listaRol = new BehaviorSubject([]); //Borrar este luego
+  listaRol = new BehaviorSubject([]); 
 
   listaUsuario = new BehaviorSubject([]);
   listaProducto = new BehaviorSubject([]);
@@ -82,7 +82,6 @@ export class DbserviceService {
   private flag: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
   constructor(public base: SQLite, private plataforma: Platform, private alertController: AlertController) {
-    this.presentAlert("Hola");
     this.crearDB();
   }
 
@@ -97,6 +96,7 @@ export class DbserviceService {
   }
 
   fetchCategoria(): Observable<Categoria[]>{
+      console.log('Consultando categorías...');
       return this.listaCategoria.asObservable();
   }
 
@@ -595,20 +595,21 @@ export class DbserviceService {
     })
   }
 
-  crearDB(){
-    //Plataforma lista
-    this.plataforma.ready().then(()=>{
-      //Crear DB
-      this.base.create({name: 'ivans.db', location: 'default'
-    }).then((db: SQLiteObject)=>{
-      this.database = db;
-      this.crearTablas;
-    }).catch(e=>{
-      this.presentAlert("Error al crear la base de datos");
-    })
-      
-
-    })
+  crearDB() {
+    // Plataforma lista
+    this.plataforma.ready().then(() => {
+      // Crear DB
+      this.base.create({
+        name: 'ivans.db',
+        location: 'default'
+      }).then((db: SQLiteObject) => {
+        this.database = db;
+        this.crearTablas();
+      }).catch(e => {
+        console.error('Error al crear la base de datos:', e);
+        this.presentAlert("Error en crear BD: " + e);
+      });
+    });
   }
 
   async crearTablas(){
@@ -664,8 +665,8 @@ export class DbserviceService {
       this.buscarVentas;
       this.buscarDetallesCompra;
 
-    }catch{
-      this.presentAlert("Error al crear la base de datos");
+    } catch (e) {
+      this.presentAlert("Error en crear Tabla: " + e);
     }
   }
 
@@ -674,8 +675,7 @@ export class DbserviceService {
 
   async presentAlert(mensaje: string) {
     const alert = await this.alertController.create({
-      header: 'Alert',
-      subHeader: 'Important message',
+      header: 'Error en Servicio',
       message: mensaje,
       buttons: ['OK'],
     });

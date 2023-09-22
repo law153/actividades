@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController, MenuController } from '@ionic/angular';
+import { DbserviceService } from 'src/app/services/dbservice.service';
 //import { DbserviceService } from 'src/app/services/dbservice.service';
 
 @Component({
@@ -20,7 +21,9 @@ export class ContactanosPage implements OnInit {
   msj: string="";
   flag: boolean = true;
 
-  constructor(private menuCtrl: MenuController, private router: Router, private alerta: AlertController, /* private bd: DbserviceService*/) { }
+  categorias: any = [{idcategoria: '', nombrecategoria: ''}];
+
+  constructor(private menuCtrl: MenuController, private router: Router, private alerta: AlertController, private bd: DbserviceService) { }
 
   irHome(){
     this.router.navigate([''])
@@ -122,6 +125,13 @@ export class ContactanosPage implements OnInit {
   }
 
   ngOnInit() {
+    this.bd.dbState().subscribe(res => {
+      if(res){
+        this.bd.fetchCategoria().subscribe(items => {
+          this.categorias = items;
+        })
+      }
+    })
   }
 
 }
