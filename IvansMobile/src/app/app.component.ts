@@ -16,7 +16,7 @@ export class AppComponent implements OnInit{
   cateid: number = 0;
 
 
-  constructor(private router: Router,  /*private bd: DbserviceService*/ ) {}
+  constructor(private router: Router,  private bd: DbserviceService ) {}
   
 
   //funciones de redirección

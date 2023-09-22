@@ -82,6 +82,7 @@ export class DbserviceService {
   private flag: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
   constructor(public base: SQLite, private plataforma: Platform, private alertController: AlertController) {
+    this.presentAlert("Hola");
     this.crearDB();
   }
 

@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { AlertController, IonInput, MenuController, ToastController } from '@ionic/angular'; 
-/*import { DbserviceService } from 'src/app/services/dbservice.service'; */
+import { DbserviceService } from 'src/app/services/dbservice.service';
 
 @Component({
   selector: 'app-home',
@@ -29,7 +29,7 @@ export class HomePage {
 
   //Constructor
 
-  constructor(private router: Router, private alerta: AlertController, private menuCtrl: MenuController, private activatedRouter: ActivatedRoute,  /*private db: DbserviceService*/ ) {
+  constructor(private router: Router, private alerta: AlertController, private menuCtrl: MenuController, private activatedRouter: ActivatedRoute,  private db: DbserviceService ) {
     //Borrar luego
     this.activatedRouter.queryParams.subscribe(param => {
       if(this.router.getCurrentNavigation()?.extras.state){
