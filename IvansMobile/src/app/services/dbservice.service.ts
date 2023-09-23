@@ -96,7 +96,6 @@ export class DbserviceService {
   }
 
   fetchCategoria(): Observable<Categoria[]>{
-      console.log('Consultando categorías...');
       return this.listaCategoria.asObservable();
   }
 
@@ -310,6 +309,32 @@ export class DbserviceService {
   }
   buscarProducto(id: any){ 
     return this.database.executeSql("SELECT * FROM producto WHERE codprod = ?;",[id]).then(res =>{
+      //todo bien
+      let items: Producto[] = [];
+      //Validar cantidad registros
+      if(res.rows.length > 0){
+        //Recorrer los datos
+        for(var i = 0; i < res.rows.length; i++ ){
+          //Guardando los datos
+          items.push({ 
+            codprod: res.rows.item(i).codprod,
+            nombreprod: res.rows.item(i).nombreprod,
+            descripcion: res.rows.item(i).descripcion,
+            precio: res.rows.item(i).precio,
+            stock: res.rows.item(i).stock,
+            foto: res.rows.item(i).foto,
+            unidadmedida: res.rows.item(i).unidadmedida,
+            categoriap: res.rows.item(i).categoriap
+           });
+        }
+      }
+      this.listaProducto.next(items as any);
+
+    })
+  }
+  
+  buscarProductoCate(id: any){ 
+    return this.database.executeSql("SELECT * FROM producto WHERE categoriap = ?;",[id]).then(res =>{
       //todo bien
       let items: Producto[] = [];
       //Validar cantidad registros
