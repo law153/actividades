@@ -94,7 +94,7 @@ export class ContactanosPage implements OnInit {
   agregar(){
     this.bd.agregarConsulta(this.msjNombre,this.msjAsunto, this.msjCuerpo);
     this.bd.presentAlert("Consulta enviada con exito");
-    this.router.navigate(['/contactanos']);
+    this.limpiar();
   }
 
    //Funciones de validación
