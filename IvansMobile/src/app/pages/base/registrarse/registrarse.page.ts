@@ -88,7 +88,7 @@ export class RegistrarsePage implements OnInit {
     this.fonoValido();
     if(this.flag === true){
       this.agregar();
-      this.msj="Usuario creado correctamente"; 
+      this.bd.presentAlert('Usuario creado correctamente'); 
     }
   }
 

@@ -23,23 +23,10 @@ export class IniSesionPage implements OnInit {
   }
 
 
-  iniciarSesion(){
+  async iniciarSesion(){
+    await this.iniciarSesion2();
+    this.verificarSesion();
 
-    localStorage.setItem('idUser',this.idUsuario+'');
-    if(this.correo === "javicci@gmail.com" && this.clave === "umigod"){
-      localStorage.setItem('token', "1");
-      
-      this.irCli();
-    } else if(this.correo === "ivan.fuentes@gmail.com" && this.clave === "ivans"){
-      localStorage.setItem('token', "2");
-      this.irAdm();
-
-    
-      
-    } else{
-      this.presentAlert();
-    }
-    
   }
 
   iniciarSesion2(){
@@ -53,8 +40,10 @@ export class IniSesionPage implements OnInit {
       }
 
     })
+  }
 
-    if(this.usuarios.correo !== '' ){
+  verificarSesion(){
+    if(this.usuarios.correo === this.correo ){
       if(this.clave === this.usuarios.clave) {
         if(this.usuarios.rolu === 1 ) {
           this.router.navigate(['/home-cli'])
@@ -108,7 +97,14 @@ export class IniSesionPage implements OnInit {
   }
 
   ngOnInit() {
+    this.bd.dbState().subscribe(res => {
+      if(res){
+        this.bd.fetchUsuario().subscribe(items => {
+          this.usuarios = items;
+        })
+      }
 
+    })
   }
 
 }
