@@ -657,13 +657,13 @@ export class DbserviceService {
       this.flag.next(true);
       //Llamar los select
 
-      this.buscarUsuarios;
-      this.buscarConsultas;
-      this.buscarDetalles;
-      this.buscarProductos;
-      this.buscarCategorias;
-      this.buscarVentas;
-      this.buscarDetallesCompra;
+      this.buscarUsuarios();
+      this.buscarConsultas();
+      this.buscarDetalles();
+      this.buscarProductos();
+      this.buscarCategorias();
+      this.buscarVentas();
+      this.buscarDetallesCompra();
 
     } catch (e) {
       this.presentAlert("Error en crear Tabla: " + e);
