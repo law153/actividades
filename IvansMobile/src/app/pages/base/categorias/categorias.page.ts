@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MenuController } from '@ionic/angular';
+import { DbserviceService } from 'src/app/services/dbservice.service';
 
 @Component({
   selector: 'app-categorias',
@@ -9,7 +10,9 @@ import { MenuController } from '@ionic/angular';
 })
 export class CategoriasPage implements OnInit {
   idcate: number = 0;
-  constructor(private menuCtrl: MenuController, private router: Router, private activeRouter: ActivatedRoute) {
+  productos: any = [{codprod: '', nombreprod: '', descripcion: '', precio: '', stock: '', foto: '', unidadmedida: '', categoriap: ''}];
+
+  constructor(private menuCtrl: MenuController, private router: Router, private activeRouter: ActivatedRoute, private bd: DbserviceService ) {
     this.activeRouter.queryParams.subscribe(param => {
       if(this.router.getCurrentNavigation()?.extras.state){
         this.idcate = this.router.getCurrentNavigation()?.extras?.state?.["categoriaEnviar"];
@@ -38,6 +41,15 @@ export class CategoriasPage implements OnInit {
   }
 
   ngOnInit() {
+
+    this.bd.dbState().subscribe(res => {
+      if(res){
+        this.bd.fetchProducto().subscribe(items => {
+          this.productos = items;
+        })
+      }
+    })
+    
   }
 
 }

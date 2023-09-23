@@ -63,7 +63,7 @@
         <ion-list class="enlaces-cate cate-cuerpo">
           
           <ion-item *ngFor="let x of categorias">
-            <ion-label> {{x.nombrecategoria}}</ion-label>
+            <ion-label (click)="irCategorias(x.idcategoria)">{{x.nombrecategoria}}</ion-label>
           </ion-item>
           
         </ion-list> 

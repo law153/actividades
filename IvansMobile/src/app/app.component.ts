@@ -13,7 +13,7 @@ export class AppComponent implements OnInit{
 
   categorias: any = [{idcategoria: '', nombrecategoria: ''}];
 
-  cateid: number = 0;
+  
 
 
   constructor(private router: Router,  private bd: DbserviceService ) {}
@@ -63,11 +63,11 @@ export class AppComponent implements OnInit{
   }
 
   //categorias
-  irCategorias(){
-    this.cateid = this.categorias.idcategoria;
+  irCategorias(idcate: number){
+
     let categoria: NavigationExtras = {
       state: {
-        categoriaEnviar: this.cateid
+        categoriaEnviar: idcate
       }
     };
     this.router.navigate(['/categorias'], categoria);

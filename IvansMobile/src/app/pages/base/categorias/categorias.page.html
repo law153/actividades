@@ -26,7 +26,7 @@
   <ion-grid class="contenido">
 
     
-    
+    <!--
     <ion-row *ngIf="(idcate === 1)">
       <ion-col>
         <h1 class="nombre-pag">Herramientas</h1>
@@ -62,18 +62,18 @@
         <h1 class="nombre-pag">Kits</h1>
       </ion-col>
     </ion-row>
-
+    --->
     
-    <ion-row>
+    <ion-row *ngFor="let x of productos">
       <ion-col>
         <div class="contenedor-prod">
-          <h2>Baterias Alcalinas</h2>
+          <h2>{{x.nombreprod}}</h2>
 
           <div class="contenedor-imagen">
-            <ion-img src="/assets/Bateria.jpg" alt="No hay imagen :c"></ion-img>
+            <ion-img [src]="x.foto" alt="No hay imagen :c"></ion-img>
           </div>
 
-          <h3>$15.000</h3>
+          <h3>{{x.precio | currency:'$':true:'4.0-0'}}</h3>
           
           <ion-button>Ir</ion-button>
         </div>
