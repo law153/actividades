@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController, MenuController } from '@ionic/angular';
-//import { DbserviceService } from 'src/app/services/dbservice.service';
+import { DbserviceService } from 'src/app/services/dbservice.service';
 
 @Component({
   selector: 'app-ini-sesion',
@@ -13,7 +13,10 @@ export class IniSesionPage implements OnInit {
   correo: string = "";
   clave: string = "";
   idUsuario: number = 200;
-  constructor(private menuCtrl: MenuController, private router: Router, private alerta: AlertController, /*private bd: DbserviceService*/) { }
+
+  //Variable para db
+  usuarios: any = [{rut: '', dvrut: '', nombre: '', apellido: '', telefono: '', correo: '', clave: '', direccion: '', fotoUsuario: '', respuesta: '', rolU: '', preguntaU: ''}];
+  constructor(private menuCtrl: MenuController, private router: Router, private alerta: AlertController, private bd: DbserviceService) { }
 
   irHome(){
     this.router.navigate(['']);
@@ -22,7 +25,6 @@ export class IniSesionPage implements OnInit {
 
   iniciarSesion(){
 
-    
     localStorage.setItem('idUser',this.idUsuario+'');
     if(this.correo === "javicci@gmail.com" && this.clave === "umigod"){
       localStorage.setItem('token', "1");
@@ -31,11 +33,43 @@ export class IniSesionPage implements OnInit {
     } else if(this.correo === "ivan.fuentes@gmail.com" && this.clave === "ivans"){
       localStorage.setItem('token', "2");
       this.irAdm();
+
+    
       
     } else{
       this.presentAlert();
     }
     
+  }
+
+  iniciarSesion2(){
+    this.bd.dbState().subscribe(res => {
+      if(res){
+        this.bd.buscarIdUsuario(this.correo);
+        
+        this.bd.fetchUsuario().subscribe(items => {
+          this.usuarios = items;
+        })
+      }
+
+    })
+
+    if(this.usuarios.correo !== '' ){
+      if(this.clave === this.usuarios.clave) {
+        if(this.usuarios.rolu === 1 ) {
+          this.router.navigate(['/home-cli'])
+          localStorage.setItem('token', "1");
+        }else{
+          this.router.navigate(['/home-adm'])
+          localStorage.setItem('token', "2");
+
+        }
+      }else{
+        this.bd.presentAlert('clae inválido');
+      }
+    }else{
+      this.bd.presentAlert('correo banco etao inválido');
+    }
   }
 
 
@@ -74,6 +108,7 @@ export class IniSesionPage implements OnInit {
   }
 
   ngOnInit() {
+
   }
 
 }

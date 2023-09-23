@@ -255,7 +255,7 @@ export class DbserviceService {
   }
 
   buscarIdUsuario(correo:any){ 
-    return this.database.executeSql("SELECT idUsuario FROM usuario WHERE correo = ?;",[correo]).then(res =>{
+    return this.database.executeSql("SELECT * FROM usuario WHERE correo = ?;",[correo]).then(res =>{
       //todo bien
       let items: Usuario[] = [];
       //Validar cantidad registros
