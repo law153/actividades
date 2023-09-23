@@ -57,7 +57,9 @@ export class DbserviceService {
   usuarioClienteDefault: string = "INSERT OR IGNORE INTO usuario(idusuario, rut, dvrut, nombre, apellido, telefono, correo, clave, direccion, fotousuario, respuesta, rolu, preguntau) VALUES ('200', 11111111, '1', 'Javier', 'Maldonado', '12345678', 'javicci@gmail.com', 'umigod', 'Camarones 1313', '/assets/imagen.jpg', 'Umi', 1, 1);";
   usuarioAdminDefault: string = "INSERT OR IGNORE INTO usuario(idusuario, rut, dvrut, nombre, apellido, telefono, correo, clave, direccion, fotousuario, respuesta, rolu, preguntau) VALUES ('201', 22222222, '2', 'Ivan', 'Fuentes', '87654321', 'ivanfuentes@gmail.com', 'ivans', 'Piedra Roja 11', '/assets/imagen.jpg', 'Negro', 2, 3);";
   //Productos
-  productoDefault: string = "INSERT OR IGNORE INTO producto(codprod, nombreprod, descripcion, precio, stock, foto, unidadmedida, categoriap) VALUES(200, 'Producto','Hola buenas tardes soy un producto', 2000, 50, '/assets/imagen.jpg', 'Por unidad', 1);";
+  producto1Default: string = "INSERT OR IGNORE INTO producto(codprod, nombreprod, descripcion, precio, stock, foto, unidadmedida, categoriap) VALUES(200, 'Destornillador','Hola buenas tardes soy un destornillador', 5000, 50, '/assets/destornillador.jpg', 'Por unidad', 1);";
+  producto2Default: string = "INSERT OR IGNORE INTO producto(codprod, nombreprod, descripcion, precio, stock, foto, unidadmedida, categoriap) VALUES(201, 'Bateria','Hola buenas tardes soy una bateria', 1000, 50, '/assets/Bateria.jpg', 'Por docena', 2);";
+  producto3Default: string = "INSERT OR IGNORE INTO producto(codprod, nombreprod, descripcion, precio, stock, foto, unidadmedida, categoriap) VALUES(202, 'Pestillo','Hola buenas tardes soy un pestillo', 2500, 50, '/assets/pestillo.jpg', 'Por unidad', 3);";
   //Ventas
   ventaDefult: string ="INSERT OR IGNORE INTO venta(idventa, fechaventa, estado, fechaentrega, total, carrito, usuariov) VALUES (200, '04/04/2023', 'Activo', '05/05/2023', 6000, 'C', 200);";
   //Detalles
@@ -332,7 +334,7 @@ export class DbserviceService {
 
     })
   }
-  
+
   buscarProductoCate(id: any){ 
     return this.database.executeSql("SELECT * FROM producto WHERE categoriap = ?;",[id]).then(res =>{
       //todo bien
@@ -671,7 +673,9 @@ export class DbserviceService {
       await this.database.executeSql(this.usuarioClienteDefault,[]);
       await this.database.executeSql(this.usuarioAdminDefault,[]);
 
-      await this.database.executeSql(this.productoDefault,[]);
+      await this.database.executeSql(this.producto1Default,[]);
+      await this.database.executeSql(this.producto2Default,[]);
+      await this.database.executeSql(this.producto3Default,[]);
 
       await this.database.executeSql(this.ventaDefult,[]);
 
