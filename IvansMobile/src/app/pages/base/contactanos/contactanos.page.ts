@@ -21,8 +21,6 @@ export class ContactanosPage implements OnInit {
   msj: string="";
   flag: boolean = true;
 
-  categorias: any = [{idcategoria: '', nombrecategoria: ''}];
-
   constructor(private menuCtrl: MenuController, private router: Router, private alerta: AlertController, private bd: DbserviceService) { }
 
   irHome(){
@@ -52,7 +50,7 @@ export class ContactanosPage implements OnInit {
     this.asuntoValido();
     this.cuerpoValido();
     if(this.flag === true){
-      //this.agregar();
+      this.agregar();
     }
   }
 
@@ -93,11 +91,11 @@ export class ContactanosPage implements OnInit {
     }
   }
 
-  /*agregar(){
+  agregar(){
     this.bd.agregarConsulta(this.msjNombre,this.msjAsunto, this.msjCuerpo);
     this.bd.presentAlert("Consulta enviada con exito");
     this.router.navigate(['/contactanos']);
-  }*/
+  }
 
    //Funciones de validación
   contieneCaracterEspecial(texto: string): boolean {
@@ -125,13 +123,6 @@ export class ContactanosPage implements OnInit {
   }
 
   ngOnInit() {
-    this.bd.dbState().subscribe(res => {
-      if(res){
-        this.bd.fetchCategoria().subscribe(items => {
-          this.categorias = items;
-        })
-      }
-    })
   }
 
 }
