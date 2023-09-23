@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
 import { DbserviceService } from 'src/app/services/dbservice.service';
+import { CateupdateService } from 'src/app/services/cateupdate.service';
+
 
 @Component({
   selector: 'app-root',
@@ -16,7 +18,7 @@ export class AppComponent implements OnInit{
   
 
 
-  constructor(private router: Router,  private bd: DbserviceService ) {}
+  constructor(private router: Router,  private bd: DbserviceService, private cateUpdate: CateupdateService ) {}
   
 
   //funciones de redirección
@@ -65,12 +67,8 @@ export class AppComponent implements OnInit{
   //categorias
   irCategorias(idcate: number){
 
-    let categoria: NavigationExtras = {
-      state: {
-        categoriaEnviar: idcate
-      }
-    };
-    this.router.navigate(['/categorias'], categoria);
+    this.cateUpdate.setCategoriaSeleccionada(idcate);
+    this.router.navigate(['/categorias']);
   }
 
 
