@@ -73,7 +73,7 @@
 
           <h3>{{x.precio | currency:'$':true:'4.0-0'}}</h3>
           
-          <ion-button>Ir</ion-button>
+          <ion-button (click)="irProducto(x.codprod)">Ir</ion-button>
         </div>
       </ion-col>
     </ion-row>

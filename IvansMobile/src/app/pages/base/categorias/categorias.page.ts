@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { MenuController } from '@ionic/angular';
 import { DbserviceService } from 'src/app/services/dbservice.service';
 import { CateupdateService } from 'src/app/services/cateupdate.service';
@@ -36,8 +36,14 @@ export class CategoriasPage implements OnInit {
   }
 
   //De categoria
-  irProducto(){
-    this.router.navigate(['/electricidad-p'])   
+  irProducto(codprod: number){
+
+    let NavigationsExtra: NavigationExtras = {
+      state: {
+        prodEnviar: codprod
+      }
+    };
+    this.router.navigate(['/productos'], NavigationsExtra); 
   }
 
   actualizarProductos() {

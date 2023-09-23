@@ -27,27 +27,27 @@
     
     <ion-row>
       <ion-col>
-        <h1 class="nombre-pag">Nombre del producto</h1>
+        <h1 class="nombre-pag">{{producto.nombreprod}}</h1>
       </ion-col>
     </ion-row>
 
     <ion-row>
       <ion-col>
         <div class="contenedor-imagen">
-          <ion-img src="/assets/destornillador.jpg" alt="No hay imagen :c"></ion-img>
+          <ion-img [src]="producto.foto" alt="No hay imagen :c"></ion-img>
         </div>
       </ion-col>
     </ion-row>
 
     <ion-row>
       <ion-col class="contenedor-desc">
-        <p class="desc">Desatornillador tipo cruz Decker de acero inoxidable, 15x3cm</p>
+        <p class="desc">{{producto.descripcion}}</p>
       </ion-col>
     </ion-row>
 
     <ion-row>
       <ion-col>
-        <h2 class="precio">$13.000</h2>
+        <h2 class="precio">{{producto.precio | currency:'$':true:'4.0-0'}}</h2>
       </ion-col>
     </ion-row>
 

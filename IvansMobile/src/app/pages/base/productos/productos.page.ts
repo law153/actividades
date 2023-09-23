@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MenuController } from '@ionic/angular';
+import { DbserviceService } from 'src/app/services/dbservice.service';
 
 @Component({
   selector: 'app-productos',
@@ -8,8 +9,15 @@ import { MenuController } from '@ionic/angular';
   styleUrls: ['./productos.page.scss'],
 })
 export class ProductosPage implements OnInit {
-
-  constructor(private menuCtrl: MenuController, private router: Router, private activeRouter: ActivatedRoute) { }
+  codprod: number = 0;
+  producto: any = {};
+  constructor(private menuCtrl: MenuController, private router: Router, private activeRouter: ActivatedRoute, private bd: DbserviceService) {
+    this.activeRouter.queryParams.subscribe(param => {
+      if(this.router.getCurrentNavigation()?.extras.state){
+        this.codprod = this.router.getCurrentNavigation()?.extras?.state?.["prodEnviar"];
+      }
+      }) 
+   }
 
 
   //Funciones de menu
@@ -30,28 +38,18 @@ export class ProductosPage implements OnInit {
   comprar(){
     this.router.navigate(['ini-sesion']);
   }
-  /*
-  insertar(){
-    this.db.agregar(this.nombreRol)
-    this.db.presentAlert("Registro Realizado");
-    this.router.navigate(['']);
-  }
 
-  editar(){
-    this.db.modificar(this.idRol, this.nombreRol);
-    this.db.presentAlert("Cambio Realizado");
-    this.router.navigate(['']);
-  }
-  
-
-
-  ///En caso de que se generen botones de eliminar con un for
-  borrar(x: any){
-    this.db.eliminar(x.id);
-    this.db.presentAlert("Cambio Realizado");
-  }
-  */
   ngOnInit() {
+
+    this.bd.dbState().subscribe(res => {
+      if(res){
+        this.bd.buscarProducto(this.codprod);
+        
+        this.bd.fetchProducto().subscribe(items => {
+          this.producto = items[0];
+        })
+      }
+    })
   }
 
 }
