@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
 import { DbserviceService } from 'src/app/services/dbservice.service';
 import { CateupdateService } from 'src/app/services/cateupdate.service';
+import { PermisosService } from './services/permisos.service';
 
 
 @Component({
@@ -12,13 +13,12 @@ import { CateupdateService } from 'src/app/services/cateupdate.service';
 export class AppComponent implements OnInit{
   variableStorage: any = "";
   
+  permiso: number = 0;
 
   categorias: any = [{idcategoria: '', nombrecategoria: ''}];
 
-  
 
-
-  constructor(private router: Router,  private bd: DbserviceService, private cateUpdate: CateupdateService ) {}
+  constructor(private router: Router,  private bd: DbserviceService, private cateUpdate: CateupdateService, private permisos: PermisosService ) {}
   
 
   //funciones de redirección
@@ -94,6 +94,10 @@ export class AppComponent implements OnInit{
         })
       }
     })
+
+    this.permisos.Rol.subscribe((rol) => {
+      this.permiso = rol;
+    });
     
   }
 
