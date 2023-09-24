@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AlertController, MenuController } from '@ionic/angular';
+import { DbserviceService } from 'src/app/services/dbservice.service';
 
 @Component({
   selector: 'app-carrito',
@@ -8,14 +9,19 @@ import { AlertController, MenuController } from '@ionic/angular';
   styleUrls: ['./carrito.page.scss'],
 })
 export class CarritoPage implements OnInit {
-  cantidad: string = "1";
+  cantidad: string = "0";
   flag: boolean = true;
   msj: string = "";
-  total: string= "5000";
-  nombreProd: string="Producto ejemplo";
-  precioProd: string="1000";
-  imgProd: string="/assets/imagen.jpg";
-  constructor(private router: Router,private menuCtrl: MenuController, private alerta: AlertController, private activeRouter: ActivatedRoute) { 
+  total: string= "";
+  nombreProd: string="";
+  precioProd: string="";
+  imgProd: string="";
+
+  idusuario: number = 200;
+  carrito: any = {};
+  detalles: any = [{iddetalle: '', cantidad: '', subtotal: '', ventad: '', productod: ''}];
+  hayCarrito: boolean = false;
+  constructor(private router: Router,private menuCtrl: MenuController, private alerta: AlertController, private activeRouter: ActivatedRoute, private bd: DbserviceService) { 
     this.activeRouter.queryParams.subscribe(param => {
     if(this.router.getCurrentNavigation()?.extras.state){
       this.nombreProd = this.router.getCurrentNavigation()?.extras?.state?.["nombreEnviar"];
@@ -77,6 +83,35 @@ export class CarritoPage implements OnInit {
   }
 
   ngOnInit() {
+    this.bd.dbState().subscribe(res => {
+      if (res) {
+        this.bd.buscarVentaCarrito(this.idusuario, 'Activo');
+    
+        this.bd.fetchVenta().subscribe(items => {
+          if (items.length > 0) {
+            //Se encontró un carrito activo
+            this.carrito = items[0];
+            this.hayCarrito = true;
+            this.bd.buscarDetallesVenta(this.carrito.idventa);
+            this.bd.fetchDetalle().subscribe(items => {
+              this.detalles = items;
+            })
+
+            for (const detalle of this.detalles) {
+              this.bd.buscarProducto(detalle.productod);
+              this.bd.fetchProducto().subscribe(producto => {
+                detalle.producto = producto;
+              });
+            }
+
+          } else {
+            // No se encontraron un carrito activo
+            this.bd.presentAlert('No hay un carrito activo');
+          }
+        })
+      }
+    })
+
   }
 
 }
