@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController, MenuController } from '@ionic/angular';
 import { DbserviceService } from 'src/app/services/dbservice.service';
+import { PermisosService } from 'src/app/services/permisos.service';
 
 @Component({
   selector: 'app-ini-sesion',
@@ -16,7 +17,7 @@ export class IniSesionPage implements OnInit {
 
   //Variable para db
   usuarios: any = [{rut: '', dvrut: '', nombre: '', apellido: '', telefono: '', correo: '', clave: '', direccion: '', fotoUsuario: '', respuesta: '', rolU: '', preguntaU: ''}];
-  constructor(private menuCtrl: MenuController, private router: Router, private alerta: AlertController, private bd: DbserviceService) { }
+  constructor(private menuCtrl: MenuController, private router: Router, private alerta: AlertController, private bd: DbserviceService, private permisos: PermisosService ) { }
 
   irHome(){
     this.router.navigate(['']);
@@ -27,6 +28,17 @@ export class IniSesionPage implements OnInit {
     await this.iniciarSesion2();
     this.verificarSesion();
 
+  }
+
+  iniFake(){
+    if(this.correo === "cliente"){
+      this.router.navigate(['/home-cli']);
+      this.permisos.setUserRole(1);
+    }
+    if(this.correo === "admin"){
+      this.router.navigate(['/home-adm']);
+      this.permisos.setUserRole(2);
+    }
   }
 
   iniciarSesion2(){
