@@ -13,6 +13,12 @@ export class ProductosPage implements OnInit {
   codprod: number = 0;
   producto: any = {};
   permiso: number = 0;
+  idusuario: number = 200;
+  venta: any = {};
+  fechaActual = new Date();
+  diasSumar = 999;
+  fechaEntrega = new Date(this.fechaActual);
+  
   constructor(private menuCtrl: MenuController, private router: Router, private activeRouter: ActivatedRoute, private bd: DbserviceService,  private permisos: PermisosService) {
     this.activeRouter.queryParams.subscribe(param => {
       if(this.router.getCurrentNavigation()?.extras.state){
@@ -42,6 +48,25 @@ export class ProductosPage implements OnInit {
   }
 
   comprar(){
+    this.bd.dbState().subscribe(res => {
+      if (res) {
+        this.bd.buscarVentaCarrito(this.idusuario, 'Activo');
+    
+        this.bd.fetchVenta().subscribe(items => {
+          if (items.length > 0) {
+            
+            this.venta = items[0];
+
+            
+          } else {
+            // No se encontraron un carrito activo
+            this.fechaEntrega.setDate(this.fechaActual.getDate() + this.diasSumar);
+            this.venta = this.bd.agregarVenta(this.fechaActual, 'Activo', '11/11/2030', this.producto.precio, 'C', this.idusuario);
+            
+          }
+        })
+      }
+    })
     this.router.navigate(['carrito']);
   }
 

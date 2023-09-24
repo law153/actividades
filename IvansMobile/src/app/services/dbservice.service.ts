@@ -411,6 +411,31 @@ export class DbserviceService {
     })
   }
 
+  buscarVentaCarrito(usuario: any, estado: any){
+    return this.database.executeSql("SELECT * FROM venta WHERE usuariov = ? AND estado = ?;",[usuario, estado]).then(res =>{
+      //todo bien
+      let items: Venta[] = [];
+      //Validar cantidad registros
+      if(res.rows.length > 0){
+        //Recorrer los datos
+        for(var i = 0; i < res.rows.length; i++ ){
+          //Guardando los datos
+          items.push({ 
+            idventa: res.rows.item(i).idventa,
+            fechaventa: res.rows.item(i).fechaventa,
+            estado: res.rows.item(i).estado,
+            fechaentrega: res.rows.item(i).fechaentrega,
+            total: res.rows.item(i).total,
+            carrito: res.rows.item(i).carrito,
+            usuariov: res.rows.item(i).usuariov
+           });
+        }
+      }
+      this.listaVenta.next(items as any);
+
+    })
+  }
+
   buscarDetalles(){
     return this.database.executeSql("SELECT * FROM detalle;",[]).then(res =>{
       //todo bien
@@ -436,6 +461,29 @@ export class DbserviceService {
 
   buscarDetalle(id: any){
     return this.database.executeSql("SELECT * FROM detalle WHERE iddetalle = ?;",[id]).then(res =>{
+      //todo bien
+      let items: Detalle[] = [];
+      //Validar cantidad registros
+      if(res.rows.length > 0){
+        //Recorrer los datos
+        for(var i = 0; i < res.rows.length; i++ ){
+          //Guardando los datos
+          items.push({ 
+            iddetalle: res.rows.item(i).iddetalle,
+            cantidad: res.rows.item(i).cantidad,
+            subtotal: res.rows.item(i).subtotal,
+            ventad: res.rows.item(i).ventad,
+            productod: res.rows.item(i).productod
+           });
+        }
+      }
+      this.listaDetalle.next(items as any);
+
+    })
+  }
+
+  buscarDetallesVenta(venta: any){
+    return this.database.executeSql("SELECT * FROM detalle WHERE ventad = ?;",[venta]).then(res =>{
       //todo bien
       let items: Detalle[] = [];
       //Validar cantidad registros
