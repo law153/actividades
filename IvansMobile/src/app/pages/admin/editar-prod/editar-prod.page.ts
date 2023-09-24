@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController, MenuController, ToastController } from '@ionic/angular';
+import { DbserviceService } from 'src/app/services/dbservice.service';
 
 @Component({
   selector: 'app-editar-prod',
@@ -17,17 +18,26 @@ export class EditarProdPage implements OnInit {
   msjCate: string = "";
 
   id: number = 0;
-  nombre: string = "Desatornillador cruz decker";
-  desc: string = "Desatornillador tipo cruz Decker de acero inoxidable, 15x3cm<";
-  precio: string="13000";
-  stock: number=1;
-  medida: string = "Por Unidad";
-  categoria: number= 1;
+  nombre: string = "";
+  desc: string = "";
+  precio: string="";
+  stock: number=0;
+  medida: string = "";
+  categoria: number= 0;
+  foto: string = "";
   flag: boolean= true;
   msj: string="";
-  foto: string = "/assets/imagen.jpg";
 
-  constructor(private router: Router, private alerta: AlertController, private tostada: ToastController, private menuCtrl: MenuController, /*private bd: DbserviceService*/) { }
+  codprod: number = 0;
+  producto: any = {};
+
+  constructor(private router: Router, private alerta: AlertController, private activeRouter: ActivatedRoute, private menuCtrl: MenuController, private bd: DbserviceService) {
+    this.activeRouter.queryParams.subscribe(param => {
+      if(this.router.getCurrentNavigation()?.extras.state){
+        this.codprod = this.router.getCurrentNavigation()?.extras?.state?.["prodEnviar"];
+      }
+      }) 
+   }
 
   abrirSuperior(){
     this.menuCtrl.enable(true, 'superior');
@@ -176,6 +186,23 @@ export class EditarProdPage implements OnInit {
   }*/
 
   ngOnInit() {
+    this.bd.dbState().subscribe(res => {
+      if(res){
+        this.bd.buscarProducto(this.codprod);
+        
+        this.bd.fetchProducto().subscribe(items => {
+          this.producto = items[0];
+        })
+        this.id = this.producto.codprod;
+        this.nombre= this.producto.nombreprod;
+        this.desc = this.producto.descripcion;
+        this.precio = this.producto.precio;
+        this.stock = this.producto.stock;
+        this.medida = this.producto.unidadmedida;
+        this.categoria = this.producto.categoriap;
+        this.foto = this.producto.foto;
+      }
+    })
   }
 
 }
