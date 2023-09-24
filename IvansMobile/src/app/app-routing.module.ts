@@ -25,42 +25,6 @@ const routes: Routes = [
     loadChildren: () => import('./pages/base/contactanos/contactanos.module').then( m => m.ContactanosPageModule)
   },
   {
-    path: 'herramientas',
-    loadChildren: () => import('./pages/base/herramientas/herramientas.module').then( m => m.HerramientasPageModule)
-  },
-  {
-    path: 'gasfiteria',
-    loadChildren: () => import('./pages/base/gasfiteria/gasfiteria.module').then( m => m.GasfiteriaPageModule)
-  },
-  {
-    path: 'electricidad',
-    loadChildren: () => import('./pages/base/electricidad/electricidad.module').then( m => m.ElectricidadPageModule)
-  },
-  {
-    path: 'seguridad',
-    loadChildren: () => import('./pages/base/seguridad/seguridad.module').then( m => m.SeguridadPageModule)
-  },
-  {
-    path: 'ropa',
-    loadChildren: () => import('./pages/base/ropa/ropa.module').then( m => m.RopaPageModule)
-  },
-  {
-    path: 'fijaciones',
-    loadChildren: () => import('./pages/base/fijaciones/fijaciones.module').then( m => m.FijacionesPageModule)
-  },
-  {
-    path: 'kits',
-    loadChildren: () => import('./pages/base/kits/kits.module').then( m => m.KitsPageModule)
-  },
-  {
-    path: 'electricidad-p',
-    loadChildren: () => import('./pages/base/electricidad-p/electricidad-p.module').then( m => m.ElectricidadPPageModule)
-  },
-  {
-    path: 'herramientas-p',
-    loadChildren: () => import('./pages/base/herramientas-p/herramientas-p.module').then( m => m.HerramientasPPageModule)
-  },  
-  {
     path: 'olv-contra',
     loadChildren: () => import('./pages/base/olv-contra/olv-contra.module').then( m => m.OlvContraPageModule)
   },
@@ -199,10 +163,6 @@ const routes: Routes = [
   {
     path: 'electricidad-p-adm',
     loadChildren: () => import('./pages/admin/electricidad-p-adm/electricidad-p-adm.module').then( m => m.ElectricidadPAdmPageModule)
-  },
-  {
-    path: 'fijaciones-p',
-    loadChildren: () => import('./pages/base/fijaciones-p/fijaciones-p.module').then( m => m.FijacionesPPageModule)
   },
   {
     path: 'fijaciones-cli-p',
