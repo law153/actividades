@@ -50,7 +50,7 @@ export class AppComponent implements OnInit{
   }
 
   cerrarSesion(){
-    localStorage.setItem('token', "");
+    this.permisos.setUserRole(0);
     this.router.navigate(['']);
   }
 
