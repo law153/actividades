@@ -10,7 +10,7 @@ import { DbserviceService } from 'src/app/services/dbservice.service';
 })
 export class EditarRolPage implements OnInit {
 
-  usuarios: any = [{idusuario: '',rut: '', dvrut: '', nombre: '', apellido: '', telefono: '', correo: '', clave: '', direccion: '', fotoUsuario: '', respuesta: '', rolU: '', preguntaU: ''}];
+  usuarios: any = [{idusuario: '',rut: '', dvrut: '', nombre: '', apellido: '', telefono: '', correo: '', clave: '', direccion: '', fotoUsuario: '', respuesta: '', rolu: '', preguntaU: ''}];
 
   constructor(private menuCtrl: MenuController, private router: Router, private bd: DbserviceService) { }
 

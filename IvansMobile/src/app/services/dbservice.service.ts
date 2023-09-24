@@ -52,7 +52,7 @@ export class DbserviceService {
   preguntaCiudad: string = "INSERT OR IGNORE INTO pregunta(idpregunta, nombrepregunta) VALUES (2, '¿Cual es tu ciudad natal?'); ";
   preguntaColor: string = "INSERT OR IGNORE INTO pregunta(idpregunta, nombrepregunta) VALUES (3, '¿Cual es tu color favorito?'); ";
   //Consultas
-  consultaDefault: string = "INSERT OR IGNORE INTO consulta(idconsulta, nombreconsultante, mensajeconsulta) VALUES (200, 'Alvaro', 'Faltan guitarras');";
+  consultaDefault: string = "INSERT OR IGNORE INTO consulta(idconsulta, nombreconsultante, asuntoconsulta ,mensajeconsulta) VALUES (200, 'Alvaro','Problema' ,'Faltan guitarras');";
   //Usuarios
   usuarioClienteDefault: string = "INSERT OR IGNORE INTO usuario(idusuario, rut, dvrut, nombre, apellido, telefono, correo, clave, direccion, fotousuario, respuesta, rolu, preguntau) VALUES ('200', 11111111, '1', 'Javier', 'Maldonado', '12345678', 'javicci@gmail.com', 'umigod', 'Camarones 1313', '/assets/imagen.jpg', 'Umi', 1, 1);";
   usuarioAdminDefault: string = "INSERT OR IGNORE INTO usuario(idusuario, rut, dvrut, nombre, apellido, telefono, correo, clave, direccion, fotousuario, respuesta, rolu, preguntau) VALUES ('201', 22222222, '2', 'Ivan', 'Fuentes', '87654321', 'ivanfuentes@gmail.com', 'ivans', 'Piedra Roja 11', '/assets/imagen.jpg', 'Negro', 2, 3);";
@@ -66,7 +66,7 @@ export class DbserviceService {
   detalleDefault: string = "INSERT OR IGNORE INTO detalle(iddetalle, cantidad, subtotal, ventad, productod) VALUES (200, 3, 6000, 200, 200);";
   //Historial de compras
   detalleCompradoDefault: string  ="INSERT OR IGNORE INTO detalleComprado(iddetallec, nombreprodc, fotoprodc, cantidadc, subtotalc, ventac) VALUES (200, 'Producto', '/assets/imagen.jpg', 3, 6000, 200);";
-
+  
 
   //Observables de tablas 
   listaRol = new BehaviorSubject([]); 
