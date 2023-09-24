@@ -57,42 +57,6 @@ const routes: Routes = [
     loadChildren: () => import('./pages/cliente/historial-compra/historial-compra.module').then( m => m.HistorialCompraPageModule)
   },
   {
-    path: 'herramientas-cli',
-    loadChildren: () => import('./pages/cliente/herramientas-cli/herramientas-cli.module').then( m => m.HerramientasCliPageModule)
-  },
-  {
-    path: 'electricidad-cli',
-    loadChildren: () => import('./pages/cliente/electricidad-cli/electricidad-cli.module').then( m => m.ElectricidadCliPageModule)
-  },
-  {
-    path: 'gasfiteria-cli',
-    loadChildren: () => import('./pages/cliente/gasfiteria-cli/gasfiteria-cli.module').then( m => m.GasfiteriaCliPageModule)
-  },
-  {
-    path: 'fijaciones-cli',
-    loadChildren: () => import('./pages/cliente/fijaciones-cli/fijaciones-cli.module').then( m => m.FijacionesCliPageModule)
-  },
-  {
-    path: 'seguridad-cli',
-    loadChildren: () => import('./pages/cliente/seguridad-cli/seguridad-cli.module').then( m => m.SeguridadCliPageModule)
-  },
-  {
-    path: 'ropa-cli',
-    loadChildren: () => import('./pages/cliente/ropa-cli/ropa-cli.module').then( m => m.RopaCliPageModule)
-  },
-  {
-    path: 'kits-cli',
-    loadChildren: () => import('./pages/cliente/kits-cli/kits-cli.module').then( m => m.KitsCliPageModule)
-  },
-  {
-    path: 'herramientas-p-cli',
-    loadChildren: () => import('./pages/cliente/herramientas-p-cli/herramientas-p-cli.module').then( m => m.HerramientasPCliPageModule)
-  },
-  {
-    path: 'electricidad-p-cli',
-    loadChildren: () => import('./pages/cliente/electricidad-p-cli/electricidad-p-cli.module').then( m => m.ElectricidadPCliPageModule)
-  },
-  {
     path: 'home-cli',
     loadChildren: () => import('./pages/cliente/home-cli/home-cli.module').then( m => m.HomeCliPageModule)
   },
@@ -127,50 +91,6 @@ const routes: Routes = [
   {
     path: 'cambiar-contra-adm',
     loadChildren: () => import('./pages/admin/cambiar-contra-adm/cambiar-contra-adm.module').then( m => m.CambiarContraAdmPageModule)
-  },
-  {
-    path: 'herramientas-adm',
-    loadChildren: () => import('./pages/admin/herramientas-adm/herramientas-adm.module').then( m => m.HerramientasAdmPageModule)
-  },
-  {
-    path: 'electricidad-adm',
-    loadChildren: () => import('./pages/admin/electricidad-adm/electricidad-adm.module').then( m => m.ElectricidadAdmPageModule)
-  },
-  {
-    path: 'fijaciones-adm',
-    loadChildren: () => import('./pages/admin/fijaciones-adm/fijaciones-adm.module').then( m => m.FijacionesAdmPageModule)
-  },
-  {
-    path: 'seguridad-adm',
-    loadChildren: () => import('./pages/admin/seguridad-adm/seguridad-adm.module').then( m => m.SeguridadAdmPageModule)
-  },
-  {
-    path: 'ropa-adm',
-    loadChildren: () => import('./pages/admin/ropa-adm/ropa-adm.module').then( m => m.RopaAdmPageModule)
-  },
-  {
-    path: 'gasfiteria-adm',
-    loadChildren: () => import('./pages/admin/gasfiteria-adm/gasfiteria-adm.module').then( m => m.GasfiteriaAdmPageModule)
-  },
-  {
-    path: 'kits-adm',
-    loadChildren: () => import('./pages/admin/kits-adm/kits-adm.module').then( m => m.KitsAdmPageModule)
-  },
-  {
-    path: 'herramientas-p-adm',
-    loadChildren: () => import('./pages/admin/herramientas-p-adm/herramientas-p-adm.module').then( m => m.HerramientasPAdmPageModule)
-  },
-  {
-    path: 'electricidad-p-adm',
-    loadChildren: () => import('./pages/admin/electricidad-p-adm/electricidad-p-adm.module').then( m => m.ElectricidadPAdmPageModule)
-  },
-  {
-    path: 'fijaciones-cli-p',
-    loadChildren: () => import('./pages/cliente/fijaciones-cli-p/fijaciones-cli-p.module').then( m => m.FijacionesCliPPageModule)
-  },
-  {
-    path: 'fijaciones-adm-p',
-    loadChildren: () => import('./pages/admin/fijaciones-adm-p/fijaciones-adm-p.module').then( m => m.FijacionesAdmPPageModule)
   },
   {
     path: 'ver-compra',
