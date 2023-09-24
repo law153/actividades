@@ -37,15 +37,10 @@
           <th>Consulta</th>
         </tr>
   
-        <tr>
-          <td>1</td>
-          <td>Álvaro</td>
-          <td>Mala página le faltan guitarras</td>
-        </tr>
-        <tr>
-          <td>2</td>
-          <td>Héctor</td>
-          <td>Se me rompió la broca que compré</td>
+        <tr *ngFor="let x of consultas">
+          <td>{{x.idconsulta}}</td>
+          <td>{{x.nombreconsultante}}</td>
+          <td>{{x.mensajeconsulta}}</td>
         </tr>
   
       </table>
