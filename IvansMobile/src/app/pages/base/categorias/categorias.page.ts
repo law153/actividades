@@ -3,6 +3,7 @@ import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { MenuController } from '@ionic/angular';
 import { DbserviceService } from 'src/app/services/dbservice.service';
 import { CateupdateService } from 'src/app/services/cateupdate.service';
+import { PermisosService } from 'src/app/services/permisos.service';
 
 @Component({
   selector: 'app-categorias',
@@ -12,8 +13,8 @@ import { CateupdateService } from 'src/app/services/cateupdate.service';
 export class CategoriasPage implements OnInit {
   idcate: number = 0;
   productos: any = [{codprod: '', nombreprod: '', descripcion: '', precio: '', stock: '', foto: '', unidadmedida: '', categoriap: ''}];
-
-  constructor(private menuCtrl: MenuController, private router: Router, private activeRouter: ActivatedRoute, private bd: DbserviceService, private cateUpdate: CateupdateService ) {
+  permiso: number = 0;
+  constructor(private menuCtrl: MenuController, private router: Router, private activeRouter: ActivatedRoute, private bd: DbserviceService, private cateUpdate: CateupdateService,  private permisos: PermisosService ) {
     this.cateUpdate.fetchCategoriaSeleccionada().subscribe((idCategoria) => {
       this.idcate = idCategoria;
       this.actualizarProductos();
@@ -46,6 +47,16 @@ export class CategoriasPage implements OnInit {
     this.router.navigate(['/productos'], NavigationsExtra); 
   }
 
+  irEditarProducto(codprod: number){
+
+    let NavigationsExtra: NavigationExtras = {
+      state: {
+        prodEnviar: codprod
+      }
+    };
+    this.router.navigate(['/editar-prod'], NavigationsExtra); 
+  }
+
   actualizarProductos() {
     this.bd.dbState().subscribe(res => {
       if (res) {
@@ -74,6 +85,10 @@ export class CategoriasPage implements OnInit {
         })
       }
     })
+
+    this.permisos.Rol.subscribe((rol) => {
+      this.permiso = rol;
+    });
 
   }
 

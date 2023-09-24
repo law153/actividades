@@ -189,17 +189,13 @@ const routes: Routes = [
     loadChildren: () => import('./pages/base/productos/productos.module').then( m => m.ProductosPageModule)
   },
   {
+    path: 'editar-prod',
+    loadChildren: () => import('./pages/admin/editar-prod/editar-prod.module').then( m => m.EditarProdPageModule)
+  },
+  {
     path: '**',
     loadChildren: () => import('./pages/not-found/not-found.module').then( m => m.NotFoundPageModule)
   },
-
-
-
-
-
-
-
-
 
 
 

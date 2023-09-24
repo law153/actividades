@@ -73,7 +73,8 @@
 
           <h3>{{x.precio | currency:'$':true:'4.0-0'}}</h3>
           
-          <ion-button (click)="irProducto(x.codprod)">Ir</ion-button>
+          <ion-button *ngIf="(permiso === 0 || permiso === 1)" (click)="irProducto(x.codprod)">Ir</ion-button>
+          <ion-button *ngIf="(permiso === 2)" (click)="irEditarProducto(x.codprod)">Editar</ion-button>
         </div>
       </ion-col>
     </ion-row>
