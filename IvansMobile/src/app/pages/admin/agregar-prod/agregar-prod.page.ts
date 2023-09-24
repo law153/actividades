@@ -21,16 +21,15 @@ export class AgregarProdPage implements OnInit {
   desc: string = "";
   precio: string="";
   stock: number=1;
+  foto: string= "";
   medida: string = "";
   categoria: string= "";
   flag: boolean= true;
   msj: string="";
 
   //Variable para tomar foto
-  imageSource: any;
-
   takePicture = async () => {
-    const foto = await Camera.getPhoto({
+    const image = await Camera.getPhoto({
       quality: 90,
       allowEditing: true,
       resultType: CameraResultType.DataUrl,
@@ -41,10 +40,10 @@ export class AgregarProdPage implements OnInit {
     // You can access the original file using image.path, which can be
     // passed to the Filesystem API to read the raw data of the image,
     // if desired (or pass resultType: CameraResultType.Base64 to getPhoto)
-    var imageUrl = foto.webPath;
+    //var imagedataUrl = image.webPath;
   
     // Can be set to the src of an image now
-    this.imageSource = imageUrl;
+    this.foto = image.dataUrl!;
   };
 
   //Variable para bd
@@ -199,7 +198,7 @@ export class AgregarProdPage implements OnInit {
   }
 
   agregar() {
-    this.bd.agregarProducto(this.nombre, this.desc, this.precio, this.stock, '/assets/imagen.jpg', this.medida, this.categoria);
+    this.bd.agregarProducto(this.nombre, this.desc, this.precio, this.stock, this.foto, this.medida, this.categoria);
     this.router.navigate(['home-adm']);
   }
 
