@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController, MenuController, ToastController } from '@ionic/angular';
-/* import { DbserviceService } from 'src/app/services/dbservice.service'; */
+import { DbserviceService } from 'src/app/services/dbservice.service';
+import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 
 @Component({
   selector: 'app-agregar-prod',
@@ -25,10 +26,31 @@ export class AgregarProdPage implements OnInit {
   flag: boolean= true;
   msj: string="";
 
+  //Variable para tomar foto
+  imageSource: any;
+
+  takePicture = async () => {
+    const foto = await Camera.getPhoto({
+      quality: 90,
+      allowEditing: true,
+      resultType: CameraResultType.DataUrl,
+      source: CameraSource.Prompt
+    });
+  
+    // image.webPath will contain a path that can be set as an image src.
+    // You can access the original file using image.path, which can be
+    // passed to the Filesystem API to read the raw data of the image,
+    // if desired (or pass resultType: CameraResultType.Base64 to getPhoto)
+    var imageUrl = foto.webPath;
+  
+    // Can be set to the src of an image now
+    this.imageSource = imageUrl;
+  };
+
   //Variable para bd
   productos: any = [{nombreProd: '', descripcion: '', precio: '', stock: '', foto: '', unidadMedida: '', categoriaP: ''}];
 
-  constructor(private router: Router, private alerta: AlertController, private tostada: ToastController, private menuCtrl: MenuController,  /*private bd: DbserviceService*/) { }
+  constructor(private router: Router, private alerta: AlertController, private tostada: ToastController, private menuCtrl: MenuController, private bd: DbserviceService) { }
 
   abrirSuperior(){
     this.menuCtrl.enable(true, 'superior');
@@ -176,9 +198,9 @@ export class AgregarProdPage implements OnInit {
 
   }
 
-  /*agregar() {
+  agregar() {
     this.bd.agregarProducto(this.nombre, this.desc, this.precio, this.stock, '/assets/imagen.jpg', this.medida, this.categoria);
     this.router.navigate(['home-adm']);
-  }*/
+  }
 
 }
