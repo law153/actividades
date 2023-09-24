@@ -62,7 +62,7 @@ export class ProductosPage implements OnInit {
             // No se encontraron un carrito activo
             this.fechaEntrega.setDate(this.fechaActual.getDate() + this.diasSumar);
             this.venta = this.bd.agregarVenta(this.fechaActual, 'Activo', '11/11/2030', this.producto.precio, 'C', this.idusuario);
-            
+            this.bd.agregarDetalle(1, this.producto.precio, this.venta, this.producto.codprod);
           }
         })
       }
