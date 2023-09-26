@@ -13,6 +13,7 @@ import { Venta } from './venta';
 import { Consulta } from './consulta';
 import { Detallecomprado } from './detallecomprado';
 import { Pregunta } from './pregunta';
+import { DetallesVenta } from './detalles-venta';
 
 @Injectable({
   providedIn: 'root'
@@ -79,6 +80,7 @@ export class DbserviceService {
   listaDetalleComprado = new BehaviorSubject([]);
   listaCategoria = new BehaviorSubject([]);
   listaPregunta = new BehaviorSubject([]);
+  listaDetallesVenta = new BehaviorSubject([]);
   
   //Observable estatus o de bandera
   private flag: BehaviorSubject<boolean> = new BehaviorSubject(false);
@@ -126,6 +128,10 @@ export class DbserviceService {
   }
 
   fetchDetalleComprado(): Observable<Detallecomprado[]>{
+    return this.listaDetalleComprado.asObservable();
+  }
+
+  fetchDetallesVenta(): Observable<DetallesVenta[]>{
     return this.listaDetalleComprado.asObservable();
   }
 
@@ -483,9 +489,9 @@ export class DbserviceService {
   }
 
   buscarDetallesVenta(venta: any){
-    return this.database.executeSql("SELECT * FROM detalle WHERE ventad = ?;",[venta]).then(res =>{
+    return this.database.executeSql("SELECT d.iddetalle, d.cantidad, d.subtotal, p.nombreprod, p.precio, p.stock, p.foto FROM detalle d JOIN producto p ON(d.productod = p.codprod) WHERE ventad = ?;",[venta]).then(res =>{
       //todo bien
-      let items: Detalle[] = [];
+      let items: DetallesVenta[] = [];
       //Validar cantidad registros
       if(res.rows.length > 0){
         //Recorrer los datos
@@ -496,11 +502,15 @@ export class DbserviceService {
             cantidad: res.rows.item(i).cantidad,
             subtotal: res.rows.item(i).subtotal,
             ventad: res.rows.item(i).ventad,
-            productod: res.rows.item(i).productod
+            productod: res.rows.item(i).productod,
+            nombreprod: res.rows.item(i).nombreprod,
+            precio: res.rows.item(i).precio,
+            stock: res.rows.item(i).stock,
+            foto: res.rows.item(i).foto
            });
         }
       }
-      this.listaDetalle.next(items as any);
+      this.listaDetallesVenta.next(items as any);
 
     })
   }

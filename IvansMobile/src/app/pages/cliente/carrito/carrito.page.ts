@@ -13,22 +13,12 @@ export class CarritoPage implements OnInit {
   flag: boolean = true;
   msj: string = "";
   total: string= "";
-  nombreProd: string="";
-  precioProd: string="";
-  imgProd: string="";
 
   idusuario: number = 200;
   carrito: any = {};
-  detalles: any = [{iddetalle: '', cantidad: '', subtotal: '', ventad: '', productod: ''}];
+  detalles: any = [{iddetalle: '', cantidad: '', subtotal: '', ventad: '', productod: '', nombreprod: '', precio: '', stock: '', foto: ''}];
   hayCarrito: boolean = false;
   constructor(private router: Router,private menuCtrl: MenuController, private alerta: AlertController, private activeRouter: ActivatedRoute, private bd: DbserviceService) { 
-    this.activeRouter.queryParams.subscribe(param => {
-    if(this.router.getCurrentNavigation()?.extras.state){
-      this.nombreProd = this.router.getCurrentNavigation()?.extras?.state?.["nombreEnviar"];
-      this.precioProd = this.router.getCurrentNavigation()?.extras?.state?.["precioEnviar"];
-      this.imgProd = this.router.getCurrentNavigation()?.extras?.state?.["imgEnviar"];
-    }
-    }) 
   }
 
   irHomeCli(){
@@ -93,16 +83,11 @@ export class CarritoPage implements OnInit {
             this.carrito = items[0];
             this.hayCarrito = true;
             this.bd.buscarDetallesVenta(this.carrito.idventa);
-            this.bd.fetchDetalle().subscribe(items => {
+            this.bd.fetchDetallesVenta().subscribe(items => {
               this.detalles = items;
             })
 
-            for (const detalle of this.detalles) {
-              this.bd.buscarProducto(detalle.productod);
-              this.bd.fetchProducto().subscribe(producto => {
-                detalle.producto = producto;
-              });
-            }
+            
 
           } else {
             // No se encontraron un carrito activo

@@ -37,27 +37,27 @@
       <ion-col></ion-col>
     </ion-row>
     <br>
-    
-    <app-prod-carrito *ngFor="let x of detalles" nombreProd="{{x.producto.nombreprod}}" precioProd="{{x.producto.precioprod}}" imagenProd="{{x.producto.foto}}" cantidadProd="{{x.cantidad}}"></app-prod-carrito>
-    
+    <div *ngIf="(hayCarrito === true)">
+      <app-prod-carrito *ngFor="let x of detalles" nombreProd="x.nombreprod" precioProd="x.precioprod" imagenProd="x.foto" cantidadProd="x.cantidad"></app-prod-carrito>
+      
 
-    <ion-row>
-      <ion-col class="monto">
-        <h2>Monto total: </h2>
-      </ion-col>
-      <ion-col class="monto">
-        <h2>{{carrito.total | currency:'$':true:'4.0-0'}}</h2>
-      </ion-col>
-    </ion-row>
+      <ion-row>
+        <ion-col class="monto">
+          <h2>Monto total:</h2>
+        </ion-col>
+        <ion-col class="monto">
+          <h2>{{carrito.total | currency:'$':true:'4.0-0'}}</h2>
+        </ion-col>
+      </ion-row>
 
-    <ion-row>
-      <ion-col></ion-col>
-      <ion-col class="contenedor-boton">
-        <ion-button (click)="envioValido()">Pagar</ion-button>
-      </ion-col>
-      <ion-col></ion-col>
-    </ion-row>
-
+      <ion-row>
+        <ion-col></ion-col>
+        <ion-col class="contenedor-boton">
+          <ion-button (click)="envioValido()">Pagar</ion-button>
+        </ion-col>
+        <ion-col></ion-col>
+      </ion-row>
+    </div>
   </ion-grid>
 
 
