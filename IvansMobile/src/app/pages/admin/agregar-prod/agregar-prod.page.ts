@@ -34,8 +34,8 @@ export class AgregarProdPage implements OnInit {
       allowEditing: false,
       resultType: CameraResultType.DataUrl,
       source: CameraSource.Prompt,
-      promptLabelHeader: 'Foto',
-      promptLabelPhoto: 'Seleccionar de la Galería',
+      promptLabelHeader: 'Imagen',
+      promptLabelPhoto: 'Seleccionar imagen de la galería',
       promptLabelPicture: 'Tomar Foto'
     });
   
@@ -79,9 +79,9 @@ export class AgregarProdPage implements OnInit {
     this.categoriaValido();
     if(this.flag === true){
       //this.agregar();
-      this.msj="Producto agregado correctamente";
-      this.presentAlert(this.msj);
-      this.irHomeAdm();
+      this.agregar();
+      this.bd.presentAlert("Producto agregado correctamente");
+      this.router.navigate(['home-adm']);
     } 
   }
 
@@ -130,7 +130,7 @@ export class AgregarProdPage implements OnInit {
         this.flag = false;
         this.msjPrecio="Debe llenar este campo";
       }else{
-        if(this.SoloNumeros(this.precio)){
+        if(!this.SoloNumeros(this.precio)){
           this.flag = false;
           this.msjPrecio+="El precio debe estar compuesto solo de números"+"\n";
         } else if(parseInt(this.precio) <= 0){
@@ -201,8 +201,7 @@ export class AgregarProdPage implements OnInit {
   }
 
   agregar() {
-    this.bd.agregarProducto(this.nombre, this.desc, this.precio, this.stock, this.foto, this.medida, this.categoria);
-    this.router.navigate(['home-adm']);
+    this.bd.agregarProducto(this.nombre, this.desc, parseInt(this.precio), this.stock, this.foto, this.medida, parseInt(this.categoria));
   }
 
 }
