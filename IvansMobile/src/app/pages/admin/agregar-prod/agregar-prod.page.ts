@@ -33,7 +33,10 @@ export class AgregarProdPage implements OnInit {
       quality: 90,
       allowEditing: false,
       resultType: CameraResultType.DataUrl,
-      source: CameraSource.Prompt
+      source: CameraSource.Prompt,
+      promptLabelHeader: 'Foto',
+      promptLabelPhoto: 'Seleccionar de la Galería',
+      promptLabelPicture: 'Tomar Foto'
     });
   
     // image.webPath will contain a path that can be set as an image src.
