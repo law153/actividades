@@ -35,7 +35,7 @@ export class AgregarProdPage implements OnInit {
       resultType: CameraResultType.DataUrl,
       source: CameraSource.Prompt,
       promptLabelHeader: 'Imagen',
-      promptLabelPhoto: 'Seleccionar imagen de la galería',
+      promptLabelPhoto: 'Seleccionar imagen',
       promptLabelPicture: 'Tomar Foto'
     });
   
