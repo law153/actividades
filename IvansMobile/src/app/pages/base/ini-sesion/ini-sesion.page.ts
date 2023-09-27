@@ -103,14 +103,6 @@ export class IniSesionPage implements OnInit {
   }
 
   ngOnInit() {
-    this.bd.dbState().subscribe(res => {
-      if(res){
-        this.bd.fetchUsuario().subscribe(items => {
-          this.usuarios = items;
-        })
-      }
-
-    })
   }
 
 }

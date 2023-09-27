@@ -117,6 +117,13 @@ export class RegistrarsePage implements OnInit {
         this.msjRut+="Rut invalido"+"\n";
       }
 
+      for(var x of this.usuarios){
+        if(x.rut === this.rut){
+          this.msjRut+="Ese rut ya está en uso"+"\n";
+          this.flag = false;
+        }
+      }
+
     }
   
   }
@@ -213,8 +220,16 @@ export class RegistrarsePage implements OnInit {
       if(this.esCorreoValido(this.correo) === false){
         this.flag = false;
         this.msjCorreo+="Su correo no es valido"+"\n";
-        ;
+        
       }
+      for(var x of this.usuarios){
+        if(x.correo === this.correo){
+          this.msjCorreo+="Ese correo ya está en uso"+"\n";
+          this.flag = false;
+        }
+      }
+
+      
     }
   }
 
@@ -267,7 +282,7 @@ export class RegistrarsePage implements OnInit {
         this.msjClave += "La contraseña debe poseer un carácter especial"+"\n";
         
       }
-      if (this.clave.length <= 8) {
+      if (this.clave.length >= 8) {
         this.flag = false;
         this.msjClave += "La contraseña debe tener al menos 8 caracteres de \nlongitud"+"\n";
       
@@ -396,8 +411,7 @@ export class RegistrarsePage implements OnInit {
     return /^[0-9Kk]+$/.test(cadena);
   }
 
-
-  ngOnInit() {
+  buscarUsuarios(){
     this.bd.dbState().subscribe(res => {
       if(res){
         this.bd.fetchUsuario().subscribe(item => {
@@ -405,6 +419,11 @@ export class RegistrarsePage implements OnInit {
         })
       }
     })
+  }
+
+
+  ngOnInit() {
+    this.buscarUsuarios();
   }
 
   agregar(){
