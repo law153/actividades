@@ -29,6 +29,7 @@ export class AgregarProdPage implements OnInit {
 
   //Variable para tomar foto
   takePicture = async () => {
+    Camera.requestPermissions()
     const image = await Camera.getPhoto({
       quality: 90,
       allowEditing: false,
