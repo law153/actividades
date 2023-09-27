@@ -16,7 +16,7 @@ export class IniSesionPage implements OnInit {
   idUsuario: number = 200;
 
   //Variable para db
-  usuarios: any = [{idusuario: '',rut: '', dvrut: '', nombre: '', apellido: '', telefono: '', correo: '', clave: '', direccion: '', fotoUsuario: '', respuesta: '', rolU: '', preguntaU: ''}];
+  usuarios: any = [{idusuario: '',rut: '', dvrut: '', nombre: '', apellido: '', telefono: '', correo: '', clave: '', direccion: '', fotoUsuario: '', respuesta: '', rolu: '', preguntaU: ''}];
   constructor(private menuCtrl: MenuController, private router: Router, private alerta: AlertController, private bd: DbserviceService, private permisos: PermisosService ) { }
 
   irHome(){
@@ -24,54 +24,48 @@ export class IniSesionPage implements OnInit {
   }
 
 
-  async iniciarSesion(){
-    await this.iniciarSesion2();
-    this.verificarSesion();
+  iniciarSesion(){
 
-  }
+    this.existeCorreo();
+    if(this.clave === this.usuarios.clave){
+      //La contraseña es correcta
+      if(this.usuarios.rolu === 1){
+        //El usuario es un cliente
+        this.router.navigate(['/home-cli']);
+        this.permisos.setUserRole(1);
+      } 
 
-  iniFake(){
-    if(this.correo === "cliente"){
-      this.router.navigate(['/home-cli']);
-      this.permisos.setUserRole(1);
-    }
-    if(this.correo === "admin"){
-      this.router.navigate(['/home-adm']);
-      this.permisos.setUserRole(2);
-    }
-  }
-
-  iniciarSesion2(){
-    this.bd.dbState().subscribe(res => {
-      if(res){
-        this.bd.buscarIdUsuario(this.correo);
-        
-        this.bd.fetchUsuario().subscribe(items => {
-          this.usuarios = items;
-        })
+      if(this.usuarios.rolu === 2){
+        //El usuario es admin
+        this.router.navigate(['/home-adm']);
+        this.permisos.setUserRole(2);
       }
 
+    } else {
+      //La contraseña es incorrecta
+      this.bd.presentAlert('La contraseña ingresada no es correcta');
+    }
+
+  }
+
+  existeCorreo(){
+    this.bd.dbState().subscribe(res => {
+      if (res) {
+        this.bd.buscarIdUsuario(this.correo);
+    
+        this.bd.fetchUsuario().subscribe(items => {
+          if (items.length > 0) {
+            //Se encontró el usuario activo
+            this.usuarios = items[0];
+          } else {
+            // No se encontraron un usuario
+            this.bd.presentAlert('No se ha encontrado un usuario con ese correo'); //Por algún motivo se dispara varias veces
+          }
+        })
+      }
     })
   }
 
-  verificarSesion(){
-    if(this.usuarios.correo === this.correo ){
-      if(this.clave === this.usuarios.clave) {
-        if(this.usuarios.rolu === 1 ) {
-          this.router.navigate(['/home-cli'])
-          localStorage.setItem('token', "1");
-        }else{
-          this.router.navigate(['/home-adm'])
-          localStorage.setItem('token', "2");
-
-        }
-      }else{
-        this.bd.presentAlert('clae inválido');
-      }
-    }else{
-      this.bd.presentAlert('correo banco etao inválido');
-    }
-  }
 
 
   irCli(){
