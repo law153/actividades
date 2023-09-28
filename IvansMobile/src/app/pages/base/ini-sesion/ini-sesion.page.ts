@@ -26,8 +26,17 @@ export class IniSesionPage implements OnInit {
 
   iniciarSesion(){
 
-    this.existeCorreo();
-    if(this.clave === this.usuarios.clave){
+    if(this.correo === 'cliente'){
+      this.router.navigate(['/home-cli']);
+      this.permisos.setUserRole(1);
+    }
+    if(this.correo === 'admin'){
+      this.router.navigate(['/home-adm']);
+      this.permisos.setUserRole(2);
+    }
+    //this.existeCorreo();
+    
+    /*if(this.clave === this.usuarios.clave){
       //La contraseña es correcta
       if(this.usuarios.rolu === 1){
         //El usuario es un cliente
@@ -44,7 +53,7 @@ export class IniSesionPage implements OnInit {
     } else {
       //La contraseña es incorrecta
       this.bd.presentAlert('La contraseña ingresada no es correcta');
-    }
+    }*/
 
   }
 

@@ -53,7 +53,7 @@ export class AgregarProdPage implements OnInit {
   //Variable para bd
   productos: any = [{nombreProd: '', descripcion: '', precio: '', stock: '', foto: '', unidadMedida: '', categoriaP: ''}];
 
-  constructor(private router: Router, private alerta: AlertController, private tostada: ToastController, private menuCtrl: MenuController, private bd: DbserviceService) { }
+  constructor(private router: Router, private alerta: AlertController, private menuCtrl: MenuController, private bd: DbserviceService) { }
 
   abrirSuperior(){
     this.menuCtrl.enable(true, 'superior');
@@ -95,7 +95,7 @@ export class AgregarProdPage implements OnInit {
         this.msjNombre="Debe llenar este campo";
       } else{
 
-        if(this.primerCaracterEsMayus(this.nombre) ){
+        if(!this.primerCaracterEsMayus(this.nombre) ){
           this.flag = false;
           this.msjNombre+="La primera letra del nombre debe ser\n mayuscula"+"\n";
 
@@ -114,7 +114,7 @@ export class AgregarProdPage implements OnInit {
         this.flag = false;
         this.msjDesc="Debe llenar este campo";
       } else{
-        if(this.primerCaracterEsMayus(this.desc) ){
+        if(!this.primerCaracterEsMayus(this.desc) ){
           this.flag = false;
           this.msjDesc+="La primera letra de la descripción debe ser\n mayuscula"+"\n";
         } else if(this.desc.length <= 9){

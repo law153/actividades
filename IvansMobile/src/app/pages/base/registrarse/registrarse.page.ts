@@ -88,7 +88,7 @@ export class RegistrarsePage implements OnInit {
     this.fonoValido();
     if(this.flag === true){
       this.agregar();
-      this.bd.presentAlert('Usuario creado correctamente'); 
+      
     }
   }
 
@@ -282,7 +282,7 @@ export class RegistrarsePage implements OnInit {
         this.msjClave += "La contraseña debe poseer un carácter especial"+"\n";
         
       }
-      if (this.clave.length >= 8) {
+      if (this.clave.length <= 8) {
         this.flag = false;
         this.msjClave += "La contraseña debe tener al menos 8 caracteres de \nlongitud"+"\n";
       
@@ -435,6 +435,7 @@ export class RegistrarsePage implements OnInit {
     } else if(this.pregunta === 'pregunta3'){
       preguntaid= 3;
     }
-    this.bd.agregarUsuario(this.nombre, this.apellido, this.rut, this.dvrut, this.fono, this.correo, this.direc, this.clave, '/assets/imagen.jpg', this.respuesta, 1, preguntaid);
+    this.bd.agregarUsuario(this.nombre, this.apellido, this.rut, this.dvrut, this.fono, this.correo, this.direc, this.clave, '/assets/icono-perfil.png', this.respuesta, 1, preguntaid);
+    this.bd.presentAlert('Usuario creado correctamente'); 
   }
 }

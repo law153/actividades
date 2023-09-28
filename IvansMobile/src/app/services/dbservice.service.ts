@@ -762,9 +762,9 @@ export class DbserviceService {
 
   async presentAlert(mensaje: string) {
     const alert = await this.alertController.create({
-      header: 'Error en Servicio',
+      header: 'Atención!',
       message: mensaje,
-      buttons: ['OK'],
+      buttons: ['Aceptar'],
     });
 
     await alert.present();

@@ -75,7 +75,7 @@ export class ContactanosPage implements OnInit {
 
   asuntoValido(){
     this.msjAsunto = "";
-    if(this.asunto.length <= 9){
+    if(this.asunto.length <= 10){
       this.flag = false;
       this.msjAsunto="El asunto debe tener al menos 10 caracteres";
 
@@ -84,9 +84,9 @@ export class ContactanosPage implements OnInit {
 
   cuerpoValido(){
     this.msjCuerpo = "";
-    if(this.cuerpo.length <= 49){
+    if(this.cuerpo.length <= 10){
       this.flag = false;
-      this.msjCuerpo="El cuerpo debe tener al menos 50 caracteres";
+      this.msjCuerpo="El cuerpo debe tener al menos 10 caracteres";
 
     }
   }
