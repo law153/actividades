@@ -30,7 +30,6 @@ export class ConsultasPage implements OnInit {
   ngOnInit() {
     this.bd.dbState().subscribe(res => {
       if(res){
-        this.bd.buscarConsultas();
         this.bd.fetchConsulta().subscribe(items => {
           this.consultas = items;
         })

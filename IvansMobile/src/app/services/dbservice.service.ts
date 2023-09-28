@@ -588,7 +588,7 @@ export class DbserviceService {
   //Funciones para agregar
 
   agregarConsulta(nombre: any, asunto: any, mensaje: any){  
-    return this.database.executeSql("INSERT INTO detalle(nombreconsultante, asuntoconsulta, mensajeconsulta) VALUES(?, ?, ?)",[nombre, asunto, mensaje]).then(res=> {
+    return this.database.executeSql("INSERT INTO detalle(nombreconsultante, asuntoconsulta, mensajeconsulta) VALUES(?, ?, ?);",[nombre, asunto, mensaje]).then(res=> {
       this.buscarConsultas(); 
     })
   }
