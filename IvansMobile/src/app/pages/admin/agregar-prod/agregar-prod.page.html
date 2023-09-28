@@ -38,11 +38,13 @@
     </ion-row>
 
     <ion-row>
+      <ion-col></ion-col>
       <ion-col style="text-align: center; margin: auto;">
         <ion-button class="boton-subir" (click)="takePicture()" style="text-align: center;">
           <ion-icon name="cloud-upload"></ion-icon>Subir imagen
         </ion-button>
       </ion-col>
+      <ion-col></ion-col>
     </ion-row>
   
     <div class="contenedor-form">
@@ -76,7 +78,7 @@
       
       <ion-row>
         <ion-col>
-          <ion-textarea labelPlacement="stacked" label="Descripcion" type="text" placeholder="Descripcion" minlength="30" maxlength="200" [(ngModel)]="desc" style="text-align: center;"></ion-textarea>
+          <ion-textarea labelPlacement="stacked" label="Descripcion" type="text" placeholder="Descripcion" minlength="20" maxlength="200" [(ngModel)]="desc" style="text-align: center;"></ion-textarea>
         </ion-col>
       </ion-row>
       <ion-row>

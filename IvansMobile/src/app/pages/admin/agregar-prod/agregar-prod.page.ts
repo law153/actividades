@@ -117,9 +117,9 @@ export class AgregarProdPage implements OnInit {
         if(!this.primerCaracterEsMayus(this.desc) ){
           this.flag = false;
           this.msjDesc+="La primera letra de la descripción debe ser\n mayuscula"+"\n";
-        } else if(this.desc.length <= 9){
+        } else if(this.desc.length <= 19){
           this.flag = false;
-          this.msjDesc+="La longitud de la descripción debe ser \nmayor a 10 caracteres"+"\n";
+          this.msjDesc+="La longitud de la descripción debe ser \nmayor a 20 caracteres"+"\n";
         }
       }
   }
