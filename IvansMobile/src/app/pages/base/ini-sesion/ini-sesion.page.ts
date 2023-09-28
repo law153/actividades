@@ -26,6 +26,7 @@ export class IniSesionPage implements OnInit {
 
   iniciarSesion(){
 
+
     if(this.correo === 'cliente'){
       this.router.navigate(['/home-cli']);
       this.permisos.setUserRole(1);

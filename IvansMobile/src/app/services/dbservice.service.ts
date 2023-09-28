@@ -487,6 +487,28 @@ export class DbserviceService {
 
     })
   }
+  buscarDetalleProd(id: any){
+    return this.database.executeSql("SELECT * FROM detalle WHERE productod = ?;",[id]).then(res =>{
+      //todo bien
+      let items: Detalle[] = [];
+      //Validar cantidad registros
+      if(res.rows.length > 0){
+        //Recorrer los datos
+        for(var i = 0; i < res.rows.length; i++ ){
+          //Guardando los datos
+          items.push({ 
+            iddetalle: res.rows.item(i).iddetalle,
+            cantidad: res.rows.item(i).cantidad,
+            subtotal: res.rows.item(i).subtotal,
+            ventad: res.rows.item(i).ventad,
+            productod: res.rows.item(i).productod
+           });
+        }
+      }
+      this.listaDetalle.next(items as any);
+
+    })
+  }
 
   buscarDetallesVenta(venta: any){
     return this.database.executeSql("SELECT d.iddetalle, d.cantidad, d.subtotal, p.nombreprod, p.precio, p.stock, p.foto FROM detalle d JOIN producto p ON(d.productod = p.codprod) WHERE ventad = ?;",[venta]).then(res =>{
