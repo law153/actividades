@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController, MenuController } from '@ionic/angular';
 import { DbserviceService } from 'src/app/services/dbservice.service';
-//import { DbserviceService } from 'src/app/services/dbservice.service';
 
 @Component({
   selector: 'app-contactanos',
@@ -92,7 +91,7 @@ export class ContactanosPage implements OnInit {
   }
 
   agregar(){
-    this.bd.agregarConsulta(this.msjNombre,this.msjAsunto, this.msjCuerpo);
+    this.bd.agregarConsulta(this.nombre,this.asunto, this.cuerpo);
     this.bd.presentAlert("Consulta enviada con exito");
     this.limpiar();
   }
