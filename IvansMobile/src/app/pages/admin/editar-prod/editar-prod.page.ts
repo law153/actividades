@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController, MenuController } from '@ionic/angular';
 import { DbserviceService } from 'src/app/services/dbservice.service';
+import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 
 @Component({
   selector: 'app-editar-prod',
@@ -24,13 +25,13 @@ export class EditarProdPage implements OnInit {
   stock: number=0;
   medida: string = "";
   categoria: number= 0;
-  foto: string = "";
+  foto: string | undefined;
   flag: boolean= true;
   msj: string="";
 
   codprod: number = 0;
-  producto: any = {};
-
+  producto: any = [{codprod:'', nombreprod:'', descripcion: '', precio:'', stock: '', foto:'', unidadmedida: '', categoriap: ''}];
+  
   constructor(private router: Router, private alerta: AlertController, private activeRouter: ActivatedRoute, private menuCtrl: MenuController, private bd: DbserviceService) {
    }
 
@@ -47,6 +48,28 @@ export class EditarProdPage implements OnInit {
   irHomeAdm(){
     this.router.navigate(['home-adm'])    
   }
+
+  //Variable para tomar foto
+  async takePicture() {
+    Camera.requestPermissions()
+    const image = await Camera.getPhoto({
+      quality: 90,
+      allowEditing: false,
+      resultType: CameraResultType.DataUrl,
+      source: CameraSource.Prompt,
+      promptLabelHeader: 'Imagen',
+      promptLabelPhoto: 'Seleccionar imagen',
+      promptLabelPicture: 'Tomar Foto'
+    });
+  
+    // image.webPath will contain a path that can be set as an image src.
+    // You can access the original file using image.path, which can be
+    // passed to the Filesystem API to read the raw data of the image,
+    // if desired (or pass resultType: CameraResultType.Base64 to getPhoto)
+    this.foto = image.dataUrl;
+  
+    // Can be set to the src of an image now
+  };
 
   //Validaciones
 
@@ -184,6 +207,7 @@ export class EditarProdPage implements OnInit {
     this.activeRouter.queryParams.subscribe(param => {
       if (this.router.getCurrentNavigation()?.extras.state) {
         this.codprod = this.router.getCurrentNavigation()?.extras?.state?.["prodEnviar"];
+        console.log("Código de producto recibido:", this.codprod);
       }
     });
 
