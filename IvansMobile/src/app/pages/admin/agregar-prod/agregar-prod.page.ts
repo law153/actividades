@@ -21,7 +21,7 @@ export class AgregarProdPage implements OnInit {
   desc: string = "";
   precio: string="";
   stock: number=1;
-  foto: string= "";
+  foto: string | undefined;
   medida: string = "";
   categoria: string= "";
   flag: boolean= true;
@@ -44,10 +44,9 @@ export class AgregarProdPage implements OnInit {
     // You can access the original file using image.path, which can be
     // passed to the Filesystem API to read the raw data of the image,
     // if desired (or pass resultType: CameraResultType.Base64 to getPhoto)
-    //var imageUrl = image.webPath;
+    this.foto = image.dataUrl;
   
     // Can be set to the src of an image now
-    this.foto = image.dataUrl!;
   };
 
   //Variable para bd
