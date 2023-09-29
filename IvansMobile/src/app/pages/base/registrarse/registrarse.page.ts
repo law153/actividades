@@ -76,6 +76,7 @@ export class RegistrarsePage implements OnInit {
 
 
   envioValido(){
+    this.flag = true;
     this.rutValido();
     this.nombreValido();
     this.apellidoValido();

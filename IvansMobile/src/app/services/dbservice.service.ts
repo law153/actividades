@@ -658,11 +658,26 @@ export class DbserviceService {
   
   
 
-  agregarProducto( nombre: any, descripcion: any, precio: any, stock: any, foto: any, medida: any, categoria: any){  
-    return this.database.executeSql("INSERT INTO producto(nombreprod, descripcion, precio, stock, foto, unidadmedida, categoriap) VALUES(?, ?, ?, ?, ?, ?, ?, ?)",[nombre, descripcion, precio, stock, foto, medida, categoria]).then(res=> {
-      this.buscarProductos(); 
-    })
+  agregarProducto(nombre: any, descripcion: any, precio: any, stock: any, foto: any, medida: any, categoria: any) {  
+    return this.database.executeSql("INSERT INTO producto(nombreprod, descripcion, precio, stock, foto, unidadmedida, categoriap) VALUES(?, ?, ?, ?, ?, ?, ?)", [nombre, descripcion, precio, stock, foto, medida, categoria]).then(res => {
+      const codProdInsertado = res.insertId;
+      console.log('Datos del producto insertado:', {
+        codProdInsertado,
+        nombre,
+        descripcion,
+        precio,
+        stock,
+        foto,
+        medida,
+        categoria
+      });
+  
+      this.buscarProductos();
+    }).catch(error => {
+      console.error('Error al agregar producto:', error);
+    });
   }
+  
 
   agregarVenta(fechav: any, estado: any, fechae: any, total: any, carrito: any, usuariov: any){  
     return this.database.executeSql("INSERT INTO venta(fechaventa, estado, fechaentrega, total, carrito, usuariov) VALUES(?, ?, ?, ?, ?, ?)",[fechav, estado, fechae, total, carrito, usuariov]).then(res=> {

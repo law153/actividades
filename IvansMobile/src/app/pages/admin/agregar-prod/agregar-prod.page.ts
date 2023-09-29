@@ -71,12 +71,14 @@ export class AgregarProdPage implements OnInit {
   //Validaciones
 
   envioValido(){
+    this.flag = true;
     this.nombreValido();
     this.descValida();
     this.precioValido();
     this.stockValido();
     this.medidaValido();
     this.categoriaValido();
+    console.log(this.flag);
     if(this.flag === true){
       //this.agregar();
       this.agregar();

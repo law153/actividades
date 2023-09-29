@@ -45,6 +45,7 @@ export class ContactanosPage implements OnInit {
   //Validaciones
 
   envioValido(){
+    this.flag = true;
     this.nombreValido()
     this.asuntoValido();
     this.cuerpoValido();

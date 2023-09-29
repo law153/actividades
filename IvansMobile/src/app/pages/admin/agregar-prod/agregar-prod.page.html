@@ -29,7 +29,7 @@
       </ion-row>
     </div>
 
-    <ion-row *ngIf="(foto !== '')">
+    <ion-row *ngIf="(foto !== null)">
       <ion-col>
         <div class="contenedor-imagen">
           <ion-img [src]="foto" alt="No hay imagen :C"></ion-img>
