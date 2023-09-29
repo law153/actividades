@@ -29,8 +29,8 @@ export class DbserviceService {
   rol: string = "CREATE TABLE IF NOT EXISTS rol(idrol INTEGER PRIMARY KEY, nombrerol TEXT NOT NULL);";
   pregunta: string = "CREATE TABLE IF NOT EXISTS pregunta(idpregunta INTEGER PRIMARY KEY, nombrepregunta TEXT NOT NULL);";
   consulta: string = "CREATE TABLE IF NOT EXISTS consulta(idconsulta INTEGER PRIMARY KEY AUTOINCREMENT, nombreconsultante TEXT NOT NULL, asuntoconsulta TEXT NOT NULL, mensajeconsulta TEXT NOT NULL);";
-  usuario: string = "CREATE TABLE IF NOT EXISTS usuario(idusuario INTEGER PRIMARY KEY AUTOINCREMENT, rut INTEGER NOT NULL, dvrut CHAR(1) NOT NULL, nombre TEXT NOT NULL, apellido TEXT NOT NULL, telefono INTEGER NOT NULL, correo TEXT NOT NULL, clave TEXT NOT NULL, direccion TEXT NOT NULL, fotousuario BLOB NOT NULL ,respuesta TEXT NOT NULL, rolu INTEGER NOT NULL, preguntau INTEGER NOT NULL, FOREIGN KEY (rolu) REFERENCES rol(idrol), FOREIGN KEY (preguntau) REFERENCES pregunta(idpregunta));";
-  producto: string = "CREATE TABLE IF NOT EXISTS producto(codprod INTEGER PRIMARY KEY AUTOINCREMENT, nombreprod TEXT NOT NULL, descripcion TEXT NOT NULL, precio INTEGER NOT NULL, stock INTEGER NOT NULL, foto BLOB NOT NULL, unidadmedida TEXT NOT NULL, categoriap INTEGER NOT NULL, FOREIGN KEY (categoriap) REFERENCES categoria(idcategoria));";
+  usuario: string = "CREATE TABLE IF NOT EXISTS usuario(idusuario INTEGER PRIMARY KEY AUTOINCREMENT, rut INTEGER NOT NULL, dvrut CHAR(1) NOT NULL, nombre TEXT NOT NULL, apellido TEXT NOT NULL, telefono INTEGER NOT NULL, correo TEXT NOT NULL, clave TEXT NOT NULL, direccion TEXT NOT NULL, fotousuario TEXT NOT NULL ,respuesta TEXT NOT NULL, rolu INTEGER NOT NULL, preguntau INTEGER NOT NULL, FOREIGN KEY (rolu) REFERENCES rol(idrol), FOREIGN KEY (preguntau) REFERENCES pregunta(idpregunta));";
+  producto: string = "CREATE TABLE IF NOT EXISTS producto(codprod INTEGER PRIMARY KEY AUTOINCREMENT, nombreprod TEXT NOT NULL, descripcion TEXT NOT NULL, precio INTEGER NOT NULL, stock INTEGER NOT NULL, foto TEXT NOT NULL, unidadmedida TEXT NOT NULL, categoriap INTEGER NOT NULL, FOREIGN KEY (categoriap) REFERENCES categoria(idcategoria));";
   venta: string = "CREATE TABLE IF NOT EXISTS venta(idventa INTEGER PRIMARY KEY AUTOINCREMENT, fechaventa DATE NOT NULL, estado TEXT NOT NULL, fechaentrega DATE NOT NULL, total INTEGER NOT NULL, carrito CHAR(1), usuariov INTEGER NOT NULL, FOREIGN KEY (usuariov) REFERENCES usuario(idusuario) );";
   detalle: string= "CREATE TABLE IF NOT EXISTS detalle(iddetalle INTEGER PRIMARY KEY AUTOINCREMENT, cantidad INTEGER NOT NULL, subtotal INTEGER NOT NULL, ventad INTEGER NOT NULL, productod INTEGER NOT NULL, FOREIGN KEY (ventad) REFERENCES venta(idventa), FOREIGN KEY (productod) REFERENCES producto(codprod) );";
   detalleComprado: string ="CREATE TABLE IF NOT EXISTS detallecomprado(iddetallec INTEGER PRIMARY KEY AUTOINCREMENT, nombreprodc TEXT NOT NULL, fotoprodc BLOB NOT NULL, cantidadc INTEGER NOT NULL, subtotalc INTEGER NOT NULL, ventac INTEGER NOT NULL, FOREIGN KEY (ventac) REFERENCES venta(idventa) );";
@@ -609,11 +609,32 @@ export class DbserviceService {
   }
   //Funciones para agregar
 
-  agregarConsulta(nombre: any, asunto: any, mensaje: any){  
-    return this.database.executeSql("INSERT INTO detalle(nombreconsultante, asuntoconsulta, mensajeconsulta) VALUES(?, ?, ?);",[nombre, asunto, mensaje]).then(res=> {
+  /*agregarConsulta(nombre: any, asunto: any, mensaje: any){  
+    return this.database.executeSql("INSERT INTO consulta(nombreconsultante, asuntoconsulta, mensajeconsulta) VALUES(?, ?, ?);",[nombre, asunto, mensaje]).then(res=> {
       this.buscarConsultas(); 
     })
+  }*/
+
+  agregarConsulta(nombre: any, asunto: any, mensaje: any){  
+    return this.database.executeSql("INSERT INTO consulta(nombreconsultante, asuntoconsulta, mensajeconsulta) VALUES(?, ?, ?);",[nombre, asunto, mensaje])
+      .then(res => {
+        if (res.rowsAffected > 0) {
+          const idInsertado = res.insertId;
+          console.log('Datos enviados correctamente:');
+          console.log('ID Consulta:', idInsertado); // Cambiado a 'ID Consulta'
+          console.log('Nombre:', nombre);
+          console.log('Asunto:', asunto);
+          console.log('Mensaje:', mensaje);
+          this.buscarConsultas();
+        } else {
+          console.error('Error al enviar los datos.');
+        }
+      })
+      .catch(error => {
+        console.error('Error al ejecutar la consulta SQL:', error);
+      });
   }
+  
 
   agregarUsuario(nombre: any, apellido: any, rut: any, dvrut: any, telefono: any, correo: any, direccion: any, clave: any, foto: any, respuesta: any, rol: any, pregunta: any){  
     return this.database.executeSql("INSERT INTO usuario(rut, dvrut, nombre, apellido, telefono, correo, clave, direccion, fotousuario, respuesta, rolu, preguntau) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",[rut, dvrut, nombre, apellido, telefono, correo, clave, direccion, foto, respuesta, rol, pregunta]).then(res=> {
