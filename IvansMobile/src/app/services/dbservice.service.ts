@@ -609,11 +609,6 @@ export class DbserviceService {
   }
   //Funciones para agregar
 
-  /*agregarConsulta(nombre: any, asunto: any, mensaje: any){  
-    return this.database.executeSql("INSERT INTO consulta(nombreconsultante, asuntoconsulta, mensajeconsulta) VALUES(?, ?, ?);",[nombre, asunto, mensaje]).then(res=> {
-      this.buscarConsultas(); 
-    })
-  }*/
 
   agregarConsulta(nombre: any, asunto: any, mensaje: any){  
     return this.database.executeSql("INSERT INTO consulta(nombreconsultante, asuntoconsulta, mensajeconsulta) VALUES(?, ?, ?);",[nombre, asunto, mensaje])
@@ -636,11 +631,32 @@ export class DbserviceService {
   }
   
 
-  agregarUsuario(nombre: any, apellido: any, rut: any, dvrut: any, telefono: any, correo: any, direccion: any, clave: any, foto: any, respuesta: any, rol: any, pregunta: any){  
-    return this.database.executeSql("INSERT INTO usuario(rut, dvrut, nombre, apellido, telefono, correo, clave, direccion, fotousuario, respuesta, rolu, preguntau) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",[rut, dvrut, nombre, apellido, telefono, correo, clave, direccion, foto, respuesta, rol, pregunta]).then(res=> {
-      this.buscarUsuarios(); 
-    })
+  agregarUsuario(nombre: any, apellido: any, rut: any, dvrut: any, telefono: any, correo: any, direccion: any, clave: any, foto: any, respuesta: any, rol: any, pregunta: any) {  
+    return this.database.executeSql("INSERT INTO usuario(rut, dvrut, nombre, apellido, telefono, correo, clave, direccion, fotousuario, respuesta, rolu, preguntau) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", [rut, dvrut, nombre, apellido, telefono, correo, clave, direccion, foto, respuesta, rol, pregunta]).then(res => {
+      const idUsuarioInsertado = res.insertId;
+      console.log('Datos enviados:', {
+        idUsuarioInsertado,
+        nombre,
+        apellido,
+        rut,
+        dvrut,
+        telefono,
+        correo,
+        direccion,
+        clave,
+        foto,
+        respuesta,
+        rol,
+        pregunta
+      });
+  
+      this.buscarUsuarios();
+    }).catch(error => {
+      console.error('Error al agregar usuario:', error);
+    });
   }
+  
+  
 
   agregarProducto( nombre: any, descripcion: any, precio: any, stock: any, foto: any, medida: any, categoria: any){  
     return this.database.executeSql("INSERT INTO producto(nombreprod, descripcion, precio, stock, foto, unidadmedida, categoriap) VALUES(?, ?, ?, ?, ?, ?, ?, ?)",[nombre, descripcion, precio, stock, foto, medida, categoria]).then(res=> {
