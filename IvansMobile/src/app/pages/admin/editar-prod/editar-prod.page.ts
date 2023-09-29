@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AlertController, MenuController, ToastController } from '@ionic/angular';
+import { AlertController, MenuController } from '@ionic/angular';
 import { DbserviceService } from 'src/app/services/dbservice.service';
 
 @Component({
@@ -32,11 +32,6 @@ export class EditarProdPage implements OnInit {
   producto: any = {};
 
   constructor(private router: Router, private alerta: AlertController, private activeRouter: ActivatedRoute, private menuCtrl: MenuController, private bd: DbserviceService) {
-    this.activeRouter.queryParams.subscribe(param => {
-      if(this.router.getCurrentNavigation()?.extras.state){
-        this.codprod = this.router.getCurrentNavigation()?.extras?.state?.["prodEnviar"];
-      }
-      }) 
    }
 
   abrirSuperior(){
@@ -56,6 +51,7 @@ export class EditarProdPage implements OnInit {
   //Validaciones
 
   envioValido(){
+    this.flag = true;
     this.nombreValido();
     this.descValida();
     this.precioValido();
@@ -63,9 +59,8 @@ export class EditarProdPage implements OnInit {
     this.medidaValido();
     this.categoriaValido();
     if(this.flag === true){
-      //this.editarProd();
-      this.msj="Producto editado correctamente";
-      this.presentAlert(this.msj);
+      this.editarProd(); 
+      this.bd.presentAlert("Producto editado con exito");
       this.irHomeAdm();
     } 
   }
@@ -79,7 +74,7 @@ export class EditarProdPage implements OnInit {
         this.msjNombre="Debe llenar este campo";
       } else{
 
-        if(this.primerCaracterEsMayus(this.nombre) ){
+        if(!this.primerCaracterEsMayus(this.nombre) ){
           this.flag = false;
           this.msjNombre+="La primera letra del nombre debe ser\n mayuscula"+"\n";
 
@@ -98,7 +93,7 @@ export class EditarProdPage implements OnInit {
         this.flag = false;
         this.msjDesc="Debe llenar este campo";
       } else{
-        if(this.primerCaracterEsMayus(this.desc) ){
+        if(!this.primerCaracterEsMayus(this.desc) ){
           this.flag = false;
           this.msjDesc+="La primera letra de la descripción debe ser\n mayuscula"+"\n";
         } else if(this.desc.length <= 9){
@@ -115,7 +110,7 @@ export class EditarProdPage implements OnInit {
         this.flag = false;
         this.msjPrecio="Debe llenar este campo";
       }else{
-        if(this.SoloNumeros(this.precio)){
+        if(!this.SoloNumeros(this.precio)){
           this.flag = false;
           this.msjPrecio+="El precio debe estar compuesto solo de números"+"\n";
         } else if(parseInt(this.precio) <= 0){
@@ -181,11 +176,17 @@ export class EditarProdPage implements OnInit {
     await alert.present();
   }
 
-  /*editarProd(){
-    this.bd.modificarProducto(this.id, this.nombre, this.desc, this.precio, this.stock, this.foto, this.medida, this.categoria);
-  }*/
+  editarProd(){
+    this.bd.modificarProducto(this.id, this.nombre, this.desc, parseInt(this.precio), this.stock, this.foto, this.medida, this.categoria);
+  }
 
   ngOnInit() {
+    this.activeRouter.queryParams.subscribe(param => {
+      if (this.router.getCurrentNavigation()?.extras.state) {
+        this.codprod = this.router.getCurrentNavigation()?.extras?.state?.["prodEnviar"];
+      }
+    });
+
     this.bd.dbState().subscribe(res => {
       if(res){
         this.bd.buscarProducto(this.codprod);

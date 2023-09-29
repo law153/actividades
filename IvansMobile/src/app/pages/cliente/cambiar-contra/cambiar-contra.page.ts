@@ -49,6 +49,7 @@ export class CambiarContraPage implements OnInit {
 
   //Validaciones
   envioValido(){
+    this.flag = true;
     this.claveOldValida();
     this.claveNuevaValida();
     this.claveRepValid();

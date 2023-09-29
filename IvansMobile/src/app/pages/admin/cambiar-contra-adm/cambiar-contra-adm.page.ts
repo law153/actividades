@@ -40,6 +40,7 @@ export class CambiarContraAdmPage implements OnInit {
 
   //Validaciones
   envioValido(){
+    this.flag = true;
     this.claveOldValida();
     this.claveNuevaValida();
     this.claveRepValid();

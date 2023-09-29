@@ -75,7 +75,7 @@ export class CategoriasPage implements OnInit {
 
   ngOnInit() {
 
-
+    
     this.bd.dbState().subscribe(res => {
       if(res){
         this.bd.buscarProductoCate(this.idcate);

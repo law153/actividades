@@ -16,6 +16,7 @@ export class AgregarProdPage implements OnInit {
   msjStock: string = "";
   msjMedida: string = "";
   msjCate: string = "";
+  msjFoto: string = "";
 
   nombre: string = "";
   desc: string = "";
@@ -52,7 +53,9 @@ export class AgregarProdPage implements OnInit {
   //Variable para bd
   productos: any = [{nombreProd: '', descripcion: '', precio: '', stock: '', foto: '', unidadMedida: '', categoriaP: ''}];
 
-  constructor(private router: Router, private alerta: AlertController, private menuCtrl: MenuController, private bd: DbserviceService) { }
+  constructor(private router: Router, private alerta: AlertController, private menuCtrl: MenuController, private bd: DbserviceService) {
+    
+   }
 
   abrirSuperior(){
     this.menuCtrl.enable(true, 'superior');
@@ -78,6 +81,7 @@ export class AgregarProdPage implements OnInit {
     this.stockValido();
     this.medidaValido();
     this.categoriaValido();
+    this.fotoValida();
     console.log(this.flag);
     if(this.flag === true){
       //this.agregar();
@@ -172,6 +176,14 @@ export class AgregarProdPage implements OnInit {
     if(this.medida.length === 0){
       this.flag = false;
       this.msjCate+="Debe seleccionar una categoría"+"\n";
+    }
+  }
+
+  fotoValida(){
+    this.msjFoto = "";
+    if(this.foto === undefined){
+      this.flag = false;
+      this.msjFoto+="Debe seleccionar una imagen"+"\n";
     }
   }
 

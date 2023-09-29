@@ -26,16 +26,21 @@
 @import "@ionic/angular/css/flex-utils.css";
 
 //cosas de nuestro proyecto
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue');
+
+@font-face {
+  font-family: 'Bebas Neue Pro';
+  src: url('fonts/BebasNeueProRegular.otf') format('opentype');
+  font-weight: 100; /* Puedes ajustar esto según el grosor deseado */
+  font-style: normal;
+}
 
 *{ //De header
-    font-family: 'Bebas Neue' !important;
+    font-family: 'Bebas Neue Pro', sans-serif;
+    font-style: normal;
+    font-weight: 100
     
   }
 
-  .ion-input-psl{
-    font-family: 'Sans-serif';
-  }
   
   .toolbar-c{  ///De Header
     --background: #999;

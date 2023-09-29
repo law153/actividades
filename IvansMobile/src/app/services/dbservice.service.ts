@@ -38,13 +38,13 @@ export class DbserviceService {
   //Variables para insert iniciales
 
   //Categorias
-  categoriaHerramientas: string = "INSERT OR IGNORE INTO categoria(idcategoria, nombrecategoria) VALUES (1, 'herramientas');";
-  categoriaElectricidad: string = "INSERT OR IGNORE INTO categoria(idcategoria, nombrecategoria) VALUES (2, 'electricidad');";
-  categoriaFijaciones: string = "INSERT OR IGNORE INTO categoria(idcategoria, nombrecategoria) VALUES (3, 'fijaciones');";
-  categoriaSeguridad: string = "INSERT OR IGNORE INTO categoria(idcategoria, nombrecategoria) VALUES (4, 'seguridad');";
-  categoriaRopa: string = "INSERT OR IGNORE INTO categoria(idcategoria, nombrecategoria) VALUES (5, 'ropa');";
-  categoriaGasfiteria: string = "INSERT OR IGNORE INTO categoria(idcategoria, nombrecategoria) VALUES (6, 'gasfiteria');";
-  categoriaKits: string = "INSERT OR IGNORE INTO categoria(idcategoria, nombrecategoria) VALUES (7, 'kits');";
+  categoriaHerramientas: string = "INSERT OR IGNORE INTO categoria(idcategoria, nombrecategoria) VALUES (1, 'Herramientas');";
+  categoriaElectricidad: string = "INSERT OR IGNORE INTO categoria(idcategoria, nombrecategoria) VALUES (2, 'Electricidad');";
+  categoriaFijaciones: string = "INSERT OR IGNORE INTO categoria(idcategoria, nombrecategoria) VALUES (3, 'Fijaciones');";
+  categoriaSeguridad: string = "INSERT OR IGNORE INTO categoria(idcategoria, nombrecategoria) VALUES (4, 'Seguridad');";
+  categoriaRopa: string = "INSERT OR IGNORE INTO categoria(idcategoria, nombrecategoria) VALUES (5, 'Ropa');";
+  categoriaGasfiteria: string = "INSERT OR IGNORE INTO categoria(idcategoria, nombrecategoria) VALUES (6, 'Gasfiteria');";
+  categoriaKits: string = "INSERT OR IGNORE INTO categoria(idcategoria, nombrecategoria) VALUES (7, 'Kits');";
   //Roles
   rolCliente: string = "INSERT OR IGNORE INTO rol(idrol, nombrerol) VALUES (1, 'cliente');";
   rolAdmin: string = "INSERT OR IGNORE INTO rol(idrol, nombrerol) VALUES (2, 'admin');";

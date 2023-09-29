@@ -46,6 +46,7 @@ export class RestablecerContraPage implements OnInit {
 
   //Validaciones
   envioValido(){
+    this.flag = true;
     this.claveValida();
     this.claveRepValid();
     if(this.flag === true){

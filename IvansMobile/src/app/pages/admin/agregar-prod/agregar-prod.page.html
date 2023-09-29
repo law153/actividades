@@ -29,7 +29,7 @@
       </ion-row>
     </div>
 
-    <ion-row *ngIf="(foto !== null)">
+    <ion-row *ngIf="(foto !== undefined)">
       <ion-col>
         <div class="contenedor-imagen">
           <ion-img [src]="foto" alt="No hay imagen :C"></ion-img>
@@ -45,6 +45,10 @@
         </ion-button>
       </ion-col>
       <ion-col></ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col><pre class="validacion">{{msjFoto}}</pre></ion-col>
     </ion-row>
   
     <div class="contenedor-form">
@@ -62,10 +66,10 @@
         <ion-col>
           <ion-select labelPlacement="stacked" label="Categoria" [(ngModel)]="categoria">
             <ion-select-option value="1">Herramientas</ion-select-option>
-            <ion-select-option value="2">Fijaciones</ion-select-option>
-            <ion-select-option value="3">Electricidad</ion-select-option>
-            <ion-select-option value="4">Ropa</ion-select-option>
-            <ion-select-option value="5">Seguridad</ion-select-option>
+            <ion-select-option value="2">Electricidad</ion-select-option>
+            <ion-select-option value="3">Fijaciones</ion-select-option>
+            <ion-select-option value="4">Seguridad</ion-select-option>
+            <ion-select-option value="5">Ropa</ion-select-option>
             <ion-select-option value="6">Gasfiteria</ion-select-option>
             <ion-select-option value="7">Kits</ion-select-option>
           </ion-select>

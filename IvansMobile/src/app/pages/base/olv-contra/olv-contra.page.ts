@@ -51,6 +51,7 @@ export class OlvContraPage implements OnInit {
 
   //Validaciones
   envioValido(){
+    this.flag = true;
     this.rutValido();
     this.preguntaValida();
     this.respuestaValida();
