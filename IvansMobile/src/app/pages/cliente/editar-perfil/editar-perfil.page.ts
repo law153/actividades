@@ -1,7 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController, MenuController, IonInput } from '@ionic/angular';
-//import { DbserviceService } from 'src/app/services/dbservice.service';
+import { DbserviceService } from 'src/app/services/dbservice.service';
+import { CamaraService } from 'src/app/services/camara.service';
 
 @Component({
   selector: 'app-editar-perfil',
@@ -31,7 +32,7 @@ export class EditarPerfilPage implements OnInit {
   claveRep: string="";
   pregunta: string="";
   respuesta: string="";
-  foto: string = "/assets/imagen.jpg";
+  foto: string | undefined;
   flag: boolean = true;
 
   usuario!: any[];
@@ -39,7 +40,7 @@ export class EditarPerfilPage implements OnInit {
   idStorage: any = "";
   pregId: number = 0;
 
-  constructor(private router: Router,private menuCtrl: MenuController, private alerta: AlertController, /*private bd: DbserviceService,*/ private activedRouter: ActivatedRoute) {
+  constructor(private router: Router,private menuCtrl: MenuController, private alerta: AlertController, private bd: DbserviceService, private activedRouter: ActivatedRoute, private camara: CamaraService) {
 
     this.activedRouter.queryParams.subscribe(param=>{
       if(this.router.getCurrentNavigation()?.extras.state){
@@ -229,6 +230,10 @@ export class EditarPerfilPage implements OnInit {
         
       }
     }
+  }
+
+  async capturarImagen(){
+    this.foto = await this.camara.takePicture();
   }
 
 

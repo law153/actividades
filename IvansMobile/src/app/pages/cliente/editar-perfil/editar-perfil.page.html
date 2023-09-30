@@ -29,24 +29,22 @@
       </ion-row>
     </div>
 
-    <div>
-      <ion-row>
-        <ion-col >
-          <div class="contenedor-imagen"> 
-            <ion-img alt="No hay imagen" src="/assets/imagen.jpg"></ion-img>
-          </div>
-        </ion-col>
-      </ion-row>
-    </div>
-
     <ion-row>
       <ion-col>
-        <ion-button class="subir-imagen">
-          <ion-icon name="cloud-upload"></ion-icon>
-          <label class="FalsoBoton" for="inputInvis">Subir Imagen</label>
-          <input #fileUpload accept="image/*" type="file" id="inputInvis" >
+        <div class="contenedor-imagen">
+          <ion-img [src]="foto" alt="No hay imagen :C"></ion-img>
+        </div>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col></ion-col>
+      <ion-col style="text-align: center; margin: auto;">
+        <ion-button class="boton-subir" (click)="capturarImagen()" style="text-align: center;">
+          <ion-icon name="cloud-upload"></ion-icon>Subir imagen
         </ion-button>
       </ion-col>
+      <ion-col></ion-col>
     </ion-row>
 
     <div class="contenedor-form">
