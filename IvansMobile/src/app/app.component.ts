@@ -3,6 +3,7 @@ import { NavigationExtras, Router } from '@angular/router';
 import { DbserviceService } from 'src/app/services/dbservice.service';
 import { CateupdateService } from 'src/app/services/cateupdate.service';
 import { PermisosService } from './services/permisos.service';
+import { CorreoService } from './services/correo.service';
 
 
 @Component({
@@ -19,7 +20,7 @@ export class AppComponent implements OnInit{
 
   categoriaSeleccionada: number = 0;
 
-  constructor(private router: Router,  private bd: DbserviceService, private cateUpdate: CateupdateService, private permisos: PermisosService ) {}
+  constructor(private router: Router,  private bd: DbserviceService, private cateUpdate: CateupdateService, private permisos: PermisosService, private sesion: CorreoService ) {}
   
 
   //funciones de redirección
@@ -52,6 +53,7 @@ export class AppComponent implements OnInit{
 
   cerrarSesion(){
     this.permisos.setUserRole(0);
+    this.sesion.clearCorreoSesion();
     this.router.navigate(['']);
   }
 

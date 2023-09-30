@@ -81,10 +81,12 @@ export class CarritoPage implements OnInit {
           if (items.length > 0) {
             //Se encontró un carrito activo
             this.carrito = items[0];
+            console.log("Id de venta:"+this.carrito.idventa);
             this.hayCarrito = true;
             this.bd.buscarDetallesVenta(this.carrito.idventa);
             this.bd.fetchDetallesVenta().subscribe(items => {
               this.detalles = items;
+              console.log("Id detalle"+this.detalles[0].iddetalle); //Tira este mensaje como Undefined
             })
 
             
