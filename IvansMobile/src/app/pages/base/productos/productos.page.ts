@@ -82,7 +82,7 @@ export class ProductosPage implements OnInit {
   }
 
   ngOnInit() {
-
+    
     this.bd.dbState().subscribe(res => {
       if(res){
         this.bd.buscarProducto(this.codprod);

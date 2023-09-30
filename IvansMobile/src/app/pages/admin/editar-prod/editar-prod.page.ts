@@ -208,26 +208,31 @@ export class EditarProdPage implements OnInit {
       if (this.router.getCurrentNavigation()?.extras.state) {
         this.codprod = this.router.getCurrentNavigation()?.extras?.state?.["prodEnviar"];
         console.log("Código de producto recibido:", this.codprod);
+        
+        this.bd.dbState().subscribe(res => {
+          if(res){
+            console.log("Codprod: "+this.codprod);
+            this.bd.buscarProducto(this.codprod);
+            
+            this.bd.fetchProducto().subscribe(items => {
+              this.producto = items[0];
+              console.log("Codprod del arreglo: "+this.producto.codprod);
+              this.id = this.producto.codprod;
+              this.nombre= this.producto.nombreprod;
+              this.desc = this.producto.descripcion;
+              this.precio = this.producto.precio;
+              this.stock = this.producto.stock;
+              this.medida = this.producto.unidadmedida;
+              this.categoria = this.producto.categoriap;
+              this.foto = this.producto.foto;
+            })
+            
+          }
+        })
       }
     });
 
-    this.bd.dbState().subscribe(res => {
-      if(res){
-        this.bd.buscarProducto(this.codprod);
-        
-        this.bd.fetchProducto().subscribe(items => {
-          this.producto = items[0];
-        })
-        this.id = this.producto.codprod;
-        this.nombre= this.producto.nombreprod;
-        this.desc = this.producto.descripcion;
-        this.precio = this.producto.precio;
-        this.stock = this.producto.stock;
-        this.medida = this.producto.unidadmedida;
-        this.categoria = this.producto.categoriap;
-        this.foto = this.producto.foto;
-      }
-    })
+    
   }
 
 }
