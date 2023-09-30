@@ -30,6 +30,7 @@ export class IniSesionPage implements OnInit {
     this.flag = true;
 
     await this.existeCorreo();
+    console.log(""+this.usuarios.rolu);
     if(this.flag === true){
 
       this.sesion.setCorreoSesion(this.usuarios.correo);
