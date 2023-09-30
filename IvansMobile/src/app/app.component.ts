@@ -17,6 +17,7 @@ export class AppComponent implements OnInit{
 
   categorias: any = [{idcategoria: '', nombrecategoria: ''}];
 
+  categoriaSeleccionada: number = 0;
 
   constructor(private router: Router,  private bd: DbserviceService, private cateUpdate: CateupdateService, private permisos: PermisosService ) {}
   
@@ -98,7 +99,11 @@ export class AppComponent implements OnInit{
     this.permisos.Rol.subscribe((rol) => {
       this.permiso = rol;
     });
-    
+
+    this.cateUpdate.fetchCategoriaSeleccionada().subscribe((idCategoria) => {
+      this.categoriaSeleccionada = idCategoria;
+      console.log('Categoria seleccionada:', this.categoriaSeleccionada); 
+    });
   }
 
 }

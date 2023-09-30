@@ -1,18 +1,14 @@
-*{
-    font-family: 'Bebas Neue';
-    
-}
-
 .toolbar-supe{
     --background: var(--ion-color-paleta-contrast);
     --color: #fff;
+    
 }
 
 .enlaces-supe{
     ion-item{
         --background: #cc0;
         --color: var(--ion-color-paleta-contrast);
-        font-weight: bold;
+        --font-weight: 900;
     }
     
 }
@@ -26,8 +22,12 @@
     ion-item{
         --background: #cc0;
         --color: var(--ion-color-paleta-contrast);
-        font-weight: bold;
+        --font-weight: 900;
     }
     
+}
+
+.categoria-activa{
+    --background: #770;
 }
 
