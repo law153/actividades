@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController, MenuController, ToastController } from '@ionic/angular';
 import { DbserviceService } from 'src/app/services/dbservice.service';
-import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
+import { CamaraService } from 'src/app/services/camara.service';
 
 @Component({
   selector: 'app-agregar-prod',
@@ -28,32 +28,11 @@ export class AgregarProdPage implements OnInit {
   flag: boolean= true;
   msj: string="";
 
-  //Variable para tomar foto
-  async takePicture() {
-    Camera.requestPermissions()
-    const image = await Camera.getPhoto({
-      quality: 90,
-      allowEditing: false,
-      resultType: CameraResultType.DataUrl,
-      source: CameraSource.Prompt,
-      promptLabelHeader: 'Imagen',
-      promptLabelPhoto: 'Seleccionar imagen',
-      promptLabelPicture: 'Tomar Foto'
-    });
-  
-    // image.webPath will contain a path that can be set as an image src.
-    // You can access the original file using image.path, which can be
-    // passed to the Filesystem API to read the raw data of the image,
-    // if desired (or pass resultType: CameraResultType.Base64 to getPhoto)
-    this.foto = image.dataUrl;
-  
-    // Can be set to the src of an image now
-  };
-
   //Variable para bd
   productos: any = [{nombreProd: '', descripcion: '', precio: '', stock: '', foto: '', unidadMedida: '', categoriaP: ''}];
 
-  constructor(private router: Router, private alerta: AlertController, private menuCtrl: MenuController, private bd: DbserviceService) {
+
+  constructor(private router: Router, private alerta: AlertController, private menuCtrl: MenuController, private bd: DbserviceService, private camara: CamaraService) {
     
    }
 
@@ -71,6 +50,8 @@ export class AgregarProdPage implements OnInit {
     this.router.navigate(['home-adm'])    
   }
 
+  
+
   //Validaciones
 
   envioValido(){
@@ -84,7 +65,6 @@ export class AgregarProdPage implements OnInit {
     this.fotoValida();
     console.log(this.flag);
     if(this.flag === true){
-      //this.agregar();
       this.agregar();
       this.bd.presentAlert("Producto agregado correctamente");
       this.router.navigate(['home-adm']);
@@ -187,6 +167,9 @@ export class AgregarProdPage implements OnInit {
     }
   }
 
+  async capturarImagen(){
+    this.foto = await this.camara.takePicture();
+  }
 
 
   //Funciones de validación
