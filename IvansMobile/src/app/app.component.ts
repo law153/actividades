@@ -54,6 +54,7 @@ export class AppComponent implements OnInit{
   cerrarSesion(){
     this.permisos.setUserRole(0);
     this.sesion.clearCorreoSesion();
+    this.sesion.setCorreoSesion("");
     this.router.navigate(['']);
   }
 
