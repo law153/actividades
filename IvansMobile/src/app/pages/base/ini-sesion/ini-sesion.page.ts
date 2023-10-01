@@ -29,20 +29,23 @@ export class IniSesionPage implements OnInit {
   async iniciarSesion(){  
 
     await this.existeCorreo();
-    console.log("ID del usuario:"+this.usuario.idusuario);
-    console.log("Rol del usuario:"+this.usuario.rolu);
     if(this.flag === true){
 
-      this.sesion.setCorreoSesion(this.usuarios.correo);
+      await this.claveCorrecta();
+      if(this.flag === true){
 
-      if(this.usuario.rolu === 1){
-        this.router.navigate(['/home-cli']);
-        this.permisos.setUserRole(1);
+        this.sesion.setCorreoSesion(this.usuarios.correo);
+
+        if(this.usuario.rolu === 1){
+          this.router.navigate(['/home-cli']);
+          this.permisos.setUserRole(1);
+        }
+        if(this.usuario.rolu === 2){
+          this.router.navigate(['/home-adm']);
+          this.permisos.setUserRole(2);
+        }
       }
-      if(this.usuario.rolu === 2){
-        this.router.navigate(['/home-adm']);
-        this.permisos.setUserRole(2);
-      }
+      
     }
 
 
@@ -52,9 +55,7 @@ export class IniSesionPage implements OnInit {
     this.flag = false;
 
     for(let usuario of this.usuarios){
-      console.log("Correo usuario "+usuario.idusuario+": "+usuario.correo);
       if(usuario.correo === this.correo){
-        console.log("El correo existe!");
         this.flag = true;
         this.usuario = usuario;
         console.log(this.usuario.nombre);
@@ -62,10 +63,21 @@ export class IniSesionPage implements OnInit {
     }
 
     if(this.flag === false){
-      this.bd.presentAlert("El correo no se ha encontrado");
-      console.log("El correo no existe!");
+      this.bd.presentAlert("El correo y/o contraseña no validos");
     }
 
+  }
+
+  async claveCorrecta(){
+    this.flag = false;
+
+    if(this.clave === this.usuario.clave){
+      this.flag = true;
+    }
+
+    if(this.flag === false){
+      this.bd.presentAlert("El correo y/o contraseña no validos");
+    }
 
   }
 
