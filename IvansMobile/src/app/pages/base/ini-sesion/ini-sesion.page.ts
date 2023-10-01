@@ -17,6 +17,7 @@ export class IniSesionPage implements OnInit {
   flag: boolean = true;
 
   //Variable para db
+  reset: any = [{idusuario: '', rut: '', dvrut: '', nombre: '', apellido: '', telefono: '', correo: '', clave: '', direccion: '', fotousuario: '', respuesta: '', rolu: '', preguntau: '' }];
   usuario: any = [{idusuario: '', rut: '', dvrut: '', nombre: '', apellido: '', telefono: '', correo: '', clave: '', direccion: '', fotousuario: '', respuesta: '', rolu: '', preguntau: '' }];
   usuarios: any = [{idusuario: '',rut: '', dvrut: '', nombre: '', apellido: '', telefono: '', correo: '', clave: '', direccion: '', fotousuario: '', respuesta: '', rolu: '', preguntau: ''}];
   constructor(private menuCtrl: MenuController, private router: Router, private alerta: AlertController, private bd: DbserviceService, private permisos: PermisosService, private sesion: CorreoService ) { }
@@ -28,6 +29,11 @@ export class IniSesionPage implements OnInit {
 
   async iniciarSesion(){  
 
+    console.log("Correo del campo:"+this.correo);
+    console.log("Clave del campo:"+this.clave);
+    console.log("Correo del arreglo:"+this.usuario.correo);
+    console.log("Clave del arreglo:"+this.usuario.clave);
+    
     await this.existeCorreo();
     if(this.flag === true){
 
