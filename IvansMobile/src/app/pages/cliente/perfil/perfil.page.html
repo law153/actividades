@@ -21,7 +21,7 @@
 </ion-header>
 
 <ion-content [fullscreen]="true" class="content-fondo">
-  <!----
+
   <ion-grid>
     <div>
       <ion-row>
@@ -37,41 +37,41 @@
 
         <ion-col >
           <div class="contenedor-imagen"> 
-            <ion-img alt="No hay imagen" src="/assets/imagen.jpg"></ion-img>
+            <ion-img alt="No hay imagen :c" [src]="usuario.fotousuario"></ion-img>
           </div>
         </ion-col>
       </ion-row>
       
     </div>
     
-    <div class="contenedor-form" *ngIf="usuarioActual">
+    <div class="contenedor-form">
       <ion-row>
         <ion-col>
-          <ion-label>Nombre: {{usuarioActual.nombre}}</ion-label>
+          <ion-label>Nombre: {{usuario?.nombre}}</ion-label>
         </ion-col>
       </ion-row>
 
       <ion-row>
         <ion-col>
-          <ion-label>Apellido: {{usuarioActual.apellido}}</ion-label>  
+          <ion-label>Apellido: {{usuario.apellido}}</ion-label>  
         </ion-col>
       </ion-row>
 
       <ion-row>
         <ion-col>
-          <ion-label>Rut: {{usuarioActual.rut}} - {{usuarioActual.dvrut}}</ion-label>  
+          <ion-label>Rut: {{usuario.rut}} - {{usuario.dvrut}}</ion-label>  
         </ion-col>
       </ion-row>
 
       <ion-row>
         <ion-col>
-          <ion-label>Telefono: {{usuarioActual.telefono}}</ion-label>  
+          <ion-label>Telefono: {{usuario.telefono}}</ion-label>  
         </ion-col>
       </ion-row>
 
       <ion-row>
         <ion-col>
-          <ion-label>Dirección: {{usuarioActual.direccion}}</ion-label>  
+          <ion-label>Dirección: {{usuario.direccion}}</ion-label>  
         </ion-col>
       </ion-row>
 
@@ -80,7 +80,7 @@
     <div class="contenedor-botones">
       <ion-row>
         <ion-col>
-          <ion-button shape="round" (click)="enviarEditar(usuarioActual)"> Editar </ion-button>
+          <ion-button shape="round" > Editar </ion-button>
         </ion-col>
         
         <ion-col>
@@ -90,5 +90,5 @@
     </div>
   
   </ion-grid>
-  ----->
+
 </ion-content>

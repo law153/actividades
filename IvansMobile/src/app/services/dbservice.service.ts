@@ -56,7 +56,7 @@ export class DbserviceService {
   consultaDefault: string = "INSERT OR IGNORE INTO consulta(idconsulta, nombreconsultante, asuntoconsulta ,mensajeconsulta) VALUES (200, 'Alvaro','Problema' ,'Faltan guitarras');";
   //Usuarios
   usuarioClienteDefault: string = "INSERT OR IGNORE INTO usuario(idusuario, rut, dvrut, nombre, apellido, telefono, correo, clave, direccion, fotousuario, respuesta, rolu, preguntau) VALUES ('200', 11111111, '1', 'Javier', 'Maldonado', '12345678', 'javicci@gmail.com', 'umigod', 'Camarones 1313', '/assets/imagen.jpg', 'Umi', 1, 1);";
-  usuarioAdminDefault: string = "INSERT OR IGNORE INTO usuario(idusuario, rut, dvrut, nombre, apellido, telefono, correo, clave, direccion, fotousuario, respuesta, rolu, preguntau) VALUES ('201', 22222222, '2', 'Ivan', 'Fuentes', '87654321', 'ivanfuentes@gmail.com', 'ivans', 'Piedra Roja 11', '/assets/imagen.jpg', 'Negro', 2, 3);";
+  usuarioAdminDefault: string = "INSERT OR IGNORE INTO usuario(idusuario, rut, dvrut, nombre, apellido, telefono, correo, clave, direccion, fotousuario, respuesta, rolu, preguntau) VALUES ('201', 22222222, '2', 'Ivan', 'Fuentes', '87654321', 'ivanfuentes@gmail.com', 'ivans', 'Piedra Roja 11', '/assets/icono-perfil.jpg', 'Negro', 2, 3);";
   //Productos
   producto1Default: string = "INSERT OR IGNORE INTO producto(codprod, nombreprod, descripcion, precio, stock, foto, unidadmedida, categoriap) VALUES(200, 'Destornillador','Hola buenas tardes soy un destornillador', 5000, 50, '/assets/destornillador.jpg', 'Por unidad', 1);";
   producto2Default: string = "INSERT OR IGNORE INTO producto(codprod, nombreprod, descripcion, precio, stock, foto, unidadmedida, categoriap) VALUES(201, 'Bateria','Hola buenas tardes soy una bateria', 1000, 50, '/assets/Bateria.jpg', 'Por docena', 2);";
@@ -260,7 +260,8 @@ export class DbserviceService {
     })
   }
 
-  buscarIdUsuario(correo:any){ 
+  buscarPorCorreo(correo:any){ 
+    console.log("Correo recibido en el servicio: " + correo);
     return this.database.executeSql("SELECT * FROM usuario WHERE correo = ?;",[correo]).then(res =>{
       //todo bien
       let items: Usuario[] = [];

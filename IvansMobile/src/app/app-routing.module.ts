@@ -65,14 +65,6 @@ const routes: Routes = [
     loadChildren: () => import('./pages/admin/home-adm/home-adm.module').then( m => m.HomeAdmPageModule)
   },
   {
-    path: 'perfil-adm',
-    loadChildren: () => import('./pages/admin/perfil-adm/perfil-adm.module').then( m => m.PerfilAdmPageModule)
-  },
-  {
-    path: 'editar-perfil-adm',
-    loadChildren: () => import('./pages/admin/editar-perfil-adm/editar-perfil-adm.module').then( m => m.EditarPerfilAdmPageModule)
-  },
-  {
     path: 'editar-rol',
     loadChildren: () => import('./pages/admin/editar-rol/editar-rol.module').then( m => m.EditarRolPageModule)
   },

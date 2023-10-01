@@ -34,7 +34,7 @@ export class IniSesionPage implements OnInit {
       await this.claveCorrecta();
       if(this.flag === true){
 
-        this.sesion.setCorreoSesion(this.usuarios.correo);
+        this.sesion.setCorreoSesion(this.usuario.correo);
 
         if(this.usuario.rolu === 1){
           this.router.navigate(['/home-cli']);
