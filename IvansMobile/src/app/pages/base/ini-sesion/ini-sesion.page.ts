@@ -57,7 +57,7 @@ export class IniSesionPage implements OnInit {
 
   }
 
-  async existeCorreo(){
+  async existeCorreo(){ //Cambiar esto para que no consuma tantos recursos
     this.flag = false;
 
     for(let usuario of this.usuarios){

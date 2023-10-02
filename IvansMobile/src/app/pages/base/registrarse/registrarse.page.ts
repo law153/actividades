@@ -40,6 +40,7 @@ export class RegistrarsePage implements OnInit {
 
   //Variable para db
   usuarios: any = [{rut: '', dvrut: '', nombre: '', apellido: '', telefono: '', correo: '', clave: '', direccion: '', fotoUsuario: '', respuesta: '', rolU: '', preguntaU: ''}];
+  
 
   constructor(private menuCtrl: MenuController, private router: Router, private bd: DbserviceService) { }
 

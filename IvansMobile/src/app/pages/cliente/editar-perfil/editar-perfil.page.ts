@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController, MenuController, IonInput } from '@ionic/angular';
 import { DbserviceService } from 'src/app/services/dbservice.service';
 import { CamaraService } from 'src/app/services/camara.service';
+import { CorreoService } from 'src/app/services/correo.service';
 
 @Component({
   selector: 'app-editar-perfil',
@@ -34,23 +35,13 @@ export class EditarPerfilPage implements OnInit {
   respuesta: string="";
   foto: string | undefined;
   flag: boolean = true;
-
-  usuario!: any[];
-  idUsuario: number = 0;
-  idStorage: any = "";
+  correoUser: string = "";
+  
+  usuario: any = [{idusuario: '', rut: '', dvrut: '', nombre: '', apellido: '', telefono: '', correo: '', clave: '', direccion: '', fotousuario: '', respuesta: '', rolu: '', preguntau: '' }];
+  usuarios: any = [{idusuario: '',rut: '', dvrut: '', nombre: '', apellido: '', telefono: '', correo: '', clave: '', direccion: '', fotoUsuario: '', respuesta: '', rolU: '', preguntaU: ''}];
   pregId: number = 0;
 
-  constructor(private router: Router,private menuCtrl: MenuController, private alerta: AlertController, private bd: DbserviceService, private activedRouter: ActivatedRoute, private camara: CamaraService) {
-
-    this.activedRouter.queryParams.subscribe(param=>{
-      if(this.router.getCurrentNavigation()?.extras.state){
-        this.usuario = this.router.getCurrentNavigation()?.extras?.state?.['datosUsuario'];
-
-
-      }
-    })
-
-   }
+  constructor(private router: Router,private menuCtrl: MenuController, private alerta: AlertController, private bd: DbserviceService, private activedRouter: ActivatedRoute, private camara: CamaraService, private sesion: CorreoService) { }
 
   irHomeCli(){
     this.router.navigate(['home-cli'])    
@@ -80,7 +71,7 @@ export class EditarPerfilPage implements OnInit {
     this.fonoValido();
     if(this.flag === true){
       this.pregId = parseInt(this.pregunta);
-      //this.editarPerfil();   
+      this.editarPerfil();   
     }
   }
 
@@ -107,6 +98,12 @@ export class EditarPerfilPage implements OnInit {
       if(this.validarRut(this.rut, this.dvrut) === false){
         this.flag = false;
         this.msjRut+="Rut invalido"+"\n";
+      }
+      for(var x of this.usuarios){
+        if(x.rut === this.rut){
+          this.msjRut+="Ese rut ya está en uso"+"\n";
+          this.flag = false;
+        }
       }
 
     }
@@ -205,7 +202,13 @@ export class EditarPerfilPage implements OnInit {
       if(this.esCorreoValido(this.correo) === false){
         this.flag = false;
         this.msjCorreo+="Su correo no es valido"+"\n";
-        ;
+        
+      }
+      for(var x of this.usuarios){
+        if(x.correo === this.correo){
+          this.msjCorreo+="Ese correo ya está en uso"+"\n";
+          this.flag = false;
+        }
       }
     }
   }
@@ -257,28 +260,20 @@ export class EditarPerfilPage implements OnInit {
     }
   }
 
-  /*editarPerfil(){
-      this.bd.modificarUsuario(this.idUsuario, this.nombre, this.apellido, this.rut, this.dvrut, this.fono, this.correo, this.direc, this.foto, this.respuesta, this.pregId);
-      this.bd.presentAlert("Usuario editado con exito");
-      this.router.navigate(['']);
+  editarPerfil(){
+
+    this.bd.modificarUsuario(this.usuario.idusuario, this.nombre, this.apellido, this.rut, this.dvrut, this.fono, this.correo, this.direc, this.foto, this.respuesta, this.pregId);
+    this.bd.presentAlert("Usuario editado con exito");
+    this.router.navigate(['']);
     
-  }*/
-
- /*borrarCuenta(){
-    this.bd.eliminarUsuario(this.idUsuario);
-    this.bd.presentAlert("Cuenta borrada");
-  }*/
-
-  async presentAlert(mensaje: string) {
-    const alert = await this.alerta.create({
-      header: 'Alerta',
-      subHeader: 'Mensaje importante',
-      message: mensaje,
-      buttons: ['Vale'],
-    });
-
-    await alert.present();
   }
+
+ borrarCuenta(){
+    this.bd.eliminarUsuario(this.usuario.idusuario);
+    this.bd.presentAlert("Cuenta borrada");
+  }
+
+
 
 
   esCorreoValido(correo: string): boolean {
@@ -352,18 +347,45 @@ export class EditarPerfilPage implements OnInit {
     return /[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]/.test(texto);
   }
 
+  buscarUsuarios(){
+    this.bd.dbState().subscribe(res => {
+      if(res){
+        this.bd.fetchUsuario().subscribe(item => {
+          this.usuarios = item;
+        })
+      }
+    })
+  }
+
 
   ngOnInit() {
-    this.idStorage = localStorage.getItem('idUser');
-    if(this.idStorage != null){
-      this.idUsuario = parseInt(this.idStorage);
-    }
+    this.buscarUsuarios();
 
-    if (this.usuario) {
-      
-    } else {
-      console.log("Datos del usuario no disponibles");
-    }
+    this.sesion.fetchCorreoSesion().subscribe((correo) => {
+      this.correoUser = correo;
+      console.log("Correo recibido: "+correo);
+      console.log("Correo almacenado: "+this.correoUser);
+    });
+
+    this.bd.dbState().subscribe(res => {
+      if(res){
+        this.bd.buscarPorCorreo(this.correo);
+        
+        this.bd.fetchUsuario().subscribe(items => {
+          this.usuario = items[0];
+          this.nombre = this.usuario.nombre;
+          this.apellido = this.usuario.apellido;
+          this.rut = this.usuario.rut;
+          this.dvrut = this.usuario.dvrut;
+          this.correo = this.usuario.correo;
+          this.respuesta = this.usuario.respuesta;
+          this.foto = this.usuario.fotousuario;
+          this.fono = this.usuario.telefono;
+          this.pregId = this.usuario.pregId;
+          console.log("ID del usuario: "+this.usuario.idusuario );
+        })
+      }
+    })
   }
 
 }
