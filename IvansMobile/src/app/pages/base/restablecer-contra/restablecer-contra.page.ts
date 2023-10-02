@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController, MenuController } from '@ionic/angular';
+import { CorreoService } from 'src/app/services/correo.service';
+import { DbserviceService } from 'src/app/services/dbservice.service';
+
 
 @Component({
   selector: 'app-restablecer-contra',
@@ -16,7 +19,10 @@ export class RestablecerContraPage implements OnInit {
   msjClave: string = "";
   msjRepClave: string = "";
 
-  constructor(private menuCtrl: MenuController, private router: Router, private alerta: AlertController) { }
+  correo : string = "";
+  usuario : any = [{idusuario: '', rut: '', dvrut: '', nombre: '', apellido: '', telefono: '', correo: '', clave: '', direccion: '', fotousuario: '', respuesta: '', rolu: '', preguntau: '' }];
+
+  constructor(private menuCtrl: MenuController, private router: Router, private alerta: AlertController, private bd: DbserviceService, private sesion: CorreoService) { }
 
   irHome(){
     this.router.navigate(['']);
@@ -44,12 +50,20 @@ export class RestablecerContraPage implements OnInit {
     this.router.navigate(['/ini-sesion']);
   }
 
+  editarClave(){
+    this.usuario.id
+    this.clave
+    this.bd.modificarClave(this.usuario.id, this.clave);
+    this.bd.presentAlert('La contraseña se ha modificado con éxito')
+  }
+
   //Validaciones
   envioValido(){
     this.flag = true;
     this.claveValida();
     this.claveRepValid();
     if(this.flag === true){
+      this.editarClave();
       this.msj="Contraseña cambiada correctamente";
       this.irIniSesion();
     }
@@ -138,6 +152,22 @@ export class RestablecerContraPage implements OnInit {
   }
 
   ngOnInit() {
+    this.sesion.fetchCorreoSesion().subscribe((correo) => {
+      this.correo = correo;
+      console.log("Correo recibido: "+correo);
+      console.log("Correo almacenado:"+this.correo);
+    })
+
+    this.bd.dbState().subscribe(res => {
+      if(res){
+        this.bd.buscarPorCorreo(this.correo);
+        
+        this.bd.fetchUsuario().subscribe(items => {
+          this.usuario = items[0];
+          console.log("ID del usuario: "+this.usuario.idusuario );
+        })
+      }
+    })
   }
 
 }
