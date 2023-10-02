@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController, MenuController } from '@ionic/angular';
+import { DbserviceService } from 'src/app/services/dbservice.service';
 
 @Component({
   selector: 'app-olv-contra',
@@ -21,7 +22,7 @@ export class OlvContraPage implements OnInit {
   msj: string = "";
 
 
-  constructor(private menuCtrl: MenuController, private router: Router, private alerta: AlertController) { }
+  constructor(private menuCtrl: MenuController, private router: Router, private alerta: AlertController, private db: DbserviceService) { }
 
   irHome(){
     this.router.navigate(['']);

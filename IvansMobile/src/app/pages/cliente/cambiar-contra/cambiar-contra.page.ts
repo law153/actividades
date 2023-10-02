@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController, MenuController } from '@ionic/angular';
-//import { DbserviceService } from 'src/app/services/dbservice.service';
+import { CorreoService } from 'src/app/services/correo.service';
+import { DbserviceService } from 'src/app/services/dbservice.service';
+
 
 
 @Component({
@@ -24,7 +26,10 @@ export class CambiarContraPage implements OnInit {
   idStorage: any = "";
   usuarioActual!: any;
 
-  constructor(private router: Router,private menuCtrl: MenuController, private alerta: AlertController, /*private bd: DbserviceService*/) { }
+  correo : string = "";
+  usuario : any = [{idusuario: '', rut: '', dvrut: '', nombre: '', apellido: '', telefono: '', correo: '', clave: '', direccion: '', fotousuario: '', respuesta: '', rolu: '', preguntau: '' }];
+
+  constructor(private router: Router,private menuCtrl: MenuController, private alerta: AlertController, private bd: DbserviceService, private sesion: CorreoService) { }
 
   irHomeCli(){
     this.router.navigate(['home-cli']);
@@ -46,6 +51,12 @@ export class CambiarContraPage implements OnInit {
     this.menuCtrl.open('categorias');
   }
 
+  editarClave(){
+    this.usuario.id
+    this.claveNueva
+    this.bd.modificarClave(this.usuario.id, this.claveNueva);
+    this.bd.presentAlert('La contraseña se ha modificado con éxito')
+  }
 
   //Validaciones
   envioValido(){
@@ -54,7 +65,7 @@ export class CambiarContraPage implements OnInit {
     this.claveNuevaValida();
     this.claveRepValid();
     if(this.flag === true){
-      //this.cambioContra();
+      this.editarClave();
       this.irHomeCli();
     }
   }
@@ -116,11 +127,6 @@ export class CambiarContraPage implements OnInit {
     }
   }
 
-  /*cambioContra(){
-    this.bd.modificarClave(this.idUsuario,this.claveNueva);
-    this.bd.presentAlert("Contraseña cambiada correctamente");
-  }*/
-
   //Funciones de validación
   
 
@@ -154,27 +160,25 @@ export class CambiarContraPage implements OnInit {
     await alert.present();
   }
 
-  /*mostrarDatosUsuario() {
-    this.bd.listaUsuario.subscribe((usuarios: Usuario[]) => {
-      if (usuarios.length > 0) {
-        const usuario = usuarios[0]; // El primer usuario encontrado
-        // Asigna el usuario a una propiedad local.
-        this.usuarioActual = usuario;
-      }
-    });
-  }*/
+  
 
   ngOnInit() {
-    /*
-    this.idStorage = localStorage.getItem('idUser');
-    if(this.idStorage != null){
-      this.idUsuario = parseInt(this.idStorage);
-    }
+    this.sesion.fetchCorreoSesion().subscribe((correo) => {
+      this.correo = correo;
+      console.log("Correo recibido: "+correo);
+      console.log("Correo almacenado:"+this.correo);
+    })
 
-    this.bd.buscarUsuario(this.idUsuario).then(() => {
-      this.mostrarDatosUsuario();
-    });
-    */
+    this.bd.dbState().subscribe(res => {
+      if(res){
+        this.bd.buscarPorCorreo(this.correo);
+        
+        this.bd.fetchUsuario().subscribe(items => {
+          this.usuario = items[0];
+          console.log("ID del usuario: "+this.usuario.idusuario );
+        })
+      }
+    })
 
   }
 
