@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController, MenuController } from '@ionic/angular';
+import { CorreoService } from 'src/app/services/correo.service';
 import { DbserviceService } from 'src/app/services/dbservice.service';
 
 @Component({
@@ -21,8 +22,10 @@ export class OlvContraPage implements OnInit {
   flag: boolean= true;
   msj: string = "";
 
+  usuario : any = [{idusuario: '', rut: '', dvrut: '', nombre: '', apellido: '', telefono: '', correo: '', clave: '', direccion: '', fotousuario: '', respuesta: '', rolu: '', preguntau: '' }];
 
-  constructor(private menuCtrl: MenuController, private router: Router, private alerta: AlertController, private db: DbserviceService) { }
+
+  constructor(private menuCtrl: MenuController, private router: Router, private alerta: AlertController, private bd: DbserviceService, private sesion: CorreoService) { }
 
   irHome(){
     this.router.navigate(['']);
@@ -151,6 +154,16 @@ export class OlvContraPage implements OnInit {
   }
 
   ngOnInit() {
+    this.bd.dbState().subscribe(res => {
+      if(res){
+        this.bd.buscarPorRut(this.rut);
+        
+        this.bd.fetchUsuario().subscribe(items => {
+          this.usuario = items[0];
+          console.log("ID del usuario: "+this.usuario.idusuario );
+        })
+      }
+    })
   }
 
   async presentAlert(mensaje: string) {

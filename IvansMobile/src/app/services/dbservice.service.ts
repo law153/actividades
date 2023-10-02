@@ -291,6 +291,37 @@ export class DbserviceService {
     })
   }
 
+  buscarPorRut(rut: any){
+    console.log("Rut recibido con éxito: "+ rut);
+    return this.database.executeSql("SELECT * from usuario where rut = ?;",[rut]).then(res => {
+      //Todo bien hasta ahora
+      let items: Usuario[] = [];
+      //Validar cantidad de registros
+      if (res.rows.length > 0){
+        //Recorrer datos
+        for (var i = 0; i < res.rows.length; i++ ){
+          //Guardar los datos
+          items.push({
+            idusuario: res.rows.item(i).idusuario,
+            rut: res.rows.item(i).rut,
+            dvrut: res.rows.item(i).dvrut,
+            nombre: res.rows.item(i).nombre,
+            apellido: res.rows.item(i).apellido,
+            telefono: res.rows.item(i).telefono,
+            correo: res.rows.item(i).correo,
+            clave: res.rows.item(i).clave,
+            direccion: res.rows.item(i).direccion,
+            fotousuario: res.rows.item(i).fotousuario,
+            respuesta: res.rows.item(i).respuesta,
+            rolu: res.rows.item(i).rolu,
+            preguntau: res.rows.item(i).preguntau
+          });
+        }
+      }
+    })
+
+  }
+
   buscarProductos(){ 
     return this.database.executeSql("SELECT * FROM producto;",[]).then(res =>{
       //todo bien
