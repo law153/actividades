@@ -17,9 +17,9 @@ export class IniSesionPage implements OnInit {
   flag: boolean = true;
 
   //Variable para db
-  reset: any = [{idusuario: '', rut: '', dvrut: '', nombre: '', apellido: '', telefono: '', correo: '', clave: '', direccion: '', fotousuario: '', respuesta: '', rolu: '', preguntau: '' }];
+  
   usuario: any = [{idusuario: '', rut: '', dvrut: '', nombre: '', apellido: '', telefono: '', correo: '', clave: '', direccion: '', fotousuario: '', respuesta: '', rolu: '', preguntau: '' }];
-  usuarios: any = [{idusuario: '',rut: '', dvrut: '', nombre: '', apellido: '', telefono: '', correo: '', clave: '', direccion: '', fotousuario: '', respuesta: '', rolu: '', preguntau: ''}];
+
   constructor(private menuCtrl: MenuController, private router: Router, private alerta: AlertController, private bd: DbserviceService, private permisos: PermisosService, private sesion: CorreoService ) { }
 
   irHome(){
@@ -29,19 +29,20 @@ export class IniSesionPage implements OnInit {
 
   async iniciarSesion(){  
 
-    console.log("Correo del campo:"+this.correo);
-    console.log("Clave del campo:"+this.clave);
-    console.log("Correo del arreglo:"+this.usuario.correo);
-    console.log("Clave del arreglo:"+this.usuario.clave);
-    
-    await this.existeCorreo();
-    if(this.flag === true){
 
+    
+    await this.verificarCorreo();
+    console.log("Correo del campo:"+this.correo);
+    console.log("Correo del arreglo:"+this.usuario.correo);
+    console.log("Rol del usuario: "+this.usuario.rolu)
+    if(this.flag === true){
+      
       await this.claveCorrecta();
+
       if(this.flag === true){
 
         this.sesion.setCorreoSesion(this.usuario.correo);
-
+        
         if(this.usuario.rolu === 1){
           this.router.navigate(['/home-cli']);
           this.permisos.setUserRole(1);
@@ -57,23 +58,6 @@ export class IniSesionPage implements OnInit {
 
   }
 
-  async existeCorreo(){ //Cambiar esto para que no consuma tantos recursos
-    this.flag = false;
-
-    for(let usuario of this.usuarios){
-      if(usuario.correo === this.correo){
-        this.flag = true;
-        this.usuario = usuario;
-        console.log(this.usuario.nombre);
-      }
-    }
-
-    if(this.flag === false){
-      this.bd.presentAlert("El correo y/o contraseña no validos");
-    }
-
-  }
-
   async claveCorrecta(){
     this.flag = false;
 
@@ -83,8 +67,30 @@ export class IniSesionPage implements OnInit {
 
     if(this.flag === false){
       this.bd.presentAlert("El correo y/o contraseña no validos");
+      console.log("Se equivocó en la clave");
     }
 
+  }
+
+  async verificarCorreo(){
+    this.flag = false;
+    this.bd.dbState().subscribe(res => {
+      if(res){
+        this.bd.buscarPorCorreo(this.correo).subscribe(items => {
+          if (items.length > 0) {
+            // Se encontró al usuario
+            this.usuario = items[0];
+            console.log("Se encontró al usuario", this.usuario.nombre);
+            console.log("ID usuario: "+this.usuario.idusuario);
+            this.flag = true;
+          } else {
+            // No se encontró al usuario
+            console.log("Se equivocó en el correo");
+            this.bd.presentAlert("Correo y/o contraseña no encontrados");
+          }
+        });
+      }
+    })
   }
 
 
@@ -124,14 +130,6 @@ export class IniSesionPage implements OnInit {
   }
 
   ngOnInit() {
-
-    this.bd.dbState().subscribe(res => {
-      if(res){
-        this.bd.fetchUsuario().subscribe(items => {
-          this.usuarios = items;
-        })
-      }
-    })
   }
 
 }

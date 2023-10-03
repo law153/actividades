@@ -260,7 +260,7 @@ export class DbserviceService {
     })
   }
 
-  buscarPorCorreo(correo:any){ 
+  /*buscarPorCorreo(correo:any){ 
     console.log("Correo recibido en el servicio: " + correo);
     return this.database.executeSql("SELECT * FROM usuario WHERE correo = ?;",[correo]).then(res =>{
       //todo bien
@@ -289,6 +289,38 @@ export class DbserviceService {
       }
       this.listaUsuario.next(items as any);
     })
+  }*/
+
+  buscarPorCorreo(correo: any): Observable<Usuario[]> {
+    console.log("Correo recibido en el servicio: " + correo);
+    return new Observable<Usuario[]>(observer => {
+      this.database.executeSql("SELECT * FROM usuario WHERE correo = ?;", [correo]).then(res => {
+        let items: Usuario[] = [];
+  
+        if (res.rows.length > 0) {
+          for (let i = 0; i < res.rows.length; i++) {
+            items.push({
+              idusuario: res.rows.item(i).idusuario,
+              rut: res.rows.item(i).rut,
+              dvrut: res.rows.item(i).dvrut,
+              nombre: res.rows.item(i).nombre,
+              apellido: res.rows.item(i).apellido,
+              telefono: res.rows.item(i).telefono,
+              correo: res.rows.item(i).correo,
+              clave: res.rows.item(i).clave,
+              direccion: res.rows.item(i).direccion,
+              fotousuario: res.rows.item(i).fotousuario,
+              respuesta: res.rows.item(i).respuesta,
+              rolu: res.rows.item(i).rolu,
+              preguntau: res.rows.item(i).preguntau
+            });
+          }
+        }
+  
+        observer.next(items);
+        observer.complete();
+      });
+    });
   }
 
   buscarPorRut(rut: any){
