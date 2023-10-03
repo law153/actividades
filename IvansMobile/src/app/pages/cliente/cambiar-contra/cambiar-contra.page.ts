@@ -52,6 +52,12 @@ export class CambiarContraPage implements OnInit {
   }
 
   editarClave(){
+    this.sesion.fetchCorreoSesion().subscribe((correo) => {
+      this.correo = correo;
+      console.log("Correo recibido: "+correo);
+      console.log("Correo almacenado:"+this.correo);
+    })
+    
     this.bd.dbState().subscribe(res => {
       if(res){
         this.bd.buscarPorCorreo(this.correo);
@@ -172,11 +178,6 @@ export class CambiarContraPage implements OnInit {
   
 
   ngOnInit() {
-    this.sesion.fetchCorreoSesion().subscribe((correo) => {
-      this.correo = correo;
-      console.log("Correo recibido: "+correo);
-      console.log("Correo almacenado:"+this.correo);
-    })
 
   }
 
