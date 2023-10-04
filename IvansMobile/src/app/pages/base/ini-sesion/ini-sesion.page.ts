@@ -18,7 +18,7 @@ export class IniSesionPage implements OnInit {
 
   //Variable para db
   
-  usuario: any = [{idusuario: '', rut: '', dvrut: '', nombre: '', apellido: '', telefono: '', correo: '', clave: '', direccion: '', fotousuario: '', respuesta: '', rolu: '', preguntau: '' }];
+  usuario: any = {idusuario: '', rut: '', dvrut: '', nombre: '', apellido: '', telefono: '', correo: '', clave: '', direccion: '', fotousuario: '', respuesta: '', rolu: '', preguntau: '' };
 
   constructor(private menuCtrl: MenuController, private router: Router, private alerta: AlertController, private bd: DbserviceService, private permisos: PermisosService, private sesion: CorreoService ) { }
 
@@ -29,15 +29,20 @@ export class IniSesionPage implements OnInit {
 
   async iniciarSesion(){  
 
-
-    
+    this.flag = true;
+    console.log("Correo del arreglo antes de llamar a VerificarCorreo():"+this.usuario.correo);
     await this.verificarCorreo();
-    console.log("Correo del campo:"+this.correo);
-    console.log("Correo del arreglo:"+this.usuario.correo);
-    console.log("Rol del usuario: "+this.usuario.rolu)
+    console.log("Correo del arreglo despues de llamar a VerificarCorreo():"+this.usuario.correo);
+
+    console.log("Valor de flag despues de VerificarCorreo(): "+this.flag);
+
     if(this.flag === true){
-      
+
+      console.log("Valor de flag antes de claveCorrecta(): "+this.flag);
+
       await this.claveCorrecta();
+
+      console.log("Valor de flag despues de claveCorrecta(): "+this.flag);
 
       if(this.flag === true){
 
@@ -59,32 +64,30 @@ export class IniSesionPage implements OnInit {
   }
 
   async claveCorrecta(){
-    this.flag = false;
-
-    if(this.clave === this.usuario.clave){
-      this.flag = true;
+    console.log("------Consola de claveCorrecta-----------");
+    console.log("Correo ingresado: "+this.correo);
+    console.log("Correo traido: "+this.usuario.correo);
+    if(this.clave !== this.usuario.clave){
+      this.flag = false;
+      this.bd.presentAlert("Correo y/o contraseña no encontrados");
+      console.log("La clave ingresado no es la correcta");
     }
-
-    if(this.flag === false){
-      this.bd.presentAlert("El correo y/o contraseña no validos");
-      console.log("Se equivocó en la clave");
-    }
-
+    console.log("------Consola de claveCorrecta-----------");
   }
 
   async verificarCorreo(){
-    this.flag = false;
     this.bd.dbState().subscribe(res => {
       if(res){
         this.bd.buscarPorCorreo(this.correo).subscribe(items => {
-          if (items.length > 0) {
+          if (items.length === 1) {
             // Se encontró al usuario
             this.usuario = items[0];
             console.log("Se encontró al usuario", this.usuario.nombre);
             console.log("ID usuario: "+this.usuario.idusuario);
-            this.flag = true;
+
           } else {
             // No se encontró al usuario
+            this.flag = false;
             console.log("Se equivocó en el correo");
             this.bd.presentAlert("Correo y/o contraseña no encontrados");
           }
