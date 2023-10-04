@@ -108,6 +108,21 @@ export class OlvContraPage implements OnInit {
     }
   }
 
+  verificaRut(){
+    this.bd.dbState().subscribe(res => {
+      if(res){
+        this.bd.buscarPorRut(this.rut);
+        
+        this.bd.fetchUsuario().subscribe(items => {
+          this.usuario = items[0];
+          console.log("ID del usuario: "+this.usuario.idusuario );
+        })
+      }
+    })
+
+
+  }
+
 
 
   //Funciones de validacion
@@ -154,16 +169,7 @@ export class OlvContraPage implements OnInit {
   }
 
   ngOnInit() {
-    this.bd.dbState().subscribe(res => {
-      if(res){
-        this.bd.buscarPorRut(this.rut);
-        
-        this.bd.fetchUsuario().subscribe(items => {
-          this.usuario = items[0];
-          console.log("ID del usuario: "+this.usuario.idusuario );
-        })
-      }
-    })
+    
   }
 
   async presentAlert(mensaje: string) {

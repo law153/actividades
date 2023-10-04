@@ -51,10 +51,25 @@ export class RestablecerContraPage implements OnInit {
   }
 
   editarClave(){
-    this.usuario.id
-    this.clave
-    this.bd.modificarClave(this.usuario.id, this.clave);
-    this.bd.presentAlert('La contraseña se ha modificado con éxito')
+    this.sesion.fetchCorreoSesion().subscribe((correo) => {
+      this.correo = correo;
+      console.log("Correo recibido: "+correo);
+      console.log("Correo almacenado:"+this.correo);
+    })
+
+    this.bd.dbState().subscribe(res => {
+      if(res){
+        this.bd.buscarPorCorreo(this.correo);
+        
+        this.bd.fetchUsuario().subscribe(items => {
+          if(items.length > 0)
+            this.usuario = items[0];
+            this.bd.modificarClave(this.usuario.idusuario, this.clave);
+            this.bd.presentAlert('La contraseña se ha modificado con éxito');
+            console.log("ID del usuario: "+this.usuario.idusuario );
+        })
+      }
+    })
   }
 
   //Validaciones
@@ -152,22 +167,6 @@ export class RestablecerContraPage implements OnInit {
   }
 
   ngOnInit() {
-    this.sesion.fetchCorreoSesion().subscribe((correo) => {
-      this.correo = correo;
-      console.log("Correo recibido: "+correo);
-      console.log("Correo almacenado:"+this.correo);
-    })
-
-    this.bd.dbState().subscribe(res => {
-      if(res){
-        this.bd.buscarPorCorreo(this.correo);
-        
-        this.bd.fetchUsuario().subscribe(items => {
-          this.usuario = items[0];
-          console.log("ID del usuario: "+this.usuario.idusuario );
-        })
-      }
-    })
   }
 
 }
