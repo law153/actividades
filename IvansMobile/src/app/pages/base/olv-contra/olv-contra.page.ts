@@ -54,133 +54,50 @@ export class OlvContraPage implements OnInit {
   }
 
   //Validaciones
-  envioValido(){
-    this.flag = true;
-    this.rutValido();
-    this.preguntaValida();
-    this.respuestaValida();
-    if(this.flag === true){
-      this.router.navigate(['/restablecer-contra']);
-    }
-  }
 
-  rutValido(){
-    this.msjRut = "";
 
-    if(this.rut.length === 0 || this.dvrut.length === 0){
-      this.flag = false;
-      this.msjRut+="Debe llenar estos campos";
-    } else{
-
-    
-      if(this.SoloNumeros(this.rut) === false ){
-        this.flag = false;
-        this.msjRut+="El rut se compone solo de números "+"\n";
-      }
-      if(this.SoloNumerosOk(this.dvrut) === false){
-        this.flag = false;
-        this.msjRut+="El digito verificador solo se compone de números o k"+"\n";
-      }
-      if(this.validarRut(this.rut, this.dvrut) === false){
-        this.flag = false;
-        this.msjRut+="Rut invalido"+"\n";
-      }
-
-    }
-  
-  }
-
-  preguntaValida(){
-    this.msjPreg = "";
-    if(this.pregunta.length === 0){
-      this.flag = false;
-      this.msjPreg="No ha seleccionado ninguna pregunta";
-      ;
-    }
-  }
-
-  respuestaValida(){
-    this.msjResp = "";
-    if(this.respuesta.length === 0){
-      this.flag = false;
-      this.msjResp="No puede dejar la respuesta vacía";
-      ;
-    }
-  }
-
-  verificaRut(){
+  validarDatos(){
     this.bd.dbState().subscribe(res => {
       if(res){
-        this.bd.buscarPorRut(this.rut);
-        
-        this.bd.fetchUsuario().subscribe(items => {
-          this.usuario = items[0];
-          console.log("ID del usuario: "+this.usuario.idusuario );
-        })
+        this.bd.buscarPorRut(this.rut).subscribe(items => {
+          //Verifica el rut
+          if (items.length === 1) {
+            this.usuario = items[0];
+            console.log("Se encontró al usuario", this.usuario.nombre);
+            console.log("ID usuario: "+this.usuario.idusuario);
+            //Verifica la pregunta
+            if(parseInt(this.pregunta) === this.usuario.preguntau){
+              //Verifica la respuesta
+              if(this.respuesta === this.usuario.respuesta){
+
+                this.sesion.setCorreoSesion(this.usuario.correo);
+                this.irRestablecerContra();
+                //La respuesta no fue correcta
+              } else{
+                this.bd.presentAlert("La respuesta seleccionada no corresponde al usuario");
+                console.log("Se equivocó en la respuesta");
+              }
+              
+              //La pregunta no fue correcta
+            } else{
+              this.bd.presentAlert("La pregunta seleccionada no corresponde al usuario");
+              console.log("Se equivocó en la pregunta");
+            }
+
+          } else {
+            //El rut no fue correcto
+            this.flag = false;
+            console.log("Se equivocó en el rut");
+            this.bd.presentAlert("El rut no esta en el sistema");
+          }
+        });
       }
     })
-
-
   }
 
-
-
-  //Funciones de validacion
-  validarRut(cuerpoRut: string, digitoVerificador: string): boolean {
-    const rutLimpio = cuerpoRut.replace(/\D/g, ''); // Elimina caracteres no numéricos
-  
-    if (rutLimpio.length !== 8) {
-      return false; // El cuerpo del RUT debe tener 8 dígitos
-    }
-  
-    const digitoCalculado = this.calcularDigitoVerificador(rutLimpio);
-    return digitoCalculado === digitoVerificador.toUpperCase();
-  }
-
-  calcularDigitoVerificador(cuerpoRut: string): string {
-    const secuencia = [2, 3, 4, 5, 6, 7, 2, 3];
-    let suma = 0;
-  
-    for (let i = cuerpoRut.length - 1, j = 0; i >= 0; i--, j++) {
-      suma += parseInt(cuerpoRut[i]) * secuencia[j];
-      if (j === 7) {
-        j = 0;
-      }
-    }
-  
-    const resto = suma % 11;
-    const digito = 11 - resto;
-  
-    if (digito === 10) {
-      return 'K';
-    } else if (digito === 11) {
-      return '0';
-    } else {
-      return digito.toString();
-    }
-  }
-
-  SoloNumeros(cadena: string): boolean {
-    return /^[0-9]+$/.test(cadena);
-  }
-
-  SoloNumerosOk(cadena: string): boolean {
-    return /^[0-9Kk]+$/.test(cadena);
-  }
 
   ngOnInit() {
     
-  }
-
-  async presentAlert(mensaje: string) {
-    const alert = await this.alerta.create({
-      header: 'Alerta',
-      subHeader: 'Mensaje importante',
-      message: mensaje,
-      buttons: ['Vale'],
-    });
-
-    await alert.present();
   }
 
 }

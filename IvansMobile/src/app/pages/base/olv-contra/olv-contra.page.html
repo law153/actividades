@@ -28,12 +28,12 @@
     <div class="contenedor-form">
       <ion-row>
         <ion-col>
-          <ion-input labelPlacement="stacked" label="Rut" type="text" placeholder="Rut" [(ngModel)]="rut"></ion-input>
+          <ion-input labelPlacement="stacked" label="Rut" type="text" placeholder="Rut" [(ngModel)]="rut" maxlength="8"></ion-input>
         </ion-col>
           
   
         <ion-col>
-          <ion-input labelPlacement="stacked" label="Dvrut" type="text" placeholder="Dvrut" [(ngModel)]="dvrut"></ion-input>
+          <ion-input labelPlacement="stacked" label="Dvrut" type="text" placeholder="Dvrut" [(ngModel)]="dvrut" maxlength="1"></ion-input>
         </ion-col>
       </ion-row>
 
@@ -44,9 +44,9 @@
       <ion-row>
         <ion-col>
           <ion-select labelPlacement="stacked" label="Pregunta de Seguridad" [(ngModel)]="pregunta">
-            <ion-select-option value="pregunta1">Nombre de tu mascota</ion-select-option>
-            <ion-select-option value="pregunta2">Color favorito</ion-select-option>
-            <ion-select-option value="pregunta3">Lugar de nacimiento</ion-select-option>
+            <ion-select-option value="1">Nombre de tu mascota</ion-select-option>
+            <ion-select-option value="2">Color favorito</ion-select-option>
+            <ion-select-option value="3">Lugar de nacimiento</ion-select-option>
           </ion-select>
         </ion-col>
       </ion-row>
@@ -67,7 +67,7 @@
 
       <ion-row>
         <ion-col style="text-align: center;">
-          <ion-button shape="round" (click)="envioValido()"> Confirmar </ion-button>
+          <ion-button shape="round" (click)="validarDatos()"> Confirmar </ion-button>
         </ion-col>
       </ion-row>
 

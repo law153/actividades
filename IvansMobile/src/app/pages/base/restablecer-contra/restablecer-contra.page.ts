@@ -19,7 +19,7 @@ export class RestablecerContraPage implements OnInit {
   msjClave: string = "";
   msjRepClave: string = "";
 
-  correo : string = "";
+  correoUser : string = "";
   usuario : any = [{idusuario: '', rut: '', dvrut: '', nombre: '', apellido: '', telefono: '', correo: '', clave: '', direccion: '', fotousuario: '', respuesta: '', rolu: '', preguntau: '' }];
 
   constructor(private menuCtrl: MenuController, private router: Router, private alerta: AlertController, private bd: DbserviceService, private sesion: CorreoService) { }
@@ -50,36 +50,19 @@ export class RestablecerContraPage implements OnInit {
     this.router.navigate(['/ini-sesion']);
   }
 
-  editarClave(){
-    this.sesion.fetchCorreoSesion().subscribe((correo) => {
-      this.correo = correo;
-      console.log("Correo recibido: "+correo);
-      console.log("Correo almacenado:"+this.correo);
-    })
-
-    this.bd.dbState().subscribe(res => {
-      if(res){
-        this.bd.buscarPorCorreo(this.correo);
-        
-        this.bd.fetchUsuario().subscribe(items => {
-          if(items.length > 0)
-            this.usuario = items[0];
-            this.bd.modificarClave(this.usuario.idusuario, this.clave);
-            this.bd.presentAlert('La contraseña se ha modificado con éxito');
-            console.log("ID del usuario: "+this.usuario.idusuario );
-        })
-      }
-    })
+  async editarClave(){
+    await this.bd.modificarClave(this.usuario.idusuario, this.clave);
+    await this.bd.presentAlert('La contraseña se ha modificado con éxito');
   }
 
   //Validaciones
-  envioValido(){
+  async envioValido(){
     this.flag = true;
     this.claveValida();
     this.claveRepValid();
     if(this.flag === true){
-      this.editarClave();
-      this.msj="Contraseña cambiada correctamente";
+      await this.editarClave();
+      this.sesion.setCorreoSesion('');
       this.irIniSesion();
     }
   }
@@ -167,6 +150,27 @@ export class RestablecerContraPage implements OnInit {
   }
 
   ngOnInit() {
+
+    this.sesion.fetchCorreoSesion().subscribe((correo) => {
+      this.correoUser = correo;
+      console.log("Correo recibido: "+correo);
+      console.log("Correo almacenado:"+this.correoUser);
+    })
+
+    this.bd.dbState().subscribe(res => {
+      if(res){
+        this.bd.buscarPorCorreo(this.correoUser);
+        
+        this.bd.fetchUsuario().subscribe(items => {
+          if(items.length > 0)
+            this.usuario = items[0];
+            
+            console.log("ID del usuario: "+this.usuario.idusuario );
+        })
+      }
+    })
+
+
   }
 
 }
