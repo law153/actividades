@@ -22,10 +22,6 @@ export class CambiarContraPage implements OnInit {
   msjRepClave: string = "";
   msjClaveOld: string = "";
 
-  idUsuario: number = 0;
-  idStorage: any = "";
-  usuarioActual!: any;
-
   correoUser : string = "";
   usuario : any = [{idusuario: '', rut: '', dvrut: '', nombre: '', apellido: '', telefono: '', correo: '', clave: '', direccion: '', fotousuario: '', respuesta: '', rolu: '', preguntau: '' }];
 
@@ -52,29 +48,12 @@ export class CambiarContraPage implements OnInit {
   }
 
   editarClave(){
-    this.sesion.fetchCorreoSesion().subscribe((correo) => {
-      this.correoUser = correo;
-      console.log("Correo recibido: "+correo);
-      console.log("Correo almacenado:"+this.correoUser);
-    })
-    
-    this.bd.dbState().subscribe(res => {
-      if(res){
-        this.bd.buscarPorCorreo(this.correoUser).subscribe(items => {
-          this.usuario = items[0];
-          if (this.usuario) {
-            this.claveNueva = this.usuario.clave;
-            console.log("ID usuario: " + this.usuario.idusuario);
 
-            this.bd.modificarClave(this.usuario.idusuario, this.claveNueva);
-            this.bd.presentAlert('La contraseña se ha modificado con éxito');
-            console.log("ID del usuario: "+this.usuario.idusuario );
-          }else{
-            console.log("No se encontró ningún usuario con ese correo.");
-          }
-        });
-      }
-    })
+    this.bd.modificarClave(this.usuario.idusuario, this.claveNueva);
+    this.bd.presentAlert('La contraseña se ha modificado con éxito');
+    console.log("ID del usuario: "+this.usuario.idusuario );
+    
+    
   }
   
   //Validaciones
@@ -84,8 +63,10 @@ export class CambiarContraPage implements OnInit {
     this.claveNuevaValida();
     this.claveRepValid();
     if(this.flag === true){
+
       this.editarClave();
       this.irHomeCli();
+      
     }
   }
 
@@ -140,7 +121,8 @@ export class CambiarContraPage implements OnInit {
 
   claveOldValida(){
     this.msjClaveOld = "";
-    if(this.usuarioActual.clave != this.claveOld){
+
+    if(this.usuario.clave !== this.claveOld){
       this.flag = false;
       this.msjClaveOld="La contraseña actual ingresada no es correcta";
     }
@@ -182,6 +164,21 @@ export class CambiarContraPage implements OnInit {
   
 
   ngOnInit() {
+
+    this.sesion.fetchCorreoSesion().subscribe((correo) => {
+      this.correoUser = correo;
+      console.log("Correo recibido: "+correo);
+      console.log("Correo almacenado:"+this.correoUser);
+    })
+    
+    this.bd.dbState().subscribe(res => {
+      if(res){
+        this.bd.buscarPorCorreo(this.correoUser).subscribe(items => {
+          this.usuario = items[0];
+          
+        });
+      }
+    })
 
   }
 
