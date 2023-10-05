@@ -26,7 +26,7 @@ export class CambiarContraPage implements OnInit {
   idStorage: any = "";
   usuarioActual!: any;
 
-  correo : string = "";
+  correoUser : string = "";
   usuario : any = [{idusuario: '', rut: '', dvrut: '', nombre: '', apellido: '', telefono: '', correo: '', clave: '', direccion: '', fotousuario: '', respuesta: '', rolu: '', preguntau: '' }];
 
   constructor(private router: Router,private menuCtrl: MenuController, private alerta: AlertController, private bd: DbserviceService, private sesion: CorreoService) { }
@@ -53,26 +53,30 @@ export class CambiarContraPage implements OnInit {
 
   editarClave(){
     this.sesion.fetchCorreoSesion().subscribe((correo) => {
-      this.correo = correo;
+      this.correoUser = correo;
       console.log("Correo recibido: "+correo);
-      console.log("Correo almacenado:"+this.correo);
+      console.log("Correo almacenado:"+this.correoUser);
     })
     
     this.bd.dbState().subscribe(res => {
       if(res){
-        this.bd.buscarPorCorreo(this.correo);
-        
-        this.bd.fetchUsuario().subscribe(items => {
-          if(items.length > 0)
-            this.usuario = items[0];
+        this.bd.buscarPorCorreo(this.correoUser).subscribe(items => {
+          this.usuario = items[0];
+          if (this.usuario) {
+            this.claveNueva = this.usuario.clave;
+            console.log("ID usuario: " + this.usuario.idusuario);
+
             this.bd.modificarClave(this.usuario.idusuario, this.claveNueva);
             this.bd.presentAlert('La contraseña se ha modificado con éxito');
             console.log("ID del usuario: "+this.usuario.idusuario );
-        })
+          }else{
+            console.log("No se encontró ningún usuario con ese correo.");
+          }
+        });
       }
     })
   }
-
+  
   //Validaciones
   envioValido(){
     this.flag = true;
