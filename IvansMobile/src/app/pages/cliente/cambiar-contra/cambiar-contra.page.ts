@@ -12,10 +12,10 @@ import { DbserviceService } from 'src/app/services/dbservice.service';
   styleUrls: ['./cambiar-contra.page.scss'],
 })
 export class CambiarContraPage implements OnInit {
-  claveOld: string= "";
-  claveNueva: string="";
-  claveRep: string="";
-  flag: boolean=true;
+  claveOld: string = "";
+  claveNueva: string = "";
+  claveRep: string = "";
+  flag: boolean = true;
   msj: string = "";
 
   msjClave: string = "";
