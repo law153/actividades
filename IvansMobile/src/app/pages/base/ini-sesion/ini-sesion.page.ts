@@ -27,55 +27,8 @@ export class IniSesionPage implements OnInit {
   }
 
 
-  async iniciarSesion(){  
 
-    this.flag = true;
-    console.log("Correo del arreglo antes de llamar a VerificarCorreo():"+this.usuario.correo);
-    await this.verificarCorreo();
-    console.log("Correo del arreglo despues de llamar a VerificarCorreo():"+this.usuario.correo);
-
-    console.log("Valor de flag despues de VerificarCorreo(): "+this.flag);
-
-    if(this.flag === true){
-
-      console.log("Valor de flag antes de claveCorrecta(): "+this.flag);
-
-      await this.claveCorrecta();
-
-      console.log("Valor de flag despues de claveCorrecta(): "+this.flag);
-
-      if(this.flag === true){
-
-        this.sesion.setCorreoSesion(this.usuario.correo);
-        
-        if(this.usuario.rolu === 1){
-          this.router.navigate(['/home-cli']);
-          this.permisos.setUserRole(1);
-        }
-        if(this.usuario.rolu === 2){
-          this.router.navigate(['/home-adm']);
-          this.permisos.setUserRole(2);
-        }
-      }
-      
-    }
-
-
-  }
-
-  async claveCorrecta(){
-    console.log("------Consola de claveCorrecta-----------");
-    console.log("Correo ingresado: "+this.correo);
-    console.log("Correo traido: "+this.usuario.correo);
-    if(this.clave !== this.usuario.clave){
-      this.flag = false;
-      this.bd.presentAlert("Correo y/o contraseña no encontrados");
-      console.log("La clave ingresado no es la correcta");
-    }
-    console.log("------Consola de claveCorrecta-----------");
-  }
-
-  async verificarCorreo(){
+  iniciarSesion(){
     this.bd.dbState().subscribe(res => {
       if(res){
         this.bd.buscarPorCorreo(this.correo).subscribe(items => {
@@ -84,6 +37,23 @@ export class IniSesionPage implements OnInit {
             this.usuario = items[0];
             console.log("Se encontró al usuario", this.usuario.nombre);
             console.log("ID usuario: "+this.usuario.idusuario);
+            if(this.clave === this.usuario.clave){
+
+              this.sesion.setCorreoSesion(this.usuario.correo);
+              
+              if(this.usuario.rolu === 1){
+                this.router.navigate(['/home-cli']);
+                this.permisos.setUserRole(1);
+              }
+              if(this.usuario.rolu === 2){
+                this.router.navigate(['/home-adm']);
+                this.permisos.setUserRole(2);
+              }
+      
+            } else{
+              this.bd.presentAlert("Correo y/o contraseña no encontrados");
+              console.log("La clave ingresado no es la correcta");
+            }
 
           } else {
             // No se encontró al usuario
