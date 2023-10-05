@@ -37,8 +37,8 @@ export class EditarPerfilPage implements OnInit {
   flag: boolean = true;
   correoUser: string = "";
   
-  usuario: any = [{idusuario: '', rut: '', dvrut: '', nombre: '', apellido: '', telefono: '', correo: '', clave: '', direccion: '', fotousuario: '', respuesta: '', rolu: '', preguntau: '' }];
-  usuarios: any = [{idusuario: '',rut: '', dvrut: '', nombre: '', apellido: '', telefono: '', correo: '', clave: '', direccion: '', fotoUsuario: '', respuesta: '', rolU: '', preguntaU: ''}];
+  usuario: any = {idusuario: '', rut: '', dvrut: '', nombre: '', apellido: '', telefono: '', correo: '', clave: '', direccion: '', fotousuario: '', respuesta: '', rolu: '', preguntau: '' };
+
   pregId: number = 0;
 
   constructor(private router: Router,private menuCtrl: MenuController, private alerta: AlertController, private bd: DbserviceService, private activedRouter: ActivatedRoute, private camara: CamaraService, private sesion: CorreoService) { }
@@ -70,8 +70,10 @@ export class EditarPerfilPage implements OnInit {
     this.preguntaValida();
     this.fonoValido();
     if(this.flag === true){
+
       this.pregId = parseInt(this.pregunta);
       this.editarPerfil();   
+      
     }
   }
 
@@ -98,12 +100,6 @@ export class EditarPerfilPage implements OnInit {
       if(this.validarRut(this.rut, this.dvrut) === false){
         this.flag = false;
         this.msjRut+="Rut invalido"+"\n";
-      }
-      for(var x of this.usuarios){
-        if(x.rut === this.rut){
-          this.msjRut+="Ese rut ya está en uso"+"\n";
-          this.flag = false;
-        }
       }
 
     }
@@ -203,12 +199,6 @@ export class EditarPerfilPage implements OnInit {
         this.flag = false;
         this.msjCorreo+="Su correo no es valido"+"\n";
         
-      }
-      for(var x of this.usuarios){
-        if(x.correo === this.correo){
-          this.msjCorreo+="Ese correo ya está en uso"+"\n";
-          this.flag = false;
-        }
       }
     }
   }
@@ -347,45 +337,40 @@ export class EditarPerfilPage implements OnInit {
     return /[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]/.test(texto);
   }
 
-  buscarUsuarios(){
-    this.bd.dbState().subscribe(res => {
-      if(res){
-        this.bd.fetchUsuario().subscribe(item => {
-          this.usuarios = item;
-        })
-      }
-    })
-  }
 
 
   ngOnInit() {
-    this.buscarUsuarios();
-
+  
     this.sesion.fetchCorreoSesion().subscribe((correo) => {
       this.correoUser = correo;
-      console.log("Correo recibido: "+correo);
-      console.log("Correo almacenado: "+this.correoUser);
+      console.log("Correo recibido: " + correo);
+      console.log("Correo almacenado: " + this.correoUser);
     });
-
+  
     this.bd.dbState().subscribe(res => {
-      if(res){
-        this.bd.buscarPorCorreo(this.correo);
-        
-        this.bd.fetchUsuario().subscribe(items => {
+      if (res) {
+        this.bd.buscarPorCorreo(this.correoUser).subscribe(items => {
           this.usuario = items[0];
-          this.nombre = this.usuario.nombre;
-          this.apellido = this.usuario.apellido;
-          this.rut = this.usuario.rut;
-          this.dvrut = this.usuario.dvrut;
-          this.correo = this.usuario.correo;
-          this.respuesta = this.usuario.respuesta;
-          this.foto = this.usuario.fotousuario;
-          this.fono = this.usuario.telefono;
-          this.pregId = this.usuario.pregId;
-          console.log("ID del usuario: "+this.usuario.idusuario );
-        })
+          if (this.usuario) {
+            this.nombre = this.usuario.nombre;
+            this.apellido = this.usuario.apellido;
+            this.rut = this.usuario.rut;
+            this.dvrut = this.usuario.dvrut;
+            this.correo = this.usuario.correo;
+            this.respuesta = this.usuario.respuesta;
+            this.direc = this.usuario.direccion;
+            this.foto = this.usuario.fotousuario;
+            this.fono = this.usuario.telefono;
+            this.pregId = this.usuario.pregId;
+            console.log("Se encontró al usuario", this.usuario.nombre);
+            console.log("ID usuario: " + this.usuario.idusuario);
+          } else {
+            console.log("No se encontró ningún usuario con ese correo.");
+          }
+        });
       }
     })
   }
+  
 
 }

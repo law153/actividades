@@ -652,7 +652,8 @@ export class DbserviceService {
   //Funciones para eliminar
 
 
-  eliminarUsuario(id:any){ 
+  eliminarUsuario(id:any){
+    console.log("ID del usuario recibido en el servicio: "+id); 
     return this.database.executeSql("DELETE FROM usuario WHERE idusuario= ?",[id]).then(res=>{
       this.buscarUsuarios();
 

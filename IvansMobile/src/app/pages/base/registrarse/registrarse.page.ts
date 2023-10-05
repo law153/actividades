@@ -39,7 +39,7 @@ export class RegistrarsePage implements OnInit {
   flag: boolean = true;
 
   //Variable para db
-  usuarios: any = [{rut: '', dvrut: '', nombre: '', apellido: '', telefono: '', correo: '', clave: '', direccion: '', fotoUsuario: '', respuesta: '', rolU: '', preguntaU: ''}];
+
   
 
   constructor(private menuCtrl: MenuController, private router: Router, private bd: DbserviceService) { }
@@ -117,13 +117,6 @@ export class RegistrarsePage implements OnInit {
       if(this.validarRut(this.rut, this.dvrut) === false){
         this.flag = false;
         this.msjRut+="Rut invalido"+"\n";
-      }
-
-      for(var x of this.usuarios){
-        if(x.rut === this.rut){
-          this.msjRut+="Ese rut ya está en uso"+"\n";
-          this.flag = false;
-        }
       }
 
     }
@@ -223,12 +216,6 @@ export class RegistrarsePage implements OnInit {
         this.flag = false;
         this.msjCorreo+="Su correo no es valido"+"\n";
         
-      }
-      for(var x of this.usuarios){
-        if(x.correo === this.correo){
-          this.msjCorreo+="Ese correo ya está en uso"+"\n";
-          this.flag = false;
-        }
       }
 
       
@@ -413,19 +400,9 @@ export class RegistrarsePage implements OnInit {
     return /^[0-9Kk]+$/.test(cadena);
   }
 
-  buscarUsuarios(){
-    this.bd.dbState().subscribe(res => {
-      if(res){
-        this.bd.fetchUsuario().subscribe(item => {
-          this.usuarios = item;
-        })
-      }
-    })
-  }
-
 
   ngOnInit() {
-    this.buscarUsuarios();
+    
   }
 
   agregar(){

@@ -12,8 +12,8 @@ import { CorreoService } from 'src/app/services/correo.service';
 export class PerfilPage implements OnInit {
   
   
-  correo: string = "";
-  usuario: any = [{idusuario: '', rut: '', dvrut: '', nombre: '', apellido: '', telefono: '', correo: '', clave: '', direccion: '', fotousuario: '', respuesta: '', rolu: '', preguntau: '' }];
+  correoUser: string = "";
+  usuario: any = {idusuario: '', rut: '', dvrut: '', nombre: '', apellido: '', telefono: '', correo: '', clave: '', direccion: '', fotousuario: '', respuesta: '', rolu: '', preguntau: '' };
 
   constructor(private router: Router,private menuCtrl: MenuController, private bd: DbserviceService, private sesion: CorreoService) { }
 
@@ -47,19 +47,19 @@ export class PerfilPage implements OnInit {
   ngOnInit() {
 
     this.sesion.fetchCorreoSesion().subscribe((correo) => {
-      this.correo = correo;
+      this.correoUser = correo;
       console.log("Correo recibido: "+correo);
-      console.log("Correo almacenado: "+this.correo);
+      console.log("Correo almacenado: "+this.correoUser);
     });
 
     this.bd.dbState().subscribe(res => {
       if(res){
-        this.bd.buscarPorCorreo(this.correo);
-        
-        this.bd.fetchUsuario().subscribe(items => {
+        this.bd.buscarPorCorreo(this.correoUser).subscribe(items => {
           this.usuario = items[0];
-          console.log("ID del usuario: "+this.usuario.idusuario );
-        })
+          console.log("Se encontró al usuario", this.usuario.nombre);
+          console.log("ID usuario: "+this.usuario.idusuario);
+
+        });
       }
     })
     
