@@ -73,7 +73,7 @@ export class EditarPerfilPage implements OnInit {
 
       this.pregId = parseInt(this.pregunta);
       this.editarPerfil();   
-      
+      this.sesion.setCorreoSesion(this.correo);
     }
   }
 
