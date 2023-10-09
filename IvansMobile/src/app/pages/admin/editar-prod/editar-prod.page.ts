@@ -25,10 +25,10 @@ export class EditarProdPage implements OnInit {
   precio: string="";
   stock: number=0;
   medida: string = "";
-  categoria: number= 0;
+  categoria: number = 0;
   foto: string | undefined;
-  flag: boolean= true;
-  msj: string="";
+  flag: boolean = true;
+  msj: string = "";
 
   codprod: number = 0;
   producto: any = [{codprod:'', nombreprod:'', descripcion: '', precio:'', stock: '', foto:'', unidadmedida: '', categoriap: ''}];

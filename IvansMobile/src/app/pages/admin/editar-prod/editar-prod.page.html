@@ -61,6 +61,7 @@
       <ion-row>
         <ion-col>
           <ion-select labelPlacement="stacked" label="Categoria" [(ngModel)]="categoria">
+            <!---<ion-select-option *ngFor="let opcion of opciones" [value]="opcion">{{ opcion.label }}</ion-select-option>!--->
             <ion-select-option value="1">Herramientas</ion-select-option>
             <ion-select-option value="2">Electricidad</ion-select-option>
             <ion-select-option value="3">Fijaciones</ion-select-option>
@@ -102,7 +103,7 @@
         <ion-col>
           <ion-select labelPlacement="stacked" label="Unidad Medida" [(ngModel)]="medida">
             <ion-select-option value="unidad1">Por unidad</ion-select-option>
-            <ion-select-option value="unidad2" selected>Por par</ion-select-option>
+            <ion-select-option value="unidad2">Por par</ion-select-option>
             <ion-select-option value="unidad3">Por metro</ion-select-option>
             <ion-select-option value="unidad4">Por docena</ion-select-option>
           </ion-select>
