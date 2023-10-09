@@ -56,9 +56,6 @@ export class PerfilPage implements OnInit {
       if(res){
         this.bd.buscarPorCorreo(this.correoUser).subscribe(items => {
           this.usuario = items[0];
-          console.log("Se encontró al usuario", this.usuario.nombre);
-          console.log("ID usuario: "+this.usuario.idusuario);
-
         });
       }
     })

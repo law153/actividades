@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AlertController, MenuController } from '@ionic/angular';
+import { CorreoService } from 'src/app/services/correo.service';
 import { DbserviceService } from 'src/app/services/dbservice.service';
 
 @Component({
@@ -14,11 +15,12 @@ export class CarritoPage implements OnInit {
   msj: string = "";
   total: string= "";
 
-  idusuario: number = 200;
+  correoUser: string = "";
+  usuario: any = {idusuario: '', rut: '', dvrut: '', nombre: '', apellido: '', telefono: '', correo: '', clave: '', direccion: '', fotousuario: '', respuesta: '', rolu: '', preguntau: '' };
   carrito: any = {};
   detalles: any = [{iddetalle: '', cantidad: '', subtotal: '', ventad: '', productod: '', nombreprod: '', precio: '', stock: '', foto: ''}];
   hayCarrito: boolean = false;
-  constructor(private router: Router,private menuCtrl: MenuController, private alerta: AlertController, private activeRouter: ActivatedRoute, private bd: DbserviceService) { 
+  constructor(private router: Router,private menuCtrl: MenuController, private alerta: AlertController, private activeRouter: ActivatedRoute, private bd: DbserviceService,  private sesion: CorreoService) { 
   }
 
   irHomeCli(){
@@ -74,9 +76,24 @@ export class CarritoPage implements OnInit {
 
   ngOnInit() {
 
+    this.sesion.fetchCorreoSesion().subscribe((correo) => {
+      this.correoUser = correo;
+      console.log("Correo recibido: " + correo);
+      console.log("Correo almacenado: " + this.correoUser);
+    });
+
+
+
     this.bd.dbState().subscribe(res => {
       if (res) {
-        this.bd.buscarVentaCarrito(this.idusuario, 'Activo');
+
+        this.bd.buscarPorCorreo(this.correoUser).subscribe(items => {
+          this.usuario = items[0];
+          console.log("Se encontró al usuario", this.usuario.nombre);
+          console.log("ID usuario: "+this.usuario.idusuario);
+        });
+
+        this.bd.buscarVentaCarrito(this.usuario.idusuario, 'Activo');
     
         this.bd.fetchVenta().subscribe(items => {
 
@@ -87,12 +104,14 @@ export class CarritoPage implements OnInit {
             console.log("Id de venta:"+this.carrito.idventa);
 
             this.hayCarrito = true;
-            
+
             this.bd.buscarDetallesVenta(this.carrito.idventa);
 
             this.bd.fetchDetallesVenta().subscribe(items => {
+
               this.detalles = items;
-              console.log("Id detalle"+this.detalles[0].iddetalle); //Tira este mensaje como Undefined
+              console.log("Id detalle"+this.detalles[0].iddetalle);
+
             })
 
           } else {
