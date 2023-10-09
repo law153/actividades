@@ -149,7 +149,7 @@ export class EditarProdPage implements OnInit {
   categoriaValido(){
     this.msjCate = "";
 
-    if(this.medida.length === 0){
+    if(this.categoria === 0){
       this.flag = false;
       this.msjCate+="Debe seleccionar una categoría"+"\n";
     }
