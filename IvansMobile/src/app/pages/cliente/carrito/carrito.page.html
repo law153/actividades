@@ -38,7 +38,8 @@
     </ion-row>
     <br>
     <div *ngIf="(hayCarrito === true)">
-      <app-prod-carrito *ngFor="let x of detalles" nombreProd="x.nombreprod" precioProd="x.precioprod" imagenProd="x.foto" cantidadProd="x.cantidad"></app-prod-carrito>
+      <app-prod-carrito *ngFor="let x of detalles" [nombreProd]="x.nombreprod" [precioProd]="x.precio" [imagenProd]="x.foto" [cantidadProd]="x.cantidad"></app-prod-carrito>
+
       
 
       <ion-row>

@@ -50,6 +50,7 @@ export class ProductosPage implements OnInit {
 
   comprar(){
     this.bd.dbState().subscribe(res => {
+
       if (res) {
         this.bd.buscarVentaCarrito(this.idusuario, 'Activo');
     
@@ -57,14 +58,20 @@ export class ProductosPage implements OnInit {
           if (items.length > 0) {
             
             this.venta = items[0];
-            this.bd.buscarDetalleProd(this.producto.codprod);
+            this.bd.buscarDetalleProd(this.producto.codprod, this.venta.idventa);
             this.bd.fetchDetalle().subscribe(details => {
               if (details.length > 0) {
                 this.detalle = details[0];
                 this.bd.modificarDetalle(this.venta.idventa, this.detalle.subtotal+this.producto.precio, this.detalle.cantidad+1);
+                console.log("-------------------------------------");
+                console.log("  Se esta modificando el detalle ya previamente existente");
+                console.log("-------------------------------------");
                 
               } else{
                 this.bd.agregarDetalle(1, this.producto.precio, this.venta.idventa, this.producto.codprod);
+                console.log("-------------------------------------");
+                console.log("Se esta agregando un nuevo detalle");
+                console.log("-------------------------------------");
               }
 
             })
@@ -77,6 +84,7 @@ export class ProductosPage implements OnInit {
           }
         })
       }
+      
     })
     this.router.navigate(['carrito']);
   }

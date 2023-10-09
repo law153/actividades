@@ -58,7 +58,7 @@ export class DbserviceService {
   usuarioClienteDefault: string = "INSERT OR IGNORE INTO usuario(idusuario, rut, dvrut, nombre, apellido, telefono, correo, clave, direccion, fotousuario, respuesta, rolu, preguntau) VALUES ('200', 11111111, '1', 'Javier', 'Maldonado', '12345678', 'javicci@gmail.com', 'umigod', 'Camarones 1313', '/assets/imagen.jpg', 'Umi', 1, 1);";
   usuarioAdminDefault: string = "INSERT OR IGNORE INTO usuario(idusuario, rut, dvrut, nombre, apellido, telefono, correo, clave, direccion, fotousuario, respuesta, rolu, preguntau) VALUES ('201', 22222222, '2', 'Ivan', 'Fuentes', '87654321', 'ivanfuentes@gmail.com', 'ivans', 'Piedra Roja 11', '/assets/icono-perfil.png', 'Negro', 2, 3);";
   //Productos
-  producto1Default: string = "INSERT OR IGNORE INTO producto(codprod, nombreprod, descripcion, precio, stock, foto, unidadmedida, categoriap) VALUES(200, 'Destornillador','Hola buenas tardes soy un destornillador', 5000, 50, '/assets/destornillador.jpg', 'Por unidad', 1);";
+  producto1Default: string = "INSERT OR IGNORE INTO producto(codprod, nombreprod, descripcion, precio, stock, foto, unidadmedida, categoriap) VALUES(200, 'Destornillador','Hola buenas tardes soy un destornillador', 2000, 50, '/assets/destornillador.jpg', 'Por unidad', 1);";
   producto2Default: string = "INSERT OR IGNORE INTO producto(codprod, nombreprod, descripcion, precio, stock, foto, unidadmedida, categoriap) VALUES(201, 'Bateria','Hola buenas tardes soy una bateria', 1000, 50, '/assets/Bateria.jpg', 'Por docena', 2);";
   producto3Default: string = "INSERT OR IGNORE INTO producto(codprod, nombreprod, descripcion, precio, stock, foto, unidadmedida, categoriap) VALUES(202, 'Pestillo','Hola buenas tardes soy un pestillo', 2500, 50, '/assets/pestillo.jpg', 'Por unidad', 3);";
   //Ventas
@@ -132,7 +132,7 @@ export class DbserviceService {
   }
 
   fetchDetallesVenta(): Observable<DetallesVenta[]>{
-    return this.listaDetalleComprado.asObservable();
+    return this.listaDetallesVenta.asObservable();
   }
 
 
@@ -259,37 +259,6 @@ export class DbserviceService {
 
     })
   }
-
-  /*buscarPorCorreo(correo:any){ 
-    console.log("Correo recibido en el servicio: " + correo);
-    return this.database.executeSql("SELECT * FROM usuario WHERE correo = ?;",[correo]).then(res =>{
-      //todo bien
-      let items: Usuario[] = [];
-      //Validar cantidad registros
-      if(res.rows.length > 0){
-        //Recorrer los datos
-        for(var i = 0; i < res.rows.length; i++ ){
-          //Guardando los datos
-          items.push({ 
-            idusuario: res.rows.item(i).idusuario,
-            rut: res.rows.item(i).rut,
-            dvrut: res.rows.item(i).dvrut,
-            nombre: res.rows.item(i).nombre,
-            apellido: res.rows.item(i).apellido,
-            telefono: res.rows.item(i).telefono,
-            correo: res.rows.item(i).correo,
-            clave: res.rows.item(i).clave,
-            direccion: res.rows.item(i).direccion,
-            fotousuario: res.rows.item(i).fotousuario,
-            respuesta: res.rows.item(i).respuesta,
-            rolu: res.rows.item(i).rolu,
-            preguntau: res.rows.item(i).preguntau
-           });
-        }
-      }
-      this.listaUsuario.next(items as any);
-    })
-  }*/
 
   buscarPorCorreo(correo: any): Observable<Usuario[]> {
     console.log("Correo recibido en el servicio: " + correo);
@@ -481,6 +450,7 @@ export class DbserviceService {
   }
 
   buscarVentaCarrito(usuario: any, estado: any){
+    console.log("Usuario recibido: "+usuario+" estado: "+estado);
     return this.database.executeSql("SELECT * FROM venta WHERE usuariov = ? AND estado = ?;",[usuario, estado]).then(res =>{
       //todo bien
       let items: Venta[] = [];
@@ -550,8 +520,9 @@ export class DbserviceService {
 
     })
   }
-  buscarDetalleProd(id: any){
-    return this.database.executeSql("SELECT * FROM detalle WHERE productod = ?;",[id]).then(res =>{
+  buscarDetalleProd(prod: any, venta: any){
+    console.log("ID del producto recibido: "+prod+" ID de la venta recibido: "+venta);
+    return this.database.executeSql("SELECT * FROM detalle WHERE productod = ? AND ventad = ?;",[prod, venta]).then(res =>{
       //todo bien
       let items: Detalle[] = [];
       //Validar cantidad registros
@@ -574,6 +545,7 @@ export class DbserviceService {
   }
 
   buscarDetallesVenta(venta: any){
+    console.log("ID de la venta recibido: "+venta);
     return this.database.executeSql("SELECT d.iddetalle, d.cantidad, d.subtotal, p.nombreprod, p.precio, p.stock, p.foto FROM detalle d JOIN producto p ON(d.productod = p.codprod) WHERE ventad = ?;",[venta]).then(res =>{
       //todo bien
       let items: DetallesVenta[] = [];
@@ -813,7 +785,7 @@ export class DbserviceService {
   }
   
   modificarDetalle(id: any, subtotal: any, cantidad: any){  
-    return this.database.executeSql("UPDATE detalle SET subtotal = ?, cantidad = ? WHERE idventa = ?",[subtotal, cantidad, id]).then(res =>{
+    return this.database.executeSql("UPDATE detalle SET subtotal = ?, cantidad = ? WHERE ventad = ?",[subtotal, cantidad, id]).then(res =>{
       this.buscarDetalles();
     })
   }
