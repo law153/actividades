@@ -34,6 +34,8 @@ export class EditarProdPage implements OnInit {
   producto: any = [{codprod:'', nombreprod:'', descripcion: '', precio:'', stock: '', foto:'', unidadmedida: '', categoriap: ''}];
   categorias: any = [{idcategoria: '', nombrecategoria: ''}];
 
+  categoriaselec: any = [{idcategoriaselec: '', nombrecategoriaselec: ''}];
+
   constructor(private router: Router, private alerta: AlertController, private activeRouter: ActivatedRoute, private menuCtrl: MenuController, private bd: DbserviceService, private camara: CamaraService) {
    }
 
@@ -49,6 +51,10 @@ export class EditarProdPage implements OnInit {
 
   irHomeAdm(){
     this.router.navigate(['home-adm'])    
+  }
+
+  compareWith(o1 : any, o2 : any) {
+    return o1 && o2 ? o1.id === o2.id : o1 === o2;
   }
 
   //Validaciones
@@ -195,13 +201,13 @@ export class EditarProdPage implements OnInit {
         
         this.bd.dbState().subscribe(res => {
           if(res){
-
             this.bd.fetchCategoria().subscribe(items => {
               this.categorias = items;
             })
 
             console.log("Codprod: "+this.codprod);
             this.bd.buscarProducto(this.codprod);
+            
 
             
             this.bd.fetchProducto().subscribe(items => {
@@ -216,13 +222,18 @@ export class EditarProdPage implements OnInit {
               this.categoria = this.producto.categoriap;
               this.foto = this.producto.foto;
             })
+
+            this.bd.buscarCategoriaPorId(this.id)
+
+            this.bd.fetchCategoriaIndividual().subscribe(items => {
+              this.categoriaselec = items[0]; 
+            })
             
           }
         })
       }
     });
 
-    
   }
 
 }

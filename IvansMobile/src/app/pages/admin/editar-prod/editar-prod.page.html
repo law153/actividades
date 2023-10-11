@@ -60,7 +60,7 @@
 
       <ion-row>
         <ion-col>
-          <ion-select labelPlacement="stacked" label="Categoria" [(ngModel)]="categoria">
+          <ion-select labelPlacement="stacked" label="Categoria" [(ngModel)]="categoria" [compareWith]="compareWith">
             <!---<ion-select-option *ngFor="let opcion of opciones" [value]="opcion">{{ opcion.label }}</ion-select-option>
             <ion-select-option value="1">Herramientas</ion-select-option>
             <ion-select-option value="2">Electricidad</ion-select-option>

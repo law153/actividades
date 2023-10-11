@@ -81,6 +81,8 @@ export class DbserviceService {
   listaCategoria = new BehaviorSubject([]);
   listaPregunta = new BehaviorSubject([]);
   listaDetallesVenta = new BehaviorSubject([]);
+
+  listaCategoriaIndividual = new BehaviorSubject([]);
   
   //Observable estatus o de bandera
   private flag: BehaviorSubject<boolean> = new BehaviorSubject(false);
@@ -135,6 +137,10 @@ export class DbserviceService {
     return this.listaDetallesVenta.asObservable();
   }
 
+  fetchCategoriaIndividual(): Observable<Categoria[]>{
+    return this.listaCategoriaIndividual.asObservable();
+  }
+
 
   promiseDetalle(): Promise<Detalle[]> {
     return new Promise((resolve) => {
@@ -174,8 +180,8 @@ export class DbserviceService {
     })
   }
 
-  buscarCategoriaPorId(id : any){
-    return this.database.executeSql("SELECT FROM categoria where idcategoria = ?;", []).then(res =>{
+  buscarCategoriaPorId(idCategoria : any){
+    return this.database.executeSql("SELECT FROM categoria where idcategoria = ?;", [idCategoria]).then(res =>{
       let items: Categoria[] = [];
       if(res.rows.length > 0){
         for(var i = 0; i < res.rows.length; i++){
@@ -185,7 +191,7 @@ export class DbserviceService {
           });
         }
       }
-      this.listaCategoria.next(items as any);
+      this.listaCategoriaIndividual.next(items as any);
     })
   }
 
