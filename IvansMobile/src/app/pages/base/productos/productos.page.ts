@@ -59,9 +59,9 @@ export class ProductosPage implements OnInit {
     this.router.navigate(['carrito']);
   }
   
-  verificarCarritoActivo() {
+  async verificarCarritoActivo() {
     this.bd.buscarVentaCarrito(this.usuario.idusuario, 'Activo');
-    this.bd.fetchVenta().subscribe((ventas) => {
+    this.bd.promiseVenta().then((ventas) => {
       if (ventas.length > 0) {
         this.venta = ventas[0];
         this.verificarDetalleExistente();
@@ -71,9 +71,9 @@ export class ProductosPage implements OnInit {
     });
   }
   
-  verificarDetalleExistente() {
+  async verificarDetalleExistente() {
     this.bd.buscarDetalleProd(this.producto.codprod, this.venta.idventa);
-    this.bd.fetchDetalle().subscribe((detalles) => {
+    this.bd.promiseDetalle().then((detalles) => {
       if (detalles.length > 0) {
         this.detalle = detalles[0];
         this.modificarDetalleExistente();
@@ -101,7 +101,7 @@ export class ProductosPage implements OnInit {
     console.log("-------------------------------------");
   }
   
-  crearNuevoCarrito() {
+  async crearNuevoCarrito() {
     this.fechaEntrega.setDate(this.fechaActual.getDate() + this.diasSumar);
     this.venta = this.bd.agregarVenta(
       this.fechaActual,
