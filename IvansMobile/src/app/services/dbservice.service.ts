@@ -136,6 +136,24 @@ export class DbserviceService {
   }
 
 
+  promiseDetalle(): Promise<Detalle[]> {
+    return new Promise((resolve) => {
+      this.listaDetalle.subscribe((data: Detalle[]) => {
+        resolve(data);
+      });
+    });
+  }
+  
+  promiseVenta(): Promise<Venta[]> {
+    return new Promise((resolve) => {
+      this.listaVenta.subscribe((data: Venta[]) => {
+        resolve(data);
+      });
+    });
+  }
+  
+
+
 
   buscarCategorias(){ 
     return this.database.executeSql("SELECT * FROM categoria;",[]).then(res =>{
@@ -308,7 +326,6 @@ export class DbserviceService {
   }
 
   buscarPorRut(rut: any): Observable<Usuario[]> {
-    console.log("Rut recibido con éxito: "+ rut);
     return new Observable<Usuario[]> (observer => {
       this.database.executeSql("SELECT * from usuario where rut = ?;",[rut]).then(res => {
         let items: Usuario[] = [];
@@ -465,7 +482,7 @@ export class DbserviceService {
   }
 
   buscarVentaCarrito(usuario: any, estado: any){
-    console.log("Usuario recibido: "+usuario+" estado: "+estado);
+    console.log("ID del usuario recibido: "+usuario+" estado: "+estado);
     return this.database.executeSql("SELECT * FROM venta WHERE usuariov = ? AND estado = ?;",[usuario, estado]).then(res =>{
       //todo bien
       let items: Venta[] = [];
