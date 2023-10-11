@@ -32,7 +32,8 @@ export class EditarProdPage implements OnInit {
 
   codprod: number = 0;
   producto: any = [{codprod:'', nombreprod:'', descripcion: '', precio:'', stock: '', foto:'', unidadmedida: '', categoriap: ''}];
-  
+  categorias: any = [{idcategoria: '', nombrecategoria: ''}];
+
   constructor(private router: Router, private alerta: AlertController, private activeRouter: ActivatedRoute, private menuCtrl: MenuController, private bd: DbserviceService, private camara: CamaraService) {
    }
 
@@ -194,8 +195,14 @@ export class EditarProdPage implements OnInit {
         
         this.bd.dbState().subscribe(res => {
           if(res){
+
+            this.bd.fetchCategoria().subscribe(items => {
+              this.categorias = items;
+            })
+
             console.log("Codprod: "+this.codprod);
             this.bd.buscarProducto(this.codprod);
+
             
             this.bd.fetchProducto().subscribe(items => {
               this.producto = items[0];

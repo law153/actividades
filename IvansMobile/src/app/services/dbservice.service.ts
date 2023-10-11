@@ -156,6 +156,21 @@ export class DbserviceService {
     })
   }
 
+  buscarCategoriaPorId(id : any){
+    return this.database.executeSql("SELECT FROM categoria where idcategoria = ?;", []).then(res =>{
+      let items: Categoria[] = [];
+      if(res.rows.length > 0){
+        for(var i = 0; i < res.rows.length; i++){
+          items.push({
+            idcategoria: res.rows.item(i).idcategoria,
+            nombrecategoria: res.rows.items(i).nombrecategoria
+          });
+        }
+      }
+      this.listaCategoria.next(items as any);
+    })
+  }
+
   buscarPregunta(){ 
     return this.database.executeSql("SELECT * FROM pregunta;",[]).then(res =>{
       //todo bien
