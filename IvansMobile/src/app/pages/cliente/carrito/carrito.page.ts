@@ -92,11 +92,11 @@ export class CarritoPage implements OnInit {
           this.idusuario = this.usuario.idusuario;
 
           console.log("ID del usuario: "+this.usuario.idusuario);
-          this.bd.buscarVentaCarrito(this.idusuario, 'Activo').subscribe(items => {
+          this.bd.buscarVentaCarrito(this.idusuario, 'Activo').subscribe(carrito => {
 
-            if (items.length === 1) {
+            if (carrito.length === 1) {
 
-              this.carrito = items[0];
+              this.carrito = carrito[0];
               this.hayCarrito = true;
               console.log("ID del carrito: "+this.carrito.idventa);
 
