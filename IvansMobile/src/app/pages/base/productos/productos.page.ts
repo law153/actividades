@@ -64,7 +64,7 @@ export class ProductosPage implements OnInit {
                 this.detalle = detalles[0];
                 console.log("ID DEL DETALLE ENCONTRADO: "+this.detalle.iddetalle);
                 this.bd.modificarDetalle(this.detalle.iddetalle,this.detalle.subtotal + this.producto.precio,this.detalle.cantidad + 1);
-                this.bd.modificarTotal(this.venta.id, this.venta.total + this.producto.precio);
+                this.bd.modificarTotal(this.venta.idventa, this.venta.total + this.producto.precio);
                 console.log("-------------------------------------");
                 console.log("  Se está modificando el detalle ya previamente existente");
                 console.log("-------------------------------------");
@@ -73,7 +73,7 @@ export class ProductosPage implements OnInit {
               
               } else {
                 this.detalle = this.bd.agregarDetalle(1, this.producto.precio, this.venta.idventa, this.producto.codprod);
-                this.bd.modificarTotal(this.venta.id, this.venta.total + this.producto.precio);
+                this.bd.modificarTotal(this.venta.idventa, this.venta.total + this.producto.precio);
                 console.log("ID DEL DETALLE CREADO: "+this.detalle.iddetalle);
                 console.log("-------------------------------------");
                 console.log("Se está agregando un nuevo detalle");
@@ -82,7 +82,7 @@ export class ProductosPage implements OnInit {
               } 
 
             });
-            
+
           } else {
 
             this.fechaEntrega.setDate(this.fechaActual.getDate() + this.diasSumar);
