@@ -480,6 +480,7 @@ export class DbserviceService {
   }
 
   buscarVentaCarrito(usuario: any, estado: any): Observable<Venta[]> {
+    console.log("ID del usuario que recibio la busqueda del carrito: "+usuario);
     return new Observable<Venta[]>(observer => {
       this.database.executeSql("SELECT * FROM venta WHERE usuariov = ? AND estado = ?;", [usuario, estado]).then(res => {
         let items: Venta[] = [];
@@ -572,32 +573,31 @@ export class DbserviceService {
     });
   }
 
-  buscarDetallesVenta(venta: any){
-    console.log("ID de la venta recibido: "+venta);
-    return this.database.executeSql("SELECT d.iddetalle, d.cantidad, d.subtotal, p.nombreprod, p.precio, p.stock, p.foto FROM detalle d JOIN producto p ON(d.productod = p.codprod) WHERE ventad = ?;",[venta]).then(res =>{
-      //todo bien
-      let items: DetallesVenta[] = [];
-      //Validar cantidad registros
-      if(res.rows.length > 0){
-        //Recorrer los datos
-        for(var i = 0; i < res.rows.length; i++ ){
-          //Guardando los datos
-          items.push({ 
-            iddetalle: res.rows.item(i).iddetalle,
-            cantidad: res.rows.item(i).cantidad,
-            subtotal: res.rows.item(i).subtotal,
-            ventad: res.rows.item(i).ventad,
-            productod: res.rows.item(i).productod,
-            nombreprod: res.rows.item(i).nombreprod,
-            precio: res.rows.item(i).precio,
-            stock: res.rows.item(i).stock,
-            foto: res.rows.item(i).foto
-           });
+  buscarDetallesVenta(venta: any): Observable<DetallesVenta[]> {
+    return new Observable<DetallesVenta[]>(observer => {
+      this.database.executeSql("SELECT d.iddetalle, d.cantidad, d.subtotal, p.nombreprod, p.precio, p.stock, p.foto FROM detalle d JOIN producto p ON(d.productod = p.codprod) WHERE ventad = ?;", [venta]).then(res => {
+        let items: DetallesVenta[] = [];
+  
+        if (res.rows.length > 0) {
+          for (let i = 0; i < res.rows.length; i++) {
+            items.push({
+              iddetalle: res.rows.item(i).iddetalle,
+              cantidad: res.rows.item(i).cantidad,
+              subtotal: res.rows.item(i).subtotal,
+              ventad: res.rows.item(i).ventad,
+              productod: res.rows.item(i).productod,
+              nombreprod: res.rows.item(i).nombreprod,
+              precio: res.rows.item(i).precio,
+              stock: res.rows.item(i).stock,
+              foto: res.rows.item(i).foto
+            });
+          }
         }
-      }
-      this.listaDetallesVenta.next(items as any);
-
-    })
+  
+        observer.next(items);
+        observer.complete();
+      });
+    });
   }
 
   buscarDetallesCompra(){

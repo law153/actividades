@@ -92,26 +92,27 @@ export class CarritoPage implements OnInit {
           this.idusuario = this.usuario.idusuario;
 
           console.log("ID del usuario: "+this.usuario.idusuario);
-          this.bd.buscarVentaCarrito(this.idusuario, 'Activo');
+          this.bd.buscarVentaCarrito(this.idusuario, 'Activo').subscribe(items => {
 
-          this.bd.fetchVenta().subscribe((items) => {
+            if (items.length === 1) {
 
-            if (items.length > 0) {
               this.carrito = items[0];
               this.hayCarrito = true;
               console.log("ID del carrito: "+this.carrito.idventa);
-              this.bd.buscarDetallesVenta(this.carrito.idventa);
-              this.bd.fetchDetallesVenta().subscribe((detalles) => {
+
+              this.bd.buscarDetallesVenta(this.carrito.idventa).subscribe(detalles => {
                 this.detalles = detalles; // Actualiza la lista de detalles
               });
+
             } else {
               this.hayCarrito = false; // No se encontró un carrito activo
               this.bd.presentAlert("No hay un carrito activo!");
             }
+
             console.log("Estado del carrito: "+this.hayCarrito);
 
           });
-        
+
         });
 
       }
