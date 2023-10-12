@@ -2,7 +2,7 @@
 import { Injectable } from '@angular/core';
 import { SQLiteObject, SQLite } from '@awesome-cordova-plugins/sqlite/ngx';
 import { Platform } from '@ionic/angular';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, firstValueFrom, lastValueFrom } from 'rxjs';
 import { AlertController } from '@ionic/angular';
 import { Rol } from './rol';
 import { Categoria } from './categoria';
@@ -143,19 +143,11 @@ export class DbserviceService {
 
 
   promiseDetalle(): Promise<Detalle[]> {
-    return new Promise((resolve) => {
-      this.listaDetalle.subscribe((data: Detalle[]) => {
-        resolve(data);
-      });
-    });
+    return firstValueFrom(this.listaDetalle);
   }
   
   promiseVenta(): Promise<Venta[]> {
-    return new Promise((resolve) => {
-      this.listaVenta.subscribe((data: Venta[]) => {
-        resolve(data);
-      });
-    });
+    return firstValueFrom(this.listaVenta);
   }
   
 
@@ -487,30 +479,29 @@ export class DbserviceService {
     })
   }
 
-  buscarVentaCarrito(usuario: any, estado: any){
-    console.log("ID del usuario recibido: "+usuario+" estado: "+estado);
-    return this.database.executeSql("SELECT * FROM venta WHERE usuariov = ? AND estado = ?;",[usuario, estado]).then(res =>{
-      //todo bien
-      let items: Venta[] = [];
-      //Validar cantidad registros
-      if(res.rows.length > 0){
-        //Recorrer los datos
-        for(var i = 0; i < res.rows.length; i++ ){
-          //Guardando los datos
-          items.push({ 
-            idventa: res.rows.item(i).idventa,
-            fechaventa: res.rows.item(i).fechaventa,
-            estado: res.rows.item(i).estado,
-            fechaentrega: res.rows.item(i).fechaentrega,
-            total: res.rows.item(i).total,
-            carrito: res.rows.item(i).carrito,
-            usuariov: res.rows.item(i).usuariov
-           });
+  buscarVentaCarrito(usuario: any, estado: any): Observable<Venta[]> {
+    return new Observable<Venta[]>(observer => {
+      this.database.executeSql("SELECT * FROM venta WHERE usuariov = ? AND estado = ?;", [usuario, estado]).then(res => {
+        let items: Venta[] = [];
+  
+        if (res.rows.length > 0) {
+          for (let i = 0; i < res.rows.length; i++) {
+            items.push({
+              idventa: res.rows.item(i).idventa,
+              fechaventa: res.rows.item(i).fechaventa,
+              estado: res.rows.item(i).estado,
+              fechaentrega: res.rows.item(i).fechaentrega,
+              total: res.rows.item(i).total,
+              carrito: res.rows.item(i).carrito,
+              usuariov: res.rows.item(i).usuariov
+            });
+          }
         }
-      }
-      this.listaVenta.next(items as any);
-
-    })
+  
+        observer.next(items);
+        observer.complete();
+      });
+    });
   }
 
   buscarDetalles(){
@@ -558,28 +549,27 @@ export class DbserviceService {
 
     })
   }
-  buscarDetalleProd(prod: any, venta: any){
-    console.log("ID del producto recibido: "+prod+" ID de la venta recibido: "+venta);
-    return this.database.executeSql("SELECT * FROM detalle WHERE productod = ? AND ventad = ?;",[prod, venta]).then(res =>{
-      //todo bien
-      let items: Detalle[] = [];
-      //Validar cantidad registros
-      if(res.rows.length > 0){
-        //Recorrer los datos
-        for(var i = 0; i < res.rows.length; i++ ){
-          //Guardando los datos
-          items.push({ 
-            iddetalle: res.rows.item(i).iddetalle,
-            cantidad: res.rows.item(i).cantidad,
-            subtotal: res.rows.item(i).subtotal,
-            ventad: res.rows.item(i).ventad,
-            productod: res.rows.item(i).productod
-           });
+  buscarDetalleProd(prod: any, venta: any): Observable<Detalle[]> {
+    return new Observable<Detalle[]>(observer => {
+      this.database.executeSql("SELECT * FROM detalle WHERE productod = ? AND ventad = ?;", [prod, venta]).then(res => {
+        let items: Detalle[] = [];
+  
+        if (res.rows.length > 0) {
+          for (let i = 0; i < res.rows.length; i++) {
+            items.push({
+              iddetalle: res.rows.item(i).iddetalle,
+              cantidad: res.rows.item(i).cantidad,
+              subtotal: res.rows.item(i).subtotal,
+              ventad: res.rows.item(i).ventad,
+              productod: res.rows.item(i).productod
+            });
+          }
         }
-      }
-      this.listaDetalle.next(items as any);
-
-    })
+  
+        observer.next(items);
+        observer.complete();
+      });
+    });
   }
 
   buscarDetallesVenta(venta: any){
@@ -823,7 +813,7 @@ export class DbserviceService {
   }
   
   modificarDetalle(id: any, subtotal: any, cantidad: any){  
-    return this.database.executeSql("UPDATE detalle SET subtotal = ?, cantidad = ? WHERE ventad = ?",[subtotal, cantidad, id]).then(res =>{
+    return this.database.executeSql("UPDATE detalle SET subtotal = ?, cantidad = ? WHERE iddetalle = ?",[subtotal, cantidad, id]).then(res =>{
       this.buscarDetalles();
     })
   }

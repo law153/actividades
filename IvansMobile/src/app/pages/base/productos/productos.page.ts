@@ -51,67 +51,49 @@ export class ProductosPage implements OnInit {
   }
 
   comprar() {
-    this.bd.dbState().subscribe((res) => {
-      if (res) {
-        this.verificarCarritoActivo();
-      }
-    });
-    this.router.navigate(['carrito']);
-  }
-  
-  async verificarCarritoActivo() {
-    this.bd.buscarVentaCarrito(this.usuario.idusuario, 'Activo');
-    this.bd.promiseVenta().then((ventas) => {
-      if (ventas.length > 0) {
-        this.venta = ventas[0];
-        this.verificarDetalleExistente();
-      } else {
-        this.crearNuevoCarrito();
-      }
-    });
-  }
-  
-  async verificarDetalleExistente() {
-    this.bd.buscarDetalleProd(this.producto.codprod, this.venta.idventa);
-    this.bd.promiseDetalle().then((detalles) => {
-      if (detalles.length > 0) {
-        this.detalle = detalles[0];
-        this.modificarDetalleExistente();
-      } else {
-        this.agregarNuevoDetalle();
-      }
-    });
-  }
-  
-  modificarDetalleExistente() {
-    this.bd.modificarDetalle(
-      this.venta.idventa,
-      this.detalle.subtotal + this.producto.precio,
-      this.detalle.cantidad + 1
-    );
-    console.log("-------------------------------------");
-    console.log("  Se está modificando el detalle ya previamente existente");
-    console.log("-------------------------------------");
-  }
-  
-  agregarNuevoDetalle() {
-    this.bd.agregarDetalle(1, this.producto.precio, this.venta.idventa, this.producto.codprod);
-    console.log("-------------------------------------");
-    console.log("Se está agregando un nuevo detalle");
-    console.log("-------------------------------------");
-  }
-  
-  async crearNuevoCarrito() {
-    this.fechaEntrega.setDate(this.fechaActual.getDate() + this.diasSumar);
-    this.venta = this.bd.agregarVenta(
-      this.fechaActual,
-      'Activo',
-      '11/11/2030',
-      this.producto.precio,
-      'C',
-      this.usuario.idusuario
-    );
-    this.bd.agregarDetalle(1, this.producto.precio, this.venta.idventa, this.producto.codprod);
+
+        this.bd.buscarVentaCarrito(this.usuario.idusuario, 'Activo').subscribe(ventas =>{
+
+          if (ventas.length > 0) {
+            this.venta = ventas[0];
+
+            this.bd.buscarDetalleProd(this.producto.codprod, this.venta.idventa).subscribe(detalles => {
+
+              if (detalles.length === 1) {
+                
+                this.detalle = detalles[0];
+                console.log("ID DEL DETALLE ENCONTRADO: "+this.detalle.iddetalle);
+                this.bd.modificarDetalle(this.detalle.iddetalle,this.detalle.subtotal + this.producto.precio,this.detalle.cantidad + 1);
+                this.bd.modificarTotal(this.venta.id, this.venta.total + this.producto.precio);
+                console.log("-------------------------------------");
+                console.log("  Se está modificando el detalle ya previamente existente");
+                console.log("-------------------------------------");
+                console.log("Se usó el del detalle que ya existe aaaaaaaaaaaaaaa")
+                this.router.navigate(['carrito']);
+              
+              } else {
+                this.detalle = this.bd.agregarDetalle(1, this.producto.precio, this.venta.idventa, this.producto.codprod);
+                this.bd.modificarTotal(this.venta.id, this.venta.total + this.producto.precio);
+                console.log("ID DEL DETALLE CREADO: "+this.detalle.iddetalle);
+                console.log("-------------------------------------");
+                console.log("Se está agregando un nuevo detalle");
+                console.log("-------------------------------------");
+                this.router.navigate(['carrito']);
+              } 
+
+            });
+            
+          } else {
+
+            this.fechaEntrega.setDate(this.fechaActual.getDate() + this.diasSumar);
+            this.venta = this.bd.agregarVenta(this.fechaActual,'Activo','11/11/2030',this.producto.precio,'C',this.usuario.idusuario);
+            this.bd.agregarDetalle(1, this.producto.precio, this.venta.idventa, this.producto.codprod);
+            this.router.navigate(['carrito']);
+          }
+
+
+        });
+    
   }
   
 
@@ -136,8 +118,6 @@ export class ProductosPage implements OnInit {
         if(this.correoUser !== ""){
           this.bd.buscarPorCorreo(this.correoUser).subscribe(items => {
             this.usuario = items[0];
-            console.log("Se encontró al usuario", this.usuario.nombre);
-            console.log("ID usuario: "+this.usuario.idusuario);
           });
         }
         
