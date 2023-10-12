@@ -34,7 +34,7 @@ export class EditarProdPage implements OnInit {
   producto: any = [{codprod:'', nombreprod:'', descripcion: '', precio:'', stock: '', foto:'', unidadmedida: '', categoriap: ''}];
   categorias: any = [{idcategoria: '', nombrecategoria: ''}];
 
-  categoriaselec: any = [{idcategoriaselec: '', nombrecategoriaselec: ''}];
+  categoriaselec: any = [{idcategoria: '', nombrecategoria: ''}];
 
   constructor(private router: Router, private alerta: AlertController, private activeRouter: ActivatedRoute, private menuCtrl: MenuController, private bd: DbserviceService, private camara: CamaraService) {
    }
@@ -53,7 +53,7 @@ export class EditarProdPage implements OnInit {
     this.router.navigate(['home-adm'])    
   }
 
-  compareWith(o1 : any, o2 : any) {
+  compareWith(o1 : any, o2 : any): boolean{
     return o1 && o2 ? o1.id === o2.id : o1 === o2;
   }
 
@@ -201,6 +201,8 @@ export class EditarProdPage implements OnInit {
         
         this.bd.dbState().subscribe(res => {
           if(res){
+            this.bd.buscarCategorias()
+
             this.bd.fetchCategoria().subscribe(items => {
               this.categorias = items;
             })
@@ -223,10 +225,11 @@ export class EditarProdPage implements OnInit {
               this.foto = this.producto.foto;
             })
 
-            this.bd.buscarCategoriaPorId(this.id)
+            this.bd.buscarCategoriaPorId(this.categorias.idcategoria);
 
             this.bd.fetchCategoriaIndividual().subscribe(items => {
               this.categoriaselec = items[0]; 
+
             })
             
           }
