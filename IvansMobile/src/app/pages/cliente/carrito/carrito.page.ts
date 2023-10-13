@@ -22,7 +22,46 @@ export class CarritoPage implements OnInit {
   hayCarrito: boolean = true;
   idusuario: number = 0;
   constructor(private router: Router,private menuCtrl: MenuController, private alerta: AlertController, private activeRouter: ActivatedRoute, private bd: DbserviceService,  private sesion: CorreoService) { 
-    
+
+    this.sesion.fetchCorreoSesion().subscribe((correo) => {
+      this.correoUser = correo;
+    });
+
+    this.bd.dbState().subscribe(res => {
+      if (res) {
+
+        this.bd.buscarPorCorreo(this.correoUser).subscribe(items => {
+
+          this.usuario = items[0];
+          console.log("Se encontró al usuario: ", this.usuario.nombre);
+          this.idusuario = this.usuario.idusuario;
+
+          console.log("ID del usuario: "+this.usuario.idusuario);
+          this.bd.buscarVentaCarrito(this.idusuario, 'Activo').subscribe(carrito => {
+
+            if (carrito.length === 1) {
+
+              this.carrito = carrito[0];
+              this.hayCarrito = true;
+              console.log("ID del carrito: "+this.carrito.idventa);
+
+              this.bd.buscarDetallesVenta(this.carrito.idventa).subscribe(detalles => {
+                this.detalles = detalles; // Actualiza la lista de detalles
+              });
+
+            } else {
+              this.hayCarrito = false; // No se encontró un carrito activo
+              this.bd.presentAlert("No hay un carrito activo!");
+            }
+
+            console.log("Estado del carrito: "+this.hayCarrito);
+
+          });
+
+        });
+
+      }
+    })
 
   }
 
@@ -78,45 +117,7 @@ export class CarritoPage implements OnInit {
   }
 
   ngOnInit() {
-    this.sesion.fetchCorreoSesion().subscribe((correo) => {
-      this.correoUser = correo;
-    });
-
-    this.bd.dbState().subscribe(res => {
-      if (res) {
-
-        this.bd.buscarPorCorreo(this.correoUser).subscribe(items => {
-
-          this.usuario = items[0];
-          console.log("Se encontró al usuario: ", this.usuario.nombre);
-          this.idusuario = this.usuario.idusuario;
-
-          console.log("ID del usuario: "+this.usuario.idusuario);
-          this.bd.buscarVentaCarrito(this.idusuario, 'Activo').subscribe(carrito => {
-
-            if (carrito.length === 1) {
-
-              this.carrito = carrito[0];
-              this.hayCarrito = true;
-              console.log("ID del carrito: "+this.carrito.idventa);
-
-              this.bd.buscarDetallesVenta(this.carrito.idventa).subscribe(detalles => {
-                this.detalles = detalles; // Actualiza la lista de detalles
-              });
-
-            } else {
-              this.hayCarrito = false; // No se encontró un carrito activo
-              this.bd.presentAlert("No hay un carrito activo!");
-            }
-
-            console.log("Estado del carrito: "+this.hayCarrito);
-
-          });
-
-        });
-
-      }
-    })
+    
   }
 
 }

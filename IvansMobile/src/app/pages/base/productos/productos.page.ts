@@ -11,6 +11,7 @@ import { PermisosService } from 'src/app/services/permisos.service';
   styleUrls: ['./productos.page.scss'],
 })
 export class ProductosPage implements OnInit {
+
   codprod: number = 0;
   producto: any = [{codprod:'', nombreprod:'', descripcion: '', precio:'', stock: '', foto:'', unidadmedida: '', categoriap: ''}];
   permiso: number = 0;
@@ -21,6 +22,7 @@ export class ProductosPage implements OnInit {
   diasSumar = 999;
   fechaEntrega = new Date(this.fechaActual);
   detalle: any = [{iddetalle: '', cantidad: '', subtotal: '', ventad: '', productod: ''}];
+  detalles: any = [{iddetalle: '', cantidad: '', subtotal: '', ventad: '', productod: '', nombreprod: '', precio: '', stock: '', foto: ''}];
   
   constructor(private menuCtrl: MenuController, private router: Router, private activeRouter: ActivatedRoute, private bd: DbserviceService,  private permisos: PermisosService, private sesion: CorreoService) {
     this.activeRouter.queryParams.subscribe(param => {
@@ -50,51 +52,58 @@ export class ProductosPage implements OnInit {
     this.router.navigate(['ini-sesion']);
   }
 
-  comprar() {
-
-        this.bd.buscarVentaCarrito(this.usuario.idusuario, 'Activo').subscribe(ventas =>{
-
-          if (ventas.length > 0) {
-            this.venta = ventas[0];
-
-            this.bd.buscarDetalleProd(this.producto.codprod, this.venta.idventa).subscribe(detalles => {
-
-              if (detalles.length === 1) {
-                
-                this.detalle = detalles[0];
-                console.log("ID DEL DETALLE ENCONTRADO: "+this.detalle.iddetalle);
-                this.bd.modificarDetalle(this.detalle.iddetalle,this.detalle.subtotal + this.producto.precio,this.detalle.cantidad + 1);
-                this.bd.modificarTotal(this.venta.idventa, this.venta.total + this.producto.precio);
-                console.log("-------------------------------------");
-                console.log("  Se está modificando el detalle ya previamente existente");
-                console.log("-------------------------------------");
-                console.log("Se usó el del detalle que ya existe aaaaaaaaaaaaaaa")
-                this.router.navigate(['carrito']);
-              
-              } else {
-                this.detalle = this.bd.agregarDetalle(1, this.producto.precio, this.venta.idventa, this.producto.codprod);
-                this.bd.modificarTotal(this.venta.idventa, this.venta.total + this.producto.precio);
-                console.log("ID DEL DETALLE CREADO: "+this.detalle.iddetalle);
-                console.log("-------------------------------------");
-                console.log("Se está agregando un nuevo detalle");
-                console.log("-------------------------------------");
-                this.router.navigate(['carrito']);
-              } 
-
-            });
-
-          } else {
-
-            this.fechaEntrega.setDate(this.fechaActual.getDate() + this.diasSumar);
-            this.venta = this.bd.agregarVenta(this.fechaActual,'Activo','11/11/2030',this.producto.precio,'C',this.usuario.idusuario);
-            this.bd.agregarDetalle(1, this.producto.precio, this.venta.idventa, this.producto.codprod);
-            this.router.navigate(['carrito']);
-          }
+  async redireccion(){
+    // Actualizar la vista del carrito después de agregar un producto
+    this.bd.buscarDetallesVenta(this.venta.idventa).subscribe(detalles => {
+      this.detalles = detalles; // Actualiza la lista de detalles
+      this.router.navigate(['carrito']);
+    });
+  }
 
 
-        });
+  async comprar2() {
+
+    await this.comprar();
+    this.redireccion();
     
   }
+  
+  async comprar() {
+    this.bd.buscarVentaCarrito(this.usuario.idusuario, 'Activo').subscribe(ventas => {
+      if (ventas.length > 0) {
+        this.venta = ventas[0];
+  
+        this.bd.buscarDetalleProd(this.producto.codprod, this.venta.idventa).subscribe(detalles => {
+          if (detalles.length === 1) {
+            this.detalle = detalles[0];
+            console.log("ID DEL DETALLE ENCONTRADO: " + this.detalle.iddetalle);
+            this.bd.modificarDetalle(this.detalle.iddetalle, this.detalle.subtotal + this.producto.precio, this.detalle.cantidad + 1);
+            this.bd.modificarTotal(this.venta.idventa, this.venta.total + this.producto.precio);
+            console.log("-------------------------------------");
+            console.log("  Se está modificando el detalle ya previamente existente");
+            console.log("-------------------------------------");
+            console.log("Se usó el del detalle que ya existe aaaaaaaaaaaaaaa");
+          } else {
+            this.detalle = this.bd.agregarDetalle(1, this.producto.precio, this.venta.idventa, this.producto.codprod);
+            this.bd.modificarTotal(this.venta.idventa, this.venta.total + this.producto.precio);
+            console.log("ID DEL DETALLE CREADO: " + this.detalle.iddetalle);
+            console.log("-------------------------------------");
+            console.log("Se está agregando un nuevo detalle");
+            console.log("-------------------------------------");
+          }
+        });
+      } else {
+
+        this.fechaEntrega.setDate(this.fechaActual.getDate() + this.diasSumar);
+
+        this.venta = this.bd.agregarVenta(this.fechaActual, 'Activo', '11/11/2030', this.producto.precio, 'C', this.usuario.idusuario);
+        console.log("ID de la venta recien creada: "+this.venta.idventa);
+
+        this.bd.agregarDetalle(1, this.producto.precio, this.venta.idventa, this.producto.codprod);
+      }
+    });
+  }
+  
   
 
   ngOnInit() {
