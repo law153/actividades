@@ -69,8 +69,8 @@ export class ProductosPage implements OnInit {
   }
   
   async comprar() {
-    this.bd.buscarVentaCarrito(this.usuario.idusuario, 'Activo').subscribe(ventas => {
-      if (ventas.length > 0) {
+    this.bd.buscarVentaCarrito(this.usuario.idusuario, 'Activo').subscribe(async ventas => {
+      if (ventas.length === 1) {
         this.venta = ventas[0];
   
         this.bd.buscarDetalleProd(this.producto.codprod, this.venta.idventa).subscribe(detalles => {
@@ -92,18 +92,24 @@ export class ProductosPage implements OnInit {
             console.log("-------------------------------------");
           }
         });
-      } else {
 
+      } else {
         this.fechaEntrega.setDate(this.fechaActual.getDate() + this.diasSumar);
 
-        this.venta = this.bd.agregarVenta(this.fechaActual, 'Activo', '11/11/2030', this.producto.precio, 'C', this.usuario.idusuario);
-        console.log("ID de la venta recien creada: "+this.venta.idventa);
+        await this.bd.agregarVenta(this.fechaActual, 'Activo', this.fechaEntrega, this.producto.precio, 'C', this.usuario.idusuario);
 
-        this.bd.agregarDetalle(1, this.producto.precio, this.venta.idventa, this.producto.codprod);
+        this.bd.fetchVenta().subscribe(venta2 => {
+          this.venta = venta2[venta2.length - 1];
+          console.log("ID de la venta que se generó: "+this.venta.idventa);
+          this.bd.agregarDetalle(1, this.producto.precio, this.venta.idventa, this.producto.codprod);
+
+        })
+        
+        
+        
       }
     });
   }
-  
   
 
   ngOnInit() {
