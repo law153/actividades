@@ -820,6 +820,9 @@ export class DbserviceService {
   }
   
   modificarDetalle(id: any, subtotal: any, cantidad: any){  
+    console.log("Id del detalle que se quiere modificar"+id);
+    console.log("Subtotal nuevo del detalle: "+subtotal);
+    console.log("Cantidad nueva del detalle: "+cantidad);
     return this.database.executeSql("UPDATE detalle SET subtotal = ?, cantidad = ? WHERE iddetalle = ?",[subtotal, cantidad, id]).then(res =>{
       this.buscarDetalles();
     })
