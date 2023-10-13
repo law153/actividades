@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController, MenuController } from '@ionic/angular';
 import { CamaraService } from 'src/app/services/camara.service';
+import { Categoria } from 'src/app/services/categoria';
 import { DbserviceService } from 'src/app/services/dbservice.service';
 
 
@@ -31,13 +32,13 @@ export class EditarProdPage implements OnInit {
   msj: string = "";
 
   codprod: number = 0;
+  idcategoria: number = 0;
   producto: any = [{codprod:'', nombreprod:'', descripcion: '', precio:'', stock: '', foto:'', unidadmedida: '', categoriap: ''}];
   categorias: any = [{idcategoria: '', nombrecategoria: ''}];
-
   categoriaselec: any = [{idcategoria: '', nombrecategoria: ''}];
 
   constructor(private router: Router, private alerta: AlertController, private activeRouter: ActivatedRoute, private menuCtrl: MenuController, private bd: DbserviceService, private camara: CamaraService) {
-   }
+  }
 
   abrirSuperior(){
     this.menuCtrl.enable(true, 'superior');
@@ -53,8 +54,8 @@ export class EditarProdPage implements OnInit {
     this.router.navigate(['home-adm'])    
   }
 
-  compareWith(o1 : any, o2 : any): boolean{
-    return o1 && o2 ? o1.id === o2.id : o1 === o2;
+  compareWith(o1 : Categoria, o2 : Categoria): boolean{
+    return o1 && o2 ? o1.idcategoria === o2.idcategoria : o1 === o2;
   }
 
   //Validaciones
@@ -201,7 +202,6 @@ export class EditarProdPage implements OnInit {
         
         this.bd.dbState().subscribe(res => {
           if(res){
-            this.bd.buscarCategorias()
 
             this.bd.fetchCategoria().subscribe(items => {
               this.categorias = items;
@@ -223,13 +223,16 @@ export class EditarProdPage implements OnInit {
               this.medida = this.producto.unidadmedida;
               this.categoria = this.producto.categoriap;
               this.foto = this.producto.foto;
-            })
 
-            this.bd.buscarCategoriaPorId(this.categorias.idcategoria);
+              console.log("ID a buscar:" + this.producto.categoriap);
+              this.bd.buscarCategoriaPorId(this.producto.categoriap);
 
-            this.bd.fetchCategoriaIndividual().subscribe(items => {
-              this.categoriaselec = items[0]; 
+              this.bd.fetchCategoriaIndividual().subscribe(items => {
+                this.categoriaselec = items[0];
+                this.idcategoria = this.categoriaselec.idcategoria; 
+                console.log("Id categoria selec:" + this.categoriaselec.idcategoria);
 
+              })
             })
             
           }
