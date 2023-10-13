@@ -102,7 +102,7 @@ export class DbserviceService {
   }
 
   fetchCategoria(): Observable<Categoria[]>{
-      return this.listaCategoria.asObservable();
+    return this.listaCategoria.asObservable();
   }
 
   fetchPregunta(): Observable<Pregunta[]>{
@@ -172,14 +172,14 @@ export class DbserviceService {
     })
   }
 
-  buscarCategoriaPorId(idCategoria : any){
-    return this.database.executeSql("SELECT FROM categoria where idcategoria = ?;", [idCategoria]).then(res =>{
+  buscarCategoriaPorId(id : any){
+    return this.database.executeSql("SELECT * FROM categoria where idcategoria = ?;", [id]).then(res =>{
       let items: Categoria[] = [];
       if(res.rows.length > 0){
         for(var i = 0; i < res.rows.length; i++){
           items.push({
             idcategoria: res.rows.item(i).idcategoria,
-            nombrecategoria: res.rows.items(i).nombrecategoria
+            nombrecategoria: res.rows.item(i).nombrecategoria
           });
         }
       }
