@@ -38,9 +38,7 @@
     </ion-row>
     <br>
     <div *ngIf="(hayCarrito === true)">
-      <app-prod-carrito *ngFor="let x of detalles" [nombreProd]="x.nombreprod" [precioProd]="x.precio" [imagenProd]="x.foto" [cantidadProd]="x.cantidad"></app-prod-carrito>
-
-      
+      <app-prod-carrito *ngFor="let x of detalles" [nombreProd]="x.nombreprod" [precioProd]="x.precio" [imagenProd]="x.foto" [cantidadProd]="x.cantidad" [subtotal]="x.subtotal" [iddetalle]="x.iddetalle" [idventa]="carrito.idventa"></app-prod-carrito>
 
       <ion-row>
         <ion-col class="monto">
@@ -54,7 +52,7 @@
       <ion-row>
         <ion-col></ion-col>
         <ion-col class="contenedor-boton">
-          <ion-button (click)="envioValido()">Pagar</ion-button>
+          <ion-button >Pagar</ion-button>
         </ion-col>
         <ion-col></ion-col>
       </ion-row>

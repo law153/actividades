@@ -90,20 +90,7 @@ export class CarritoPage implements OnInit {
     this.router.navigate(['historial-compra'])
   }
 
-  envioValido(){
-    this.cantidadValida()
-    if(this.flag === true){
-      this.Pagar();
-    }
-  }
-
-  cantidadValida(){
-    if(parseInt(this.cantidad) <= 0){
-      this.flag = false;
-      this.msj="La cantidad no puede ser igual o menor a 0";
-      this.presentAlert(this.msj);
-    }
-  }
+  
 
   async presentAlert(mensaje: string) {
     const alert = await this.alerta.create({

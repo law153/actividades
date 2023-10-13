@@ -671,6 +671,13 @@ export class DbserviceService {
 
     })
   }
+
+  eliminarDetalle(id:any){ 
+    return this.database.executeSql("DELETE FROM detalle WHERE iddetalle= ?",[id]).then(res=>{
+      this.buscarConsultas();
+
+    })
+  }
   //Funciones para agregar
 
 
