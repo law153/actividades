@@ -34,7 +34,7 @@ export class EditarProdPage implements OnInit {
   codprod: number = 0;
   producto: any = [{codprod:'', nombreprod:'', descripcion: '', precio:'', stock: '', foto:'', unidadmedida: '', categoriap: ''}];
   categorias: any = [{idcategoria: '', nombrecategoria: ''}];
-  cate2: any = [{idcate: '', nombrecate: ''}];
+  cate2: any = [{idcategoria: '', nombrecategoria: ''}];
 
 
   constructor(private router: Router, private alerta: AlertController, private activeRouter: ActivatedRoute, private menuCtrl: MenuController, private bd: DbserviceService, private camara: CamaraService) {
@@ -223,17 +223,18 @@ export class EditarProdPage implements OnInit {
               this.medida = this.producto.unidadmedida;
               this.categoria = this.producto.categoriap;
               this.foto = this.producto.foto;
-            })
 
-            console.log("ID a buscar:" + this.producto.categoriap);
-            this.bd.buscarCategoriaPorId(this.producto.categoriap);
-
-            this.bd.fetchCategoriaIndividual().subscribe(items => {
-              this.cate2 = items[0];
-              this.cate2.idcate = this.producto.categoriap
-              console.log("Id categoria select:" + this.cate2.idcate);
+              this.bd.buscarCatePorId(this.producto.categoriap);
+              this.bd.fetchCategoriaIndividual().subscribe(cateItems => {
+                console.log("Categoría Individual: "+ cateItems);
+                this.cate2 = cateItems[0];
+                if(this.cate2){
+                  this.categoria = this.cate2.idcategoria; // Establecer la categoría del producto en el ion-select
+                }else{
+                  console.error("Error: this.cate2 es undefined.");
+                }
+              });
             })
-            
           }
         })
       }
