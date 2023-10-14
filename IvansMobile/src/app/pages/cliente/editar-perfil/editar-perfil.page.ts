@@ -4,7 +4,7 @@ import { AlertController, MenuController, IonInput } from '@ionic/angular';
 import { DbserviceService } from 'src/app/services/dbservice.service';
 import { CamaraService } from 'src/app/services/camara.service';
 import { CorreoService } from 'src/app/services/correo.service';
-
+import { PermisosService } from 'src/app/services/permisos.service';
 @Component({
   selector: 'app-editar-perfil',
   templateUrl: './editar-perfil.page.html',
@@ -37,11 +37,14 @@ export class EditarPerfilPage implements OnInit {
   flag: boolean = true;
   correoUser: any = "";
   
+  correoStorage: any = "";
+  rolStorage: any = "";
+
   usuario: any = {idusuario: '', rut: '', dvrut: '', nombre: '', apellido: '', telefono: '', correo: '', clave: '', direccion: '', fotousuario: '', respuesta: '', rolu: '', preguntau: '' };
 
   pregId: number = 0;
 
-  constructor(private router: Router,private menuCtrl: MenuController, private alerta: AlertController, private bd: DbserviceService, private activedRouter: ActivatedRoute, private camara: CamaraService, private sesion: CorreoService) { }
+  constructor(private router: Router,private menuCtrl: MenuController, private alerta: AlertController, private bd: DbserviceService, private activedRouter: ActivatedRoute, private camara: CamaraService, private sesion: CorreoService, private permisos: PermisosService) { }
 
   irHomeCli(){
     this.router.navigate(['home-cli'])    
@@ -258,9 +261,17 @@ export class EditarPerfilPage implements OnInit {
     
   }
 
- borrarCuenta(){
+ async borrarCuenta(){
     this.bd.eliminarUsuario(this.usuario.idusuario);
-    this.bd.presentAlert("Cuenta borrada");
+    await this.bd.presentAlert("Cuenta borrada");
+    localStorage.setItem('rol','0');
+    this.rolStorage = localStorage.getItem('rol');
+    this.permisos.setUserRole(parseInt(this.rolStorage));
+    //Manejo del correo
+    localStorage.setItem('correo','');
+    this.correoStorage = localStorage.getItem('correo');
+    this.sesion.setCorreoSesion(this.correoStorage);
+    this.router.navigate(['']);
   }
 
 

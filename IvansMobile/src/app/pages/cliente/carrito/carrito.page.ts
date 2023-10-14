@@ -15,7 +15,7 @@ export class CarritoPage implements OnInit {
   msj: string = "";
   total: string= "";
 
-  correoUser: string = "";
+  correoUser: any = "";
   usuario: any = {idusuario: '', rut: '', dvrut: '', nombre: '', apellido: '', telefono: '', correo: '', clave: '', direccion: '', fotousuario: '', respuesta: '', rolu: '', preguntau: '' };
   carrito: any = {};
   detalles: any = [{iddetalle: '', cantidad: '', subtotal: '', ventad: '', productod: '', nombreprod: '', precio: '', stock: '', foto: ''}];
@@ -23,9 +23,7 @@ export class CarritoPage implements OnInit {
   idusuario: number = 0;
   constructor(private router: Router,private menuCtrl: MenuController, private alerta: AlertController, private activeRouter: ActivatedRoute, private bd: DbserviceService,  private sesion: CorreoService) { 
 
-    this.sesion.fetchCorreoSesion().subscribe((correo) => {
-      this.correoUser = correo;
-    });
+    this.correoUser = localStorage.getItem('correo');
 
     this.bd.dbState().subscribe(res => {
       if (res) {
@@ -35,8 +33,7 @@ export class CarritoPage implements OnInit {
           this.usuario = items[0];
           console.log("Se encontró al usuario: ", this.usuario.nombre);
           this.idusuario = this.usuario.idusuario;
-
-          console.log("ID del usuario: "+this.usuario.idusuario);
+;
           this.bd.buscarVentaCarrito(this.idusuario, 'Activo').subscribe(carrito => {
 
             if (carrito.length === 1) {
