@@ -80,6 +80,7 @@ export class CarritoPage implements OnInit {
   }
 
   Pagar(){
+    this.bd.modificarEstadoVenta(this.carrito.idventa, 'Comprado');
     this.presentAlert('Gracías por su compra');
   }
 
