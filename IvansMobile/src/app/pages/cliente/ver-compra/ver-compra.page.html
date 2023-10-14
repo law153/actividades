@@ -23,35 +23,40 @@
   <ion-grid>
     <ion-row>
       <ion-col>
-        <h1 class="nombre-pag" >Pedido 1</h1>
+        <h1 class="nombre-pag" >Pedido</h1>
       </ion-col>
     </ion-row>
 
     <ion-row>
       <ion-col class="fecha">
-        <h2>Pedido el: 12/06/2023</h2>
+        <h2>Pedido el: {{compra.fechaventa | date:"d/M/yyyy"}}</h2>
       </ion-col>
     </ion-row>
 
     <ion-row>
       <ion-col class="fecha">
-        <h2>Llega el: 15/06/2023</h2>
+        <h2>Llega el: {{compra.fechaentrega | date:"d/M/yyyy"}}</h2>
       </ion-col>
     </ion-row>
 
-    <ion-row class="contenedor-prod">
+    <ion-row class="contenedor-prod" *ngFor="let x of detalles">
       <ion-col >
         <div class="contenedor-imagen">
-          <ion-img src="/assets/imagen.jpg" alt="No hay imagen, perdonar"></ion-img>
+          <ion-img [src]="x.foto" alt="No hay imagen, perdonar"></ion-img>
         </div>
       </ion-col>
 
       <ion-col class="texto">
-        <h2>Producto papu</h2>
+        <h2>{{x.nombreprod}}</h2>
       </ion-col>
 
       <ion-col class="texto">
-        <h2>1</h2>
+        <h2>{{x.cantidad}}</h2>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class="monto">
+        <h2>Total de la compra: {{compra.total | currency:'$':true:'4.0-0'}}</h2>
       </ion-col>
     </ion-row>
 

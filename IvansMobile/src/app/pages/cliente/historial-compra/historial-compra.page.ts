@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router,ActivatedRoute, NavigationExtras } from '@angular/router';
 import { MenuController } from '@ionic/angular';
 import { DbserviceService } from 'src/app/services/dbservice.service';
 
@@ -13,13 +13,7 @@ export class HistorialCompraPage implements OnInit {
   usuario: any = {idusuario: '', rut: '', dvrut: '', nombre: '', apellido: '', telefono: '', correo: '', clave: '', direccion: '', fotousuario: '', respuesta: '', rolu: '', preguntau: '' };
   detalles: any = [{iddetalle: '', cantidad: '', subtotal: '', ventad: '', productod: '', nombreprod: '', precio: '', stock: '', foto: ''}];
   idusuario: number = 0;
-  compras: any = [{idventa: '',
-  fechaventa: '',
-  estado: '',
-  fechaentrega: '',
-  total: '',
-  carrito: '',
-  usuariov: ''}];
+  compras: any = [{idventa: '',fechaventa: '',estado: '',fechaentrega: '',total: '',carrito: '',usuariov: ''}];
   hayCompras: boolean = true;
   constructor(private menuCtrl: MenuController, private router: Router, private bd: DbserviceService) { }
 
@@ -37,8 +31,16 @@ export class HistorialCompraPage implements OnInit {
     this.router.navigate(['home-cli']);  
   }
 
-  irPedido(){
-    this.router.navigate(['ver-compra']);
+  irPedido(id: any){
+    console.log("ID de la venta enviado a ver-compra: "+id);
+    
+    let NavigationsExtra: NavigationExtras = {
+      state: {
+        idEnviar: id
+      }
+    };
+    
+    this.router.navigate(['ver-compra'], NavigationsExtra);
   }
 
   ngOnInit() {
