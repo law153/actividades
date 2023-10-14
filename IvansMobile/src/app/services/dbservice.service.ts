@@ -846,8 +846,14 @@ export class DbserviceService {
   }
 
   //Venta/carrito
-  modificarEstadoVenta(id: any, estado: any){  
-    return this.database.executeSql("UPDATE venta SET estado = ? WHERE idventa = ?",[estado, id]).then(res =>{
+  modificarEstadoVenta(id: any, fecha: any){  
+    return this.database.executeSql("UPDATE venta SET estado = ? WHERE idventa = ?",[fecha, id]).then(res =>{
+      this.buscarVentas();
+    })
+  }
+
+  modificarFechaEntrega(id: any, estado: any){  
+    return this.database.executeSql("UPDATE venta SET fechaentrega = ? WHERE idventa = ?",[estado, id]).then(res =>{
       this.buscarVentas();
     })
   }

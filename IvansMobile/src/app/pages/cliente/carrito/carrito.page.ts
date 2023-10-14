@@ -16,6 +16,9 @@ export class CarritoPage implements OnInit {
   total: string= "";
 
   correoUser: any = "";
+  fechaActual = new Date();
+  fechaEntrega = new Date(this.fechaActual);
+  diasSumar = 3;
   usuario: any = {idusuario: '', rut: '', dvrut: '', nombre: '', apellido: '', telefono: '', correo: '', clave: '', direccion: '', fotousuario: '', respuesta: '', rolu: '', preguntau: '' };
   carrito: any = {};
   detalles: any = [{iddetalle: '', cantidad: '', subtotal: '', ventad: '', productod: '', nombreprod: '', precio: '', stock: '', foto: ''}];
@@ -24,7 +27,7 @@ export class CarritoPage implements OnInit {
   constructor(private router: Router,private menuCtrl: MenuController, private alerta: AlertController, private activeRouter: ActivatedRoute, private bd: DbserviceService,  private sesion: CorreoService) { 
 
     this.correoUser = localStorage.getItem('correo');
-
+    this.fechaEntrega.setDate(this.fechaActual.getDate() + this.diasSumar);
     this.bd.dbState().subscribe(res => {
       if (res) {
 
@@ -80,6 +83,7 @@ export class CarritoPage implements OnInit {
   }
 
   Pagar(){
+    this.bd.modificarFechaEntrega(this.carrito.idventa, this.fechaEntrega);
     this.bd.modificarEstadoVenta(this.carrito.idventa, 'Comprado');
     this.presentAlert('Gracías por su compra');
   }
