@@ -187,6 +187,26 @@ export class DbserviceService {
     })
   }
 
+
+  buscarCatePorId(id: any): Observable<Categoria[]>{
+    console.log("Id recibida en el servicio: " + id);
+    return new Observable<Categoria[]>(observer => {
+      this.database.executeSql("SELECT * FROM categoria where idcategoria = ?;", [id]).then(res =>{
+        let items: Categoria[] = [];
+        if(res.rows.length > 0){
+          for (let i = 0; i < res.rows.length; i++) {
+            items.push({
+              idcategoria: res.rows.item(i).idcategoria,
+              nombrecategoria: res.rows.item(i).nombrecategoria
+            });
+          }
+        }
+        observer.next(items);
+        observer.complete();
+      })
+    })
+  }
+
   buscarPregunta(){ 
     return this.database.executeSql("SELECT * FROM pregunta;",[]).then(res =>{
       //todo bien
