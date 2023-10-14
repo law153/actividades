@@ -203,8 +203,8 @@ export class DbserviceService {
         }
         observer.next(items);
         observer.complete();
-      })
-    })
+      });
+    });
   }
 
   buscarPregunta(){ 
