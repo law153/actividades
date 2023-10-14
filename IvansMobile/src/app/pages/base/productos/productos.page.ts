@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MenuController } from '@ionic/angular';
-import { CorreoService } from 'src/app/services/correo.service';
 import { DbserviceService } from 'src/app/services/dbservice.service';
 import { PermisosService } from 'src/app/services/permisos.service';
-
 @Component({
   selector: 'app-productos',
   templateUrl: './productos.page.html',
@@ -14,8 +12,9 @@ export class ProductosPage implements OnInit {
 
   codprod: number = 0;
   producto: any = [{codprod:'', nombreprod:'', descripcion: '', precio:'', stock: '', foto:'', unidadmedida: '', categoriap: ''}];
-  permiso: number = 0;
-  correoUser: string = "";
+  permisoStorage: any = 0;
+  permiso: any = 0;
+  correoUser: any = "";
   usuario: any = {idusuario: '', rut: '', dvrut: '', nombre: '', apellido: '', telefono: '', correo: '', clave: '', direccion: '', fotousuario: '', respuesta: '', rolu: '', preguntau: '' };
   venta: any = [{idventa:'', fechaventa: '', estado: '', fechaentrega:'', total:'', carrito: '', usuariov: ''}];
   fechaActual = new Date();
@@ -24,7 +23,7 @@ export class ProductosPage implements OnInit {
   detalle: any = [{iddetalle: '', cantidad: '', subtotal: '', ventad: '', productod: ''}];
   detalles: any = [{iddetalle: '', cantidad: '', subtotal: '', ventad: '', productod: '', nombreprod: '', precio: '', stock: '', foto: ''}];
   
-  constructor(private menuCtrl: MenuController, private router: Router, private activeRouter: ActivatedRoute, private bd: DbserviceService,  private permisos: PermisosService, private sesion: CorreoService) {
+  constructor(private menuCtrl: MenuController, private router: Router, private activeRouter: ActivatedRoute, private bd: DbserviceService, private permisos: PermisosService) {
     this.activeRouter.queryParams.subscribe(param => {
       if(this.router.getCurrentNavigation()?.extras.state){
         this.codprod = this.router.getCurrentNavigation()?.extras?.state?.["prodEnviar"];
@@ -114,14 +113,8 @@ export class ProductosPage implements OnInit {
 
   ngOnInit() {
 
-    this.sesion.fetchCorreoSesion().subscribe((correo) => {
-      this.correoUser = correo;
-      console.log("Correo recibido: " + correo);
-      console.log("Correo almacenado: " + this.correoUser);
-    });
+    this.correoUser = localStorage.getItem('correo');
 
-    
-    
     this.bd.dbState().subscribe(res => {
       if(res){
 

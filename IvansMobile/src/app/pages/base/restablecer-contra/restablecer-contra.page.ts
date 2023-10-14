@@ -19,7 +19,7 @@ export class RestablecerContraPage implements OnInit {
   msjClave: string = "";
   msjRepClave: string = "";
 
-  correoUser : string = "";
+  correoUser : any = "";
   usuario : any = [{idusuario: '', rut: '', dvrut: '', nombre: '', apellido: '', telefono: '', correo: '', clave: '', direccion: '', fotousuario: '', respuesta: '', rolu: '', preguntau: '' }];
 
   constructor(private menuCtrl: MenuController, private router: Router, private alerta: AlertController, private bd: DbserviceService, private sesion: CorreoService) { }
@@ -151,11 +151,7 @@ export class RestablecerContraPage implements OnInit {
 
   ngOnInit() {
 
-    this.sesion.fetchCorreoSesion().subscribe((correo) => {
-      this.correoUser = correo;
-      console.log("Correo recibido: "+correo);
-      console.log("Correo almacenado:"+this.correoUser);
-    })
+    this.correoUser = localStorage.getItem('correo');
 
     this.bd.dbState().subscribe(res => {
       if(res){

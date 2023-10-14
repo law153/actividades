@@ -35,7 +35,7 @@ export class EditarPerfilPage implements OnInit {
   respuesta: string="";
   foto: string | undefined;
   flag: boolean = true;
-  correoUser: string = "";
+  correoUser: any = "";
   
   usuario: any = {idusuario: '', rut: '', dvrut: '', nombre: '', apellido: '', telefono: '', correo: '', clave: '', direccion: '', fotousuario: '', respuesta: '', rolu: '', preguntau: '' };
 
@@ -341,11 +341,7 @@ export class EditarPerfilPage implements OnInit {
 
   ngOnInit() {
   
-    this.sesion.fetchCorreoSesion().subscribe((correo) => {
-      this.correoUser = correo;
-      console.log("Correo recibido: " + correo);
-      console.log("Correo almacenado: " + this.correoUser);
-    });
+    this.correoUser = localStorage.getItem('correo');
   
     this.bd.dbState().subscribe(res => {
       if (res) {

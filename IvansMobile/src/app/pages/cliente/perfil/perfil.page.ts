@@ -46,12 +46,6 @@ export class PerfilPage implements OnInit {
 
   ngOnInit() {
 
-    this.sesion.fetchCorreoSesion().subscribe((correo) => {
-      this.correoUser = correo;
-      console.log("Correo recibido: "+correo);
-      console.log("Correo almacenado: "+this.correoUser);
-    });
-
     this.correoUser = localStorage.getItem('correo');
 
     this.bd.dbState().subscribe(res => {

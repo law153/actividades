@@ -70,7 +70,7 @@ export class OlvContraPage implements OnInit {
               //Verifica la respuesta
               if(this.respuesta === this.usuario.respuesta){
 
-                this.sesion.setCorreoSesion(this.usuario.correo);
+                localStorage.setItem('correo',this.usuario.correo);
                 this.irRestablecerContra();
                 //La respuesta no fue correcta
               } else{
