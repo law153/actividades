@@ -21,13 +21,16 @@ flag: boolean = true;
   constructor(private bd: DbserviceService) { }
 
   aprobarCambio(){
+
     this.flag = true;
 
     this.cantidadValida();
 
     if(this.flag){
+
       this.cambiarCantidad();
       this.bd.presentAlert("La cantidad se ha cambiado con exito");
+
     }
   }
 
@@ -37,7 +40,6 @@ flag: boolean = true;
 
     this.bd.modificarDetalle(this.iddetalle, this.subtotal2, this.cantidadProd );
 
-    this.bd.presentAlert("La cantidad se ha cambiado con exito");
   }
 
   cantidadValida(){

@@ -12,11 +12,11 @@
   </ion-col>
 
   <ion-col class="cantidad">
-    <ion-input type="number" value="{{cantidadProd}}"></ion-input>
+    <ion-input type="number" [(ngModel)]="cantidadProd"></ion-input>
   </ion-col>
 
   <ion-col class="iconos">
-    <ion-icon name="checkmark-outline" aria-label="Favorite" (click)="cambiarCantidad()"></ion-icon>
+    <ion-icon name="checkmark-outline" aria-label="Favorite" (click)="aprobarCambio()"></ion-icon>
     <ion-icon name="trash-outline" aria-label="Favorite" (click)="borrarDetalle()"></ion-icon>
   </ion-col>
 
