@@ -76,7 +76,7 @@ export class RegistrarsePage implements OnInit {
   //Validaciones
 
 
-  envioValido(){
+async envioValido(){
     this.flag = true;
     this.rutValido();
     this.nombreValido();
@@ -90,7 +90,8 @@ export class RegistrarsePage implements OnInit {
     this.fonoValido();
     if(this.flag === true){
       this.agregar();
-      
+      await this.bd.presentAlert("El usuario se ha creado correctamente!");
+      this.router.navigate(['/ini-sesion']);
     }
   }
 
@@ -415,6 +416,5 @@ export class RegistrarsePage implements OnInit {
       preguntaid= 3;
     }
     this.bd.agregarUsuario(this.nombre, this.apellido, this.rut, this.dvrut, this.fono, this.correo, this.direc, this.clave, '/assets/icono-perfil.png', this.respuesta, 1, preguntaid);
-    this.bd.presentAlert('Usuario creado correctamente'); 
   }
 }

@@ -16,6 +16,11 @@ export class IniSesionPage implements OnInit {
   clave: string = "";
   flag: boolean = true;
 
+
+  rolStorage: any;
+
+  correoStorage: any;
+
   //Variable para db
   
   usuario: any = {idusuario: '', rut: '', dvrut: '', nombre: '', apellido: '', telefono: '', correo: '', clave: '', direccion: '', fotousuario: '', respuesta: '', rolu: '', preguntau: '' };
@@ -39,15 +44,20 @@ export class IniSesionPage implements OnInit {
             console.log("ID usuario: "+this.usuario.idusuario);
             if(this.clave === this.usuario.clave){
 
+              localStorage.setItem('correo',this.usuario.correo);
               this.sesion.setCorreoSesion(this.usuario.correo);
               
               if(this.usuario.rolu === 1){
                 this.router.navigate(['/home-cli']);
-                this.permisos.setUserRole(1);
+                localStorage.setItem('rol','1');
+                this.rolStorage = localStorage.getItem('rol');
+                this.permisos.setUserRole(parseInt(this.rolStorage));
               }
               if(this.usuario.rolu === 2){
                 this.router.navigate(['/home-adm']);
-                this.permisos.setUserRole(2);
+                localStorage.setItem('rol','2');
+                this.rolStorage = localStorage.getItem('rol');
+                this.permisos.setUserRole(parseInt(this.rolStorage));
               }
       
             } else{

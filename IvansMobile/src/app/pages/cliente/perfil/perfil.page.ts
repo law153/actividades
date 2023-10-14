@@ -12,7 +12,7 @@ import { CorreoService } from 'src/app/services/correo.service';
 export class PerfilPage implements OnInit {
   
   
-  correoUser: string = "";
+  correoUser: any = "";
   usuario: any = {idusuario: '', rut: '', dvrut: '', nombre: '', apellido: '', telefono: '', correo: '', clave: '', direccion: '', fotousuario: '', respuesta: '', rolu: '', preguntau: '' };
 
   constructor(private router: Router,private menuCtrl: MenuController, private bd: DbserviceService, private sesion: CorreoService) { }
@@ -51,6 +51,8 @@ export class PerfilPage implements OnInit {
       console.log("Correo recibido: "+correo);
       console.log("Correo almacenado: "+this.correoUser);
     });
+
+    this.correoUser = localStorage.getItem('correo');
 
     this.bd.dbState().subscribe(res => {
       if(res){

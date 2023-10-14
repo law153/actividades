@@ -12,13 +12,16 @@ import { CorreoService } from './services/correo.service';
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent implements OnInit{
-  variableStorage: any = "";
   
   permiso: number = 0;
 
   categorias: any = [{idcategoria: '', nombrecategoria: ''}];
 
   categoriaSeleccionada: number = 0;
+
+  rolStorage: any;
+
+  correoStorage: any;
 
   constructor(private router: Router,  private bd: DbserviceService, private cateUpdate: CateupdateService, private permisos: PermisosService, private sesion: CorreoService ) {}
   
@@ -52,9 +55,15 @@ export class AppComponent implements OnInit{
   }
 
   cerrarSesion(){
-    this.permisos.setUserRole(0);
-    this.sesion.clearCorreoSesion();
-    this.sesion.setCorreoSesion("");
+    //Manejo del rol
+    localStorage.setItem('rol','0');
+    this.rolStorage = localStorage.getItem('rol');
+    this.permisos.setUserRole(parseInt(this.rolStorage));
+    //Manejo del correo
+    localStorage.setItem('correo','');
+    this.correoStorage = localStorage.getItem('correo');
+    this.sesion.setCorreoSesion(this.correoStorage);
+
     this.router.navigate(['']);
   }
 
@@ -89,7 +98,7 @@ export class AppComponent implements OnInit{
   }
 
   ngOnInit() {
-    this.variableStorage = localStorage.getItem('token');
+    
     
     this.bd.dbState().subscribe(res => {
       if(res){
