@@ -12,7 +12,7 @@ import { PermisosService } from 'src/app/services/permisos.service';
 export class EditarRolPage implements OnInit {
 
   usuarios: any = [{idusuario: '',rut: '', dvrut: '', nombre: '', apellido: '', telefono: '', correo: '', clave: '', direccion: '', fotoUsuario: '', respuesta: '', rolu: '', preguntaU: ''}];
-
+  correoUser: any = "";
   constructor(private menuCtrl: MenuController, private router: Router, private bd: DbserviceService, private permisos: PermisosService) { }
 
   abrirSuperior(){
@@ -30,8 +30,15 @@ export class EditarRolPage implements OnInit {
   }
 
   ngOnInit() {
+
+    this.correoUser = localStorage.getItem('correo');
+
+
     this.bd.dbState().subscribe(res => {
       if(res){
+
+        this.bd.buscarUsuarioMenosTu(this.correoUser);
+
         this.bd.fetchUsuario().subscribe(items => {
           this.usuarios = items;
         })
