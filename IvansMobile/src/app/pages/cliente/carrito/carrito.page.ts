@@ -19,6 +19,7 @@ export class CarritoPage implements OnInit {
   fechaActual = new Date();
   fechaEntrega = new Date(this.fechaActual);
   diasSumar = 3;
+  stock: number = 0;
   usuario: any = {idusuario: '', rut: '', dvrut: '', nombre: '', apellido: '', telefono: '', correo: '', clave: '', direccion: '', fotousuario: '', respuesta: '', rolu: '', preguntau: '' };
   carrito: any = {};
   detalles: any = [{iddetalle: '', cantidad: '', subtotal: '', ventad: '', productod: '', nombreprod: '', precio: '', stock: '', foto: ''}];
@@ -50,6 +51,14 @@ export class CarritoPage implements OnInit {
   Pagar(){
     this.bd.modificarFechaEntrega(this.carrito.idventa, this.fechaEntrega);
     this.bd.modificarEstadoVenta(this.carrito.idventa, 'Comprado');
+
+    for(let x of this.detalles){
+      this.stock = x.stock - x.cantidad;
+      console.log("Stock del producto: "+x.stock);
+      console.log("Cantidad del detalle:"+x.cantidad);
+      console.log("ID del producto: "+x.productod);
+      this.bd.restarStock(x.productod, this.stock);
+    }
     this.presentAlert('Gracías por su compra');
   }
 

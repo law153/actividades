@@ -626,7 +626,7 @@ export class DbserviceService {
 
   buscarDetallesVenta(venta: any): Observable<DetallesVenta[]> {
     return new Observable<DetallesVenta[]>(observer => {
-      this.database.executeSql("SELECT d.iddetalle, d.cantidad, d.subtotal, p.nombreprod, p.precio, p.stock, p.foto FROM detalle d JOIN producto p ON(d.productod = p.codprod) WHERE ventad = ?;", [venta]).then(res => {
+      this.database.executeSql("SELECT d.iddetalle, d.cantidad, d.subtotal, d.ventad ,d.productod, p.nombreprod, p.precio, p.stock, p.foto FROM detalle d JOIN producto p ON(d.productod = p.codprod) WHERE ventad = ?;", [venta]).then(res => {
         let items: DetallesVenta[] = [];
   
         if (res.rows.length > 0) {
@@ -841,6 +841,13 @@ export class DbserviceService {
   //Producto
   modificarProducto(id: any, nombre: any, descripcion: any, precio: any, stock: any, foto: any, medida: any, categoria: any){  
     return this.database.executeSql("UPDATE producto SET nombreprod = ?, descripcion = ?, precio = ?, stock = ?, foto = ?, unidadmedida = ?, categoriap = ?  WHERE codprod = ?",[nombre, descripcion, precio, stock, foto, medida, categoria, id]).then(res =>{
+      this.buscarProductos();
+    })
+  }
+
+  restarStock(id: any, stock: any){  
+    console.log("Stock recibido: "+stock);
+    return this.database.executeSql("UPDATE producto SET stock = ? WHERE codprod = ?",[stock, id]).then(res =>{
       this.buscarProductos();
     })
   }
