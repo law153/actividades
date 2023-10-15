@@ -98,7 +98,7 @@ async envioValido(){
   //Rut
 
 
-  rutValido(){
+  async rutValido(){
     this.msjRut = "";
 
     if(this.rut.length === 0 || this.dvrut.length === 0){
@@ -119,6 +119,8 @@ async envioValido(){
         this.flag = false;
         this.msjRut+="Rut invalido"+"\n";
       }
+      await this.buscarRut();
+      
 
     }
   
@@ -206,19 +208,22 @@ async envioValido(){
 
   //Correo
 
-  correoValido(){
+  async correoValido(){
     this.msjCorreo = "";
 
     if(this.correo.length === 0){
       this.flag = false;
       this.msjCorreo="Debe llenar este campo";
     } else{
+      
       if(this.esCorreoValido(this.correo) === false){
         this.flag = false;
         this.msjCorreo+="Su correo no es valido"+"\n";
         
-      }
 
+      }
+      
+      await this.buscarCorreo();
       
     }
   }
@@ -245,6 +250,30 @@ async envioValido(){
     }
   }
 
+
+  async buscarCorreo(){
+    console.log("Correo ingresado: "+this.correo);
+
+      this.bd.buscarPorCorreo(this.correo).subscribe(items => {
+
+        if(items.length !== 0){
+          this.flag = false;
+          this.msjCorreo+="Correo ya ocupado en el sistema"+"\n";
+        }
+
+      })
+  }
+
+  async buscarRut(){
+    console.log("Rut ingresado: "+this.rut);
+
+    this.bd.buscarPorRut(this.rut).subscribe(items => {
+      if(items.length !== 0){
+        this.flag = false;
+        this.msjRut+="Rut ya ocupado en el sistema"+"\n";
+      }
+    })
+  }
   //Contraseña
   claveValida() {
     this.msjClave="";
