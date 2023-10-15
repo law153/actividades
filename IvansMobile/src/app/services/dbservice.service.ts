@@ -616,6 +616,31 @@ export class DbserviceService {
     });
   }
 
+  buscarCompras(estado: any): Observable<Venta[]> {
+    return new Observable<Venta[]>(observer => {
+      this.database.executeSql("SELECT * FROM venta WHERE estado = ?;", [estado]).then(res => {
+        let items: Venta[] = [];
+  
+        if (res.rows.length > 0) {
+          for (let i = 0; i < res.rows.length; i++) {
+            items.push({
+              idventa: res.rows.item(i).idventa,
+              fechaventa: res.rows.item(i).fechaventa,
+              estado: res.rows.item(i).estado,
+              fechaentrega: res.rows.item(i).fechaentrega,
+              total: res.rows.item(i).total,
+              carrito: res.rows.item(i).carrito,
+              usuariov: res.rows.item(i).usuariov
+            });
+          }
+        }
+  
+        observer.next(items);
+        observer.complete();
+      });
+    });
+  }
+
   buscarDetalles(){
     return this.database.executeSql("SELECT * FROM detalle;",[]).then(res =>{
       //todo bien

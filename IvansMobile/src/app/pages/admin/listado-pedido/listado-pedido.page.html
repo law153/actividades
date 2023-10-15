@@ -28,21 +28,23 @@
       </ion-row>
     </div>
 
-    <div>
-      <ion-row class="contenedor-pedido">
+    <div *ngIf="(hayCompras === true)">
+
+      <ion-row class="contenedor-pedido" *ngFor="let x of compras">
 
         <ion-col class="fecha">
-          <h2>12/08/2023</h2>
+          <h2>Para el {{x.fechaentrega | date:"d/M/yyyy"}}</h2>
         </ion-col>
   
         <ion-col class="pedido">
-          <h2>Pedido 1</h2>
+          <h2>Pedido </h2>
         </ion-col>
   
         <ion-col class="contenedor-boton">
-          <ion-button (click)="irPedido()">Ver pedido</ion-button>
+          <ion-button (click)="irPedido(x.idventa)">Ver pedido</ion-button>
         </ion-col>
       </ion-row>
+
     </div>
     
   </ion-grid>
