@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { AlertController, MenuController } from '@ionic/angular';
 import { CorreoService } from 'src/app/services/correo.service';
 import { DbserviceService } from 'src/app/services/dbservice.service';
-
+import { CarritoService } from 'src/app/services/carrito.service';
 @Component({
   selector: 'app-carrito',
   templateUrl: './carrito.page.html',
@@ -16,6 +16,7 @@ export class CarritoPage implements OnInit {
   total: string= "";
 
   correoUser: any = "";
+  detallesSer: any[] = [];
   fechaActual = new Date();
   fechaEntrega = new Date(this.fechaActual);
   diasSumar = 3;
@@ -26,7 +27,7 @@ export class CarritoPage implements OnInit {
   detalles: any = [{iddetalle: '', cantidad: '', subtotal: '', ventad: '', productod: '', nombreprod: '', precio: '', stock: '', foto: ''}];
   hayCarrito: boolean = true;
   idusuario: number = 0;
-  constructor(private router: Router,private menuCtrl: MenuController, private alerta: AlertController, private activeRouter: ActivatedRoute, private bd: DbserviceService,  private sesion: CorreoService) { 
+  constructor(private router: Router,private menuCtrl: MenuController, private alerta: AlertController, private activeRouter: ActivatedRoute, private bd: DbserviceService, private carro: CarritoService) { 
 
     
 
@@ -118,8 +119,15 @@ export class CarritoPage implements OnInit {
               console.log("ID del carrito: "+this.carrito.idventa);
 
               this.bd.buscarDetallesVenta(this.carrito.idventa).subscribe(detalles => {
+
                 this.detalles = detalles; // Actualiza la lista de detalles
+
+                this.carro.detalles$.subscribe((serdetalles) => {
+                  this.detallesSer = serdetalles;
+                });
               });
+
+              
 
             } else {
               this.hayCarrito = false; // No se encontró un carrito activo
@@ -134,6 +142,7 @@ export class CarritoPage implements OnInit {
 
       }
     })
+
   }
 
 }

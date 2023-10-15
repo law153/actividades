@@ -9,7 +9,7 @@ import { PermisosService } from 'src/app/services/permisos.service';
   styleUrls: ['./productos.page.scss'],
 })
 export class ProductosPage implements OnInit {
-
+  hayProd: boolean = true;
   codprod: number = 0;
   producto: any = [{codprod:'', nombreprod:'', descripcion: '', precio:'', stock: '', foto:'', unidadmedida: '', categoriap: ''}];
   permisoStorage: any = 0;
@@ -121,7 +121,13 @@ export class ProductosPage implements OnInit {
         this.bd.buscarProducto(this.codprod);
         
         this.bd.fetchProducto().subscribe(items => {
-          this.producto = items[0];
+          if(items.length > 0){
+            this.producto = items[0];
+            this.hayProd = true;
+          } else{
+            this.hayProd = false;
+          }
+          
         })
         if(this.correoUser !== ""){
           this.bd.buscarPorCorreo(this.correoUser).subscribe(items => {

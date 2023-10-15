@@ -54,10 +54,6 @@ export class EditarProdPage implements OnInit {
     this.router.navigate(['home-adm'])    
   }
 
-  compareFn(o1 : Categoria, o2 : Categoria): boolean{
-    return o1 && o2 ? o1.idcategoria === o2.idcategoria : o1 === o2;
-  }
-
   //Validaciones
 
   envioValido(){
@@ -196,50 +192,43 @@ export class EditarProdPage implements OnInit {
 
   ngOnInit() {
     this.activeRouter.queryParams.subscribe(param => {
+
       if (this.router.getCurrentNavigation()?.extras.state) {
         this.codprod = this.router.getCurrentNavigation()?.extras?.state?.["prodEnviar"];
-        console.log("Código de producto recibido:", this.codprod);
-        
+        console.log("Código de producto recibido: "+this.codprod);
+  
         this.bd.dbState().subscribe(res => {
-          if(res){
-
+          if (res) {
+            // Carga todas las categorías.
             this.bd.fetchCategoria().subscribe(items => {
               this.categorias = items;
-            })
+  
+              // Carga los detalles del producto y la categoría preseleccionada.
+              this.bd.buscarProducto(this.codprod);
 
-            console.log("Codprod: "+this.codprod);
-            this.bd.buscarProducto(this.codprod);
-            
-
-            
-            this.bd.fetchProducto().subscribe(items => {
-              this.producto = items[0];
-              console.log("Codprod del arreglo: "+this.producto.codprod);
-              this.id = this.producto.codprod;
-              this.nombre= this.producto.nombreprod;
-              this.desc = this.producto.descripcion;
-              this.precio = this.producto.precio;
-              this.stock = this.producto.stock;
-              this.medida = this.producto.unidadmedida;
-              this.categoria = this.producto.categoriap;
-              this.foto = this.producto.foto;
-
-              this.bd.buscarCatePorId(this.producto.categoriap);
-              this.bd.fetchCategoriaIndividual().subscribe(cateItems => {
-                console.log("Categoría Individual: "+ cateItems);
-                this.cate2 = cateItems[0];
-                if(this.cate2){
-                  this.categoria = this.cate2.idcategoria; // Establecer la categoría del producto en el ion-select
-                }else{
-                  console.error("Error: this.cate2 es undefined.");
-                }
+              this.bd.fetchProducto().subscribe(items => {
+                this.producto = items[0];
+                this.id = this.producto.codprod;
+                this.nombre = this.producto.nombreprod;
+                this.desc = this.producto.descripcion;
+                this.precio = this.producto.precio;
+                this.stock = this.producto.stock;
+                this.medida = this.producto.unidadmedida;
+                this.foto = this.producto.foto;
+  
+                // Define la categoría preseleccionada.
+                this.categoria = this.producto.categoriap;
               });
-            })
+            });
           }
-        })
+        });
       }
     });
-
   }
+  
+  compareFn(cate1: any, cate2: any): boolean {
+    return cate1 && cate2 ? cate1.idcategoria === cate2.idcategoria : cate1 === cate2;
+  }
+  
 
 }

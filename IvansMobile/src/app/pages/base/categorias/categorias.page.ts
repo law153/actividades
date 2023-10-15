@@ -12,8 +12,10 @@ import { PermisosService } from 'src/app/services/permisos.service';
 })
 export class CategoriasPage implements OnInit {
   idcate: number = 0;
+  hayProd: boolean = true;
   productos: any = [{codprod: '', nombreprod: '', descripcion: '', precio: '', stock: '', foto: '', unidadmedida: '', categoriap: ''}];
   permiso: number = 0;
+  
   constructor(private menuCtrl: MenuController, private router: Router, private activeRouter: ActivatedRoute, private bd: DbserviceService, private cateUpdate: CateupdateService,  private permisos: PermisosService ) {
     this.cateUpdate.fetchCategoriaSeleccionada().subscribe((idCategoria) => {
       this.idcate = idCategoria;
@@ -82,6 +84,9 @@ export class CategoriasPage implements OnInit {
         
         this.bd.fetchProducto().subscribe(items => {
           this.productos = items;
+          if(items.length <= 0){
+            this.hayProd = false;
+          }
         })
       }
     })
