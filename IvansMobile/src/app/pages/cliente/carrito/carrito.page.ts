@@ -22,6 +22,7 @@ export class CarritoPage implements OnInit {
   stock: number = 0;
   usuario: any = {idusuario: '', rut: '', dvrut: '', nombre: '', apellido: '', telefono: '', correo: '', clave: '', direccion: '', fotousuario: '', respuesta: '', rolu: '', preguntau: '' };
   carrito: any = {};
+  producto: any = [{codprod:'', nombreprod:'', descripcion: '', precio:'', stock: '', foto:'', unidadmedida: '', categoriap: ''}];
   detalles: any = [{iddetalle: '', cantidad: '', subtotal: '', ventad: '', productod: '', nombreprod: '', precio: '', stock: '', foto: ''}];
   hayCarrito: boolean = true;
   idusuario: number = 0;
@@ -48,7 +49,7 @@ export class CarritoPage implements OnInit {
     this.menuCtrl.open('categorias');
   }
 
-  Pagar(){
+  async Pagar(){
 
     this.bd.modificarFechaEntrega(this.carrito.idventa, this.fechaEntrega);
     this.bd.modificarEstadoVenta(this.carrito.idventa, 'Comprado');
@@ -57,6 +58,8 @@ export class CarritoPage implements OnInit {
       this.detalles = detalles; // Actualiza la lista de detalles
     });
     
+
+    //Restar del stock
     for(let x of this.detalles){
       
       this.stock = x.stock - x.cantidad;
@@ -64,6 +67,15 @@ export class CarritoPage implements OnInit {
       console.log("Cantidad del detalle:"+x.cantidad);
       console.log("ID del producto: "+x.productod);
       this.bd.restarStock(x.productod, this.stock);
+      await this.bd.buscarProducto(x.productod);
+
+      this.bd.fetchProducto().subscribe(item => {
+        this.producto = item[0];
+        this.bd.agregarDetalleCompra(this.producto.nombreprod, this.producto.foto, x.cantidad, x.subtotal, x.ventad);
+      })
+
+      
+
     }
     this.presentAlert('Gracías por su compra');
   }

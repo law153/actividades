@@ -762,29 +762,33 @@ export class DbserviceService {
     })
   }
 
-  buscarDetalleCompra(id: any){
-    return this.database.executeSql("SELECT * FROM detallecomprado WHERE iddetallec = ?;",[id]).then(res =>{
-      //todo bien
-      let items: Detallecomprado[] = [];
-      //Validar cantidad registros
-      if(res.rows.length > 0){
-        //Recorrer los datos
-        for(var i = 0; i < res.rows.length; i++ ){
-          //Guardando los datos
-          items.push({ 
-            iddetallec: res.rows.item(i).iddetallec,
-            nombreprodc: res.rows.item(i).nombreprodc,
-            fotoprodc: res.rows.item(i).fotoprodc,
-            cantidadc: res.rows.item(i).cantidadc,
-            subtotalc: res.rows.item(i).subtotalc,
-            ventac: res.rows.item(i).ventac
-           });
+  buscarDetallesCompraVenta(venta: any): Observable<Detallecomprado[]> {
+    return new Observable<Detallecomprado[]>(observer => {
+      this.database.executeSql("SELECT * FROM detallecomprado WHERE ventac = ?;", [venta]).then(res => {
+        let items: Detallecomprado[] = [];
+  
+        // Validar cantidad de registros
+        if (res.rows.length > 0) {
+          // Recorrer los datos
+          for (var i = 0; i < res.rows.length; i++) {
+            // Guardando los datos
+            items.push({ 
+              iddetallec: res.rows.item(i).iddetallec,
+              nombreprodc: res.rows.item(i).nombreprodc,
+              fotoprodc: res.rows.item(i).fotoprodc,
+              cantidadc: res.rows.item(i).cantidadc,
+              subtotalc: res.rows.item(i).subtotalc,
+              ventac: res.rows.item(i).ventac
+            });
+          }
         }
-      }
-      this.listaDetalle.next(items as any);
-
-    })
+  
+        observer.next(items);
+        observer.complete();
+      });
+    });
   }
+  
 
 
   //Funciones para eliminar
@@ -900,11 +904,14 @@ export class DbserviceService {
     })
   }
 
-  agregarDetalleCompra(nombre: any, foto: any, cantidad: any, subtotal: any, venta: any){  
-    return this.database.executeSql("INSERT INTO detallecomprado(nombreprodc, fotoprodc, cantidadc, subtotalc, ventac) VALUES(?, ?, ?, ?, ?)",[nombre, foto, cantidad, subtotal, venta]).then(res=> {
-      this.buscarDetallesCompra(); 
-    })
+  agregarDetalleCompra(nombre: any, foto: any, cantidad: any, subtotal: any, venta: any) {  
+  // Ejecutar la sentencia SQL para agregar el detalle de compra
+    return this.database.executeSql("INSERT INTO detallecomprado(nombreprodc, fotoprodc, cantidadc, subtotalc, ventac) VALUES (?, ?, ?, ?, ?)", [nombre, foto, cantidad, subtotal, venta]).then(res => {
+      console.log('Registro insertado con éxito.');
+      this.buscarDetallesCompra(); // Actualizar la lista de detalles de compra
+    });
   }
+
 
   //Funciones para modificar
   //Usuario
