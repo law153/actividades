@@ -651,6 +651,33 @@ export class DbserviceService {
     });
   }
 
+  buscarDetallesVentaPorD(id: any): Observable<DetallesVenta[]> {
+    return new Observable<DetallesVenta[]>(observer => {
+      this.database.executeSql("SELECT d.iddetalle, d.cantidad, d.subtotal, d.ventad ,d.productod, p.nombreprod, p.precio, p.stock, p.foto FROM detalle d JOIN producto p ON(d.productod = p.codprod) WHERE d.iddetalle = ?;", [id]).then(res => {
+        let items: DetallesVenta[] = [];
+  
+        if (res.rows.length > 0) {
+          for (let i = 0; i < res.rows.length; i++) {
+            items.push({
+              iddetalle: res.rows.item(i).iddetalle,
+              cantidad: res.rows.item(i).cantidad,
+              subtotal: res.rows.item(i).subtotal,
+              ventad: res.rows.item(i).ventad,
+              productod: res.rows.item(i).productod,
+              nombreprod: res.rows.item(i).nombreprod,
+              precio: res.rows.item(i).precio,
+              stock: res.rows.item(i).stock,
+              foto: res.rows.item(i).foto
+            });
+          }
+        }
+  
+        observer.next(items);
+        observer.complete();
+      });
+    });
+  }
+
   buscarDetallesCompra(){
     return this.database.executeSql("SELECT * FROM detallecomprado;",[]).then(res =>{
       //todo bien

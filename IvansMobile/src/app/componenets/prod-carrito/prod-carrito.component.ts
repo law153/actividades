@@ -16,8 +16,13 @@ export class ProdCarritoComponent  implements OnInit {
 @Input() idventa: number = 0;
 
 carritoDetalles: any[] = [];
+detalle: any = {iddetalle: '', cantidad: '', subtotal: '', ventad: '', productod: '', nombreprod: '', precio: '', stock: '', foto: ''};
+venta: any = {idventa: "",fechaventa: "",estado: "",fechaentrega: "",total: "", carrito: "", usuariov: ""};
 subtotal2: number = 0;
 flag: boolean = true;
+totalOld: number = 0;
+totalNew: number = 0;
+
   constructor(private bd: DbserviceService) { }
 
   aprobarCambio(){
@@ -34,11 +39,22 @@ flag: boolean = true;
     }
   }
 
-  cambiarCantidad(){
+  async cambiarCantidad(){
 
-    this.subtotal2 = parseInt(this.precioProd) * this.cantidadProd ;
+    await this.loadVenta();
 
-    this.bd.modificarDetalle(this.iddetalle, this.subtotal2, this.cantidadProd );
+    this.totalOld = this.venta.total;
+    
+    this.subtotal2 = parseInt(this.precioProd) * this.cantidadProd;
+
+    this.totalNew = this.totalOld - parseInt(this.subtotal) + this.subtotal2;
+
+    await this.bd.modificarDetalle(this.iddetalle, this.subtotal2, this.cantidadProd );
+
+    await this.bd.modificarTotal(this.idventa,this.totalNew);
+
+    this.loadDetalle();
+    this.loadVenta();
 
   }
 
@@ -50,6 +66,7 @@ flag: boolean = true;
   }
 
   async borrarDetalle(){
+
     await this.bd.eliminarDetalle(this.iddetalle);
     this.bd.presentAlert("Se ha borrado el producto de su carrito");
 
@@ -60,16 +77,25 @@ flag: boolean = true;
         
       }
 
-    this.loadCarritoDetalles();
+    this.loadDetalle();
+
     });
 
     
   }
 
-  loadCarritoDetalles() {
-    this.bd.buscarDetallesVenta(this.idventa).subscribe(detalles => {
-      this.carritoDetalles = detalles;
+  async loadDetalle() {
+    this.bd.buscarDetallesVentaPorD(this.iddetalle).subscribe(detalle => {
+      this.detalle = detalle[0];
     });
+  }
+
+  async loadVenta(){
+    this.bd.buscarVenta(this.idventa);
+
+    this.bd.fetchVenta().subscribe(item => {
+      this.venta = item[0];
+    })
   }
   
 
@@ -77,7 +103,6 @@ flag: boolean = true;
     this.bd.dbState().subscribe(res => {
       if (res) {
         console.log("La bd en el component ta bien :D");
-        
 
       }
     })
