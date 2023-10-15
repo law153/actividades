@@ -49,10 +49,16 @@ export class CarritoPage implements OnInit {
   }
 
   Pagar(){
+
     this.bd.modificarFechaEntrega(this.carrito.idventa, this.fechaEntrega);
     this.bd.modificarEstadoVenta(this.carrito.idventa, 'Comprado');
 
+    this.bd.buscarDetallesVenta(this.carrito.idventa).subscribe(detalles => {
+      this.detalles = detalles; // Actualiza la lista de detalles
+    });
+    
     for(let x of this.detalles){
+      
       this.stock = x.stock - x.cantidad;
       console.log("Stock del producto: "+x.stock);
       console.log("Cantidad del detalle:"+x.cantidad);

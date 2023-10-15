@@ -67,7 +67,12 @@ totalNew: number = 0;
 
   async borrarDetalle(){
 
+    await this.loadVenta();
+    this.totalOld = this.venta.total;
+    this.totalNew = this.totalOld - parseInt(this.subtotal);
     await this.bd.eliminarDetalle(this.iddetalle);
+
+    this.bd.modificarTotal(this.idventa, this.totalNew);
     this.bd.presentAlert("Se ha borrado el producto de su carrito");
 
   
@@ -77,9 +82,11 @@ totalNew: number = 0;
         
       }
 
-    this.loadDetalle();
-
     });
+    
+    await this.loadDetalle();
+    await this.loadVenta();
+    
 
     
   }
