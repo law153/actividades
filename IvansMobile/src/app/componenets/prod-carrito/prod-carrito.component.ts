@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { DbserviceService } from 'src/app/services/dbservice.service';
+import { CarritoService } from 'src/app/services/carrito.service';
 
 @Component({
   selector: 'app-prod-carrito',
@@ -15,6 +16,7 @@ export class ProdCarritoComponent  implements OnInit {
 @Input() iddetalle: number = 0;
 @Input() idventa: number = 0;
 
+detalles: any[] = [];
 carritoDetalles: any[] = [];
 detalle: any = {iddetalle: '', cantidad: '', subtotal: '', ventad: '', productod: '', nombreprod: '', precio: '', stock: '', foto: ''};
 venta: any = {idventa: "",fechaventa: "",estado: "",fechaentrega: "",total: "", carrito: "", usuariov: ""};
@@ -23,7 +25,7 @@ flag: boolean = true;
 totalOld: number = 0;
 totalNew: number = 0;
 
-  constructor(private bd: DbserviceService) { }
+  constructor(private bd: DbserviceService, private carro: CarritoService) { }
 
   aprobarCambio(){
 
@@ -55,6 +57,7 @@ totalNew: number = 0;
 
     this.loadDetalle();
     this.loadVenta();
+    this.carro.actualizarDetalles(this.carritoDetalles);
 
   }
 
@@ -83,6 +86,7 @@ totalNew: number = 0;
       }
 
     });
+    this.carro.actualizarDetalles(this.carritoDetalles);
     
     await this.loadDetalle();
     await this.loadVenta();
@@ -113,6 +117,10 @@ totalNew: number = 0;
 
       }
     })
+
+    this.carro.detalles$.subscribe((detalles) => {
+      this.detalles = detalles;
+    });
   }
 
 }
