@@ -137,7 +137,7 @@ export class EditarProdPage implements OnInit {
         this.flag = false;
         this.msjStock="Debe llenar este campo";
       } else{
-        if(this.stock <= 0){
+        if(this.stock < 0){
           this.flag = false;
           this.msjStock+="El stock no puede ser igual o menor a 0"+"\n";
         }
