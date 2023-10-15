@@ -62,12 +62,12 @@ export class EditarPerfilPage implements OnInit {
     this.menuCtrl.open('categorias');
   }
 
-  envioValido(){
+  async envioValido(){
     this.flag = true;
-    this.rutValido();
+    await this.rutValido();
     this.nombreValido();
     this.apellidoValido();
-    this.correoValido();
+    await this.correoValido();
     this.respuestValida();
     this.direcValida();
     this.preguntaValida();
@@ -77,20 +77,20 @@ export class EditarPerfilPage implements OnInit {
       this.pregId = parseInt(this.pregunta);
       this.editarPerfil();   
       this.sesion.setCorreoSesion(this.correo);
+      localStorage.setItem('correo',this.correo);
     }
   }
 
   //Rut
 
 
-  rutValido(){
+  async rutValido(){
     this.msjRut = "";
 
     if(this.rut.length === 0 || this.dvrut.length === 0){
       this.flag = false;
       this.msjRut+="Debe llenar estos campos";
     } else{
-
     
       if(this.SoloNumeros(this.rut) === false ){
         this.flag = false;
@@ -104,6 +104,8 @@ export class EditarPerfilPage implements OnInit {
         this.flag = false;
         this.msjRut+="Rut invalido"+"\n";
       }
+
+      await this.buscarRut();
 
     }
   
@@ -191,18 +193,24 @@ export class EditarPerfilPage implements OnInit {
 
   //Correo
 
-  correoValido(){
+  async correoValido(){
     this.msjCorreo = "";
 
     if(this.correo.length === 0){
       this.flag = false;
       this.msjCorreo="Debe llenar este campo";
     } else{
+
+      
+
       if(this.esCorreoValido(this.correo) === false){
         this.flag = false;
         this.msjCorreo+="Su correo no es valido"+"\n";
         
       }
+
+      await this.buscarCorreo();
+      
     }
   }
 
@@ -251,6 +259,30 @@ export class EditarPerfilPage implements OnInit {
       this.msjResp="No puede dejar la respuesta vacía";
       ;
     }
+  }
+
+  async buscarCorreo(){
+    console.log("Correo ingresado: "+this.correo);
+
+      this.bd.buscarPorCorreoMenosTu(this.correo, this.usuario.idusuario).subscribe(items => {
+
+        if(items.length !== 0){
+          this.flag = false;
+          this.msjCorreo+="Correo ya ocupado en el sistema"+"\n";
+        }
+
+      })
+  }
+
+  async buscarRut(){
+    console.log("Rut ingresado: "+this.rut);
+
+    this.bd.buscarPorRutMenosTu(this.rut, this.usuario.idusuario).subscribe(items => {
+      if(items.length !== 0){
+        this.flag = false;
+        this.msjRut+="Rut ya ocupado en el sistema"+"\n";
+      }
+    })
   }
 
   editarPerfil(){
