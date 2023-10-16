@@ -34,7 +34,7 @@ export class EditarProdPage implements OnInit {
   codprod: number = 0;
   producto: any = [{codprod:'', nombreprod:'', descripcion: '', precio:'', stock: '', foto:'', unidadmedida: '', categoriap: ''}];
   categorias: any = [{idcategoria: '', nombrecategoria: ''}];
-  cate2: any = {idcategoria: '', nombrecategoria: ''};
+  cate2: any = [{idcategoria: '', nombrecategoria: ''}];
 
 
   constructor(private router: Router, private alerta: AlertController, private activeRouter: ActivatedRoute, private menuCtrl: MenuController, private bd: DbserviceService, private camara: CamaraService) {
@@ -226,7 +226,7 @@ export class EditarProdPage implements OnInit {
     });
   }
   
-  compareFn(cate1: Categoria, cate2: Categoria): boolean {
+  compareFn(cate1: any, cate2: any): boolean {
     return cate1 && cate2 ? cate1.idcategoria === cate2.idcategoria : cate1 === cate2;
   }
   

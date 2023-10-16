@@ -44,11 +44,6 @@ export class EditarPerfilPage implements OnInit {
 
   pregId: number = 0;
 
-  preguntas: any = [{idpregunta: '', nombrepregunta: ''}];
-
-  preguntasuser: any ={idpregunta: '', nombrepregunta: ''};
-
-
   constructor(private router: Router,private menuCtrl: MenuController, private alerta: AlertController, private bd: DbserviceService, private activedRouter: ActivatedRoute, private camara: CamaraService, private sesion: CorreoService, private permisos: PermisosService) { }
 
   irHomeCli(){
@@ -66,14 +61,6 @@ export class EditarPerfilPage implements OnInit {
     this.menuCtrl.enable(true, 'categorias');
     this.menuCtrl.open('categorias');
   }
-
-  //Comparación
-
-  compareFn(preg1: any, preg2: any): boolean{
-    return preg1 && preg2 ? preg1.idpregunta === preg2.idpregunta : preg1 === preg2;
-  }
-
-  //Validaciones
 
   async envioValido(){
     this.flag = true;
@@ -401,10 +388,6 @@ export class EditarPerfilPage implements OnInit {
   
     this.bd.dbState().subscribe(res => {
       if (res) {
-        this.bd.fetchPregunta().subscribe(pregs =>{
-          this.preguntas = pregs;
-        });
-
         this.bd.buscarPorCorreo(this.correoUser).subscribe(items => {
           this.usuario = items[0];
           if (this.usuario) {
@@ -420,7 +403,6 @@ export class EditarPerfilPage implements OnInit {
             this.pregId = this.usuario.pregId;
             console.log("Se encontró al usuario", this.usuario.nombre);
             console.log("ID usuario: " + this.usuario.idusuario);
-
           } else {
             console.log("No se encontró ningún usuario con ese correo.");
           }

@@ -33,7 +33,7 @@ export class DbserviceService {
   producto: string = "CREATE TABLE IF NOT EXISTS producto(codprod INTEGER PRIMARY KEY AUTOINCREMENT, nombreprod TEXT NOT NULL, descripcion TEXT NOT NULL, precio INTEGER NOT NULL, stock INTEGER NOT NULL, foto TEXT NOT NULL, unidadmedida TEXT NOT NULL, categoriap INTEGER NOT NULL, FOREIGN KEY (categoriap) REFERENCES categoria(idcategoria));";
   venta: string = "CREATE TABLE IF NOT EXISTS venta(idventa INTEGER PRIMARY KEY AUTOINCREMENT, fechaventa DATE NOT NULL, estado TEXT NOT NULL, fechaentrega DATE NOT NULL, total INTEGER NOT NULL, carrito CHAR(1), usuariov INTEGER NOT NULL, FOREIGN KEY (usuariov) REFERENCES usuario(idusuario) );";
   detalle: string= "CREATE TABLE IF NOT EXISTS detalle(iddetalle INTEGER PRIMARY KEY AUTOINCREMENT, cantidad INTEGER NOT NULL, subtotal INTEGER NOT NULL, ventad INTEGER NOT NULL, productod INTEGER NOT NULL, FOREIGN KEY (ventad) REFERENCES venta(idventa), FOREIGN KEY (productod) REFERENCES producto(codprod) );";
-  detalleComprado: string ="CREATE TABLE IF NOT EXISTS detallecomprado(iddetallec INTEGER PRIMARY KEY AUTOINCREMENT, nombreprodc TEXT NOT NULL, fotoprodc TEXT NOT NULL, cantidadc INTEGER NOT NULL, subtotalc INTEGER NOT NULL, ventac INTEGER NOT NULL, FOREIGN KEY (ventac) REFERENCES venta(idventa) );";
+  detalleComprado: string ="CREATE TABLE IF NOT EXISTS detallecomprado(iddetallec INTEGER PRIMARY KEY AUTOINCREMENT, nombreprodc TEXT NOT NULL, fotoprodc BLOB NOT NULL, cantidadc INTEGER NOT NULL, subtotalc INTEGER NOT NULL, ventac INTEGER NOT NULL, FOREIGN KEY (ventac) REFERENCES venta(idventa) );";
 
   //Variables para insert iniciales
 
@@ -1080,7 +1080,6 @@ export class DbserviceService {
       this.buscarDetalles();
       this.buscarProductos();
       this.buscarCategorias();
-      this.buscarPregunta();
       this.buscarVentas();
       this.buscarDetallesCompra();
 
