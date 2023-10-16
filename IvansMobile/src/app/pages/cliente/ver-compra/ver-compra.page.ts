@@ -55,8 +55,8 @@ export class VerCompraPage implements OnInit {
     this.menuCtrl.open('categorias');
   }
 
-  irHomeCli(){
-    this
+  irHome(){
+    this.router.navigate(['']);
   }
 
   ngOnInit() {

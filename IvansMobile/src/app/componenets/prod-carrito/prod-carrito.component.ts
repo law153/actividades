@@ -58,7 +58,7 @@ totalNew: number = 0;
     this.loadDetalle();
     this.loadVenta();
     this.carro.actualizarDetalles(this.carritoDetalles);
-
+    this.recargarPagina();
   }
 
   cantidadValida(){
@@ -90,7 +90,7 @@ totalNew: number = 0;
     
     await this.loadDetalle();
     await this.loadVenta();
-    
+    this.recargarPagina();
 
     
   }
@@ -107,6 +107,10 @@ totalNew: number = 0;
     this.bd.fetchVenta().subscribe(item => {
       this.venta = item[0];
     })
+  }
+
+  recargarPagina() {
+    window.location.reload();
   }
   
 
