@@ -420,6 +420,13 @@ export class EditarPerfilPage implements OnInit {
             this.pregId = this.usuario.pregId;
             console.log("Se encontró al usuario", this.usuario.nombre);
             console.log("ID usuario: " + this.usuario.idusuario);
+
+            this.bd.buscarPregunta(this.usuario.pregId);
+            this.bd.fetchPregunta().subscribe(preg => {
+              this.preguntasuser = preg[0];
+              console.log("ID pregunta del usuario presel: "+this.preguntasuser.idpregunta)
+            });
+
           } else {
             console.log("No se encontró ningún usuario con ese correo.");
           }
@@ -427,6 +434,4 @@ export class EditarPerfilPage implements OnInit {
       }
     })
   }
-  
-
 }

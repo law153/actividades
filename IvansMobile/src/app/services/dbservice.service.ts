@@ -225,8 +225,26 @@ export class DbserviceService {
 
     })
   }
-  
 
+  buscarPregunta(id: any){ 
+    return this.database.executeSql("SELECT * FROM pregunta where idpregunta = ?;",[id]).then(res =>{
+      //todo bien
+      let items: Pregunta[] = [];
+      //Validar cantidad registros
+      if(res.rows.length > 0){
+        //Recorrer los datos
+        for(var i = 0; i < res.rows.length; i++ ){
+          //Guardando los datos
+          items.push({ 
+            idpregunta: res.rows.item(i).idpregunta,
+            nombrepregunta: res.rows.item(i).nombrepregunta });
+        }
+      }
+      this.listaPregunta.next(items as any);
+
+    })
+  }
+  
   buscarConsultas(){ 
     return this.database.executeSql("SELECT * FROM consulta;",[]).then(res =>{
       //todo bien
