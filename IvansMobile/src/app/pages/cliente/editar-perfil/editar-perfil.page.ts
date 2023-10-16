@@ -5,6 +5,7 @@ import { DbserviceService } from 'src/app/services/dbservice.service';
 import { CamaraService } from 'src/app/services/camara.service';
 import { CorreoService } from 'src/app/services/correo.service';
 import { PermisosService } from 'src/app/services/permisos.service';
+import { Pregunta } from 'src/app/services/pregunta';
 @Component({
   selector: 'app-editar-perfil',
   templateUrl: './editar-perfil.page.html',
@@ -44,6 +45,9 @@ export class EditarPerfilPage implements OnInit {
 
   pregId: number = 0;
 
+  preguntas: any = [{idpregunta: '', nombrepregunta: ''}];
+  preguntasuser: any ={idpregunta: '', nombrepregunta: ''};
+
   constructor(private router: Router,private menuCtrl: MenuController, private alerta: AlertController, private bd: DbserviceService, private activedRouter: ActivatedRoute, private camara: CamaraService, private sesion: CorreoService, private permisos: PermisosService) { }
 
   irHomeCli(){
@@ -60,6 +64,10 @@ export class EditarPerfilPage implements OnInit {
   abrirCategorias(){
     this.menuCtrl.enable(true, 'categorias');
     this.menuCtrl.open('categorias');
+  }
+
+  compareFn(preg1: Pregunta, preg2: Pregunta): boolean{
+    return preg1 && preg2 ? preg1.idpregunta === preg2.idpregunta : preg1 === preg2;
   }
 
   async envioValido(){
@@ -392,12 +400,17 @@ export class EditarPerfilPage implements OnInit {
   
     this.bd.dbState().subscribe(res => {
       if (res) {
+        this.bd.fetchPregunta().subscribe(pregs =>{
+          this.preguntas = pregs;
+          console.log("OLA PAPUS: "+this.preguntas);
+        });
+
         this.bd.buscarPorCorreo(this.correoUser).subscribe(items => {
           this.usuario = items[0];
           if (this.usuario) {
             this.nombre = this.usuario.nombre;
             this.apellido = this.usuario.apellido;
-            this.rut = this.usuario.rut;
+            this.rut = this.usuario.rut + "";
             this.dvrut = this.usuario.dvrut;
             this.correo = this.usuario.correo;
             this.respuesta = this.usuario.respuesta;

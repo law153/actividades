@@ -207,7 +207,7 @@ export class DbserviceService {
     });
   }
 
-  buscarPregunta(){ 
+  buscarPreguntas(){ 
     return this.database.executeSql("SELECT * FROM pregunta;",[]).then(res =>{
       //todo bien
       let items: Pregunta[] = [];
@@ -1080,6 +1080,7 @@ export class DbserviceService {
       this.buscarDetalles();
       this.buscarProductos();
       this.buscarCategorias();
+      this.buscarPreguntas();
       this.buscarVentas();
       this.buscarDetallesCompra();
 

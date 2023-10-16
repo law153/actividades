@@ -114,10 +114,8 @@
 
       <ion-row>
         <ion-col>
-          <ion-select labelPlacement="stacked" label="Pregunta de Seguridad" [(ngModel)]="pregunta">
-            <ion-select-option value="1">Nombre de tu mascota</ion-select-option>
-            <ion-select-option value="2">Color favorito</ion-select-option>
-            <ion-select-option value="3">Lugar de nacimiento</ion-select-option>
+          <ion-select labelPlacement="stacked" label="Pregunta de Seguridad" [(ngModel)]="pregunta" [compareWith]="compareFn">
+            <ion-select-option *ngFor="let preg of preguntas" [value]="preg">{{preg.nombrepregunta}}</ion-select-option>
           </ion-select>
         </ion-col>
       </ion-row>
