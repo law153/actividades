@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { AlertController, MenuController } from '@ionic/angular';
 import { DbserviceService } from 'src/app/services/dbservice.service';
 import { GoogleMap } from '@capacitor/google-maps';
+import { Geolocation } from '@capacitor/geolocation'
 
 @Component({
   selector: 'app-contactanos',
@@ -15,6 +16,9 @@ export class ContactanosPage implements OnInit, AfterViewInit {
   msjAsunto: string = "";
   msjCuerpo: string = "";
 
+
+
+
   nombre: string ="";
   asunto: string= "";
   cuerpo: string="";
@@ -25,6 +29,10 @@ export class ContactanosPage implements OnInit, AfterViewInit {
   apiKey = 'AIzaSyDJTdmms9SBC4FoA-p-SzALWmeUReSf4IY';
 
   mapRef: HTMLElement | null = null;
+
+  latitud: number = 0;
+
+  longitud: number = 0;
 
 
   constructor(private menuCtrl: MenuController, private router: Router, private alerta: AlertController, private bd: DbserviceService) { }
@@ -47,6 +55,14 @@ export class ContactanosPage implements OnInit, AfterViewInit {
     this.nombre = "";
     this.asunto = "";
     this.cuerpo = "";
+  }
+
+  async obtenerUbicacion() {
+    const coordinates = await Geolocation.getCurrentPosition();
+
+    this.latitud = coordinates.coords.latitude;
+    this.longitud = coordinates.coords.longitude;
+    
   }
 
   //Validaciones
@@ -132,7 +148,10 @@ export class ContactanosPage implements OnInit, AfterViewInit {
   ngOnInit() {
   }
 
-  ngAfterViewInit() {
+  async ngAfterViewInit() {
+
+    await this.obtenerUbicacion();
+
     // Accedemos al elemento del mapa una vez que la vista se ha inicializado
     this.mapRef = document.getElementById('map');
     if (this.mapRef) {
@@ -152,8 +171,8 @@ export class ContactanosPage implements OnInit, AfterViewInit {
         apiKey: apiKey,
         config: {
           center: {
-            lat: 33.6,
-            lng: -117.9,
+            lat: this.latitud,
+            lng: this.longitud,
           },
           zoom: 8,
         },
