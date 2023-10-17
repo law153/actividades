@@ -15,18 +15,20 @@ export class CarritoPage implements OnInit {
   msj: string = "";
   total: string= "";
 
-  correoUser: any = "";
+  
   detallesSer: any[] = [];
   fechaActual = new Date();
   fechaEntrega = new Date(this.fechaActual);
   diasSumar = 3;
   stock: number = 0;
-  usuario: any = {idusuario: '', rut: '', dvrut: '', nombre: '', apellido: '', telefono: '', correo: '', clave: '', direccion: '', fotousuario: '', respuesta: '', rolu: '', preguntau: '' };
+  idUser: any = 0;
+ 
   carrito: any = {};
   producto: any = [{codprod:'', nombreprod:'', descripcion: '', precio:'', stock: '', foto:'', unidadmedida: '', categoriap: ''}];
   detalles: any = [{iddetalle: '', cantidad: '', subtotal: '', ventad: '', productod: '', nombreprod: '', precio: '', stock: '', foto: ''}];
   hayCarrito: boolean = true;
   idusuario: number = 0;
+
   constructor(private router: Router,private menuCtrl: MenuController, private alerta: AlertController, private activeRouter: ActivatedRoute, private bd: DbserviceService, private carro: CarritoService) { 
 
     
@@ -99,18 +101,15 @@ export class CarritoPage implements OnInit {
   }
 
   ngOnInit() {
-    this.correoUser = localStorage.getItem('correo');
+    this.idUser = localStorage.getItem('usuario');
+
+    console.log(this.idUser);
+
     this.fechaEntrega.setDate(this.fechaActual.getDate() + this.diasSumar);
     this.bd.dbState().subscribe(res => {
       if (res) {
 
-        this.bd.buscarPorCorreo(this.correoUser).subscribe(items => {
-
-          this.usuario = items[0];
-          console.log("Se encontró al usuario: ", this.usuario.nombre);
-          this.idusuario = this.usuario.idusuario;
-;
-          this.bd.buscarVentaCarrito(this.idusuario, 'Activo').subscribe(carrito => {
+          this.bd.buscarVentaCarrito(this.idUser, 'Activo').subscribe(carrito => {
 
             if (carrito.length === 1) {
 
@@ -122,9 +121,6 @@ export class CarritoPage implements OnInit {
 
                 this.detalles = detalles; // Actualiza la lista de detalles
 
-                this.carro.detalles$.subscribe((serdetalles) => {
-                  this.detallesSer = serdetalles;
-                });
               });
 
               
@@ -137,8 +133,6 @@ export class CarritoPage implements OnInit {
             console.log("Estado del carrito: "+this.hayCarrito);
 
           });
-
-        });
 
       }
     })

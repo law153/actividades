@@ -14,8 +14,7 @@ export class ProductosPage implements OnInit {
   producto: any = [{codprod:'', nombreprod:'', descripcion: '', precio:'', stock: '', foto:'', unidadmedida: '', categoriap: ''}];
   permisoStorage: any = 0;
   permiso: any = 0;
-  correoUser: any = "";
-  usuario: any = {idusuario: '', rut: '', dvrut: '', nombre: '', apellido: '', telefono: '', correo: '', clave: '', direccion: '', fotousuario: '', respuesta: '', rolu: '', preguntau: '' };
+  idUser: any = 0;
   venta: any = [{idventa:'', fechaventa: '', estado: '', fechaentrega:'', total:'', carrito: '', usuariov: ''}];
   fechaActual = new Date();
   diasSumar = 999;
@@ -68,7 +67,7 @@ export class ProductosPage implements OnInit {
   }
   
   async comprar() {
-    this.bd.buscarVentaCarrito(this.usuario.idusuario, 'Activo').subscribe(async ventas => {
+    this.bd.buscarVentaCarrito(this.idUser, 'Activo').subscribe(async ventas => {
       if (ventas.length === 1) {
         this.venta = ventas[0];
   
@@ -95,7 +94,7 @@ export class ProductosPage implements OnInit {
       } else {
         this.fechaEntrega.setDate(this.fechaActual.getDate() + this.diasSumar);
 
-        await this.bd.agregarVenta(this.fechaActual, 'Activo', this.fechaEntrega, this.producto.precio, 'C', this.usuario.idusuario);
+        await this.bd.agregarVenta(this.fechaActual, 'Activo', this.fechaEntrega, this.producto.precio, 'C', this.idUser);
 
         this.bd.fetchVenta().subscribe(venta2 => {
           this.venta = venta2[venta2.length - 1];
@@ -111,9 +110,9 @@ export class ProductosPage implements OnInit {
   }
   
 
-  ngOnInit() {
+  ngOnInit() {;
 
-    this.correoUser = localStorage.getItem('correo');
+    this.idUser = localStorage.getItem('usuario');
 
     this.bd.dbState().subscribe(res => {
       if(res){
@@ -128,13 +127,7 @@ export class ProductosPage implements OnInit {
             this.hayProd = false;
           }
           
-        })
-        if(this.correoUser !== ""){
-          this.bd.buscarPorCorreo(this.correoUser).subscribe(items => {
-            this.usuario = items[0];
-          });
-        }
-        
+        })  
       }
     })
 

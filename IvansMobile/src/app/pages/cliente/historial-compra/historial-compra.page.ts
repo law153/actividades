@@ -9,12 +9,13 @@ import { DbserviceService } from 'src/app/services/dbservice.service';
   styleUrls: ['./historial-compra.page.scss'],
 })
 export class HistorialCompraPage implements OnInit {
-  correoUser: any = "";
-  usuario: any = {idusuario: '', rut: '', dvrut: '', nombre: '', apellido: '', telefono: '', correo: '', clave: '', direccion: '', fotousuario: '', respuesta: '', rolu: '', preguntau: '' };
+  
+  
   detalles: any = [{iddetalle: '', cantidad: '', subtotal: '', ventad: '', productod: '', nombreprod: '', precio: '', stock: '', foto: ''}];
-  idusuario: number = 0;
+  idUser: any = 0;
   compras: any = [{idventa: '',fechaventa: '',estado: '',fechaentrega: '',total: '',carrito: '',usuariov: ''}];
   hayCompras: boolean = true;
+  
   constructor(private menuCtrl: MenuController, private router: Router, private bd: DbserviceService) { }
 
   abrirSuperior(){
@@ -44,18 +45,12 @@ export class HistorialCompraPage implements OnInit {
   }
 
   ngOnInit() {
-    this.correoUser = localStorage.getItem('correo');
+    this.idUser = localStorage.getItem('usuario');
 
     this.bd.dbState().subscribe(res => {
       if (res) {
-
-        this.bd.buscarPorCorreo(this.correoUser).subscribe(items => {
-
-          this.usuario = items[0];
-          console.log("Se encontró al usuario: ", this.usuario.nombre);
-          this.idusuario = this.usuario.idusuario;
 ;
-          this.bd.buscarVentaCarrito(this.idusuario, 'Comprado').subscribe(items => {
+          this.bd.buscarVentaCarrito(this.idUser, 'Comprado').subscribe(items => {
 
             if (items.length > 0) {
 
@@ -73,7 +68,7 @@ export class HistorialCompraPage implements OnInit {
 
           });
 
-        });
+        
 
       }
     })

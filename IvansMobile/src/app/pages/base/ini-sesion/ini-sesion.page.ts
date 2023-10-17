@@ -45,6 +45,7 @@ export class IniSesionPage implements OnInit {
             if(this.clave === this.usuario.clave){
 
               localStorage.setItem('correo',this.usuario.correo);
+              localStorage.setItem('usuario',''+this.usuario.idusuario);
               this.sesion.setCorreoSesion(this.usuario.correo);
               
               if(this.usuario.rolu === 1){
