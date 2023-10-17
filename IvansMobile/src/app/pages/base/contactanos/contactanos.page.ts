@@ -2,7 +2,7 @@ import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController, MenuController } from '@ionic/angular';
 import { DbserviceService } from 'src/app/services/dbservice.service';
-import { GoogleMap } from '@capacitor/google-maps';
+import { GoogleMap, Marker, Polyline } from '@capacitor/google-maps';
 import { Geolocation } from '@capacitor/geolocation'
 
 @Component({
@@ -34,6 +34,9 @@ export class ContactanosPage implements OnInit, AfterViewInit {
 
   longitud: number = 0;
 
+  latiDuoc: number = -33.36329660178706;
+
+  longiDuoc: number = -70.75316140662984;
 
   constructor(private menuCtrl: MenuController, private router: Router, private alerta: AlertController, private bd: DbserviceService) { }
 
@@ -161,8 +164,11 @@ export class ContactanosPage implements OnInit, AfterViewInit {
     }
   }
 
-  inicializarMapa() {
+  async inicializarMapa() {
     const apiKey = 'AIzaSyDJTdmms9SBC4FoA-p-SzALWmeUReSf4IY'; // Reemplaza con tu propia clave de API
+
+    const ubicacionUser = {lat: this.latitud, lng: this.longitud};
+    const ubicacionDestino = {lat: this.latiDuoc, lng: this.longiDuoc}
 
     if (this.mapRef) {
       const newMap = GoogleMap.create({
@@ -174,11 +180,18 @@ export class ContactanosPage implements OnInit, AfterViewInit {
             lat: this.latitud,
             lng: this.longitud,
           },
-          zoom: 8,
+          zoom: 10,
         },
       });
+
+      const linea: Polyline[] = [{path: [ {lat: this.latitud, lng: this.longitud}, {lat: this.latiDuoc, lng: this.longiDuoc}], strokeColor: '#55aa58', strokeWeight: 5, geodesic: true }];
+      const marker: Marker = { coordinate: {lat: this.latiDuoc, lng: this.longiDuoc }, title: 'Tienda', snippet: "Sede de Ivan's"};
+      (await newMap).addMarker(marker);
+      (await newMap).addPolylines(linea);
     }
   }
+
+  
 
 }
 
