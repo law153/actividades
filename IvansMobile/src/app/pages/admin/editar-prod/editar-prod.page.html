@@ -94,11 +94,8 @@
         </ion-col>
   
         <ion-col>
-          <ion-select labelPlacement="stacked" label="Unidad Medida" [(ngModel)]="medida">
-            <ion-select-option value="unidad1">Por unidad</ion-select-option>
-            <ion-select-option value="unidad2">Por par</ion-select-option>
-            <ion-select-option value="unidad3">Por metro</ion-select-option>
-            <ion-select-option value="unidad4">Por docena</ion-select-option>
+          <ion-select labelPlacement="stacked" label="Unidad Medida" [(ngModel)]="medidaseleccionada">
+            <ion-select-option *ngFor="let med of medidas" [value]="med">{{med.nombre}}</ion-select-option>
           </ion-select>
         </ion-col>
       </ion-row>

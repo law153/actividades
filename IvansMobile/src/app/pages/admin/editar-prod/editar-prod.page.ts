@@ -36,6 +36,9 @@ export class EditarProdPage implements OnInit {
   categorias: any = [{idcategoria: '', nombrecategoria: ''}];
   categoriaseleccionada: any;
 
+  medidas : any = [{nombre: 'Por unidad'}, {nombre: 'Por par'}, {nombre: 'Por metro'}, {nombre: 'Por docena'}];
+  medidaseleccionada: any;
+
 
   constructor(private router: Router, private alerta: AlertController, private activeRouter: ActivatedRoute, private menuCtrl: MenuController, private bd: DbserviceService, private camara: CamaraService) {
   }
@@ -220,6 +223,10 @@ export class EditarProdPage implements OnInit {
                 if (this.categorias && this.categorias.length > 0) {
                   this.categoriaseleccionada = this.categorias.find((cate: { idcategoria: number; }) => cate.idcategoria === this.categoria);
                 }
+
+                if(this.medidas && this.medidas.length > 0) {
+                  this.medidaseleccionada = this.medidas.find((med: { nombre: string; }) => med.nombre === this.medida);
+                }
               });
             });
           }
@@ -230,6 +237,10 @@ export class EditarProdPage implements OnInit {
   
   compareFn(cate1: Categoria, cate2: Categoria): boolean {
     return cate1 && cate2 ? cate1.idcategoria === cate2.idcategoria : cate1 === cate2;
+  }
+
+  compareMedidas(med1: any, med2: any): boolean {
+    return med1 && med2 ? med1.id === med2.id : med1 === med2;
   }
   
 
