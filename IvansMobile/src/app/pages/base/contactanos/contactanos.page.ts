@@ -1,14 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController, MenuController } from '@ionic/angular';
 import { DbserviceService } from 'src/app/services/dbservice.service';
+import { GoogleMap } from '@capacitor/google-maps';
 
 @Component({
   selector: 'app-contactanos',
   templateUrl: './contactanos.page.html',
   styleUrls: ['./contactanos.page.scss'],
 })
-export class ContactanosPage implements OnInit {
+export class ContactanosPage implements OnInit, AfterViewInit {
 
   msjNombre: string = "";
   msjAsunto: string = "";
@@ -19,6 +20,12 @@ export class ContactanosPage implements OnInit {
   cuerpo: string="";
   msj: string="";
   flag: boolean = true;
+
+  //Weas de maps
+  apiKey = 'AIzaSyDJTdmms9SBC4FoA-p-SzALWmeUReSf4IY';
+
+  mapRef: HTMLElement | null = null;
+
 
   constructor(private menuCtrl: MenuController, private router: Router, private alerta: AlertController, private bd: DbserviceService) { }
 
@@ -125,4 +132,41 @@ export class ContactanosPage implements OnInit {
   ngOnInit() {
   }
 
+  ngAfterViewInit() {
+    // Accedemos al elemento del mapa una vez que la vista se ha inicializado
+    this.mapRef = document.getElementById('map');
+    if (this.mapRef) {
+      this.inicializarMapa();
+    } else {
+      console.error('Elemento del mapa no encontrado');
+    }
+  }
+
+  inicializarMapa() {
+    const apiKey = 'AIzaSyDJTdmms9SBC4FoA-p-SzALWmeUReSf4IY'; // Reemplaza con tu propia clave de API
+
+    if (this.mapRef) {
+      const newMap = GoogleMap.create({
+        id: 'my-map',
+        element: this.mapRef,
+        apiKey: apiKey,
+        config: {
+          center: {
+            lat: 33.6,
+            lng: -117.9,
+          },
+          zoom: 8,
+        },
+      });
+    }
+  }
+
 }
+
+
+
+
+
+
+
+
