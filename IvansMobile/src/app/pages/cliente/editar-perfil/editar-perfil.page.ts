@@ -46,7 +46,7 @@ export class EditarPerfilPage implements OnInit {
   pregId: number = 0;
 
   preguntas: any = [{idpregunta: '', nombrepregunta: ''}];
-  preguntasuser: any ={idpregunta: '', nombrepregunta: ''};
+  preguntaseleccionada: any;
 
   constructor(private router: Router,private menuCtrl: MenuController, private alerta: AlertController, private bd: DbserviceService, private activedRouter: ActivatedRoute, private camara: CamaraService, private sesion: CorreoService, private permisos: PermisosService) { }
 
@@ -253,6 +253,7 @@ export class EditarPerfilPage implements OnInit {
 
   preguntaValida(){
     this.msjPreg = "";
+    this.pregunta = this.preguntaseleccionada.nombrepregunta
     if(this.pregunta.length === 0){
       this.flag = false;
       this.msjPreg="No ha seleccionado ninguna pregunta";
@@ -295,7 +296,7 @@ export class EditarPerfilPage implements OnInit {
 
   editarPerfil(){
 
-    this.bd.modificarUsuario(this.usuario.idusuario, this.nombre, this.apellido, parseInt(this.rut), this.dvrut, this.fono, this.correo, this.direc, this.foto, this.respuesta, this.pregId);
+    this.bd.modificarUsuario(this.usuario.idusuario, this.nombre, this.apellido, parseInt(this.rut), this.dvrut, this.fono, this.correo, this.direc, this.foto, this.respuesta, this.preguntaseleccionada.idpregunta);
     this.bd.presentAlert("Usuario editado con exito");
     this.router.navigate(['']);
     
@@ -417,15 +418,14 @@ export class EditarPerfilPage implements OnInit {
             this.direc = this.usuario.direccion;
             this.foto = this.usuario.fotousuario;
             this.fono = this.usuario.telefono;
-            this.pregId = this.usuario.pregId;
+            this.pregId = this.usuario.preguntau;
             console.log("Se encontró al usuario", this.usuario.nombre);
             console.log("ID usuario: " + this.usuario.idusuario);
+            console.log("ID preg: "+this.pregId);
 
-            this.bd.buscarPregunta(this.usuario.pregId);
-            this.bd.fetchPregunta().subscribe(preg => {
-              this.preguntasuser = preg[0];
-              console.log("ID pregunta del usuario presel: "+this.preguntasuser.idpregunta)
-            });
+            if (this.preguntas && this.preguntas.length > 0) {
+              this.preguntaseleccionada = this.preguntas.find((quest: { idpregunta: number; }) => quest.idpregunta === this.pregId);
+            }
 
           } else {
             console.log("No se encontró ningún usuario con ese correo.");
