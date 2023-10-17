@@ -190,7 +190,8 @@ export class EditarProdPage implements OnInit {
   }
 
   editarProd(){
-    this.bd.modificarProducto(this.id, this.nombre, this.desc, parseInt(this.precio), this.stock, this.foto, this.medida, this.categoria);
+    console.log("ID de la categoria seleccionada: "+this.categoriaseleccionada.idcategoria);
+    this.bd.modificarProducto(this.id, this.nombre, this.desc, parseInt(this.precio), this.stock, this.foto, this.medida, this.categoriaseleccionada.idcategoria);
   }
 
   ngOnInit() {
