@@ -60,15 +60,8 @@
 
       <ion-row>
         <ion-col>
-          <ion-select labelPlacement="stacked" label="Categoria" [(ngModel)]="categoria" [compareWith]="compareFn">
-            <!---<ion-select-option value="1">Herramientas</ion-select-option>
-            <ion-select-option value="2">Electricidad</ion-select-option>
-            <ion-select-option value="3">Fijaciones</ion-select-option>
-            <ion-select-option value="4">Seguridad</ion-select-option>
-            <ion-select-option value="5">Ropa</ion-select-option>
-            <ion-select-option value="6">Gasfiteria</ion-select-option>
-            <ion-select-option value="7">Kits</ion-select-option>!--->
-            <ion-select-option *ngFor="let cate of categorias" [value]="cate.idcategoria">{{cate.nombrecategoria}}</ion-select-option>
+          <ion-select labelPlacement="stacked" label="Categoria" [(ngModel)]="categoriaseleccionada" [compareWith]="compareFn">
+            <ion-select-option *ngFor="let cate of categorias" [value]="cate">{{cate.nombrecategoria}}</ion-select-option>
           </ion-select>
         </ion-col>
       </ion-row>

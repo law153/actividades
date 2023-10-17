@@ -34,7 +34,7 @@ export class EditarProdPage implements OnInit {
   codprod: number = 0;
   producto: any = [{codprod:'', nombreprod:'', descripcion: '', precio:'', stock: '', foto:'', unidadmedida: '', categoriap: ''}];
   categorias: any = [{idcategoria: '', nombrecategoria: ''}];
-  categorias2: any = [{idcategoria: '', nombrecategoria: ''}];
+  categoriaseleccionada: any;
 
 
   constructor(private router: Router, private alerta: AlertController, private activeRouter: ActivatedRoute, private menuCtrl: MenuController, private bd: DbserviceService, private camara: CamaraService) {
@@ -215,9 +215,11 @@ export class EditarProdPage implements OnInit {
                 this.stock = this.producto.stock;
                 this.medida = this.producto.unidadmedida;
                 this.foto = this.producto.foto;
-  
-                // Define la categoría preseleccionada.
                 this.categoria = this.producto.categoriap;
+
+                if (this.categorias && this.categorias.length > 0) {
+                  this.categoriaseleccionada = this.categorias.find((cate: { idcategoria: number; }) => cate.idcategoria === this.categoria);
+                }
               });
             });
           }
