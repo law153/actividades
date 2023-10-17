@@ -240,7 +240,7 @@ export class EditarProdPage implements OnInit {
   }
 
   compareMedidas(med1: any, med2: any): boolean {
-    return med1 && med2 ? med1.id === med2.id : med1 === med2;
+    return med1 && med2 ? med1.nombre === med2.nombre : med1 === med2;
   }
   
 

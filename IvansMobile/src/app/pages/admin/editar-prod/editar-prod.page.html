@@ -94,7 +94,7 @@
         </ion-col>
   
         <ion-col>
-          <ion-select labelPlacement="stacked" label="Unidad Medida" [(ngModel)]="medidaseleccionada">
+          <ion-select labelPlacement="stacked" label="Unidad Medida" [(ngModel)]="medidaseleccionada" [compareWith]="compareMedidas">
             <ion-select-option *ngFor="let med of medidas" [value]="med">{{med.nombre}}</ion-select-option>
           </ion-select>
         </ion-col>
