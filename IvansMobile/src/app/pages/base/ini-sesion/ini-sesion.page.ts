@@ -31,6 +31,10 @@ export class IniSesionPage implements OnInit {
     this.router.navigate(['']);
   }
 
+  limpiar(){
+    this.correo = "";
+    this.clave = "";
+  }
 
 
   iniciarSesion(){
