@@ -66,6 +66,7 @@ producto: any = [];
       this.bd.presentAlert("La cantidad definida no es valida");
       this.flag = false;
     }
+
     if(this.cantidadProd > this.producto.stock){
       this.bd.presentAlert("La cantidad definida es mayor al stock disponible");
       this.flag = false;
@@ -104,10 +105,6 @@ producto: any = [];
   }
   
   actualizarCarrito(){
-    this.bd.buscarProducto(this.idprod);
-        this.bd.fetchProducto().subscribe(item =>{
-          this.producto = item;
-        })
 
         this.bd.buscarVentaCarrito(this.idUser, 'Activo').subscribe(carrito => {
 
@@ -127,7 +124,10 @@ producto: any = [];
     this.idUser = localStorage.getItem('usuario');
     this.bd.dbState().subscribe(res => {
       if (res) { 
-        
+        this.bd.buscarProducto(this.idprod);
+        this.bd.fetchProducto().subscribe(item =>{
+          this.producto = item;
+        })
       }})
 
   }
