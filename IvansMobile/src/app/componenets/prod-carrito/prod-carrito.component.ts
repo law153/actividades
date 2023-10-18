@@ -125,6 +125,10 @@ producto: any = [];
   ngOnInit() {
 
     this.idUser = localStorage.getItem('usuario');
+    this.bd.dbState().subscribe(res => {
+      if (res) { 
+        
+      }})
 
   }
 

@@ -114,7 +114,9 @@ export class CarritoPage implements OnInit {
 
     console.log(this.idUser);
 
-  
+    
+    this.bd.dbState().subscribe(res => {
+      if (res) {
 
           this.bd.buscarVentaCarrito(this.idUser, 'Activo').subscribe(carrito => {
 
@@ -141,7 +143,8 @@ export class CarritoPage implements OnInit {
 
           });
 
-     
+      }
+    })
 
   }
 
