@@ -59,6 +59,8 @@ export class CarritoPage implements OnInit {
     this.bd.modificarFechaEntrega(this.carrito.idventa, this.fechaEntrega);
     this.bd.modificarEstadoVenta(this.carrito.idventa, 'Comprado');
 
+    this.actualizarVenta();
+    
     //Restar del stock
     for(let x of this.detalles){
       

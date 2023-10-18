@@ -72,19 +72,16 @@ export class ProductosPage implements OnInit {
         this.venta = ventas[0];
   
         this.bd.buscarDetalleProd(this.producto.codprod, this.venta.idventa).subscribe(detalles => {
-          if (detalles.length === 1) {
+          if (detalles.length !== 0) {
             this.detalle = detalles[0];
-            console.log("ID DEL DETALLE ENCONTRADO: " + this.detalle.iddetalle);
             this.bd.modificarDetalle(this.detalle.iddetalle, this.detalle.subtotal + this.producto.precio, this.detalle.cantidad + 1);
             this.bd.modificarTotal(this.venta.idventa, this.venta.total + this.producto.precio);
             console.log("-------------------------------------");
             console.log("  Se está modificando el detalle ya previamente existente");
             console.log("-------------------------------------");
-            console.log("Se usó el del detalle que ya existe aaaaaaaaaaaaaaa");
           } else {
             this.detalle = this.bd.agregarDetalle(1, this.producto.precio, this.venta.idventa, this.producto.codprod);
             this.bd.modificarTotal(this.venta.idventa, this.venta.total + this.producto.precio);
-            console.log("ID DEL DETALLE CREADO: " + this.detalle.iddetalle);
             console.log("-------------------------------------");
             console.log("Se está agregando un nuevo detalle");
             console.log("-------------------------------------");
@@ -98,9 +95,7 @@ export class ProductosPage implements OnInit {
 
         this.bd.fetchVenta().subscribe(venta2 => {
           this.venta = venta2[venta2.length - 1];
-          console.log("ID de la venta que se generó: "+this.venta.idventa);
           this.bd.agregarDetalle(1, this.producto.precio, this.venta.idventa, this.producto.codprod);
-
         })
         
         
