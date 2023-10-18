@@ -15,17 +15,21 @@ export class ProdCarritoComponent  implements OnInit {
 @Input() subtotal: string = "";
 @Input() iddetalle: number = 0;
 @Input() idventa: number = 0;
+@Input() idprod: number = 0;
 
+idUser: any = 0;
 detalles: any[] = [];
-carritoDetalles: any[] = [];
+
 detalle: any = {iddetalle: '', cantidad: '', subtotal: '', ventad: '', productod: '', nombreprod: '', precio: '', stock: '', foto: ''};
+
 venta: any = {idventa: "",fechaventa: "",estado: "",fechaentrega: "",total: "", carrito: "", usuariov: ""};
 subtotal2: number = 0;
 flag: boolean = true;
 totalOld: number = 0;
 totalNew: number = 0;
+producto: any = [];
 
-  constructor(private bd: DbserviceService, private carro: CarritoService) { }
+  constructor(private bd: DbserviceService) { }
 
   aprobarCambio(){
 
@@ -43,8 +47,6 @@ totalNew: number = 0;
 
   async cambiarCantidad(){
 
-    await this.loadVenta();
-
     this.totalOld = this.venta.total;
     
     this.subtotal2 = parseInt(this.precioProd) * this.cantidadProd;
@@ -55,22 +57,24 @@ totalNew: number = 0;
 
     await this.bd.modificarTotal(this.idventa,this.totalNew);
 
-    this.loadDetalle();
-    this.loadVenta();
-    this.carro.actualizarDetalles(this.carritoDetalles);
-    this.recargarPagina();
+    this.actualizarCarrito();
+    
   }
 
   cantidadValida(){
     if(this.cantidadProd <= 0){
-      this.bd.presentAlert("La cantidad definidad no es valida");
+      this.bd.presentAlert("La cantidad definida no es valida");
+      this.flag = false;
+    }
+    if(this.cantidadProd > this.producto.stock){
+      this.bd.presentAlert("La cantidad definida es mayor al stock disponible");
       this.flag = false;
     }
   }
 
   async borrarDetalle(){
 
-    await this.loadVenta();
+    
     this.totalOld = this.venta.total;
     this.totalNew = this.totalOld - parseInt(this.subtotal);
     await this.bd.eliminarDetalle(this.iddetalle);
@@ -86,45 +90,42 @@ totalNew: number = 0;
       }
 
     });
-    this.carro.actualizarDetalles(this.carritoDetalles);
+    this.actualizarCarrito();
     
-    await this.loadDetalle();
-    await this.loadVenta();
-    this.recargarPagina();
 
     
   }
 
-  async loadDetalle() {
-    this.bd.buscarDetallesVentaPorD(this.iddetalle).subscribe(detalle => {
-      this.detalle = detalle[0];
-    });
-  }
+  
 
-  async loadVenta(){
-    this.bd.buscarVenta(this.idventa);
-
-    this.bd.fetchVenta().subscribe(item => {
-      this.venta = item[0];
-    })
-  }
 
   recargarPagina() {
     window.location.reload();
   }
   
+  actualizarCarrito(){
+    this.bd.buscarProducto(this.idprod);
+        this.bd.fetchProducto().subscribe(item =>{
+          this.producto = item;
+        })
+
+        this.bd.buscarVentaCarrito(this.idUser, 'Activo').subscribe(carrito => {
+
+          this.venta = carrito[0];
+    
+          this.bd.buscarDetallesVenta(this.venta.idventa).subscribe(detalles => {
+    
+            this.detalles = detalles; // Actualiza la lista de detalles
+    
+          });
+    
+        });
+  }
 
   ngOnInit() {
-    this.bd.dbState().subscribe(res => {
-      if (res) {
-        console.log("La bd en el component ta bien :D");
 
-      }
-    })
+    this.idUser = localStorage.getItem('usuario');
 
-    this.carro.detalles$.subscribe((detalles) => {
-      this.detalles = detalles;
-    });
   }
 
 }

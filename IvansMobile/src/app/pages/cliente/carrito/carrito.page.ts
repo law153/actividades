@@ -52,15 +52,12 @@ export class CarritoPage implements OnInit {
     this.menuCtrl.open('categorias');
   }
 
+
   async Pagar(){
+    this.fechaEntrega.setDate(this.fechaActual.getDate() + this.diasSumar);
 
     this.bd.modificarFechaEntrega(this.carrito.idventa, this.fechaEntrega);
     this.bd.modificarEstadoVenta(this.carrito.idventa, 'Comprado');
-
-    this.bd.buscarDetallesVenta(this.carrito.idventa).subscribe(detalles => {
-      this.detalles = detalles; // Actualiza la lista de detalles
-    });
-    
 
     //Restar del stock
     for(let x of this.detalles){
@@ -74,14 +71,12 @@ export class CarritoPage implements OnInit {
 
       this.bd.fetchProducto().subscribe(item => {
         this.producto = item[0];
-        this.bd.agregarDetalleCompra(this.producto.nombreprod, this.producto.foto, x.cantidad, x.subtotal, x.ventad);
       })
-
-      
 
     }
     this.presentAlert('Gracías por su compra');
   }
+
 
   irHistorial(){
     this.router.navigate(['historial-compra'])
@@ -100,14 +95,26 @@ export class CarritoPage implements OnInit {
     await alert.present();
   }
 
+  async actualizarVenta(){
+    this.bd.buscarVentaCarrito(this.idUser, 'Activo').subscribe(carrito => {
+
+      this.carrito = carrito[0];
+
+      this.bd.buscarDetallesVenta(this.carrito.idventa).subscribe(detalles => {
+
+        this.detalles = detalles; // Actualiza la lista de detalles
+
+      });
+
+    });
+  }
+
   ngOnInit() {
     this.idUser = localStorage.getItem('usuario');
 
     console.log(this.idUser);
 
-    this.fechaEntrega.setDate(this.fechaActual.getDate() + this.diasSumar);
-    this.bd.dbState().subscribe(res => {
-      if (res) {
+  
 
           this.bd.buscarVentaCarrito(this.idUser, 'Activo').subscribe(carrito => {
 
@@ -134,8 +141,7 @@ export class CarritoPage implements OnInit {
 
           });
 
-      }
-    })
+     
 
   }
 
