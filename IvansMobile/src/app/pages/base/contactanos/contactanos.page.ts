@@ -26,7 +26,7 @@ export class ContactanosPage implements OnInit, AfterViewInit {
   flag: boolean = true;
 
   //Weas de maps
-  apiKey = 'tu key';
+  apiKey = 'AIzaSyDJTdmms9SBC4FoA-p-SzALWmeUReSf4IY';
 
   mapRef: HTMLElement | null = null;
 
