@@ -72,14 +72,23 @@ export class EditarPerfilPage implements OnInit {
 
   async envioValido(){
     this.flag = true;
+
     await this.rutValido();
+    console.log("Estado de flag: "+this.flag);
     this.nombreValido();
+    console.log("Estado de flag: "+this.flag);
     this.apellidoValido();
+    console.log("Estado de flag: "+this.flag);
     await this.correoValido();
+    console.log("Estado de flag: "+this.flag);
     this.respuestValida();
+    console.log("Estado de flag: "+this.flag);
     this.direcValida();
+    console.log("Estado de flag: "+this.flag);
     this.preguntaValida();
+    console.log("Estado de flag: "+this.flag);
     this.fonoValido();
+    console.log("Estado de flag: "+this.flag);
     if(this.flag === true){
 
       this.pregId = parseInt(this.pregunta);
@@ -99,7 +108,7 @@ export class EditarPerfilPage implements OnInit {
       this.flag = false;
       this.msjRut+="Debe llenar estos campos";
     } else{
-    
+
       if(this.SoloNumeros(this.rut) === false ){
         this.flag = false;
         this.msjRut+="El rut se compone solo de números "+"\n";
@@ -113,7 +122,17 @@ export class EditarPerfilPage implements OnInit {
         this.msjRut+="Rut invalido"+"\n";
       }
 
-      await this.buscarRut();
+      try{
+        const usuarios = await this.bd.buscarPorRutMenosTu(this.rut, this.usuario.idusuario)
+        if(usuarios.length > 0){
+          this.flag = false;
+          this.msjRut = "RUT ya ocupado en el sistema" + "\n";
+          console.log("Hay usuarios con este rut");
+        }
+      }catch(error){
+        console.error("Error al buscar usuario por RUT:", error);
+      }
+
 
     }
   
@@ -205,10 +224,9 @@ export class EditarPerfilPage implements OnInit {
     this.msjCorreo = "";
 
     if(this.correo.length === 0){
-      this.flag = false;
+      
       this.msjCorreo="Debe llenar este campo";
     } else{
-
       
 
       if(this.esCorreoValido(this.correo) === false){
@@ -217,10 +235,23 @@ export class EditarPerfilPage implements OnInit {
         
       }
 
-      await this.buscarCorreo();
+      try{
+        const usuarios = await this.bd.buscarPorCorreoMenosTu(this.correo, this.usuario.idusuario)
+        if(usuarios.length > 0){
+          this.flag = false;
+          this.msjCorreo = "Correo ya ocupado en el sistema" + "\n";
+          console.log("Hay usuarios con este correo");
+        }
+      }catch(error){
+        console.error("Error al buscar usuario por CORREO:", error);
+      }
+
+      
       
     }
   }
+
+  
 
   //Dirección
 
@@ -268,30 +299,6 @@ export class EditarPerfilPage implements OnInit {
       this.msjResp="No puede dejar la respuesta vacía";
       ;
     }
-  }
-
-  async buscarCorreo(){
-    console.log("Correo ingresado: "+this.correo);
-
-      this.bd.buscarPorCorreoMenosTu(this.correo, this.usuario.idusuario).subscribe(items => {
-
-        if(items.length !== 0){
-          this.flag = false;
-          this.msjCorreo+="Correo ya ocupado en el sistema"+"\n";
-        }
-
-      })
-  }
-
-  async buscarRut(){
-    console.log("Rut ingresado: "+this.rut);
-
-    this.bd.buscarPorRutMenosTu(this.rut, this.usuario.idusuario).subscribe(items => {
-      if(items.length !== 0){
-        this.flag = false;
-        this.msjRut+="Rut ya ocupado en el sistema"+"\n";
-      }
-    })
   }
 
   editarPerfil(){

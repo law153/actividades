@@ -78,10 +78,10 @@ export class RegistrarsePage implements OnInit {
 
 async envioValido(){
     this.flag = true;
-    this.rutValido();
+    await this.rutValido();
     this.nombreValido();
     this.apellidoValido();
-    this.correoValido();
+    await this.correoValido();
     this.claveValida();
     this.claveRepValid();
     this.respuestValida();
@@ -99,6 +99,7 @@ async envioValido(){
 
 
   async rutValido(){
+
     this.msjRut = "";
 
     if(this.rut.length === 0 || this.dvrut.length === 0){
@@ -106,7 +107,6 @@ async envioValido(){
       this.msjRut+="Debe llenar estos campos";
     } else{
 
-    
       if(this.SoloNumeros(this.rut) === false ){
         this.flag = false;
         this.msjRut+="El rut se compone solo de números "+"\n";
@@ -119,7 +119,17 @@ async envioValido(){
         this.flag = false;
         this.msjRut+="Rut invalido"+"\n";
       }
-      await this.buscarRut();
+
+      try{
+        const usuarios = await this.bd.buscarRut(this.rut)
+        if(usuarios.length > 0){
+          this.flag = false;
+          this.msjRut = "RUT ya ocupado en el sistema" + "\n";
+          console.log("Hay usuarios con este rut");
+        }
+      }catch(error){
+        console.error("Error al buscar usuario por RUT:", error);
+      }
       
 
     }
@@ -222,8 +232,18 @@ async envioValido(){
         
 
       }
-      
-      await this.buscarCorreo();
+
+      try{
+        const usuarios = await this.bd.buscarCorreo(this.correo)
+
+        if(usuarios.length > 0){
+          this.flag = false;
+          this.msjCorreo+="Correo ya ocupado en el sistema"+"\n";;
+          console.log("Hay usuarios con este correo");
+        }
+      }catch(error){
+        console.error("Error al buscar usuario por Correo:", error);
+      }
       
     }
   }
@@ -252,27 +272,13 @@ async envioValido(){
 
 
   async buscarCorreo(){
-    console.log("Correo ingresado: "+this.correo);
+    
 
-      this.bd.buscarPorCorreo(this.correo).subscribe(items => {
-
-        if(items.length !== 0){
-          this.flag = false;
-          this.msjCorreo+="Correo ya ocupado en el sistema"+"\n";
-        }
-
-      })
+      
   }
 
   async buscarRut(){
-    console.log("Rut ingresado: "+this.rut);
-
-    this.bd.buscarPorRut(this.rut).subscribe(items => {
-      if(items.length !== 0){
-        this.flag = false;
-        this.msjRut+="Rut ya ocupado en el sistema"+"\n";
-      }
-    })
+    
   }
   //Contraseña
   claveValida() {

@@ -392,7 +392,43 @@ export class DbserviceService {
     });
   }
 
+  buscarCorreo(correo: any): Promise<Usuario[]> {
+    console.log("Correo recibido en el servicio: " + correo);
+    return new Promise<Usuario[]>((resolve, reject) => {
+      this.database.executeSql("SELECT * FROM usuario WHERE correo = ?;", [correo]).then(res => {
+        let items: Usuario[] = [];
+  
+        if (res.rows.length > 0) {
+          for (let i = 0; i < res.rows.length; i++) {
+            items.push({
+              idusuario: res.rows.item(i).idusuario,
+              rut: res.rows.item(i).rut,
+              dvrut: res.rows.item(i).dvrut,
+              nombre: res.rows.item(i).nombre,
+              apellido: res.rows.item(i).apellido,
+              telefono: res.rows.item(i).telefono,
+              correo: res.rows.item(i).correo,
+              clave: res.rows.item(i).clave,
+              direccion: res.rows.item(i).direccion,
+              fotousuario: res.rows.item(i).fotousuario,
+              respuesta: res.rows.item(i).respuesta,
+              rolu: res.rows.item(i).rolu,
+              preguntau: res.rows.item(i).preguntau
+            });
+          }
+          resolve(items);
+        } else {
+          resolve([]);
+        }
+      }).catch(error => {
+        reject(error);
+      });
+    });
+  }
+  
+
   buscarPorRut(rut: any): Observable<Usuario[]> {
+    console.log("Correo recibido en el servicio: " + rut);
     return new Observable<Usuario[]> (observer => {
       this.database.executeSql("SELECT * from usuario where rut = ?;",[rut]).then(res => {
         let items: Usuario[] = [];
@@ -420,10 +456,11 @@ export class DbserviceService {
       });
     });
   }
-  buscarPorCorreoMenosTu(correo: any, id: any): Observable<Usuario[]> {
-    console.log("Correo recibido en el servicio: " + correo);
-    return new Observable<Usuario[]>(observer => {
-      this.database.executeSql("SELECT * FROM usuario WHERE correo = ? AND idusuario != ?;", [correo, id]).then(res => {
+
+  buscarRut(rut: any): Promise<Usuario[]> {
+    console.log("Rut recibido en el servicio: " + rut);
+    return new Promise<Usuario[]>((resolve, reject) => {
+      this.database.executeSql("SELECT * FROM usuario WHERE rut = ?;", [rut]).then(res => {
         let items: Usuario[] = [];
   
         if (res.rows.length > 0) {
@@ -444,19 +481,24 @@ export class DbserviceService {
               preguntau: res.rows.item(i).preguntau
             });
           }
+          resolve(items);
+        } else {
+          resolve([]);
         }
-  
-        observer.next(items);
-        observer.complete();
+      }).catch(error => {
+        reject(error);
       });
     });
   }
 
-  buscarPorRutMenosTu(rut: any, id:any): Observable<Usuario[]> {
-    return new Observable<Usuario[]> (observer => {
-      this.database.executeSql("SELECT * from usuario where rut = ? AND idusuario != ?;",[rut, id]).then(res => {
+  buscarPorCorreoMenosTu(correo: any, id: any): Promise<Usuario[]> {
+    return new Promise<Usuario[]>(async (resolve, reject) => {
+      console.log("Correo recibido en el servicio: " + correo);
+      try {
+        const res = await this.database.executeSql("SELECT * FROM usuario WHERE correo = ? AND idusuario != ?;", [correo, id]);
+  
         let items: Usuario[] = [];
-        if (res.rows.length > 0){
+        if (res.rows.length > 0) {
           for (let i = 0; i < res.rows.length; i++) {
             items.push({
               idusuario: res.rows.item(i).idusuario,
@@ -474,12 +516,50 @@ export class DbserviceService {
               preguntau: res.rows.item(i).preguntau
             });
           }
+          resolve(items);
+        } else {
+          resolve([]);
         }
-        observer.next(items);
-        observer.complete();
+      } catch (error) {
+        reject(error);
+      }
+    });
+  }
+  
+
+  buscarPorRutMenosTu(rut: any, id: any): Promise<Usuario[]> {
+    console.log("RUT recibido en el servicio: " + rut);
+    return new Promise<Usuario[]>((resolve, reject) => {
+      this.database.executeSql("SELECT * from usuario where rut = ? AND idusuario != ?;", [rut, id]).then(res => {
+        let items: Usuario[] = [];
+        if (res.rows.length > 0) {
+          for (let i = 0; i < res.rows.length; i++) {
+            items.push({
+              idusuario: res.rows.item(i).idusuario,
+              rut: res.rows.item(i).rut,
+              dvrut: res.rows.item(i).dvrut,
+              nombre: res.rows.item(i).nombre,
+              apellido: res.rows.item(i).apellido,
+              telefono: res.rows.item(i).telefono,
+              correo: res.rows.item(i).correo,
+              clave: res.rows.item(i).clave,
+              direccion: res.rows.item(i).direccion,
+              fotousuario: res.rows.item(i).fotousuario,
+              respuesta: res.rows.item(i).respuesta,
+              rolu: res.rows.item(i).rolu,
+              preguntau: res.rows.item(i).preguntau
+            });
+          }
+          resolve(items);
+        } else {
+          resolve([]); // Resuelve un array vacío si no se encontraron resultados
+        }
+      }).catch(error => {
+        reject(error);
       });
     });
   }
+  
 
   buscarProductos(){ 
     return this.database.executeSql("SELECT * FROM producto;",[]).then(res =>{
