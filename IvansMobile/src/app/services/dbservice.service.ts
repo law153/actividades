@@ -978,7 +978,7 @@ export class DbserviceService {
   buscarDetallesVenta3(venta: any){
     return this.database.executeSql("SELECT d.iddetalle, d.cantidad, d.subtotal, d.ventad, d.productod, p.nombreprod, p.precio, p.stock, p.foto FROM detalle d JOIN producto p ON(d.productod = p.codprod) WHERE ventad = ?;", [venta]).then(res =>{
       //todo bien
-      let items: Detalle[] = [];
+      let items: DetallesVenta[] = [];
       //Validar cantidad registros
       if(res.rows.length > 0){
         //Recorrer los datos
@@ -989,11 +989,15 @@ export class DbserviceService {
             cantidad: res.rows.item(i).cantidad,
             subtotal: res.rows.item(i).subtotal,
             ventad: res.rows.item(i).ventad,
-            productod: res.rows.item(i).productod
+            productod: res.rows.item(i).productod,
+            nombreprod: res.rows.item(i).nombreprod,
+            precio: res.rows.item(i).precio,
+            stock: res.rows.item(i).stock,
+            foto: res.rows.item(i).foto
            });
         }
       }
-      this.listaDetalle.next(items as any);
+      this.listaDetallesVenta.next(items as any);
 
     })
   }

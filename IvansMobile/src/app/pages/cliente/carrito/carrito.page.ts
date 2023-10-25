@@ -128,37 +128,39 @@ export class CarritoPage implements OnInit {
     }
   }
 
+  async suscribirObservables(){
+
+    this.bd.buscarVentaCarrito3(this.idUser, 'Activo');
+
+    this.bd.fetchVenta().subscribe(carrito => {
+      
+      if(carrito.length > 0){
+        this.carrito = carrito[0];
+        this.hayCarrito = true;
+        this.bd.buscarDetallesVenta3(this.carrito.idventa);
+
+        this.bd.fetchDetallesVenta().subscribe(detalles => {
+          this.detalles = detalles;
+        })
+
+      } else {
+
+        this.hayCarrito = false; // No se encontró un carrito activo
+        this.bd.presentAlert("No hay un carrito activo!");
+
+      }
+    })
+
+  }
+
   async ngOnInit() {
     
     this.idUser = localStorage.getItem('usuario');
-
-
     
     this.bd.dbState().subscribe(async res => {
       if (res) {
 
-        try{
-
-          const carrito = await this.bd.buscarVentaCarrito2(this.idUser, 'Activo');
-    
-          if(carrito.length > 0){
-            this.carrito = carrito[0];
-            console.log("Se encontró un carrito, su id es: "+this.carrito.idventa);
-            this.hayCarrito = true; // Se encontró un carrito activo
-            await this.buscarDetalles();
-            
-          }else{
-            console.log("No se encontró un carrito ");
-            this.hayCarrito = false; // No se encontró un carrito activo
-            this.bd.presentAlert("No hay un carrito activo!");
-    
-          }
-    
-        }catch(error){
-    
-          console.error("Error al buscar el carrito", error);
-    
-        }
+        await this.suscribirObservables();
 
       }
     })
