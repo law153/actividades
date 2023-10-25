@@ -714,6 +714,35 @@ export class DbserviceService {
     });
   }
 
+  buscarVentaCarrito2(usuario: any, estado: any): Promise<Venta[]> {
+    console.log("ID del usuario que recibió la búsqueda del carrito: " + usuario);
+    return new Promise<Venta[]>((resolve, reject) => {
+      this.database.executeSql("SELECT * FROM venta WHERE usuariov = ? AND estado = ?;", [usuario, estado]).then(res => {
+        let items: Venta[] = [];
+
+        if (res.rows.length > 0) {
+          for (let i = 0; i < res.rows.length; i++) {
+            items.push({
+              idventa: res.rows.item(i).idventa,
+              fechaventa: res.rows.item(i).fechaventa,
+              estado: res.rows.item(i).estado,
+              fechaentrega: res.rows.item(i).fechaentrega,
+              total: res.rows.item(i).total,
+              carrito: res.rows.item(i).carrito,
+              usuariov: res.rows.item(i).usuariov
+            });
+          }
+          resolve(items);
+        } else {
+          resolve([]);
+        }
+      }).catch(error => {
+        reject(error);
+      });
+    });
+}
+
+
   buscarCompras(estado: any): Observable<Venta[]> {
     return new Observable<Venta[]>(observer => {
       this.database.executeSql("SELECT * FROM venta WHERE estado = ?;", [estado]).then(res => {
@@ -806,6 +835,33 @@ export class DbserviceService {
       });
     });
   }
+
+  buscarDetalleProd2(prod: any, venta: any): Promise<Detalle[]> {
+    return new Promise<Detalle[]>((resolve, reject) => {
+      this.database.executeSql("SELECT * FROM detalle WHERE productod = ? AND ventad = ?;", [prod, venta])
+        .then(res => {
+          let items: Detalle[] = [];
+  
+          if (res.rows.length > 0) {
+            for (let i = 0; i < res.rows.length; i++) {
+              items.push({
+                iddetalle: res.rows.item(i).iddetalle,
+                cantidad: res.rows.item(i).cantidad,
+                subtotal: res.rows.item(i).subtotal,
+                ventad: res.rows.item(i).ventad,
+                productod: res.rows.item(i).productod
+              });
+            }
+          }
+  
+          resolve(items);
+        })
+        .catch(error => {
+          reject(error);
+        });
+    });
+  }
+  
 
   buscarDetallesVenta(venta: any): Observable<DetallesVenta[]> {
     return new Observable<DetallesVenta[]>(observer => {
@@ -1015,11 +1071,20 @@ export class DbserviceService {
   }
   
 
-  agregarVenta(fechav: any, estado: any, fechae: any, total: any, carrito: any, usuariov: any){  
-    return this.database.executeSql("INSERT INTO venta(fechaventa, estado, fechaentrega, total, carrito, usuariov) VALUES(?, ?, ?, ?, ?, ?)",[fechav, estado, fechae, total, carrito, usuariov]).then(res=> {
-      this.buscarVentas(); 
-    })
-  }
+  agregarVenta(fechav: any, estado: any, fechae: any, total: any, carrito: any, usuariov: any): Promise<number> {
+    return new Promise<number>((resolve, reject) => {
+        this.database.executeSql("INSERT INTO venta(fechaventa, estado, fechaentrega, total, carrito, usuariov) VALUES(?, ?, ?, ?, ?, ?)", [fechav, estado, fechae, total, carrito, usuariov]).then(res => {
+            this.buscarVentas();
+            // Obtener el ID de la venta recién insertada
+            const ventaId = res.insertId;
+            resolve(ventaId);
+        }).catch(error => {
+            reject(error);
+        });
+    });
+}
+
+  
 
   agregarDetalle(cantidad: any, subtotal: any, ventad: any, productod: any){  
     return this.database.executeSql("INSERT INTO detalle(cantidad, subtotal, ventad, productod) VALUES(?, ?, ?, ?)",[cantidad, subtotal, ventad, productod]).then(res=> {

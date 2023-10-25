@@ -61,47 +61,62 @@ export class ProductosPage implements OnInit {
 
   async comprar2() {
 
-    await this.comprar();
+    await this.buscarCarrito();
     this.redireccion();
     
   }
   
-  async comprar() {
-    this.bd.buscarVentaCarrito(this.idUser, 'Activo').subscribe(async ventas => {
-      if (ventas.length === 1) {
-        this.venta = ventas[0];
-  
-        this.bd.buscarDetalleProd(this.producto.codprod, this.venta.idventa).subscribe(detalles => {
-          if (detalles.length !== 0) {
-            this.detalle = detalles[0];
-            this.bd.modificarDetalle(this.detalle.iddetalle, this.detalle.subtotal + this.producto.precio, this.detalle.cantidad + 1);
-            this.bd.modificarTotal(this.venta.idventa, this.venta.total + this.producto.precio);
-            console.log("-------------------------------------");
-            console.log("  Se está modificando el detalle ya previamente existente");
-            console.log("-------------------------------------");
-          } else {
-            this.detalle = this.bd.agregarDetalle(1, this.producto.precio, this.venta.idventa, this.producto.codprod);
-            this.bd.modificarTotal(this.venta.idventa, this.venta.total + this.producto.precio);
-            console.log("-------------------------------------");
-            console.log("Se está agregando un nuevo detalle");
-            console.log("-------------------------------------");
-          }
-        });
 
-      } else {
+  async buscarCarrito(){
+    try{
+
+      const carrito = await this.bd.buscarVentaCarrito2(this.idUser, 'Activo');
+
+      if(carrito.length > 0){
+        this.venta = carrito[0];
+        console.log("Se encontró un carrito, su id es: "+this.venta.idventa);
+        await this.buscarDetalle();
+
+      }else{
+        console.log("No se encontró un carrito ");
         this.fechaEntrega.setDate(this.fechaActual.getDate() + this.diasSumar);
+        const nuevaVentaId = await this.bd.agregarVenta(this.fechaActual, 'Activo', this.fechaEntrega, this.producto.precio, 'C', this.idUser);
+        this.bd.agregarDetalle(1, this.producto.precio, nuevaVentaId, this.producto.codprod);
 
-        await this.bd.agregarVenta(this.fechaActual, 'Activo', this.fechaEntrega, this.producto.precio, 'C', this.idUser);
-
-        this.bd.fetchVenta().subscribe(venta2 => {
-          this.venta = venta2[venta2.length - 1];
-          this.bd.agregarDetalle(1, this.producto.precio, this.venta.idventa, this.producto.codprod);
-        })
-        
-        
-        
       }
-    });
+
+    }catch(error){
+
+      console.error("Error al buscar el carrito", error);
+
+    }
+  }
+
+  async buscarDetalle(){
+    try{
+
+      const detalle = await this.bd.buscarDetalleProd2(this.producto.codprod, this.venta.idventa);
+
+      if(detalle.length > 0){
+
+        this.detalle = detalle[0];
+        console.log("Se encontró un detalle, su id es: "+this.detalle.iddetalle);
+        this.bd.modificarDetalle(this.detalle.iddetalle, this.detalle.subtotal + this.producto.precio, this.detalle.cantidad + 1);
+        this.bd.modificarTotal(this.venta.idventa, this.venta.total + this.producto.precio);
+
+      }else{
+
+        console.log("No se encontró un detalle ");
+        this.bd.agregarDetalle(1, this.producto.precio, this.venta.idventa, this.producto.codprod);
+        this.bd.modificarTotal(this.venta.idventa, this.venta.total + this.producto.precio);
+
+      }
+
+    }catch(error){
+
+      console.error("Error al buscar el detalle", error);
+
+    }
   }
   
 
