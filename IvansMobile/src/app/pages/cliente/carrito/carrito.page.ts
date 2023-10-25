@@ -54,6 +54,7 @@ export class CarritoPage implements OnInit {
 
 
   async Pagar(){
+
     this.fechaEntrega.setDate(this.fechaActual.getDate() + this.diasSumar);
 
     this.bd.modificarFechaEntrega(this.carrito.idventa, this.fechaEntrega);
@@ -77,6 +78,7 @@ export class CarritoPage implements OnInit {
 
     }
     this.presentAlert('Gracías por su compra');
+
   }
 
 
@@ -98,11 +100,13 @@ export class CarritoPage implements OnInit {
   }
 
   async actualizarVenta(){
-    this.bd.buscarVentaCarrito(this.idUser, 'Activo').subscribe(carrito => {
+    this.bd.buscarVentaCarrito3(this.idUser, 'Activo')
+    this.bd.fetchVenta().subscribe(carrito => {
 
       this.carrito = carrito[0];
 
-      this.bd.buscarDetallesVenta(this.carrito.idventa).subscribe(detalles => {
+      this.bd.buscarDetallesVenta3(this.carrito.idventa)
+      this.bd.fetchDetalle().subscribe(detalles => {
 
         this.detalles = detalles; // Actualiza la lista de detalles
 
@@ -111,39 +115,50 @@ export class CarritoPage implements OnInit {
     });
   }
 
-  ngOnInit() {
+  async buscarDetalles(){
+    try{
+
+      const detalles = await this.bd.buscarDetallesVenta2(this.carrito.idventa);
+      this.detalles = detalles;
+
+    }catch(error){
+
+      console.error("Error al buscar los detalles", error);
+
+    }
+  }
+
+  async ngOnInit() {
+    
     this.idUser = localStorage.getItem('usuario');
 
-    console.log(this.idUser);
 
     
-    this.bd.dbState().subscribe(res => {
+    this.bd.dbState().subscribe(async res => {
       if (res) {
 
-          this.bd.buscarVentaCarrito(this.idUser, 'Activo').subscribe(carrito => {
+        try{
 
-            if (carrito.length === 1) {
-
-              this.carrito = carrito[0];
-              this.hayCarrito = true;
-              console.log("ID del carrito: "+this.carrito.idventa);
-
-              this.bd.buscarDetallesVenta(this.carrito.idventa).subscribe(detalles => {
-
-                this.detalles = detalles; // Actualiza la lista de detalles
-
-              });
-
-              
-
-            } else {
-              this.hayCarrito = false; // No se encontró un carrito activo
-              this.bd.presentAlert("No hay un carrito activo!");
-            }
-
-            console.log("Estado del carrito: "+this.hayCarrito);
-
-          });
+          const carrito = await this.bd.buscarVentaCarrito2(this.idUser, 'Activo');
+    
+          if(carrito.length > 0){
+            this.carrito = carrito[0];
+            console.log("Se encontró un carrito, su id es: "+this.carrito.idventa);
+            this.hayCarrito = true; // Se encontró un carrito activo
+            await this.buscarDetalles();
+            
+          }else{
+            console.log("No se encontró un carrito ");
+            this.hayCarrito = false; // No se encontró un carrito activo
+            this.bd.presentAlert("No hay un carrito activo!");
+    
+          }
+    
+        }catch(error){
+    
+          console.error("Error al buscar el carrito", error);
+    
+        }
 
       }
     })

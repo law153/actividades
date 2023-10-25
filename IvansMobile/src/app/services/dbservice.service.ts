@@ -611,6 +611,34 @@ export class DbserviceService {
 
     })
   }
+  buscarProducto2(id: any): Promise<Producto[]> {
+    return new Promise<Producto[]>((resolve, reject) => {
+      this.database.executeSql("SELECT * FROM producto WHERE codprod = ?;", [id]).then(res => {
+        let items: Producto[] = [];
+  
+        if (res.rows.length > 0) {
+          for (let i = 0; i < res.rows.length; i++) {
+            items.push({
+              codprod: res.rows.item(i).codprod,
+              nombreprod: res.rows.item(i).nombreprod,
+              descripcion: res.rows.item(i).descripcion,
+              precio: res.rows.item(i).precio,
+              stock: res.rows.item(i).stock,
+              foto: res.rows.item(i).foto,
+              unidadmedida: res.rows.item(i).unidadmedida,
+              categoriap: res.rows.item(i).categoriap
+            });
+          }
+          resolve(items);
+        } else {
+          resolve([]); // Resuelve un array vacío si no se encontraron resultados
+        }
+      }).catch(error => {
+        reject(error);
+      });
+    });
+  }
+  
 
   buscarProductoCate(id: any){ 
     return this.database.executeSql("SELECT * FROM producto WHERE categoriap = ?;",[id]).then(res =>{
@@ -740,7 +768,34 @@ export class DbserviceService {
         reject(error);
       });
     });
-}
+  }
+
+  buscarVentaCarrito3(usuario: any, estado: any){
+
+    return this.database.executeSql("SELECT * FROM venta WHERE usuariov = ? AND estado = ?;", [usuario, estado]).then(res =>{
+      //todo bien
+      let items: Venta[] = [];
+      //Validar cantidad registros
+      if(res.rows.length > 0){
+        //Recorrer los datos
+        for(var i = 0; i < res.rows.length; i++ ){
+          //Guardando los datos
+          items.push({ 
+            idventa: res.rows.item(i).idventa,
+            fechaventa: res.rows.item(i).fechaventa,
+            estado: res.rows.item(i).estado,
+            fechaentrega: res.rows.item(i).fechaentrega,
+            total: res.rows.item(i).total,
+            carrito: res.rows.item(i).carrito,
+            usuariov: res.rows.item(i).usuariov
+           });
+        }
+      }
+      this.listaVenta.next(items as any);
+
+    })
+
+  }
 
 
   buscarCompras(estado: any): Observable<Venta[]> {
@@ -889,6 +944,60 @@ export class DbserviceService {
       });
     });
   }
+
+  buscarDetallesVenta2(venta: any): Promise<DetallesVenta[]> {
+    console.log("Venta recibida en el servicio: " + venta);
+    return new Promise<DetallesVenta[]>((resolve, reject) => {
+      this.database.executeSql("SELECT d.iddetalle, d.cantidad, d.subtotal, d.ventad, d.productod, p.nombreprod, p.precio, p.stock, p.foto FROM detalle d JOIN producto p ON(d.productod = p.codprod) WHERE ventad = ?;", [venta]).then(res => {
+        let items: DetallesVenta[] = [];
+  
+        if (res.rows.length > 0) {
+          for (let i = 0; i < res.rows.length; i++) {
+            items.push({
+              iddetalle: res.rows.item(i).iddetalle,
+              cantidad: res.rows.item(i).cantidad,
+              subtotal: res.rows.item(i).subtotal,
+              ventad: res.rows.item(i).ventad,
+              productod: res.rows.item(i).productod,
+              nombreprod: res.rows.item(i).nombreprod,
+              precio: res.rows.item(i).precio,
+              stock: res.rows.item(i).stock,
+              foto: res.rows.item(i).foto
+            });
+          }
+          resolve(items);
+        } else {
+          resolve([]);
+        }
+      }).catch(error => {
+        reject(error);
+      });
+    });
+  }
+
+  buscarDetallesVenta3(venta: any){
+    return this.database.executeSql("SELECT d.iddetalle, d.cantidad, d.subtotal, d.ventad, d.productod, p.nombreprod, p.precio, p.stock, p.foto FROM detalle d JOIN producto p ON(d.productod = p.codprod) WHERE ventad = ?;", [venta]).then(res =>{
+      //todo bien
+      let items: Detalle[] = [];
+      //Validar cantidad registros
+      if(res.rows.length > 0){
+        //Recorrer los datos
+        for(var i = 0; i < res.rows.length; i++ ){
+          //Guardando los datos
+          items.push({ 
+            iddetalle: res.rows.item(i).iddetalle,
+            cantidad: res.rows.item(i).cantidad,
+            subtotal: res.rows.item(i).subtotal,
+            ventad: res.rows.item(i).ventad,
+            productod: res.rows.item(i).productod
+           });
+        }
+      }
+      this.listaDetalle.next(items as any);
+
+    })
+  }
+  
 
   buscarDetallesVentaPorD(id: any): Observable<DetallesVenta[]> {
     return new Observable<DetallesVenta[]>(observer => {

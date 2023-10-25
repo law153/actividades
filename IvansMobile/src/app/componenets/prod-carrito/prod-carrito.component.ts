@@ -1,6 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { DbserviceService } from 'src/app/services/dbservice.service';
-import { CarritoService } from 'src/app/services/carrito.service';
 
 @Component({
   selector: 'app-prod-carrito',
@@ -27,7 +26,7 @@ subtotal2: number = 0;
 flag: boolean = true;
 totalOld: number = 0;
 totalNew: number = 0;
-producto: any = [];
+producto: any = {};
 
   constructor(private bd: DbserviceService) { }
 
@@ -87,13 +86,10 @@ producto: any = [];
     this.bd.buscarDetallesVenta(this.idventa).subscribe(detalles => {
       if(detalles.length <= 0){
         this.bd.modificarEstadoVenta(this.idventa, 'Inactivo');
-        
       }
 
     });
     this.actualizarCarrito();
-    
-
     
   }
 
@@ -106,29 +102,38 @@ producto: any = [];
   
   actualizarCarrito(){
 
-        this.bd.buscarVentaCarrito(this.idUser, 'Activo').subscribe(carrito => {
+        this.bd.buscarVentaCarrito3(this.idUser, 'Activo');
+
+        this.bd.fetchVenta().subscribe(carrito => {
 
           this.venta = carrito[0];
     
-          this.bd.buscarDetallesVenta(this.venta.idventa).subscribe(detalles => {
+          this.bd.buscarDetallesVenta3(this.venta.idventa)
+          
+          this.bd.fetchDetalle().subscribe(detalles => {
     
             this.detalles = detalles; // Actualiza la lista de detalles
     
           });
     
         });
+
   }
 
-  ngOnInit() {
+  async ngOnInit() {
 
     this.idUser = localStorage.getItem('usuario');
-    this.bd.dbState().subscribe(res => {
-      if (res) { 
-        this.bd.buscarProducto(this.idprod);
-        this.bd.fetchProducto().subscribe(item =>{
-          this.producto = item;
-        })
-      }})
+
+    try{
+
+      const producto = await this.bd.buscarProducto2(this.idprod);
+      this.producto = producto[0];
+
+    }catch(error){
+
+      console.error("Error al buscar el producto", error);
+
+    }
 
   }
 
