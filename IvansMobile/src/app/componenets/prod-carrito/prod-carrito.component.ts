@@ -77,6 +77,7 @@ producto: any = {};
     
     this.totalOld = this.venta.total;
     this.totalNew = this.totalOld - parseInt(this.subtotal);
+    
     await this.bd.eliminarDetalle(this.iddetalle);
 
     this.bd.modificarTotal(this.idventa, this.totalNew);

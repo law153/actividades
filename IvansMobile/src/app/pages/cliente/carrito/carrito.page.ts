@@ -133,22 +133,14 @@ export class CarritoPage implements OnInit {
     this.bd.buscarVentaCarrito3(this.idUser, 'Activo');
 
     this.bd.fetchVenta().subscribe(carrito => {
-      
-      if(carrito.length > 0){
+
         this.carrito = carrito[0];
-        this.hayCarrito = true;
         this.bd.buscarDetallesVenta3(this.carrito.idventa);
 
         this.bd.fetchDetallesVenta().subscribe(detalles => {
           this.detalles = detalles;
         })
 
-      } else {
-
-        this.hayCarrito = false; // No se encontró un carrito activo
-        this.bd.presentAlert("No hay un carrito activo!");
-
-      }
     })
 
   }
@@ -158,10 +150,25 @@ export class CarritoPage implements OnInit {
     this.idUser = localStorage.getItem('usuario');
     
     this.bd.dbState().subscribe(async res => {
-      if (res) {
-
-        await this.suscribirObservables();
-
+      if (res) {        
+        try{
+          const carrito = await this.bd.buscarVentaCarrito2(this.idUser, 'Activo');
+    
+          if(carrito.length > 0){
+            this.hayCarrito = true; // Se encontró un carrito activo
+            await this.suscribirObservables();
+            
+          }else{
+            this.hayCarrito = false; // No se encontró un carrito activo
+            this.bd.presentAlert("No hay un carrito activo!");
+            
+          }
+    
+        }catch(error){
+    
+          console.error("Error al buscar el carrito", error);
+    
+        }
       }
     })
 
