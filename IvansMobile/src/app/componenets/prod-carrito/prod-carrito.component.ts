@@ -15,16 +15,14 @@ export class ProdCarritoComponent  implements OnInit {
 @Input() iddetalle: number = 0;
 @Input() idventa: number = 0;
 @Input() idprod: number = 0;
-
+@Input() totalOld: number = 0;
 idUser: any = 0;
 detalles: any[] = [];
 
 detalle: any = {iddetalle: '', cantidad: '', subtotal: '', ventad: '', productod: '', nombreprod: '', precio: '', stock: '', foto: ''};
 
-venta: any = {idventa: "",fechaventa: "",estado: "",fechaentrega: "",total: "", carrito: "", usuariov: ""};
 subtotal2: number = 0;
 flag: boolean = true;
-totalOld: number = 0;
 totalNew: number = 0;
 producto: any = {};
 
@@ -46,17 +44,20 @@ producto: any = {};
 
   async cambiarCantidad(){
 
-    this.totalOld = this.venta.total;
     
-    this.subtotal2 = parseInt(this.precioProd) * this.cantidadProd;
+    console.log("Total viejo: " +this.totalOld);
 
+    this.subtotal2 = parseInt(this.precioProd) * this.cantidadProd;
+    console.log("Subtotal nuevo: "+this.subtotal2);
+    console.log("Subtotal viejo: "+this.subtotal);
     this.totalNew = this.totalOld - parseInt(this.subtotal) + this.subtotal2;
+    console.log("Total nuevo: "+this.totalNew);
 
     await this.bd.modificarDetalle(this.iddetalle, this.subtotal2, this.cantidadProd );
 
     await this.bd.modificarTotal(this.idventa,this.totalNew);
 
-    this.actualizarCarrito();
+    
     
   }
 
@@ -74,10 +75,8 @@ producto: any = {};
 
   async borrarDetalle(){
 
-    
-    this.totalOld = this.venta.total;
     this.totalNew = this.totalOld - parseInt(this.subtotal);
-    
+
     await this.bd.eliminarDetalle(this.iddetalle);
 
     this.bd.modificarTotal(this.idventa, this.totalNew);
@@ -90,36 +89,11 @@ producto: any = {};
       }
 
     });
-    this.actualizarCarrito();
     
   }
 
   
-
-
-  recargarPagina() {
-    window.location.reload();
-  }
   
-  actualizarCarrito(){
-
-        this.bd.buscarVentaCarrito3(this.idUser, 'Activo');
-
-        this.bd.fetchVenta().subscribe(carrito => {
-
-          this.venta = carrito[0];
-    
-          this.bd.buscarDetallesVenta3(this.venta.idventa)
-          
-          this.bd.fetchDetalle().subscribe(detalles => {
-    
-            this.detalles = detalles; // Actualiza la lista de detalles
-    
-          });
-    
-        });
-
-  }
 
   async ngOnInit() {
 

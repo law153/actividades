@@ -1277,6 +1277,18 @@ export class DbserviceService {
       this.buscarVentas();
     })
   }
+
+  sumarTotal(id: any, suma: any){
+    return this.database.executeSql("UPDATE venta SET total = total + ? WHERE idventa = ?",[suma, id]).then(res =>{
+      this.buscarVentas();
+    })
+  }
+
+  restarTotal(id: any, resta: any){
+    return this.database.executeSql("UPDATE venta SET total = total - ? WHERE idventa = ?",[resta, id]).then(res =>{
+      this.buscarVentas();
+    })
+  }
   
   modificarDetalle(id: any, subtotal: any, cantidad: any){  
     console.log("Id del detalle que se quiere modificar"+id);
