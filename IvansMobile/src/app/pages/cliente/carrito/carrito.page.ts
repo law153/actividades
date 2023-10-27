@@ -22,7 +22,7 @@ export class CarritoPage implements OnInit {
   diasSumar = 3;
   stock: number = 0;
   idUser: any = 0;
- 
+  idVenta: number = 0;
   carrito: any = {};
   producto: any = [{codprod:'', nombreprod:'', descripcion: '', precio:'', stock: '', foto:'', unidadmedida: '', categoriap: ''}];
   detalles: any = [{iddetalle: '', cantidad: '', subtotal: '', ventad: '', productod: '', nombreprod: '', precio: '', stock: '', foto: ''}];
@@ -59,26 +59,31 @@ export class CarritoPage implements OnInit {
 
     this.bd.modificarFechaEntrega(this.carrito.idventa, this.fechaEntrega);
     this.bd.modificarEstadoVenta(this.carrito.idventa, 'Comprado');
-
-    this.actualizarVenta();
     
     //Restar del stock
     for(let x of this.detalles){
       
-      this.stock = x.stock - x.cantidad;
-      console.log("Stock del producto: "+x.stock);
-      console.log("Cantidad del detalle:"+x.cantidad);
-      console.log("ID del producto: "+x.productod);
+      
       this.bd.restarStock(x.productod, x.cantidad);
-      await this.bd.buscarProducto(x.productod);
-
-      this.bd.fetchProducto().subscribe(item => {
-        this.producto = item[0];
-      })
+      //Respecto al detalle comprado
+      try{
+        
+        const producto = await this.bd.buscarProducto2(x.productod);
+        this.producto = producto[0];
+        console.log("Valor de ventad: "+x.ventad);
+        console.log("Valor de carrito.idventa: "+this.carrito.idventa);
+        this.bd.agregarDetalleCompra(this.producto.nombreprod, this.producto.foto, x.cantidad, x.subtotal, x.ventad);
+        console.log("Agregado el detalle de compra!");
+      }catch(error){
+  
+        console.error("Error al buscar el producto", error);
+  
+      }
 
     }
-    this.presentAlert('Gracías por su compra');
-
+    
+    await this.presentAlert('Gracías por su compra');
+    this.hayCarrito = false;
   }
 
 
@@ -99,34 +104,6 @@ export class CarritoPage implements OnInit {
     await alert.present();
   }
 
-  async actualizarVenta(){
-    this.bd.buscarVentaCarrito3(this.idUser, 'Activo')
-    this.bd.fetchVenta().subscribe(carrito => {
-
-      this.carrito = carrito[0];
-
-      this.bd.buscarDetallesVenta3(this.carrito.idventa)
-      this.bd.fetchDetalle().subscribe(detalles => {
-
-        this.detalles = detalles; // Actualiza la lista de detalles
-
-      });
-
-    });
-  }
-
-  async buscarDetalles(){
-    try{
-
-      const detalles = await this.bd.buscarDetallesVenta2(this.carrito.idventa);
-      this.detalles = detalles;
-
-    }catch(error){
-
-      console.error("Error al buscar los detalles", error);
-
-    }
-  }
 
   async suscribirObservables(){
 
@@ -135,6 +112,9 @@ export class CarritoPage implements OnInit {
     this.bd.fetchVenta().subscribe(carrito => {
 
         this.carrito = carrito[0];
+
+        this.idVenta = this.carrito.idventa;
+        console.log("ID de la venta en el ngOnInit: "+this.idVenta);
         this.bd.buscarDetallesVenta3(this.carrito.idventa);
 
         this.bd.fetchDetallesVenta().subscribe(detalles => {
@@ -156,6 +136,7 @@ export class CarritoPage implements OnInit {
     
           if(carrito.length > 0){
             this.hayCarrito = true; // Se encontró un carrito activo
+            
             await this.suscribirObservables();
             
           }else{

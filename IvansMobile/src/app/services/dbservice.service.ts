@@ -63,11 +63,12 @@ export class DbserviceService {
   producto3Default: string = "INSERT OR IGNORE INTO producto(codprod, nombreprod, descripcion, precio, stock, foto, unidadmedida, categoriap) VALUES(202, 'Pestillo','Hola buenas tardes soy un pestillo', 2500, 50, '/assets/pestillo.jpg', 'Por unidad', 3);";
   //Ventas
   ventaDefult: string ="INSERT OR IGNORE INTO venta(idventa, fechaventa, estado, fechaentrega, total, carrito, usuariov) VALUES (200, '04/04/2023', 'Activo', '05/05/2023', 6000, 'C', 200);";
+
+  //ventaDefult2: string ="INSERT OR IGNORE INTO venta(idventa, fechaventa, estado, fechaentrega, total, carrito, usuariov) VALUES (199, '07/07/2023', 'Comprado', '05/05/2024', 6000, 'C', 201);";
   //Detalles
   detalleDefault: string = "INSERT OR IGNORE INTO detalle(iddetalle, cantidad, subtotal, ventad, productod) VALUES (200, 3, 6000, 200, 200);";
   //Historial de compras
-  detalleCompradoDefault: string  ="INSERT OR IGNORE INTO detalleComprado(iddetallec, nombreprodc, fotoprodc, cantidadc, subtotalc, ventac) VALUES (200, 'Producto', '/assets/imagen.jpg', 3, 6000, 200);";
-  
+  //detalleCompradoDefault: string  ="INSERT OR IGNORE INTO detalleComprado(iddetallec, nombreprodc, fotoprodc, cantidadc, subtotalc, ventac) VALUES (199, 'Producto', '/assets/imagen.jpg', 3, 6000, 199);";
 
   //Observables de tablas 
   listaRol = new BehaviorSubject([]); 
@@ -716,6 +717,34 @@ export class DbserviceService {
     })
   }
 
+  buscarVenta2(id: any): Promise<Venta[]> {
+    
+    return new Promise<Venta[]>((resolve, reject) => {
+      this.database.executeSql("SELECT * FROM venta WHERE idventa = ?;", [id]).then(res => {
+        let items: Venta[] = [];
+
+        if (res.rows.length > 0) {
+          for (let i = 0; i < res.rows.length; i++) {
+            items.push({
+              idventa: res.rows.item(i).idventa,
+              fechaventa: res.rows.item(i).fechaventa,
+              estado: res.rows.item(i).estado,
+              fechaentrega: res.rows.item(i).fechaentrega,
+              total: res.rows.item(i).total,
+              carrito: res.rows.item(i).carrito,
+              usuariov: res.rows.item(i).usuariov
+            });
+          }
+          resolve(items);
+        } else {
+          resolve([]);
+        }
+      }).catch(error => {
+        reject(error);
+      });
+    });
+  }
+
   buscarVentaCarrito(usuario: any, estado: any): Observable<Venta[]> {
     console.log("ID del usuario que recibio la busqueda del carrito: "+usuario);
     return new Observable<Venta[]>(observer => {
@@ -1054,6 +1083,36 @@ export class DbserviceService {
     })
   }
 
+  async buscarDetallesCompra2(): Promise<Detallecomprado[]> {
+
+    return new Promise<Detallecomprado[]>(async (resolve, reject) => {
+      try {
+        const res = await this.database.executeSql("SELECT * FROM detallecomprado;", []);
+        let items: Detallecomprado[] = [];
+    
+        if (res.rows.length > 0) {
+          for (var i = 0; i < res.rows.length; i++) {
+            items.push({ 
+              iddetallec: res.rows.item(i).iddetallec,
+              nombreprodc: res.rows.item(i).nombreprodc,
+              fotoprodc: res.rows.item(i).fotoprodc, 
+              cantidadc: res.rows.item(i).cantidadc,
+              subtotalc: res.rows.item(i).subtotalc,
+              ventac: res.rows.item(i).ventac
+            });
+          }
+        }
+          resolve(items);
+        } catch (error) {
+          reject(error);
+        }
+      });
+
+  }
+  
+  
+  
+
   buscarDetallesCompraVenta(venta: any): Observable<Detallecomprado[]> {
     return new Observable<Detallecomprado[]>(observer => {
       this.database.executeSql("SELECT * FROM detallecomprado WHERE ventac = ?;", [venta]).then(res => {
@@ -1081,7 +1140,31 @@ export class DbserviceService {
     });
   }
   
-
+  async buscarDetallesCompraVenta2(venta: any): Promise<Detallecomprado[]> {
+    return new Promise<Detallecomprado[]>(async (resolve, reject) => {
+      try {
+        const res = await this.database.executeSql("SELECT * FROM detallecomprado WHERE ventac = ?;", [venta]);
+        let items: Detallecomprado[] = [];
+    
+        if (res.rows.length > 0) {
+          for (var i = 0; i < res.rows.length; i++) {
+            items.push({ 
+              iddetallec: res.rows.item(i).iddetallec,
+              nombreprodc: res.rows.item(i).nombreprodc,
+              fotoprodc: res.rows.item(i).fotoprodc,
+              cantidadc: res.rows.item(i).cantidadc,
+              subtotalc: res.rows.item(i).subtotalc,
+              ventac: res.rows.item(i).ventac
+            });
+          }
+        }
+        resolve(items);
+      } catch (error) {
+        reject(error);
+      }
+    });
+  }
+  
 
   //Funciones para eliminar
 
@@ -1206,7 +1289,13 @@ export class DbserviceService {
   }
 
   agregarDetalleCompra(nombre: any, foto: any, cantidad: any, subtotal: any, venta: any) {  
-  // Ejecutar la sentencia SQL para agregar el detalle de compra
+    console.log("-------Agregando detalle compra----------");
+    console.log("Nombre del producto: "+nombre);
+    console.log("Direccion de la foto del producto: "+foto);
+    console.log("Cantidad comprada del producto: "+cantidad);
+    console.log("Subtotal del detalle: "+subtotal);
+    console.log("ID de la venta: "+venta);
+    console.log("-------Agregando detalle compra----------");
     return this.database.executeSql("INSERT INTO detallecomprado(nombreprodc, fotoprodc, cantidadc, subtotalc, ventac) VALUES (?, ?, ?, ?, ?)", [nombre, foto, cantidad, subtotal, venta]).then(res => {
       console.log('Registro insertado con éxito.');
       this.buscarDetallesCompra(); // Actualizar la lista de detalles de compra
@@ -1355,10 +1444,11 @@ export class DbserviceService {
       await this.database.executeSql(this.producto3Default,[]);
 
       await this.database.executeSql(this.ventaDefult,[]);
+      //await this.database.executeSql(this.ventaDefult2,[]);
 
       await this.database.executeSql(this.detalleDefault,[]);
 
-      await this.database.executeSql(this.detalleCompradoDefault,[]);
+      //await this.database.executeSql(this.detalleCompradoDefault,[]);
       //Actualizar el observable bandera
       this.flag.next(true);
       //Llamar los select

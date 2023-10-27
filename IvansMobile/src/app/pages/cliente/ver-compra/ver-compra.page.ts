@@ -14,7 +14,7 @@ export class VerCompraPage implements OnInit {
   idusuario: number = 0;
   usuario: any = {idusuario: '', rut: '', dvrut: '', nombre: '', apellido: '', telefono: '', correo: '', clave: '', direccion: '', fotousuario: '', respuesta: '', rolu: '', preguntau: '' };
   compra: any = {};
-  detalles: any = [{iddetalle: '', cantidad: '', subtotal: '', ventad: '', productod: '', nombreprod: '', precio: '', stock: '', foto: ''}];
+  detalles: any = [{iddetallec: '', nombreprodc: '', fotoprodc: '', cantidadc: '', subtotalc: '', ventac: ''}];
   constructor(private menuCtrl: MenuController, private router: Router, private activeRouter: ActivatedRoute, private bd: DbserviceService) { 
 
     this.activeRouter.queryParams.subscribe(param => {
@@ -23,26 +23,45 @@ export class VerCompraPage implements OnInit {
         console.log("ID de venta que llegó a ver-compra: "+this.idventa);
       }
 
-    
-      this.bd.dbState().subscribe(res => {
+      this.bd.dbState().subscribe(async res => {
         if (res) {
 
-            
-          this.bd.buscarVenta(this.idventa);
-          this.bd.fetchVenta().subscribe(items => {
-
-            this.compra = items[0];
-
-            this.bd.buscarDetallesVenta(this.compra.idventa).subscribe(detalles => {
-              this.detalles = detalles;
-            });
-
-          });
+            await this.buscarVenta();
+            await this.buscarDetallesCompra();
+         
 
         }
       })
     }) 
 
+  }
+
+  async buscarVenta(){
+    try{
+      const venta = await this.bd.buscarVenta2(this.idventa);
+
+      this.compra = venta[0];
+      
+
+    }catch(error){
+
+      console.error("Error al buscar la compra", error);
+
+    }
+  }
+
+  async buscarDetallesCompra(){
+    try{
+      const detalles = await this.bd.buscarDetallesCompraVenta2(this.idventa);
+
+      this.detalles = detalles;
+      
+
+    }catch(error){
+
+      console.error("Error al buscar los detalles", error);
+
+    }
   }
   
   abrirSuperior(){
@@ -60,7 +79,7 @@ export class VerCompraPage implements OnInit {
   }
 
   ngOnInit() {
-    
+   
   }
 
 }
