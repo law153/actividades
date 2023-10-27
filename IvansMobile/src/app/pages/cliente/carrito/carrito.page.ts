@@ -69,7 +69,7 @@ export class CarritoPage implements OnInit {
       console.log("Stock del producto: "+x.stock);
       console.log("Cantidad del detalle:"+x.cantidad);
       console.log("ID del producto: "+x.productod);
-      this.bd.restarStock(x.productod, this.stock);
+      this.bd.restarStock(x.productod, x.cantidad);
       await this.bd.buscarProducto(x.productod);
 
       this.bd.fetchProducto().subscribe(item => {

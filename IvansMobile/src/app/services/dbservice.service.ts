@@ -1242,7 +1242,7 @@ export class DbserviceService {
 
   restarStock(id: any, stock: any){  
     console.log("Stock recibido: "+stock);
-    return this.database.executeSql("UPDATE producto SET stock = ? WHERE codprod = ?",[stock, id]).then(res =>{
+    return this.database.executeSql("UPDATE producto SET stock = stock - ? WHERE codprod = ?",[stock, id]).then(res =>{
       this.buscarProductos();
     })
   }
