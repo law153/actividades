@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController, MenuController } from '@ionic/angular'; 
 import { DbserviceService } from 'src/app/services/dbservice.service';
+import { ApiexternaService } from '../services/apiexterna.service';
 
 @Component({
   selector: 'app-home',
@@ -15,10 +16,11 @@ export class HomePage implements OnInit{
 
   nombreRol: string = "";
   idRol: string = "";
-
+  apiArreglo: any={};
+  valorUltimo: number = 0;
   //Constructor
 
-  constructor(private router: Router, private alerta: AlertController, private menuCtrl: MenuController, private activatedRouter: ActivatedRoute,  private db: DbserviceService ) {}
+  constructor(private router: Router, private alerta: AlertController, private menuCtrl: MenuController, private activatedRouter: ActivatedRoute, private api: ApiexternaService ) {}
   
   //Metodos
 
@@ -39,10 +41,17 @@ export class HomePage implements OnInit{
     this.menuCtrl.open('categorias');
   }
 
+
   ngOnInit() {
+    this.api.convertCurrency('USD','CLP',1).subscribe((res)=>{
+      console.log(res);
+      this.apiArreglo = res;
+    
+    })
+
+    this.valorUltimo = this.apiArreglo.result;
+
   }
-
-
 
 
 }
