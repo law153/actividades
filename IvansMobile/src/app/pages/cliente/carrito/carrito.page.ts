@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController, MenuController } from '@ionic/angular';
-import { CorreoService } from 'src/app/services/correo.service';
 import { DbserviceService } from 'src/app/services/dbservice.service';
 import { CarritoService } from 'src/app/services/carrito.service';
 @Component({
