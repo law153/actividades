@@ -8,7 +8,7 @@ describe('ProdCarritoComponent', () => {
   let component: ProdCarritoComponent;
   let fixture: ComponentFixture<ProdCarritoComponent>;
 
-  beforeEach(waitForAsync(async () => {
+  beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ ProdCarritoComponent ],
       imports: [IonicModule.forRoot()],
@@ -18,7 +18,7 @@ describe('ProdCarritoComponent', () => {
     fixture = TestBed.createComponent(ProdCarritoComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-  }));
+  });
 
   it('should create', () => {
     expect(component).toBeTruthy();
