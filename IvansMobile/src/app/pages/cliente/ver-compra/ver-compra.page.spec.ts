@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { SQLite } from '@awesome-cordova-plugins/sqlite/ngx';
 import { VerCompraPage } from './ver-compra.page';
+import { ActivatedRoute } from '@angular/router';
 
 describe('VerCompraPage', () => {
   let component: VerCompraPage;

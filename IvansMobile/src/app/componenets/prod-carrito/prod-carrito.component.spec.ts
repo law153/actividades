@@ -2,15 +2,17 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
 import { ProdCarritoComponent } from './prod-carrito.component';
+import { SQLite } from '@awesome-cordova-plugins/sqlite/ngx';
 
 describe('ProdCarritoComponent', () => {
   let component: ProdCarritoComponent;
   let fixture: ComponentFixture<ProdCarritoComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
+  beforeEach(waitForAsync(async () => {
+    await TestBed.configureTestingModule({
       declarations: [ ProdCarritoComponent ],
-      imports: [IonicModule.forRoot()]
+      imports: [IonicModule.forRoot()],
+      providers: [SQLite]
     }).compileComponents();
 
     fixture = TestBed.createComponent(ProdCarritoComponent);

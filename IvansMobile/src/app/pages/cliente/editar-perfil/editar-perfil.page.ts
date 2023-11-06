@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { AlertController, MenuController, IonInput } from '@ionic/angular';
+import {  Router } from '@angular/router';
+import {  MenuController, IonInput } from '@ionic/angular';
 import { DbserviceService } from 'src/app/services/dbservice.service';
 import { CamaraService } from 'src/app/services/camara.service';
 import { CorreoService } from 'src/app/services/correo.service';
@@ -48,7 +48,7 @@ export class EditarPerfilPage implements OnInit {
   preguntas: any = [{idpregunta: '', nombrepregunta: ''}];
   preguntaseleccionada: any;
 
-  constructor(private router: Router,private menuCtrl: MenuController, private alerta: AlertController, private bd: DbserviceService, private activedRouter: ActivatedRoute, private camara: CamaraService, private sesion: CorreoService, private permisos: PermisosService) { }
+  constructor(private router: Router,private menuCtrl: MenuController, private bd: DbserviceService, private camara: CamaraService, private sesion: CorreoService, private permisos: PermisosService) { }
 
   irHomeCli(){
     this.router.navigate(['home-cli'])    

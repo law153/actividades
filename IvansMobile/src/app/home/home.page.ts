@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { AlertController, MenuController } from '@ionic/angular'; 
-import { DbserviceService } from 'src/app/services/dbservice.service';
+import { Router } from '@angular/router';
+import { MenuController } from '@ionic/angular'; 
 import { ApiexternaService } from '../services/apiexterna.service';
 
 @Component({
@@ -20,7 +19,7 @@ export class HomePage implements OnInit{
   valorUltimo: number = 0;
   //Constructor
 
-  constructor(private router: Router, private alerta: AlertController, private menuCtrl: MenuController, private activatedRouter: ActivatedRoute, private api: ApiexternaService ) {}
+  constructor(private router: Router, private menuCtrl: MenuController, private api: ApiexternaService ) {}
   
   //Metodos
 
