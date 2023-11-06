@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { AlertController, MenuController } from '@ionic/angular';
 import { CorreoService } from 'src/app/services/correo.service';
 import { DbserviceService } from 'src/app/services/dbservice.service';
@@ -29,7 +29,7 @@ export class CarritoPage implements OnInit {
   hayCarrito: boolean = true;
   idusuario: number = 0;
 
-  constructor(private router: Router,private menuCtrl: MenuController, private alerta: AlertController, private activeRouter: ActivatedRoute, private bd: DbserviceService, private carro: CarritoService) { 
+  constructor(private router: Router,private menuCtrl: MenuController, private alerta: AlertController, private bd: DbserviceService, private carro: CarritoService) { 
 
     
 
