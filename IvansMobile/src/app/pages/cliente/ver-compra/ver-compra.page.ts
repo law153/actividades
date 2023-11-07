@@ -20,7 +20,7 @@ export class VerCompraPage implements OnInit {
     this.activeRouter.queryParams.subscribe(param => {
       if(this.router.getCurrentNavigation()?.extras.state){
         this.idventa = this.router.getCurrentNavigation()?.extras?.state?.["idEnviar"];
-        console.log("ID de venta que llegó a ver-compra: "+this.idventa);
+        
       }
 
       this.bd.dbState().subscribe(async res => {
