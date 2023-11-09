@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router,ActivatedRoute, NavigationExtras } from '@angular/router';
+import { Router, NavigationExtras } from '@angular/router';
 import { MenuController } from '@ionic/angular';
 import { DbserviceService } from 'src/app/services/dbservice.service';
 
