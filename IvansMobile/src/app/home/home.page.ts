@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuController } from '@ionic/angular'; 
 import { ApiexternaService } from '../services/apiexterna.service';
+import { SplashScreen } from '@capacitor/splash-screen';
 
 @Component({
   selector: 'app-home',
@@ -19,8 +20,13 @@ export class HomePage implements OnInit{
   valorUltimo: number = 0;
   //Constructor
 
-  constructor(private router: Router, private menuCtrl: MenuController, private api: ApiexternaService ) {}
+  constructor(private router: Router, private menuCtrl: MenuController, private api: ApiexternaService ) {
+    
+  }
   
+  //Splash screen stuff
+  
+
   //Metodos
 
 
@@ -41,7 +47,13 @@ export class HomePage implements OnInit{
   }
 
 
-  ngOnInit() {
+  async ngOnInit() {  
+    
+    await SplashScreen.show({
+      showDuration: 2000,
+      autoHide: true,
+    });
+
     this.api.convertCurrency('USD','CLP',1).subscribe((res)=>{
       console.log(res);
       this.apiArreglo = res;
@@ -49,7 +61,7 @@ export class HomePage implements OnInit{
     })
 
     this.valorUltimo = this.apiArreglo.result;
-
+    
   }
 
 

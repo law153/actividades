@@ -41,6 +41,7 @@ export class IniSesionPage implements OnInit {
     this.bd.dbState().subscribe(res => {
       if(res){
         this.bd.buscarPorCorreo(this.correo).subscribe(items => {
+          
           if (items.length === 1) {
             // Se encontró al usuario
             this.usuario = items[0];
