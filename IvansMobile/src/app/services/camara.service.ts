@@ -12,7 +12,7 @@ export class CamaraService {
   async takePicture() {
     Camera.requestPermissions()
     const image = await Camera.getPhoto({
-      quality: 90,
+      quality: 70,
       allowEditing: false,
       resultType: CameraResultType.DataUrl,
       source: CameraSource.Prompt,

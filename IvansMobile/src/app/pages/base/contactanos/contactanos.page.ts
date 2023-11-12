@@ -180,7 +180,7 @@ export class ContactanosPage implements OnInit, AfterViewInit {
             lat: this.latitud,
             lng: this.longitud,
           },
-          zoom: 10,
+          zoom: 12,
         },
       });
 

@@ -45,10 +45,6 @@ const routes: Routes = [
     loadChildren: () => import('./pages/cliente/cambiar-contra/cambiar-contra.module').then( m => m.CambiarContraPageModule)
   },
   {
-    path: 'contactanos-cli',
-    loadChildren: () => import('./pages/cliente/contactanos-cli/contactanos-cli.module').then( m => m.ContactanosCliPageModule)
-  },
-  {
     path: 'carrito',
     loadChildren: () => import('./pages/cliente/carrito/carrito.module').then( m => m.CarritoPageModule)
   },
@@ -75,10 +71,6 @@ const routes: Routes = [
   {
     path: 'listado-pedido',
     loadChildren: () => import('./pages/admin/listado-pedido/listado-pedido.module').then( m => m.ListadoPedidoPageModule)
-  },
-  {
-    path: 'pedido',
-    loadChildren: () => import('./pages/admin/pedido/pedido.module').then( m => m.PedidoPageModule)
   },
   {
     path: 'cambiar-contra-adm',
