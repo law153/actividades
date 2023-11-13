@@ -6,24 +6,12 @@
     
 }
 
-input, textarea{
-    font-family: 'Roboto';
-    
-}
-
 /**Encabezado **/
 
 .container-fluid{
-    height: 0px;
-}
-
-
-
-.header-container{
+    height: 150px;
     background: #000;
-    display: flex;
-    align-items: center;
-    height: 15%;
+    text-align: center;
 }
 
 .logo{
@@ -32,318 +20,34 @@ input, textarea{
     height: 100%;
     max-height: 100px;
     padding: 5px;
+
 }
 .cosas_arriba{
     text-align: center;
 }
 
-.img_conta{
-    border: 2px solid #000;
-    text-align: center;
+.img_conta {
     width: 100px;
     height: 100px;
-    background: #000;
 }
 
-.header-container__name-container > p{
+.img_conta > img {
+    border: 2px solid #000;
+    width: 100%;
+    height: 100%;
+}
+
+
+.titulo_conta > p{
     color: #fff;
     text-decoration: none;
     font-size: 38px;
 }
 
 
-.header-container__search-container >  input{
-    border-radius: 15px;
-    width: 100%;
-    height: 100%;
-    font-size: 20px;
-}
-
-.header-container__button-container{
-    width: 20%;
-    height: 100%;
-    
-}   
-
-.header-container__button-container > input{
-    height: 100%;
-    width: 100%;
-    border-radius: 15px;
-    background: #ff0;
-    color: #000;
-    font-weight: bold;
-    font-size: 20px;
-    font-family: 'Bebas Neue'
-}
-
-.header-container__button-container > input:hover{
-    color: #000;
-    background: #cc0;
-}
 
 
-
-
-.header-container__ul-container{
-    color: #fff;
-}
-
-.header-container__ul-container > ul{
-    list-style-type: none;
-}
-
-.header-container__ul-container > ul > li{
-    display: inline;
-    border-right: 2px solid #fff;
-    padding: 4px;
-    font-size: 25px;
-}
-
-.header-container__ul-container > ul > li:last-child{
-    padding: 4px;
-    border: none;
-}
-
-.header-container__ul-container > ul > li > a{
-    color: #fff;
-}
-
-/**Navegación**/
-
-.contenedor_nav{
-    background: #ff0;
-    margin: auto;
-    width: 100%;
-    
-}
-
-.boton-nav{
-    background: #000;
-
-}
-
-
-.links{
-    color: #000;
-    font-weight: bold;
-    font-size: 40px;
-    border-right: 5px solid #880;
-}   
-
-.ultimo{
-    border-right: none;
-}
-
-.links:hover{
-    background: #880;
-    color: #000;
-}
-
-
-.active{
-    background: #880;
-}
-
-.container-fluid{
-    min-height: 100vh;
-}
-
-/**Cuerpo**/
-
-
-.body-container-main{
-    background: #900;
-    background-image: url(../img/Fondo.jpg);
-    color: #fff;
-}
-
-.body-container__p-container{
-    padding-top: 10%;
-    padding-left: 10%;
-    padding-bottom: 5%;
-}
-
-.body-container__p-container > h2{
-    font-weight: bold;
-    font-size: 80px;
-    letter-spacing: 10px;
-    text-shadow: 8px 2px 2px #000;
-}
-
-.body-container__p-container > p{
-    font-size: 40px;
-    color: #ff0;
-    text-shadow: 6px 2px 2px #000;
-}
-
-.no-editable{
-    background: #aaa;
-    text-align: center;
-}
-
-
-.boton-contenedor{
-    width: 200px;
-    height: 80px;
-    margin: auto;
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
-
-.boton-api{
-    height: 100%;
-    width: 100%;
-    border-radius: 20px;
-    background: #000;
-    color: #fff;
-    font-weight: bold;
-    font-size: 15px;
-    font-family: 'Bebas Neue';
-    border: 2px solid #fff;
-    font-size: 25px;
-    
-}
-
-.boton:hover{
-    color: #aaa;
-    background: #000;
-}
-
-.bajo_main{
-    background: #000;
-    color: #fff;
-    height: 25%;
-}
-
-.tabla-contenedor{
-    width: 100%;
-    height: 100%;
-    
-}
-
-.tabla{
-    color: #000;
-    background: #ff0;
-    margin: auto;
-    font-size: 30px;
-    width: 30%;
-    height: 100%;
-    text-align: center;
-    border-radius: 20px;
-    margin-bottom: 2%;
-    
-}
-
-.tabla > img{
-    border-radius: 20px;
-}
-
-#leyenda{
-    font-size: 30px;
-    text-align: center;
-    color: #fff;
-}
-
-.cli-foto{
-    border-radius: 70px;
-    border: 2px solid #000;
-}
-
-.nombre-cli{
-    font-size: 25px;
-}
-
-/*Diseños para links que parecen botones :D*/
-.container-button{
-    margin-bottom: 2%;
-    text-align: center;
-    
-}
-
-.boton-fake-1{
-    text-decoration: none;
-    color: #ddd;
-    background: #000;
-    font-size: 15px;
-    border-radius: 15px;
-    padding-left: 20px;
-    padding-right: 20px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    
-    
-}
-
-.boton-fake-1:hover{
-    color: #fff;
-    background: #000;
-}
-
-.boton-fake-2{
-    text-decoration: none;
-    color: #000;
-    background: #ff0;
-    font-size: 15px;
-    border-radius: 15px;
-    padding-left: 20px;
-    padding-right: 20px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    
-    
-}
-
-.resaltador-1{
-    text-decoration: none;
-    color: #ddd;
-    background: #000;
-    font-size: 15px;
-    border-radius: 15px;
-    padding-left: 20px;
-    padding-right: 20px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    
-    
-}
-
-.resaltador-2{
-    text-decoration: none;
-    color: #000;
-    background: #ff0;
-    font-size: 15px;
-    border-radius: 15px;
-    padding-left: 20px;
-    padding-right: 20px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    border: 2px solid #000;
-    
-}
-
-.boton-fake-2:hover{
-    color: #fff;
-    background: #cc0;
-}
-
-/*Para los mensahjes*/
-.msg-malo{
-    text-decoration: none;
-    color: #f50;
-    font-weight: bold;
-    text-align: center;
-    font-family: 'Roboto';
-}
-
-.msg-bueno{
-    text-decoration: none;
-    color: #292;
-    font-weight: bold;
-    text-align: center;
-    font-family: 'Roboto';
-}
-
-/**Medida small**/
+/**Medida small
 @media screen and (min-width: 0px) and (max-width: 576px){
 
     *{
@@ -447,13 +151,13 @@ input, textarea{
 
 }
 
-/*Medium*/
+/*Medium
 @media screen and (min-width: 577px) and (max-width: 768px){
 
 
 
 }
-/*Large*/
+/*Large
 @media screen and (min-width: 769px) and (max-width: 992px){
 
     .header-container__name-container > p{
@@ -484,7 +188,7 @@ input, textarea{
     }
 
 }
-/*Extra Large*/
+/*Extra Large
 @media screen and (min-width: 993px) and (max-width: 1400px){
 
     .header-container__name-container > p{
@@ -515,6 +219,8 @@ input, textarea{
     }
 
 }
+*/
+
 
 
 
