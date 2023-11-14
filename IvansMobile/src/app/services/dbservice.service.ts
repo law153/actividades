@@ -190,7 +190,6 @@ export class DbserviceService {
 
 
   buscarCatePorId(id: any): Observable<Categoria[]>{
-    console.log("Id recibida en el servicio: " + id);
     return new Observable<Categoria[]>(observer => {
       this.database.executeSql("SELECT * FROM categoria where idcategoria = ?;", [id]).then(res =>{
         let items: Categoria[] = [];
@@ -362,7 +361,7 @@ export class DbserviceService {
   }
 
   buscarPorCorreo(correo: any): Observable<Usuario[]> {
-    console.log("Correo recibido en el servicio: " + correo);
+
     return new Observable<Usuario[]>(observer => {
       this.database.executeSql("SELECT * FROM usuario WHERE correo = ?;", [correo]).then(res => {
         let items: Usuario[] = [];
@@ -394,7 +393,7 @@ export class DbserviceService {
   }
 
   buscarCorreo(correo: any): Promise<Usuario[]> {
-    console.log("Correo recibido en el servicio: " + correo);
+
     return new Promise<Usuario[]>((resolve, reject) => {
       this.database.executeSql("SELECT * FROM usuario WHERE correo = ?;", [correo]).then(res => {
         let items: Usuario[] = [];
@@ -429,7 +428,7 @@ export class DbserviceService {
   
 
   buscarPorRut(rut: any): Observable<Usuario[]> {
-    console.log("Correo recibido en el servicio: " + rut);
+    
     return new Observable<Usuario[]> (observer => {
       this.database.executeSql("SELECT * from usuario where rut = ?;",[rut]).then(res => {
         let items: Usuario[] = [];
@@ -459,7 +458,7 @@ export class DbserviceService {
   }
 
   buscarRut(rut: any): Promise<Usuario[]> {
-    console.log("Rut recibido en el servicio: " + rut);
+    
     return new Promise<Usuario[]>((resolve, reject) => {
       this.database.executeSql("SELECT * FROM usuario WHERE rut = ?;", [rut]).then(res => {
         let items: Usuario[] = [];
@@ -494,7 +493,7 @@ export class DbserviceService {
 
   buscarPorCorreoMenosTu(correo: any, id: any): Promise<Usuario[]> {
     return new Promise<Usuario[]>(async (resolve, reject) => {
-      console.log("Correo recibido en el servicio: " + correo);
+      
       try {
         const res = await this.database.executeSql("SELECT * FROM usuario WHERE correo = ? AND idusuario != ?;", [correo, id]);
   
@@ -529,7 +528,7 @@ export class DbserviceService {
   
 
   buscarPorRutMenosTu(rut: any, id: any): Promise<Usuario[]> {
-    console.log("RUT recibido en el servicio: " + rut);
+    
     return new Promise<Usuario[]>((resolve, reject) => {
       this.database.executeSql("SELECT * from usuario where rut = ? AND idusuario != ?;", [rut, id]).then(res => {
         let items: Usuario[] = [];
@@ -746,7 +745,7 @@ export class DbserviceService {
   }
 
   buscarVentaCarrito(usuario: any, estado: any): Observable<Venta[]> {
-    console.log("ID del usuario que recibio la busqueda del carrito: "+usuario);
+   
     return new Observable<Venta[]>(observer => {
       this.database.executeSql("SELECT * FROM venta WHERE usuariov = ? AND estado = ?;", [usuario, estado]).then(res => {
         let items: Venta[] = [];
@@ -772,7 +771,7 @@ export class DbserviceService {
   }
 
   buscarVentaCarrito2(usuario: any, estado: any): Promise<Venta[]> {
-    console.log("ID del usuario que recibió la búsqueda del carrito: " + usuario);
+    
     return new Promise<Venta[]>((resolve, reject) => {
       this.database.executeSql("SELECT * FROM venta WHERE usuariov = ? AND estado = ?;", [usuario, estado]).then(res => {
         let items: Venta[] = [];
@@ -975,7 +974,7 @@ export class DbserviceService {
   }
 
   buscarDetallesVenta2(venta: any): Promise<DetallesVenta[]> {
-    console.log("Venta recibida en el servicio: " + venta);
+   
     return new Promise<DetallesVenta[]>((resolve, reject) => {
       this.database.executeSql("SELECT d.iddetalle, d.cantidad, d.subtotal, d.ventad, d.productod, p.nombreprod, p.precio, p.stock, p.foto FROM detalle d JOIN producto p ON(d.productod = p.codprod) WHERE ventad = ?;", [venta]).then(res => {
         let items: DetallesVenta[] = [];
@@ -1170,7 +1169,7 @@ export class DbserviceService {
 
 
   eliminarUsuario(id:any){
-    console.log("ID del usuario recibido en el servicio: "+id); 
+   
     return this.database.executeSql("DELETE FROM usuario WHERE idusuario= ?",[id]).then(res=>{
       this.buscarUsuarios();
 
@@ -1203,11 +1202,6 @@ export class DbserviceService {
       .then(res => {
         if (res.rowsAffected > 0) {
           const idInsertado = res.insertId;
-          console.log('Datos enviados correctamente:');
-          console.log('ID Consulta:', idInsertado); // Cambiado a 'ID Consulta'
-          console.log('Nombre:', nombre);
-          console.log('Asunto:', asunto);
-          console.log('Mensaje:', mensaje);
           this.buscarConsultas();
         } else {
           console.error('Error al enviar los datos.');
@@ -1222,21 +1216,7 @@ export class DbserviceService {
   agregarUsuario(nombre: any, apellido: any, rut: any, dvrut: any, telefono: any, correo: any, direccion: any, clave: any, foto: any, respuesta: any, rol: any, pregunta: any) {  
     return this.database.executeSql("INSERT INTO usuario(rut, dvrut, nombre, apellido, telefono, correo, clave, direccion, fotousuario, respuesta, rolu, preguntau) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", [rut, dvrut, nombre, apellido, telefono, correo, clave, direccion, foto, respuesta, rol, pregunta]).then(res => {
       const idUsuarioInsertado = res.insertId;
-      console.log('Datos enviados:', {
-        idUsuarioInsertado,
-        nombre,
-        apellido,
-        rut,
-        dvrut,
-        telefono,
-        correo,
-        direccion,
-        clave,
-        foto,
-        respuesta,
-        rol,
-        pregunta
-      });
+
   
       this.buscarUsuarios();
     }).catch(error => {
@@ -1249,16 +1229,7 @@ export class DbserviceService {
   agregarProducto(nombre: any, descripcion: any, precio: any, stock: any, foto: any, medida: any, categoria: any) {  
     return this.database.executeSql("INSERT INTO producto(nombreprod, descripcion, precio, stock, foto, unidadmedida, categoriap) VALUES(?, ?, ?, ?, ?, ?, ?)", [nombre, descripcion, precio, stock, foto, medida, categoria]).then(res => {
       const codProdInsertado = res.insertId;
-      console.log('Datos del producto insertado:', {
-        codProdInsertado,
-        nombre,
-        descripcion,
-        precio,
-        stock,
-        foto,
-        medida,
-        categoria
-      });
+
   
       this.buscarProductos();
     }).catch(error => {
@@ -1289,15 +1260,7 @@ export class DbserviceService {
   }
 
   agregarDetalleCompra(nombre: any, foto: any, cantidad: any, subtotal: any, venta: any) {  
-    console.log("-------Agregando detalle compra----------");
-    console.log("Nombre del producto: "+nombre);
-    console.log("Direccion de la foto del producto: "+foto);
-    console.log("Cantidad comprada del producto: "+cantidad);
-    console.log("Subtotal del detalle: "+subtotal);
-    console.log("ID de la venta: "+venta);
-    console.log("-------Agregando detalle compra----------");
     return this.database.executeSql("INSERT INTO detallecomprado(nombreprodc, fotoprodc, cantidadc, subtotalc, ventac) VALUES (?, ?, ?, ?, ?)", [nombre, foto, cantidad, subtotal, venta]).then(res => {
-      console.log('Registro insertado con éxito.');
       this.buscarDetallesCompra(); // Actualizar la lista de detalles de compra
     });
   }
@@ -1330,7 +1293,7 @@ export class DbserviceService {
   }
 
   restarStock(id: any, stock: any){  
-    console.log("Stock recibido: "+stock);
+
     return this.database.executeSql("UPDATE producto SET stock = stock - ? WHERE codprod = ?",[stock, id]).then(res =>{
       this.buscarProductos();
     })
@@ -1380,9 +1343,6 @@ export class DbserviceService {
   }
   
   modificarDetalle(id: any, subtotal: any, cantidad: any){  
-    console.log("Id del detalle que se quiere modificar"+id);
-    console.log("Subtotal nuevo del detalle: "+subtotal);
-    console.log("Cantidad nueva del detalle: "+cantidad);
     return this.database.executeSql("UPDATE detalle SET subtotal = ?, cantidad = ? WHERE iddetalle = ?",[subtotal, cantidad, id]).then(res =>{
       this.buscarDetalles();
     })

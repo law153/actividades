@@ -55,7 +55,6 @@ export class HomePage implements OnInit{
     });
 
     this.api.convertCurrency('USD','CLP',1).subscribe((res)=>{
-      console.log(res);
       this.apiArreglo = res;
     
     })

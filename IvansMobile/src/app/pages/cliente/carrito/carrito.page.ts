@@ -113,7 +113,6 @@ export class CarritoPage implements OnInit {
         this.carrito = carrito[0];
 
         this.idVenta = this.carrito.idventa;
-        console.log("ID de la venta en el ngOnInit: "+this.idVenta);
         this.bd.buscarDetallesVenta3(this.carrito.idventa);
 
         this.bd.fetchDetallesVenta().subscribe(detalles => {
