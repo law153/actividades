@@ -9,26 +9,24 @@
 /**Encabezado **/
 
 .container-fluid{
-    height: 150px;
-    background: #000;
-    text-align: center;
-}
-
-.logo{
+    height: 180px;
     width: 100%;
-    max-width: 100px;
-    height: 100%;
-    max-height: 100px;
-    padding: 5px;
+    background: #000;
 
 }
-.cosas_arriba{
-    text-align: center;
+
+.container{
+    height: 100%;
+    width: 100%;
+    background: #0ff;
 }
+
+
 
 .img_conta {
     width: 100px;
-    height: 100px;
+    height: 100px;  
+    margin: auto;
 }
 
 .img_conta > img {
@@ -43,6 +41,11 @@
     text-decoration: none;
     font-size: 38px;
 }
+
+.titulo_conta{
+    text-align: center;
+}
+
 
 
 
