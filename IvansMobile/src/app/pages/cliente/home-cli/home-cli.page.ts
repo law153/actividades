@@ -12,7 +12,7 @@ export class HomeCliPage implements OnInit {
   constructor(private router: Router,private menuCtrl: MenuController) { }
 
   irHomeCli(){
-    this.router.navigate(['home-cli'])    
+    this.router.navigate([''])    
   }
   //Funciones de menu
 
@@ -28,6 +28,7 @@ export class HomeCliPage implements OnInit {
   }
   
   ngOnInit() {
+    this.router.navigate(['carrito'])   
   }
 
 }

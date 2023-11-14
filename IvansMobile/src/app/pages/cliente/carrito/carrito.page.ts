@@ -35,7 +35,7 @@ export class CarritoPage implements OnInit {
   }
 
   irHomeCli(){
-    this.router.navigate(['home-cli'])    
+    this.router.navigate([''])    
   }
 
   //Funciones de menu

@@ -54,13 +54,13 @@ export class IniSesionPage implements OnInit {
               this.sesion.setCorreoSesion(this.usuario.correo);
               
               if(this.usuario.rolu === 1){
-                this.router.navigate(['/home-cli']);
+                this.router.navigate(['']);
                 localStorage.setItem('rol','1');
                 this.rolStorage = localStorage.getItem('rol');
                 this.permisos.setUserRole(parseInt(this.rolStorage));
               }
               if(this.usuario.rolu === 2){
-                this.router.navigate(['/home-adm']);
+                this.router.navigate(['']);
                 localStorage.setItem('rol','2');
                 this.rolStorage = localStorage.getItem('rol');
                 this.permisos.setUserRole(parseInt(this.rolStorage));

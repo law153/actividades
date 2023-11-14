@@ -51,11 +51,20 @@ export class ProductosPage implements OnInit {
   }
 
   async redireccion(){
-    // Actualizar la vista del carrito después de agregar un producto
-    this.bd.buscarDetallesVenta(this.venta.idventa).subscribe(detalles => {
-      this.detalles = detalles; // Actualiza la lista de detalles
-      this.router.navigate(['carrito']);
-    });
+
+    this.bd.buscarVentaCarrito3(this.idUser, 'Activo');
+
+    this.bd.fetchVenta().subscribe(carrito => {
+      
+      this.bd.buscarDetallesVenta3(this.venta.idventa);
+
+      this.bd.fetchDetallesVenta().subscribe(detalles => {
+        this.router.navigate(['carrito']);
+      })
+
+    })
+
+    
   }
 
 

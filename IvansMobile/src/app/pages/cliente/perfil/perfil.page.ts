@@ -18,7 +18,7 @@ export class PerfilPage implements OnInit {
   constructor(private router: Router,private menuCtrl: MenuController, private bd: DbserviceService, private sesion: CorreoService) { }
 
   irHomeCli(){
-    this.router.navigate(['home-cli'])    
+    this.router.navigate([''])    
   }
 
   irEditar(){

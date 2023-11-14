@@ -29,7 +29,7 @@ export class HistorialCompraPage implements OnInit {
   }
 
   irHomeCli(){
-    this.router.navigate(['home-cli']);  
+    this.router.navigate(['']);  
   }
 
   irPedido(id: any){

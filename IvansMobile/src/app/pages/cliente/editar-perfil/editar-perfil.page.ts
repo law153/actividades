@@ -51,7 +51,7 @@ export class EditarPerfilPage implements OnInit {
   constructor(private router: Router,private menuCtrl: MenuController, private bd: DbserviceService, private camara: CamaraService, private sesion: CorreoService, private permisos: PermisosService) { }
 
   irHomeCli(){
-    this.router.navigate(['home-cli'])    
+    this.router.navigate([''])    
   }
   //Funciones de menu
 
