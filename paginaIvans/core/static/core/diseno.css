@@ -50,19 +50,24 @@
     font-size: 25px;
     text-align: center;
     color: #000;
+    text-decoration: underline;
+    margin-top: 20px;
 }
 .pagina_texto_cont{
     font-size: 22px;
     text-align: center;
     color: #000;
+    margin-top: 20px;
 }
 
 .descarga_cont{
     font-size: 20px;
     text-align: center;
     color: #fff;
-    background: #000;
+    background: #cc0;
     border-radius: 10%;
+    margin-top: 20px;
+    border: 2px solid #000;
 }
 
 
@@ -79,7 +84,20 @@
     height: 100%;
 }
 
+.link{
+    color: #000;
 
+}
+
+.bajo_qr{
+    color: #000;
+    margin-top: 20px;
+}
+
+.conte_link{
+    height: 80px;
+    
+}
 
 /**Medida small
 @media screen and (min-width: 0px) and (max-width: 576px){

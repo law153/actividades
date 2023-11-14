@@ -77,13 +77,16 @@
 
                 {% if es_dispositivo_movil %}
                     <!-- Mostrar contenido específico para dispositivos móviles -->
-                    <a href="https://drive.google.com/uc?export=download&id=1WzP1TUGA4r3HR4CH27R0ojVGy9FkO0pm">Entra aqui para descargar el apk de la app!</a>
+                    <div class="conte_link">
+                        <a href="https://drive.google.com/uc?export=download&id=1WzP1TUGA4r3HR4CH27R0ojVGy9FkO0pm" class="link" >Entra aqui para descargar el apk de la app!</a>
+                    </div>
+                    
                 {% else %}
                     <!-- Mostrar contenido específico para computadoras -->
                     <div class="img_conta2">
                         <img src="{% static 'core/qrcode-generado.png'%}" alt="Imagen no disponible">
                     </div>
-                    <h2>Escanea este qr con tu celular para descargar la aplicación!</h2>
+                    <h2 class="bajo_qr">Escanea este qr con tu celular para descargar la aplicación!</h2>
                     
                 {% endif %}
 
