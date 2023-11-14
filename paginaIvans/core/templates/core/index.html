@@ -70,19 +70,26 @@
         </div>
 
         <div class="row">
+            
+            <div class="col-md-4 pagina_texto_cont"></div>
+            
 
-            <div class="col-md-12 descarga_cont">
+            <div class="col-md-4 descarga_cont">
 
                 {% if es_dispositivo_movil %}
                     <!-- Mostrar contenido específico para dispositivos móviles -->
                     <a href="https://drive.google.com/uc?export=download&id=1WzP1TUGA4r3HR4CH27R0ojVGy9FkO0pm">Entra aqui para descargar el apk de la app!</a>
                 {% else %}
                     <!-- Mostrar contenido específico para computadoras -->
-                    <div id="qrcode"></div>
+                    <div class="qr_container">
+                        <div id="qrcode"></div>
+                    </div>
+                    <h2>Escanea este qr con tu celular para descargar la aplicación!</h2>
+                    
                 {% endif %}
 
             </div>
-
+            <div class="col-md-4 pagina_texto_cont"></div>
         </div>
         
 
