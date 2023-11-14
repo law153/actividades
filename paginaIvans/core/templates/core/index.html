@@ -12,7 +12,6 @@
     <!--Javascript-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
-    <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
     <!--Diseño propio-->
 
     <link rel="stylesheet" type="text/css" href="{% static  'core/diseno.css'%}">
@@ -81,8 +80,8 @@
                     <a href="https://drive.google.com/uc?export=download&id=1WzP1TUGA4r3HR4CH27R0ojVGy9FkO0pm">Entra aqui para descargar el apk de la app!</a>
                 {% else %}
                     <!-- Mostrar contenido específico para computadoras -->
-                    <div class="qr_container">
-                        <div id="qrcode"></div>
+                    <div class="img_conta2">
+                        <img src="{% static 'core/qrcode-generado.png'%}" alt="Imagen no disponible">
                     </div>
                     <h2>Escanea este qr con tu celular para descargar la aplicación!</h2>
                     
@@ -96,18 +95,4 @@
     </div>
 
 </body>
-<script>
-    // Reemplaza 'ID_DEL_ARCHIVO' con la ID correcta de tu archivo en Google Drive
-    const archivoId = 'ID_DEL_ARCHIVO';
-
-    // URL de descarga directa
-    const enlaceDescarga = `https://drive.google.com/uc?export=download&id=1WzP1TUGA4r3HR4CH27R0ojVGy9FkO0pm`;
-
-    // Generar el código QR
-    const qrcode = new QRCode(document.getElementById('qrcode'), {
-        text: enlaceDescarga,
-        width: 128,
-        height: 128,
-    });
-</script>
 </html>
