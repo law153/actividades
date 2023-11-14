@@ -51,7 +51,7 @@ export class CambiarContraPage implements OnInit {
 
     this.bd.modificarClave(this.usuario.idusuario, this.claveNueva);
     this.bd.presentAlert('La contraseña se ha modificado con éxito');
-    console.log("ID del usuario: "+this.usuario.idusuario );
+   
     
     
   }
@@ -167,8 +167,7 @@ export class CambiarContraPage implements OnInit {
 
     this.sesion.fetchCorreoSesion().subscribe((correo) => {
       this.correoUser = correo;
-      console.log("Correo recibido: "+correo);
-      console.log("Correo almacenado:"+this.correoUser);
+      
     })
     
     this.bd.dbState().subscribe(res => {

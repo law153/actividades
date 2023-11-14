@@ -83,11 +83,11 @@ export class ProductosPage implements OnInit {
 
       if(carrito.length > 0){
         this.venta = carrito[0];
-        console.log("Se encontró un carrito, su id es: "+this.venta.idventa);
+        
         await this.buscarDetalle();
 
       }else{
-        console.log("No se encontró un carrito ");
+        
         this.fechaEntrega.setDate(this.fechaActual.getDate() + this.diasSumar);
         const nuevaVentaId = await this.bd.agregarVenta(this.fechaActual, 'Activo', this.fechaEntrega, this.producto.precio, 'C', this.idUser);
         this.bd.agregarDetalle(1, this.producto.precio, nuevaVentaId, this.producto.codprod);
@@ -109,13 +109,13 @@ export class ProductosPage implements OnInit {
       if(detalle.length > 0){
 
         this.detalle = detalle[0];
-        console.log("Se encontró un detalle, su id es: "+this.detalle.iddetalle);
+        
         this.bd.modificarDetalle(this.detalle.iddetalle, this.detalle.subtotal + this.producto.precio, this.detalle.cantidad + 1);
         this.bd.modificarTotal(this.venta.idventa, this.venta.total + this.producto.precio);
 
       }else{
 
-        console.log("No se encontró un detalle ");
+        
         this.bd.agregarDetalle(1, this.producto.precio, this.venta.idventa, this.producto.codprod);
         this.bd.modificarTotal(this.venta.idventa, this.venta.total + this.producto.precio);
 

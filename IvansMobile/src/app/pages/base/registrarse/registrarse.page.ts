@@ -125,7 +125,7 @@ async envioValido(){
         if(usuarios.length > 0){
           this.flag = false;
           this.msjRut = "RUT ya ocupado en el sistema" + "\n";
-          console.log("Hay usuarios con este rut");
+          
         }
       }catch(error){
         console.error("Error al buscar usuario por RUT:", error);
@@ -239,7 +239,7 @@ async envioValido(){
         if(usuarios.length > 0){
           this.flag = false;
           this.msjCorreo+="Correo ya ocupado en el sistema"+"\n";;
-          console.log("Hay usuarios con este correo");
+          
         }
       }catch(error){
         console.error("Error al buscar usuario por Correo:", error);

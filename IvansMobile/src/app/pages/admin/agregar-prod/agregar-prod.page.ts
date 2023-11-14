@@ -63,7 +63,6 @@ export class AgregarProdPage implements OnInit {
     this.medidaValido();
     this.categoriaValido();
     this.fotoValida();
-    console.log(this.flag);
     if(this.flag === true){
       this.agregar();
       this.bd.presentAlert("Producto agregado correctamente");

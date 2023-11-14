@@ -33,7 +33,7 @@ export class HistorialCompraPage implements OnInit {
   }
 
   irPedido(id: any){
-    console.log("ID de la venta enviado a ver-compra: "+id);
+
     
     let NavigationsExtra: NavigationExtras = {
       state: {
@@ -64,7 +64,7 @@ export class HistorialCompraPage implements OnInit {
               this.bd.presentAlert("No hay compras previas");
             }
 
-            console.log("Estado del carrito: "+this.hayCompras);
+
 
           });
 

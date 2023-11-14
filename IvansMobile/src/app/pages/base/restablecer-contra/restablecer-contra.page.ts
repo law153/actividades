@@ -161,7 +161,7 @@ export class RestablecerContraPage implements OnInit {
           if(items.length > 0)
             this.usuario = items[0];
             
-            console.log("ID del usuario: "+this.usuario.idusuario );
+            
         })
       }
     })

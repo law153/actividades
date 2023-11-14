@@ -190,7 +190,6 @@ export class EditarProdPage implements OnInit {
   }
 
   editarProd(){
-    console.log("ID de la categoria seleccionada: "+this.categoriaseleccionada.idcategoria);
     this.bd.modificarProducto(this.id, this.nombre, this.desc, parseInt(this.precio), this.stock, this.foto, this.medidaseleccionada.nombre, this.categoriaseleccionada.idcategoria);
   }
 
@@ -199,7 +198,6 @@ export class EditarProdPage implements OnInit {
 
       if (this.router.getCurrentNavigation()?.extras.state) {
         this.codprod = this.router.getCurrentNavigation()?.extras?.state?.["prodEnviar"];
-        console.log("Código de producto recibido: "+this.codprod);
   
         this.bd.dbState().subscribe(res => {
           if (res) {

@@ -74,21 +74,21 @@ export class EditarPerfilPage implements OnInit {
     this.flag = true;
 
     await this.rutValido();
-    console.log("Estado de flag: "+this.flag);
+
     this.nombreValido();
-    console.log("Estado de flag: "+this.flag);
+
     this.apellidoValido();
-    console.log("Estado de flag: "+this.flag);
+
     await this.correoValido();
-    console.log("Estado de flag: "+this.flag);
+
     this.respuestValida();
-    console.log("Estado de flag: "+this.flag);
+
     this.direcValida();
-    console.log("Estado de flag: "+this.flag);
+
     this.preguntaValida();
-    console.log("Estado de flag: "+this.flag);
+
     this.fonoValido();
-    console.log("Estado de flag: "+this.flag);
+
     if(this.flag === true){
 
       this.pregId = parseInt(this.pregunta);
@@ -127,7 +127,7 @@ export class EditarPerfilPage implements OnInit {
         if(usuarios.length > 0){
           this.flag = false;
           this.msjRut = "RUT ya ocupado en el sistema" + "\n";
-          console.log("Hay usuarios con este rut");
+  
         }
       }catch(error){
         console.error("Error al buscar usuario por RUT:", error);
@@ -240,7 +240,7 @@ export class EditarPerfilPage implements OnInit {
         if(usuarios.length > 0){
           this.flag = false;
           this.msjCorreo = "Correo ya ocupado en el sistema" + "\n";
-          console.log("Hay usuarios con este correo");
+          
         }
       }catch(error){
         console.error("Error al buscar usuario por CORREO:", error);
@@ -353,8 +353,7 @@ export class EditarPerfilPage implements OnInit {
   }
 
   validarRut(cuerpoRut: string, digitoVerificador: string): boolean {
-    console.log('cuerpoRut:', cuerpoRut);
-    console.log('digitoVerificador:', digitoVerificador);
+   
 
 
     const rutLimpio = cuerpoRut.replace(/\D/g, ''); // Elimina caracteres no numéricos
@@ -410,7 +409,7 @@ export class EditarPerfilPage implements OnInit {
       if (res) {
         this.bd.fetchPregunta().subscribe(pregs =>{
           this.preguntas = pregs;
-          console.log("OLA PAPUS: "+this.preguntas);
+          
         });
 
         this.bd.buscarPorCorreo(this.correoUser).subscribe(items => {
@@ -426,16 +425,14 @@ export class EditarPerfilPage implements OnInit {
             this.foto = this.usuario.fotousuario;
             this.fono = this.usuario.telefono;
             this.pregId = this.usuario.preguntau;
-            console.log("Se encontró al usuario", this.usuario.nombre);
-            console.log("ID usuario: " + this.usuario.idusuario);
-            console.log("ID preg: "+this.pregId);
+  
 
             if (this.preguntas && this.preguntas.length > 0) {
               this.preguntaseleccionada = this.preguntas.find((quest: { idpregunta: number; }) => quest.idpregunta === this.pregId);
             }
 
           } else {
-            console.log("No se encontró ningún usuario con ese correo.");
+            
           }
         });
       }

@@ -45,8 +45,6 @@ export class IniSesionPage implements OnInit {
           if (items.length === 1) {
             // Se encontró al usuario
             this.usuario = items[0];
-            console.log("Se encontró al usuario", this.usuario.nombre);
-            console.log("ID usuario: "+this.usuario.idusuario);
             if(this.clave === this.usuario.clave){
 
               localStorage.setItem('correo',this.usuario.correo);
@@ -68,13 +66,13 @@ export class IniSesionPage implements OnInit {
       
             } else{
               this.bd.presentAlert("Correo y/o contraseña no encontrados");
-              console.log("La clave ingresado no es la correcta");
+
             }
 
           } else {
             // No se encontró al usuario
             this.flag = false;
-            console.log("Se equivocó en el correo");
+
             this.bd.presentAlert("Correo y/o contraseña no encontrados");
           }
         });

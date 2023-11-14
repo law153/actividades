@@ -63,8 +63,7 @@ export class OlvContraPage implements OnInit {
           //Verifica el rut
           if (items.length === 1) {
             this.usuario = items[0];
-            console.log("Se encontró al usuario", this.usuario.nombre);
-            console.log("ID usuario: "+this.usuario.idusuario);
+
             //Verifica la pregunta
             if(parseInt(this.pregunta) === this.usuario.preguntau){
               //Verifica la respuesta
@@ -75,19 +74,19 @@ export class OlvContraPage implements OnInit {
                 //La respuesta no fue correcta
               } else{
                 this.bd.presentAlert("La respuesta seleccionada no corresponde al usuario");
-                console.log("Se equivocó en la respuesta");
+
               }
               
               //La pregunta no fue correcta
             } else{
               this.bd.presentAlert("La pregunta seleccionada no corresponde al usuario");
-              console.log("Se equivocó en la pregunta");
+
             }
 
           } else {
             //El rut no fue correcto
             this.flag = false;
-            console.log("Se equivocó en el rut");
+
             this.bd.presentAlert("El rut no esta en el sistema");
           }
         });

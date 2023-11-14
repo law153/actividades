@@ -69,10 +69,9 @@ export class CarritoPage implements OnInit {
         
         const producto = await this.bd.buscarProducto2(x.productod);
         this.producto = producto[0];
-        console.log("Valor de ventad: "+x.ventad);
-        console.log("Valor de carrito.idventa: "+this.carrito.idventa);
+        
         this.bd.agregarDetalleCompra(this.producto.nombreprod, this.producto.foto, x.cantidad, x.subtotal, x.ventad);
-        console.log("Agregado el detalle de compra!");
+        
       }catch(error){
   
         console.error("Error al buscar el producto", error);
