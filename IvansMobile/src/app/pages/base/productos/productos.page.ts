@@ -59,10 +59,12 @@ export class ProductosPage implements OnInit {
       this.bd.buscarDetallesVenta3(this.venta.idventa);
 
       this.bd.fetchDetallesVenta().subscribe(detalles => {
-        this.router.navigate(['carrito']);
+        
       })
 
     })
+
+    this.router.navigate(['home-cli']);
 
     
   }
