@@ -16,6 +16,7 @@ export class ProdCarritoComponent  implements OnInit {
 @Input() idventa: number = 0;
 @Input() idprod: number = 0;
 @Input() totalOld: number = 0;
+
 idUser: any = 0;
 detalles: any[] = [];
 
