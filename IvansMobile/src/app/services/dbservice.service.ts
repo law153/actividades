@@ -1188,9 +1188,9 @@ export class DbserviceService {
     })
   }
 
-  eliminarDetalle(id:any){ 
+  eliminarDetalle(id:any, idv: any){ 
     return this.database.executeSql("DELETE FROM detalle WHERE iddetalle= ?",[id]).then(res=>{
-      this.buscarConsultas();
+      this.buscarDetallesVenta3(idv);
 
     })
   }
@@ -1326,7 +1326,7 @@ export class DbserviceService {
 
   modificarTotal(id: any, total: any){  
     return this.database.executeSql("UPDATE venta SET total = ? WHERE idventa = ?",[total, id]).then(res =>{
-      this.buscarVentas();
+      this.buscarVenta(id);
     })
   }
 
@@ -1342,9 +1342,9 @@ export class DbserviceService {
     })
   }
   
-  modificarDetalle(id: any, subtotal: any, cantidad: any){  
+  modificarDetalle(id: any, subtotal: any, cantidad: any, idv: any){  
     return this.database.executeSql("UPDATE detalle SET subtotal = ?, cantidad = ? WHERE iddetalle = ?",[subtotal, cantidad, id]).then(res =>{
-      this.buscarDetalles();
+      this.buscarDetallesVenta3(idv);
     })
   }
 

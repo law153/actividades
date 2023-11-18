@@ -54,7 +54,7 @@ producto: any = {};
     this.totalNew = this.totalOld - parseInt(this.subtotal) + this.subtotal2;
     console.log("Total nuevo: "+this.totalNew);
 
-    await this.bd.modificarDetalle(this.iddetalle, this.subtotal2, this.cantidadProd );
+    await this.bd.modificarDetalle(this.iddetalle, this.subtotal2, this.cantidadProd, this.idventa );
 
     await this.bd.modificarTotal(this.idventa,this.totalNew);
 
@@ -78,7 +78,7 @@ producto: any = {};
 
     this.totalNew = this.totalOld - parseInt(this.subtotal);
 
-    await this.bd.eliminarDetalle(this.iddetalle);
+    await this.bd.eliminarDetalle(this.iddetalle, this.idventa);
 
     this.bd.modificarTotal(this.idventa, this.totalNew);
     this.bd.presentAlert("Se ha borrado el producto de su carrito");

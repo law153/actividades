@@ -104,7 +104,7 @@ export class ProductosPage implements OnInit {
 
         this.detalle = detalle[0];
         
-        this.bd.modificarDetalle(this.detalle.iddetalle, this.detalle.subtotal + this.producto.precio, this.detalle.cantidad + 1);
+        this.bd.modificarDetalle(this.detalle.iddetalle, this.detalle.subtotal + this.producto.precio, this.detalle.cantidad + 1, this.venta.idventa);
         this.bd.modificarTotal(this.venta.idventa, this.venta.total + this.producto.precio);
 
       }else{
